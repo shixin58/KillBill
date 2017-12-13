@@ -1,15 +1,20 @@
 package com.yiche.example.newestversiondemo;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Chronometer;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
+    private EditText mTextInput;
+    private Chronometer mChronometer;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -37,8 +42,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mTextMessage = (TextView) findViewById(R.id.message);
+        mTextInput = findViewById(R.id.input);
+        String input = getPreferences(Context.MODE_PRIVATE)
+                .getString("input", "");
+        mTextInput.setText(input, TextView.BufferType.NORMAL);
+        mChronometer = findViewById(R.id.chronometer);
+        mChronometer.start();
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        String input = mTextInput.getText().toString();
+        getPreferences(Context.MODE_PRIVATE)
+                .edit()
+                .putString("input", input)
+                .apply();
+        mChronometer.stop();
+    }
 }
