@@ -50,12 +50,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        mTextMessage = findViewById(R.id.message);
-        mTextInput = findViewById(R.id.input);
         String input = getPreferences(Context.MODE_PRIVATE)
                 .getString("input", "");
         mTextInput.setText(input, TextView.BufferType.NORMAL);
-        mChronometer = findViewById(R.id.chronometer);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
