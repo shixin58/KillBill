@@ -76,4 +76,9 @@ public class MainActivity extends AppCompatActivity {
     void onChronometerClick(View view){
         ((Chronometer)view).start();
     }
+
+    @OnClick(R.id.button)
+    void onCreateBugClick(){
+        int i = 1/0;
+    }
 }
