@@ -84,10 +84,10 @@ public class MainActivity extends AppCompatActivity {
     void onCreateBugClick(){
         //Log.i("Victor", ""+name);
         //Toast.makeText(this, ""+name, Toast.LENGTH_LONG).show();
-        View popupView = LayoutInflater.from(this).inflate(R.layout.view_popup_window, null);
+        View popupView = LayoutInflater.from(this).inflate(R.layout.view_serial_follow_popup_window, null);
         final PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 //        popupWindow.showAtLocation(mChronometer, Gravity.RIGHT|Gravity.BOTTOM, 200, 200);
-        popupView.findViewById(R.id.tv_welcome).setOnClickListener(new View.OnClickListener() {
+        popupView.findViewById(R.id.ivHide).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 popupWindow.dismiss();
@@ -99,5 +99,15 @@ public class MainActivity extends AppCompatActivity {
 //        if(Build.VERSION.SDK_INT>=21) {
 //            popupWindow.setElevation(5f);
 //        }
+    }
+
+    @OnClick(R.id.button_animation)
+    void onAnimationClick() {
+        AnimationActivity.openActivity(this);
+    }
+
+    @OnClick(R.id.button_recycler_view)
+    void onRecyclerViewClick() {
+        RecyclerViewActivity.openActivity(this);
     }
 }
