@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_serial_follow_toast"
+    android:paddingLeft="15dp"
+    android:paddingTop="15dp"
+    android:paddingRight="15dp"
+    android:paddingBottom="10dp">
+
+    <TextView
+        android:id="@+id/tvSlogan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:text="加入清单优惠降价早知道"/>
+
+    <ImageView
+        android:id="@+id/ivHide"
+        android:layout_width="22dp"
+        android:layout_height="12dp"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:src="@drawable/skin_d_ic_close_night"/>
+</LinearLayout>
