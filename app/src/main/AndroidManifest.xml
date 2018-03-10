@@ -19,10 +19,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AnimationActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".RecyclerViewActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".AnimationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RecyclerViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TestPlatformActivity"
+            android:label="@string/title_activity_test_platform"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yiche.example.newestversiondemo.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

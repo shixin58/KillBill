@@ -110,4 +110,9 @@ public class MainActivity extends AppCompatActivity {
     void onRecyclerViewClick() {
         RecyclerViewActivity.openActivity(this);
     }
+
+    @OnClick(R.id.button_fragment)
+    void onFragmentClick(){
+        TestPlatformActivity.openActivity(this);
+    }
 }
