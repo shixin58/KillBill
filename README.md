@@ -9,4 +9,3 @@
 
 ### 2017-12-14
 - 引入butterknife
-- define versions in a single place.
