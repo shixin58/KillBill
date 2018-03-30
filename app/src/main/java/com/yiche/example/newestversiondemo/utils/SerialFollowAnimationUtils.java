@@ -1,4 +1,4 @@
-package com.yiche.example.newestversiondemo;
+package com.yiche.example.newestversiondemo.utils;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
+
+import com.yiche.example.newestversiondemo.R;
 
 /**
  * <p>Created by shixin on 2018/2/22.

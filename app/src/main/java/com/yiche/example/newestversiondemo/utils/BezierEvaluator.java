@@ -1,4 +1,4 @@
-package com.yiche.example.newestversiondemo;
+package com.yiche.example.newestversiondemo.utils;
 
 import android.animation.TypeEvaluator;
 import android.graphics.Point;

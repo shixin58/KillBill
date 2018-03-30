@@ -11,6 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.yiche.example.newestversiondemo.utils.SerialFollowAnimationUtils;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
