@@ -105,6 +105,6 @@ public class HomeFragment extends Fragment {
 
     @OnClick(R.id.button_fragment)
     void onFragmentClick(){
-        TestPlatformActivity.openActivity(getActivity());
+        TestPlatformActivity.Companion.openActivity(getActivity());
     }
 }
