@@ -1,4 +1,4 @@
-package com.yiche.example.newestversiondemo;
+package com.yiche.example.newestversiondemo.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.yiche.example.newestversiondemo.R;
+import com.yiche.example.newestversiondemo.adapter.AnimationAdapter;
 import com.yiche.example.newestversiondemo.utils.SerialFollowAnimationUtils;
 
 import butterknife.BindView;

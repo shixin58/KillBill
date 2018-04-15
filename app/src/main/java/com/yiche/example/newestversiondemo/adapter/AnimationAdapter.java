@@ -1,4 +1,4 @@
-package com.yiche.example.newestversiondemo;
+package com.yiche.example.newestversiondemo.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.yiche.example.newestversiondemo.R;
 
 /**
  * <p>Created by shixin on 2018/2/8.

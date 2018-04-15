@@ -1,4 +1,4 @@
-package com.yiche.example.newestversiondemo;
+package com.yiche.example.newestversiondemo.fragment;
 
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.yiche.example.newestversiondemo.R;
 
 /**
  * A placeholder fragment containing a simple view.

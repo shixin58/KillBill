@@ -20,13 +20,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AnimationActivity"
+            android:name=".activity.AnimationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RecyclerViewActivity"
+            android:name=".activity.RecyclerViewActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TestPlatformActivity"
+            android:name=".activity.TestPlatformActivity"
             android:label="@string/title_activity_test_platform"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">

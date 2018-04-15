@@ -1,9 +1,7 @@
-package com.yiche.example.newestversiondemo;
+package com.yiche.example.newestversiondemo.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -11,7 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
+import com.yiche.example.newestversiondemo.R;
+import com.yiche.example.newestversiondemo.adapter.LieAdapter;
+import com.yiche.example.newestversiondemo.adapter.StandAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

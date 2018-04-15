@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.github.moduth.blockcanary.BlockCanary;
 import com.squareup.leakcanary.LeakCanary;
+import com.yiche.example.newestversiondemo.utils.AppBlockCanaryContext;
 
 /**
  * <p>Created by shixin on 2017/12/15.

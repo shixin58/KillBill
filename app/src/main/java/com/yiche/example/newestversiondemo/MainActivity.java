@@ -1,49 +1,67 @@
 package com.yiche.example.newestversiondemo;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Chronometer;
-import android.widget.EditText;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 
-import butterknife.BindString;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import com.yiche.example.newestversiondemo.fragment.DashboardFragment;
+import com.yiche.example.newestversiondemo.fragment.HomeFragment;
+import com.yiche.example.newestversiondemo.fragment.NotificationsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.message)
-    TextView mTextMessage;
-    @BindView(R.id.input)
-    EditText mTextInput;
-    @BindView(R.id.chronometer)
-    Chronometer mChronometer;
-    @BindString(R.string.app_name)
-    String name;
+    private Fragment[] fragments = new Fragment[3];
+    private int mIndex;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            FragmentTransaction transaction = null;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                    transaction = getSupportFragmentManager().beginTransaction();
+                    if(fragments[0]==null) {
+                        fragments[0] = HomeFragment.newInstance();
+                        transaction.add(R.id.container_fragment, fragments[0]);
+                    }
+                    transaction.show(fragments[0]);
+                    if(mIndex!=0) {
+                        transaction.hide(fragments[mIndex]);
+                        mIndex=0;
+                    }
+                    transaction.commitAllowingStateLoss();
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                    transaction = getSupportFragmentManager().beginTransaction();
+                    if(fragments[1]==null) {
+                        fragments[1] = DashboardFragment.newInstance();
+                        transaction.add(R.id.container_fragment, fragments[1]);
+                    }
+                    transaction.show(fragments[1]);
+                    if(mIndex!=1) {
+                        transaction.hide(fragments[mIndex]);
+                        mIndex=1;
+                    }
+                    transaction.commitAllowingStateLoss();
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                    transaction = getSupportFragmentManager().beginTransaction();
+                    if(fragments[2]==null) {
+                        fragments[2] = NotificationsFragment.newInstance();
+                        transaction.add(R.id.container_fragment, fragments[2]);
+                    }
+                    transaction.show(fragments[2]);
+                    if(mIndex!=2) {
+                        transaction.hide(fragments[mIndex]);
+                        mIndex=2;
+                    }
+                    transaction.commitAllowingStateLoss();
                     return true;
             }
             return false;
@@ -54,65 +72,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-
-        String input = getPreferences(Context.MODE_PRIVATE)
-                .getString("input", "");
-        mTextInput.setText(input, TextView.BufferType.NORMAL);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        String input = mTextInput.getText().toString();
-        getPreferences(Context.MODE_PRIVATE)
-                .edit()
-                .putString("input", input)
-                .apply();
-        mChronometer.stop();
-    }
-
-    @OnClick(R.id.chronometer)
-    void onChronometerClick(View view){
-        ((Chronometer)view).start();
-    }
-
-    @OnClick(R.id.button)
-    void onCreateBugClick(){
-        //Log.i("Victor", ""+name);
-        //Toast.makeText(this, ""+name, Toast.LENGTH_LONG).show();
-        View popupView = LayoutInflater.from(this).inflate(R.layout.view_serial_follow_popup_window, null);
-        final PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        popupWindow.showAtLocation(mChronometer, Gravity.RIGHT|Gravity.BOTTOM, 200, 200);
-        popupView.findViewById(R.id.ivHide).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                popupWindow.dismiss();
-            }
-        });
-//        popupWindow.setTouchable(true);
-//        popupWindow.setOutsideTouchable(false);
-        popupWindow.showAsDropDown(mChronometer, 10, 10);
-//        if(Build.VERSION.SDK_INT>=21) {
-//            popupWindow.setElevation(5f);
-//        }
-    }
-
-    @OnClick(R.id.button_animation)
-    void onAnimationClick() {
-        AnimationActivity.openActivity(this);
-    }
-
-    @OnClick(R.id.button_recycler_view)
-    void onRecyclerViewClick() {
-        RecyclerViewActivity.openActivity(this);
-    }
-
-    @OnClick(R.id.button_fragment)
-    void onFragmentClick(){
-        TestPlatformActivity.openActivity(this);
+        navigation.setSelectedItemId(R.id.navigation_home);
     }
 }
