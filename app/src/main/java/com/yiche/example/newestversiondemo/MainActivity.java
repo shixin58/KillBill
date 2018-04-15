@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_dashboard:
                     transaction = getSupportFragmentManager().beginTransaction();
                     if(fragments[1]==null) {
-                        fragments[1] = DashboardFragment.newInstance();
+                        fragments[1] = DashboardFragment.Companion.newInstance();
                         transaction.add(R.id.container_fragment, fragments[1]);
                     }
                     transaction.show(fragments[1]);
