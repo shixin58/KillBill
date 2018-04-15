@@ -21,6 +21,7 @@
         android:background="@android:color/white"
         android:elevation="3dp"
         android:text="Welcome to New York!"/>
+
     <View
         android:id="@+id/underline"
         android:layout_width="0dp"

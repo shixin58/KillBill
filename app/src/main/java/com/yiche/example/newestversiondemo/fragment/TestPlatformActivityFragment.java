@@ -37,17 +37,4 @@ public class TestPlatformActivityFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        // isHidden() orthogonal
-        Log.i("Victor", "onHiddenChanged-"+hidden);
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        Log.i("Victor", "setUserVisibleHint-"+isVisibleToUser);
-    }
 }
