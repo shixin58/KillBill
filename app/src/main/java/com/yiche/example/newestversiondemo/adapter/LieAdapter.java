@@ -11,9 +11,6 @@ import com.yiche.example.newestversiondemo.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
  * <p>Created by shixin on 2018/3/6.
  */
@@ -44,11 +41,10 @@ public class LieAdapter extends RecyclerView.Adapter<LieAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_title)
         TextView tvTitle;
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            tvTitle = itemView.findViewById(R.id.tv_title);
         }
     }
 }

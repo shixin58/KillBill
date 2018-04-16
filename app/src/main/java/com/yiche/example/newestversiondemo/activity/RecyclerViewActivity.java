@@ -17,16 +17,11 @@ import com.yiche.example.newestversiondemo.adapter.StandAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
  * <p>Created by shixin on 2018/3/6.
  */
 public class RecyclerViewActivity extends AppCompatActivity {
-    @BindView(R.id.recycler_view_horizontal)
     RecyclerView recyclerViewHorizontal;
-    @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
     public static void openActivity(Context context) {
@@ -38,11 +33,13 @@ public class RecyclerViewActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_view);
-        ButterKnife.bind(this);
         initView();
     }
 
     private void initView() {
+        recyclerViewHorizontal = findViewById(R.id.recycler_view_horizontal);
+        recyclerView = findViewById(R.id.recycler_view);
+
         LieAdapter lieAdapter = new LieAdapter();
         recyclerViewHorizontal.setAdapter(lieAdapter);
         recyclerViewHorizontal.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));

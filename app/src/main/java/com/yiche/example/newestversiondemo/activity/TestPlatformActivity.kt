@@ -5,11 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Gravity
-import android.view.View
 import android.widget.Toast
 
 import com.yiche.example.newestversiondemo.R
@@ -40,6 +41,16 @@ class TestPlatformActivity : AppCompatActivity() {
         fun openActivity(context: Context) {
             val intent = Intent(context, TestPlatformActivity::class.java)
             ContextCompat.startActivity(context, intent, null)
+        }
+
+        fun openActivityForResult(activity: FragmentActivity, requestCode: Int) {
+            val intent = Intent(activity, TestPlatformActivity::class.java)
+            activity.startActivityForResult(intent, requestCode)
+        }
+
+        fun openActivityForResult(fragment: Fragment, requestCode: Int) {
+            val intent = Intent(fragment.activity, TestPlatformActivity::class.java)
+            fragment.startActivityForResult(intent, requestCode)
         }
     }
 }

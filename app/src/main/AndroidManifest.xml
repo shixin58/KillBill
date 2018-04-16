@@ -20,9 +20,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.AnimationActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activity.RecyclerViewActivity"
             android:screenOrientation="portrait" />
         <activity
