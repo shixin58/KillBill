@@ -8,12 +8,10 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-
 import com.yiche.example.newestversiondemo.R
 import com.yiche.example.newestversiondemo.adapter.LieAdapter
 import com.yiche.example.newestversiondemo.adapter.StandAdapter
-
-import java.util.ArrayList
+import com.yiche.example.newestversiondemo.repository.RecyclerViewRepository
 
 /**
  *
@@ -37,14 +35,9 @@ class RecyclerViewActivity : AppCompatActivity() {
         recyclerViewHorizontal.adapter = lieAdapter
         recyclerViewHorizontal.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true)
         val dividerItemDecorationHorizontal = DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL)
-        dividerItemDecorationHorizontal.setDrawable(resources.getDrawable(R.drawable.shape_vertical))
+        dividerItemDecorationHorizontal.setDrawable(ContextCompat.getDrawable(this, R.drawable.shape_vertical)!!)
         recyclerViewHorizontal.addItemDecoration(dividerItemDecorationHorizontal)
-        val countryList = ArrayList<String>()
-        countryList.add("America")
-        countryList.add("Canada")
-        countryList.add("Australia")
-        countryList.add("Britain")
-        lieAdapter.setList(countryList)
+        lieAdapter.setList(RecyclerViewRepository.getCountryList())
 
         val standAdapter = StandAdapter()
         recyclerView.adapter = standAdapter
@@ -52,13 +45,7 @@ class RecyclerViewActivity : AppCompatActivity() {
         val dividerItemDecoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.shape_horizontal)!!)
         recyclerView.addItemDecoration(dividerItemDecoration)
-        val colorList = ArrayList<String>()
-        colorList.add("Orange")
-        colorList.add("Yellow")
-        colorList.add("Brown")
-        colorList.add("Black")
-        colorList.add("Red")
-        standAdapter.setFruitList(colorList)
+        standAdapter.setFruitList(RecyclerViewRepository.getColorList())
     }
 
     companion object {
