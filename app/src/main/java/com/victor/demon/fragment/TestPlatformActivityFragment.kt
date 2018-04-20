@@ -1,4 +1,4 @@
-package com.yiche.example.newestversiondemo.fragment
+package com.victor.demon.fragment
 
 import android.content.Context
 import android.os.Build
@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import com.yiche.example.newestversiondemo.R
+import com.victor.demon.R
 
 /**
  * A placeholder fragment containing a simple view.

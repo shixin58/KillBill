@@ -1,4 +1,4 @@
-package com.yiche.example.newestversiondemo.activity
+package com.victor.demon.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,10 +8,10 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import com.yiche.example.newestversiondemo.R
-import com.yiche.example.newestversiondemo.adapter.LieAdapter
-import com.yiche.example.newestversiondemo.adapter.StandAdapter
-import com.yiche.example.newestversiondemo.repository.RecyclerViewRepository
+import com.victor.demon.R
+import com.victor.demon.adapter.LieAdapter
+import com.victor.demon.adapter.StandAdapter
+import com.victor.demon.repository.RecyclerViewRepository
 
 /**
  *

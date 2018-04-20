@@ -1,4 +1,4 @@
-package com.yiche.example.newestversiondemo.fragment
+package com.victor.demon.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,13 +7,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.yiche.example.newestversiondemo.R
-import com.yiche.example.newestversiondemo.activity.RecyclerViewActivity
-import com.yiche.example.newestversiondemo.activity.TestPlatformActivity
+import com.victor.demon.R
+import com.victor.demon.activity.RecyclerViewActivity
+import com.victor.demon.activity.TestPlatformActivity
 
 class HomeFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
-        if (v?.id==R.id.button_recycler_view) {
+        if (v?.id== R.id.button_recycler_view) {
             RecyclerViewActivity.openActivity(activity)
         }else if (v?.id==R.id.button_fragment) {
             TestPlatformActivity.openActivityForResult(this, 1)

@@ -1,10 +1,10 @@
-package com.yiche.example.newestversiondemo
+package com.victor.demon
 
 import android.app.Application
 
 import com.github.moduth.blockcanary.BlockCanary
 import com.squareup.leakcanary.LeakCanary
-import com.yiche.example.newestversiondemo.utils.AppBlockCanaryContext
+import com.victor.demon.utils.AppBlockCanaryContext
 
 /**
  *

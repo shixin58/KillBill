@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yiche.example.newestversiondemo">
+    package="com.victor.demon">
 
     <application
         android:name=".DemoApplication"
@@ -29,7 +29,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.yiche.example.newestversiondemo.MainActivity" />
+                android:value="com.victor.demon.MainActivity" />
         </activity>
     </application>
 

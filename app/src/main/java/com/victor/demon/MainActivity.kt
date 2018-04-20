@@ -1,13 +1,13 @@
-package com.yiche.example.newestversiondemo
+package com.victor.demon
 
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
-import com.yiche.example.newestversiondemo.fragment.DashboardFragment
-import com.yiche.example.newestversiondemo.fragment.HomeFragment
-import com.yiche.example.newestversiondemo.fragment.NotificationsFragment
+import com.victor.demon.fragment.DashboardFragment
+import com.victor.demon.fragment.HomeFragment
+import com.victor.demon.fragment.NotificationsFragment
 
 class MainActivity : AppCompatActivity() {
 

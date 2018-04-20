@@ -1,4 +1,4 @@
-package com.yiche.example.newestversiondemo.utils;
+package com.victor.demon.utils;
 
 import android.content.Context;
 

@@ -1,4 +1,4 @@
-package com.yiche.example.newestversiondemo.activity
+package com.victor.demon.activity
 
 import android.content.Context
 import android.content.Intent
@@ -13,7 +13,7 @@ import android.support.v7.widget.Toolbar
 import android.view.Gravity
 import android.widget.Toast
 
-import com.yiche.example.newestversiondemo.R
+import com.victor.demon.R
 
 class TestPlatformActivity : AppCompatActivity() {
 

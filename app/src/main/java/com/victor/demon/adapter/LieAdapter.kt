@@ -1,4 +1,4 @@
-package com.yiche.example.newestversiondemo.adapter
+package com.victor.demon.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 
-import com.yiche.example.newestversiondemo.R
+import com.victor.demon.R
 
 import java.util.ArrayList
 

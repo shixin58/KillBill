@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.yiche.example.newestversiondemo.fragment.TestPlatformActivityFragment"
+    tools:context="com.victor.demon.fragment.TestPlatformActivityFragment"
     tools:showIn="@layout/activity_test_platform"
     android:background="@android:color/white">
 
