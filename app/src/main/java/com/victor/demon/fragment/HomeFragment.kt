@@ -10,13 +10,19 @@ import android.view.ViewGroup
 import com.victor.demon.R
 import com.victor.demon.activity.RecyclerViewActivity
 import com.victor.demon.activity.TestPlatformActivity
+import com.victor.demon.utils.DataEncryptionAlgorithm
+import com.victor.demon.utils.HashMapTest
 
 class HomeFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
-        if (v?.id== R.id.button_recycler_view) {
-            RecyclerViewActivity.openActivity(activity)
-        }else if (v?.id==R.id.button_fragment) {
-            TestPlatformActivity.openActivityForResult(this, 1)
+        when {
+            v?.id== R.id.button_recycler_view -> RecyclerViewActivity.openActivity(activity)
+            v?.id==R.id.button_fragment -> TestPlatformActivity.openActivityForResult(this, 1)
+            v?.id==R.id.button_hash_map -> {
+                HashMapTest.testCommonApi()
+                HashMapTest.testHashtable()
+            }
+            v?.id==R.id.button_des -> DataEncryptionAlgorithm.test()
         }
     }
 
@@ -28,6 +34,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
         super.onActivityCreated(savedInstanceState)
         activity?.findViewById<View>(R.id.button_recycler_view)?.setOnClickListener(this)
         activity?.findViewById<View>(R.id.button_fragment)?.setOnClickListener(this)
+        view?.findViewById<View>(R.id.button_hash_map)?.setOnClickListener(this)
+        view?.findViewById<View>(R.id.button_des)?.setOnClickListener(this)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
