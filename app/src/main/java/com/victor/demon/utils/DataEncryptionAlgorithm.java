@@ -15,6 +15,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
+ * 对称加密symmetric cryptography：加解密使用相同密钥。非对称加密asymmetric cryptography：用公钥publicKey加密、私钥privateKey解密，或私钥加密，公钥解密。
  * <li>Java DES(Data Encryption Standard)加解密
  * <li>Java AES(Advanced Encryption Standard)加密
  * <p>Created by shixin on 2018/4/25.
@@ -26,12 +27,12 @@ public class DataEncryptionAlgorithm {
     /**
      * 私钥。DES固定8bytes，AES16/24/32bytes
      */
-    public static byte[] KEY_DES = PASSWORD.getBytes();
+    public static byte[] DES_KEY = PASSWORD.getBytes();
 
     /**
      * 初始化向量参数。DES固定8bytes，AES固定16bytes
      */
-    public static byte[] IV_DES = {2,5,2,6,3,6,7,2};
+    public static byte[] DES_IV = {2,5,2,6,3,6,7,2};
 
     public static void test() {
         String str = "测试内容";
@@ -84,50 +85,52 @@ public class DataEncryptionAlgorithm {
 
     /**
      * DES加密算法
+     * <p>四种工作模式：电子密码本模式（ECB）、加密分组链接模式（CBC）、加密反馈模式（CFB）和输出反馈模式（OFB）
+     * <p>填充模式采用PKCS5Padding
+     * <p>不指定工作模式、填充模式和初始化向量，采用默认实现
+     * @param src 要加密的字符串
      */
     @SuppressLint("TrulyRandom")
     public static String encryptDES(String src) throws Exception {
-        SecureRandom sr = new SecureRandom();
-        DESKeySpec ks = new DESKeySpec(KEY_DES);
+        SecureRandom secureRandom = new SecureRandom();
+        DESKeySpec ks = new DESKeySpec(DES_KEY);
         SecretKeyFactory skf = SecretKeyFactory.getInstance("DES");
-        SecretKey sk = skf.generateSecret(ks);
-        Cipher cip = Cipher.getInstance("DES/CBC/PKCS5Padding");
-        IvParameterSpec iv2 = new IvParameterSpec(IV_DES);
-        cip.init(Cipher.ENCRYPT_MODE, sk, iv2, sr);// IV的方式
-        char[] dest2 = Base64.encode(
-                cip.doFinal(src.getBytes(Charset.forName("UTF-8"))));
-        return new String(dest2);
+        SecretKey secretKey = skf.generateSecret(ks);
+        Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
+        IvParameterSpec ivParameterSpec = new IvParameterSpec(DES_IV);
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivParameterSpec, secureRandom);
+        // 先加密再编码
+        char[] chars = Base64Utils.encode(
+                cipher.doFinal(src.getBytes(Charset.forName("UTF-8"))));
+        return new String(chars);
     }
 
     /**
      * DES解密算法
+     * @param src 服务器返回的加密字符串
      */
     public static String decryptDES(String src) throws Exception {
-        SecureRandom random = new SecureRandom();
-        DESKeySpec desKey = new DESKeySpec(KEY_DES);
+        SecureRandom secureRandom = new SecureRandom();
+        DESKeySpec desKey = new DESKeySpec(DES_KEY);
         SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
-        SecretKey securekey = keyFactory.generateSecret(desKey);
+        SecretKey secretKey = keyFactory.generateSecret(desKey);
         Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
-        IvParameterSpec iv2 = new IvParameterSpec(IV_DES);
-        cipher.init(Cipher.DECRYPT_MODE, securekey, iv2, random);
-        byte[] st = cipher.doFinal(Base64.decode(src.toCharArray()));
-        return new String(st, "UTF-8");
+        IvParameterSpec ivParameterSpec = new IvParameterSpec(DES_IV);
+        cipher.init(Cipher.DECRYPT_MODE, secretKey, ivParameterSpec, secureRandom);
+        // 先解码再解密
+        byte[] bytes = cipher.doFinal(Base64Utils.decode(src.toCharArray()));
+        return new String(bytes, "UTF-8");
     }
 
     /**
      * AES加密算法
      * @param key aabbccddeeffgghh
      */
-    public static String encryptAES(@NonNull String input, @NonNull String key) {
-        byte[] crypted = null;
-        try {
-            SecretKeySpec skey = new SecretKeySpec(key.getBytes(), "AES");
-            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-            cipher.init(Cipher.ENCRYPT_MODE, skey);
-            crypted = cipher.doFinal(input.getBytes());
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-        return (new String(Base64.encode(crypted)));
+    public static String encryptAES(@NonNull String input, @NonNull String key) throws Exception {
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), "AES");
+        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+        cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
+        byte[] encrypted = cipher.doFinal(input.getBytes());
+        return new String(Base64Utils.encode(encrypted));
     }
 }

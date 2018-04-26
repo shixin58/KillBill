@@ -1,6 +1,6 @@
 package com.victor.demon.utils;
 
-public class Base64 {
+public class Base64Utils {
 
     /**
      * 将原始数据编码为base64编码
