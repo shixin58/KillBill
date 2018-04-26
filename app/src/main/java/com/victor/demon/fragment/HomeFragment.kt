@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.victor.demon.R
+import com.victor.demon.activity.BlankActivity
 import com.victor.demon.activity.RecyclerViewActivity
 import com.victor.demon.activity.TestPlatformActivity
 import com.victor.demon.utils.DataEncryptionAlgorithm
@@ -18,6 +19,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         when {
             v?.id== R.id.button_recycler_view -> RecyclerViewActivity.openActivity(activity)
             v?.id==R.id.button_fragment -> TestPlatformActivity.openActivityForResult(this, 1)
+            v?.id==R.id.button_base -> BlankActivity.openActivity(activity)
             v?.id==R.id.button_hash_map -> {
                 HashMapTest.testCommonApi()
                 HashMapTest.testHashtable()
@@ -32,8 +34,9 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        activity?.findViewById<View>(R.id.button_recycler_view)?.setOnClickListener(this)
-        activity?.findViewById<View>(R.id.button_fragment)?.setOnClickListener(this)
+        view?.findViewById<View>(R.id.button_recycler_view)?.setOnClickListener(this)
+        view?.findViewById<View>(R.id.button_fragment)?.setOnClickListener(this)
+        view?.findViewById<View>(R.id.button_base)?.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_hash_map)?.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_des)?.setOnClickListener(this)
     }
