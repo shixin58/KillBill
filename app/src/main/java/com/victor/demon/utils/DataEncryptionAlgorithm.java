@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.nio.charset.Charset;
 import java.security.SecureRandom;
 
@@ -27,12 +29,16 @@ public class DataEncryptionAlgorithm {
     /**
      * 私钥。DES固定8bytes，AES16/24/32bytes
      */
-    public static byte[] DES_KEY = PASSWORD.getBytes();
+    public static byte[] DES_KEY_BYTES = PASSWORD.getBytes();
 
     /**
      * 初始化向量参数。DES固定8bytes，AES固定16bytes
      */
-    public static byte[] DES_IV = {2,5,2,6,3,6,7,2};
+    public static byte[] DES_IV_BYTES = {2,5,2,6,3,6,7,2};
+
+    public static String DES_KEY = "mrXn5pHX";
+
+    public static String DES_IV = "k9589Iau";
 
     public static void test() {
         String str = "测试内容";
@@ -83,26 +89,9 @@ public class DataEncryptionAlgorithm {
         return cipher.doFinal(source);
     }
 
-    /**
-     * DES加密算法
-     * <p>四种工作模式：电子密码本模式（ECB）、加密分组链接模式（CBC）、加密反馈模式（CFB）和输出反馈模式（OFB）
-     * <p>填充模式采用PKCS5Padding
-     * <p>不指定工作模式、填充模式和初始化向量，采用默认实现
-     * @param src 要加密的字符串
-     */
-    @SuppressLint("TrulyRandom")
+
     public static String encryptDES(String src) throws Exception {
-        SecureRandom secureRandom = new SecureRandom();
-        DESKeySpec ks = new DESKeySpec(DES_KEY);
-        SecretKeyFactory skf = SecretKeyFactory.getInstance("DES");
-        SecretKey secretKey = skf.generateSecret(ks);
-        Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
-        IvParameterSpec ivParameterSpec = new IvParameterSpec(DES_IV);
-        cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivParameterSpec, secureRandom);
-        // 先加密再编码
-        char[] chars = Base64Utils.encode(
-                cipher.doFinal(src.getBytes(Charset.forName("UTF-8"))));
-        return new String(chars);
+        return encryptDES(src, DES_KEY.getBytes(), DES_IV.getBytes());
     }
 
     /**
@@ -111,11 +100,11 @@ public class DataEncryptionAlgorithm {
      */
     public static String decryptDES(String src) throws Exception {
         SecureRandom secureRandom = new SecureRandom();
-        DESKeySpec desKey = new DESKeySpec(DES_KEY);
+        DESKeySpec desKey = new DESKeySpec(DES_KEY_BYTES);
         SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
         SecretKey secretKey = keyFactory.generateSecret(desKey);
         Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
-        IvParameterSpec ivParameterSpec = new IvParameterSpec(DES_IV);
+        IvParameterSpec ivParameterSpec = new IvParameterSpec(DES_IV_BYTES);
         cipher.init(Cipher.DECRYPT_MODE, secretKey, ivParameterSpec, secureRandom);
         // 先解码再解密
         byte[] bytes = cipher.doFinal(Base64Utils.decode(src.toCharArray()));
@@ -132,5 +121,30 @@ public class DataEncryptionAlgorithm {
         cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
         byte[] encrypted = cipher.doFinal(input.getBytes());
         return new String(Base64Utils.encode(encrypted));
+    }
+
+    /**
+     * DES加密算法
+     * <p>四种工作模式：电子密码本模式（ECB）、加密分组链接模式（CBC）、加密反馈模式（CFB）和输出反馈模式（OFB）
+     * <p>填充模式采用PKCS5Padding
+     * <p>不指定工作模式、填充模式和初始化向量，采用默认实现
+     * @param src 要加密的字符串
+     * @param keyBytes {@link String#getBytes()}
+     * @param ivBytes {@link String#getBytes()}
+     */
+    @SuppressLint("TrulyRandom")
+    @NotNull
+    public static String encryptDES(@NotNull String src, byte[] keyBytes, byte[] ivBytes) throws Exception {
+        SecureRandom secureRandom = new SecureRandom();
+        DESKeySpec ks = new DESKeySpec(keyBytes);
+        SecretKeyFactory skf = SecretKeyFactory.getInstance("DES");
+        SecretKey secretKey = skf.generateSecret(ks);
+        Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
+        IvParameterSpec ivParameterSpec = new IvParameterSpec(ivBytes);
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivParameterSpec, secureRandom);
+        // 先加密再编码
+        char[] chars = Base64Utils.encode(
+                cipher.doFinal(src.getBytes(Charset.forName("UTF-8"))));
+        return new String(chars);
     }
 }
