@@ -5,6 +5,7 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import com.victor.demon.fragment.DashboardFragment
 import com.victor.demon.fragment.HomeFragment
 import com.victor.demon.fragment.NotificationsFragment
@@ -70,5 +71,32 @@ class MainActivity : AppCompatActivity() {
         val navigation = findViewById<BottomNavigationView>(R.id.navigation)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.selectedItemId = R.id.navigation_home
+
+        Log.i("lifecycleA", "onCreate")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.i("lifecycleA", "onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i("lifecycleA", "onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.i("lifecycleA", "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.i("lifecycleA", "onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i("lifecycleA", "onDestroy")
     }
 }
