@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import com.max.baselib.BaseActivity
 import com.victor.demon.fragment.DashboardFragment
 import com.victor.demon.fragment.HomeFragment
 import com.victor.demon.fragment.NotificationsFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private val fragments = arrayOfNulls<Fragment>(3)
     private var mIndex: Int = 0

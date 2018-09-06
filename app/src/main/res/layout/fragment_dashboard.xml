@@ -31,4 +31,14 @@
         android:maxLines="2"
         android:ellipsize="end"
         android:text="我胡汉山又回来了。我胡汉山又回来了。我胡汉山又回来了。我胡汉山又回来了。我胡汉山又回来了。我胡汉山又回来了。"/>
+
+    <TextView
+        android:id="@+id/tv_jump"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_marquee"
+        android:gravity="center"
+        android:text="跳转"/>
 </android.support.constraint.ConstraintLayout>
