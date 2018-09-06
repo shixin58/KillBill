@@ -2,7 +2,6 @@ package com.max.baselib;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -44,10 +43,10 @@ public class DataEncryptionAlgorithm {
         String str = "测试内容";
 
         byte[] result = encrypt(str.getBytes(), PASSWORD);
-        Log.i("Victor", "encrypt "+new String(result));
+        System.out.println("encrypt "+new String(result));
         try{
             byte[] decryptResult = decrypt(result, PASSWORD);
-            Log.i("Victor", "decrypt "+new String(decryptResult));
+            System.out.println("decrypt "+new String(decryptResult));
         }catch (Exception e) {
         }
     }

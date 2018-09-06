@@ -11,7 +11,6 @@ import com.victor.demon.R
 import com.victor.demon.activity.BlankActivity
 import com.victor.demon.activity.RecyclerViewActivity
 import com.victor.demon.activity.TestFragmentActivity
-import com.max.baselib.DataEncryptionAlgorithm
 
 class HomeFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
@@ -19,7 +18,6 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             v?.id== R.id.button_recycler_view -> RecyclerViewActivity.openActivity(activity)
             v?.id==R.id.button_fragment -> TestFragmentActivity.openActivityForResult(this, 1)
             v?.id==R.id.button_base -> BlankActivity.openActivity(activity)
-            v?.id==R.id.button_des -> DataEncryptionAlgorithm.test()
         }
     }
 
@@ -32,7 +30,6 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         view?.findViewById<View>(R.id.button_recycler_view)?.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_fragment)?.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_base)?.setOnClickListener(this)
-        view?.findViewById<View>(R.id.button_des)?.setOnClickListener(this)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
