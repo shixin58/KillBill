@@ -23,7 +23,21 @@
         <activity
             android:name=".activity.RecyclerViewActivity"
             android:label="@string/activity_recycler_view"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true">
+
+            <intent-filter>
+
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="max"
+                    android:host="demon"
+                    android:pathPrefix="/recycler.view"/>
+            </intent-filter>
+
+        </activity>
 
         <activity
             android:name=".activity.TestFragmentActivity"
