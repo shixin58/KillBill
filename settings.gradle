@@ -1,1 +1,1 @@
-include ':app', ':baselib', ':client'
+include ':app', ':baselib', ':client', ':thirdparty'
