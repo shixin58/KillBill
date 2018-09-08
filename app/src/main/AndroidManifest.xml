@@ -56,6 +56,13 @@
         <activity android:name=".activity.ThirdActivity"
             android:label="@string/activity_third"
             android:screenOrientation="portrait"/>
+
+        <service android:name=".MyService"
+            android:process=":MyService">
+            <intent-filter>
+                <action android:name="com.victor.demon.IMyService"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
