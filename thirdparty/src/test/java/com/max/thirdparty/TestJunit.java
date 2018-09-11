@@ -13,5 +13,13 @@ public class TestJunit {
         Assert.assertEquals("Retina", phone.getScreen());
         phone.setScreen("Cornea");
         Assert.assertEquals("Cornea", phone.getScreen());
+
+//        phone.setScreen(null);
+        Assert.assertNotNull("为null", phone.getScreen());
+
+        phone.setScreen("cute");
+        Assert.assertTrue("太短", phone.getScreen().length()<10);
+
+//        Assert.fail("整体到局部");
     }
 }

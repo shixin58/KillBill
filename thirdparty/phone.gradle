@@ -1,0 +1,24 @@
+configurations {
+    buildDependencies
+}
+
+dependencies {
+}
+
+task compilePhone(type: JavaCompile) {
+    source = './src/main/java'
+    include "com/max/thirdparty/Phone.java"
+    classpath = project.configurations.buildDependencies
+    destinationDir = file('./bin')
+}
+
+task executeClass(type: JavaExec) {
+    classpath = files('./bin', project.configurations.buildDependencies)
+    main = 'com.max.thirdparty.Phone'
+}
+
+task flow {
+    compilePhone.execute()
+    executeClass.exec()
+    delete file('./bin')
+}

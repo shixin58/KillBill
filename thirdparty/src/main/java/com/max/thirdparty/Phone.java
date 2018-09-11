@@ -5,6 +5,10 @@ package com.max.thirdparty;
  */
 public class Phone {
 
+    public static void main(String[] args) {
+        System.out.println("Phone.main");
+    }
+
     private String screen;
 
     public Phone(String screen) {
