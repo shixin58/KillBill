@@ -1,4 +1,4 @@
-package com.victor.demon.utils
+package com.victor.demon
 
 import android.content.Context
 

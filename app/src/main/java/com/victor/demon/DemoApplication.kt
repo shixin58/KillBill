@@ -4,7 +4,6 @@ import android.app.Application
 
 import com.github.moduth.blockcanary.BlockCanary
 import com.squareup.leakcanary.LeakCanary
-import com.victor.demon.utils.AppBlockCanaryContext
 
 /**
  *
