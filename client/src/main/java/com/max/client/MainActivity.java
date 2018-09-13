@@ -16,14 +16,12 @@ import com.max.baselib.BaseActivity;
 import com.victor.demon.Form;
 import com.victor.demon.IMyService;
 
-import org.jetbrains.annotations.Nullable;
-
 /**
  * <p>Created by shixin on 2018/9/4.
  */
 public class MainActivity extends BaseActivity implements View.OnClickListener{
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
@@ -31,6 +29,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private void initView() {
         findViewById(R.id.tv_title).setOnClickListener(this);
+        findViewById(R.id.tv_app).setOnClickListener(this);
         findViewById(R.id.tv_switch).setOnClickListener(this);
         findViewById(R.id.tv_use_service).setOnClickListener(this);
     }
@@ -42,6 +41,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 // app进程间调用页面
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("max://demon/recycler.view"));
                 startActivity(intent);
+                break;
+            case R.id.tv_app:
+                Intent intent2 = new Intent();
+//                intent2.setClassName("com.victor.demon", "com.victor.demon.MainActivity")
+                ComponentName componentName = new ComponentName("com.victor.demon", "com.victor.demon.MainActivity");
+                intent2.setComponent(componentName);
+                intent2.setAction(Intent.ACTION_MAIN);
+                // 多个category放在ArraySet里
+                intent2.addCategory(Intent.CATEGORY_LAUNCHER);
+                startActivity(intent2);
                 break;
             case R.id.tv_switch:
                 if(mService==null) {

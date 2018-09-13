@@ -15,12 +15,22 @@
         android:text="诗和远方"/>
 
     <TextView
-        android:id="@+id/tv_switch"
+        android:id="@+id/tv_app"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
+        android:gravity="center"
+        android:text="启动app"/>
+
+    <TextView
+        android:id="@+id/tv_switch"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_app"
         android:gravity="center"
         android:text="服务switch"/>
 
