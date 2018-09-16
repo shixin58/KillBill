@@ -1,7 +1,9 @@
 package com.max.thirdparty;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.max.baselib.BaseActivity;
 
 /**
@@ -17,6 +19,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initView() {
-        new RxJavaStrategy().execute();
+//        new RxJavaStrategy().execute();
+//        new VolleyStrategy().execute(this, (ImageView) findViewById(R.id.iv_demo));
+        new VolleyStrategy().execute(this, (NetworkImageView) findViewById(R.id.iv_demo2));
     }
 }
