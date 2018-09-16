@@ -21,6 +21,7 @@ public class MainActivity extends BaseActivity {
     private void initView() {
 //        new RxJavaStrategy().execute();
 //        new VolleyStrategy().execute(this, (ImageView) findViewById(R.id.iv_demo));
-        new VolleyStrategy().execute(this, (NetworkImageView) findViewById(R.id.iv_demo2));
+//        new VolleyStrategy().execute(this, (NetworkImageView) findViewById(R.id.iv_demo2));
+        new TestCache().execute(this);
     }
 }
