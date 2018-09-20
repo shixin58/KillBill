@@ -1,4 +1,4 @@
-package com.max.thirdparty;
+package com.max.thirdparty.bean;
 
 /**
  * <p>Created by shixin on 2018/9/10.

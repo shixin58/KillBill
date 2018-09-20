@@ -1,15 +1,22 @@
-package com.max.thirdparty;
+package com.max.thirdparty.Strategy;
 
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
+import com.max.thirdparty.protocal.IStrategy;
+
 /**
  * <p>Created by shixin on 2018/9/16.
  */
-public class TestCache implements IContextStrategy {
+public class CacheStrategy implements IStrategy {
+    private Context mContext;
+    public CacheStrategy(Context context) {
+        mContext = context;
+    }
+
     @Override
-    public void execute(Context context) {
+    public void execute() {
         // 内部存储
         // /system
         Log.i("getRootDirectory", ""+Environment.getRootDirectory());
@@ -26,14 +33,14 @@ public class TestCache implements IContextStrategy {
 
         // 外部存储，可见，卸载app删除
         // /storage/emulated/0/Android/data/com.max.thirdparty/cache
-        Log.i("getExternalCacheDir", ""+context.getExternalCacheDir());
+        Log.i("getExternalCacheDir", ""+mContext.getExternalCacheDir());
         // /storage/emulated/0/Android/data/com.max.thirdparty/files/Music
-        Log.i("getExternalFilesDir", ""+context.getExternalFilesDir(Environment.DIRECTORY_MUSIC));
+        Log.i("getExternalFilesDir", ""+mContext.getExternalFilesDir(Environment.DIRECTORY_MUSIC));
 
         // 不可见，卸载app删除
         // /data/data/com.max.thirdparty/cache
-        Log.i("getCacheDir", ""+context.getCacheDir());
+        Log.i("getCacheDir", ""+mContext.getCacheDir());
         // /data/data/com.max.thirdparty/files
-        Log.i("getFilesDir", ""+context.getFilesDir());
+        Log.i("getFilesDir", ""+mContext.getFilesDir());
     }
 }

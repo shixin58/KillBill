@@ -1,5 +1,7 @@
 package com.max.thirdparty;
 
+import com.max.thirdparty.bean.Phone;
+
 import org.junit.Assert;
 import org.junit.Test;
 

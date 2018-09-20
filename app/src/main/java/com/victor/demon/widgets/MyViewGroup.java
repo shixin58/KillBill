@@ -1,6 +1,7 @@
 package com.victor.demon.widgets;
 
 import android.content.Context;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 
@@ -8,8 +9,13 @@ import android.view.ViewGroup;
  * <p>Created by shixin on 2018/9/13.
  */
 public class MyViewGroup extends ViewGroup {
+
     public MyViewGroup(Context context) {
         super(context);
+    }
+
+    public MyViewGroup(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
 
     @Override

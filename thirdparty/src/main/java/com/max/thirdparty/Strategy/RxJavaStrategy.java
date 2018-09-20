@@ -1,6 +1,8 @@
-package com.max.thirdparty;
+package com.max.thirdparty.Strategy;
 
 import android.util.Log;
+
+import com.max.thirdparty.protocal.IStrategy;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -15,7 +17,6 @@ public class RxJavaStrategy implements IStrategy {
     @Override
     public void execute() {
         Observable<String> observable = Observable.create(new ObservableOnSubscribe<String>(){
-
             @Override
             public void subscribe(ObservableEmitter<String> e) throws Exception {
                 e.onNext("Good");
@@ -23,10 +24,11 @@ public class RxJavaStrategy implements IStrategy {
                 e.onComplete();
             }
         });
+
         observable.subscribe(new Observer<String>() {
             @Override
             public void onSubscribe(Disposable d) {
-
+                Log.i("Observer", "onSubscribe");
             }
 
             @Override

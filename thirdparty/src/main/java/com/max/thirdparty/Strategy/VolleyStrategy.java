@@ -1,10 +1,10 @@
-package com.max.thirdparty;
+package com.max.thirdparty.Strategy;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -16,20 +16,29 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.NetworkImageView;
-import com.android.volley.toolbox.Volley;
+import com.android.volley.toolbox.StringRequest;
+import com.max.thirdparty.BitmapCache;
+import com.max.thirdparty.protocal.IStrategy;
+import com.max.thirdparty.MyApplication;
+import com.max.thirdparty.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * <p>Created by shixin on 2018/9/16.
  */
-public class VolleyStrategy implements IContextStrategy {
-    @Override
-    public void execute(Context context) {
-        /*RequestQueue requestQueue = Volley.newRequestQueue(context.getApplicationContext());
+public class VolleyStrategy implements IStrategy {
+    private RequestQueue mQueue;
+    public VolleyStrategy() {
+        mQueue = MyApplication.getInstance().getRequestQueue();
+    }
+
+    public void executeGetString() {
         String url = "http://apis.juhe.cn/mobile/get?phone=13701116418&key=9a4329bdf84fa69d193ce601c22b949d";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -43,9 +52,11 @@ public class VolleyStrategy implements IContextStrategy {
             }
         });
         stringRequest.setTag("xyz");
-        requestQueue.add(stringRequest);
-        requestQueue.start();*/
-        /*RequestQueue requestQueue = Volley.newRequestQueue(context.getApplicationContext());
+        mQueue.add(stringRequest);
+        mQueue.start();
+    }
+
+    public void executePostString() {
         String url = "http://apis.juhe.cn/mobile/get";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -67,9 +78,13 @@ public class VolleyStrategy implements IContextStrategy {
             }
         };
         stringRequest.setTag("xyz");
-        requestQueue.add(stringRequest);
-        requestQueue.start();*/
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        mQueue.add(stringRequest);
+        mQueue.start();
+    }
+
+    @Override
+    public void execute() {
+        // post json
         String url = "http://apis.juhe.cn/mobile/get";
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("phone").append("=").append("13701116418");
@@ -103,12 +118,11 @@ public class VolleyStrategy implements IContextStrategy {
             }
         };
         jsonObjectRequest.setTag("xyz");
-        requestQueue.add(jsonObjectRequest);
-        requestQueue.start();
+        mQueue.add(jsonObjectRequest);
+        mQueue.start();
     }
 
-    public void execute(Context context, final ImageView imageView) {
-        /*RequestQueue requestQueue = Volley.newRequestQueue(context);
+    public void executeImage(final ImageView imageView) {
         String url = "http://img.my.csdn.net/uploads/201507/21/1437459520_6685.jpg";
         ImageRequest imageRequest = new ImageRequest(url, new Response.Listener<Bitmap>() {
             @Override
@@ -121,21 +135,22 @@ public class VolleyStrategy implements IContextStrategy {
 
             }
         });
-        requestQueue.add(imageRequest);
-        requestQueue.start();*/
+        mQueue.add(imageRequest);
+        mQueue.start();
+    }
+
+    public void executeImage2(final ImageView imageView) {
         // 自定义lru缓存
         String url = "http://img.my.csdn.net/uploads/201507/21/1437459520_6685.jpg";
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        ImageLoader imageLoader = new ImageLoader(requestQueue, new BitmapCache());
+        ImageLoader imageLoader = new ImageLoader(mQueue, new BitmapCache());
         ImageLoader.ImageListener imageListener = ImageLoader.getImageListener(imageView, R.mipmap.ic_launcher, R.mipmap.ic_launcher);
         imageLoader.get(url, imageListener, 0, 0, ImageView.ScaleType.CENTER_CROP);
     }
 
-    public void execute(Context context, final NetworkImageView imageView) {
+    public void executeImage3(final NetworkImageView imageView) {
         // NetworkImageView使用
         String url = "http://img.my.csdn.net/uploads/201507/21/1437459520_6685.jpg";
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        ImageLoader imageLoader = new ImageLoader(requestQueue, new BitmapCache());
+        ImageLoader imageLoader = new ImageLoader(mQueue, new BitmapCache());
         imageView.setDefaultImageResId(R.mipmap.ic_launcher);
         imageView.setErrorImageResId(R.mipmap.ic_launcher);
         imageView.setImageUrl(url, imageLoader);
