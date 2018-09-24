@@ -12,6 +12,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="center"
-        android:onClick="onClick"
+        android:onClick="onMessageClick"
         android:text="回归现实" />
 </android.support.constraint.ConstraintLayout>

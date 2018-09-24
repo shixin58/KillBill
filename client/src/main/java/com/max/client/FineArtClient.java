@@ -10,6 +10,8 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
 /**
+ * 注解分析
+ * <p>SOURCE(Override)在源码阶段有效，被编译器丢弃；CLASS(BindView)在字节码class文件有效，被虚拟机忽略
  * <p>Created by shixin on 2018/9/1.
  */
 public class FineArtClient {

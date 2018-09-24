@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
+import android.os.Message;
 import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +18,11 @@ import android.widget.Toast;
 import com.max.baselib.BaseActivity;
 import com.victor.demon.Form;
 import com.victor.demon.IMyService;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>Created by shixin on 2018/9/4.
@@ -32,17 +40,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         findViewById(R.id.tv_app).setOnClickListener(this);
         findViewById(R.id.tv_switch).setOnClickListener(this);
         findViewById(R.id.tv_use_service).setOnClickListener(this);
+        findViewById(R.id.tv_changeThread).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_title:
-                // app进程间调用页面
+                // app进程间调用页面，配置scheme
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("max://demon/recycler.view"));
                 startActivity(intent);
                 break;
             case R.id.tv_app:
+                // app进程间调用页面，配置包名和类名
                 Intent intent2 = new Intent();
 //                intent2.setClassName("com.victor.demon", "com.victor.demon.MainActivity")
                 ComponentName componentName = new ComponentName("com.victor.demon", "com.victor.demon.MainActivity");
@@ -75,6 +85,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                     }
                 }
                 break;
+            case R.id.tv_changeThread:
+                // 线程切换
+                transferWorkThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(10000);
+                            // 持有Activity句柄
+                            MainActivity.this.runOnUiThread(mRunnable);
+//                            transferMainThread(mRunnable);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                break;
         }
     }
 
@@ -93,4 +119,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             Toast.makeText(MainActivity.this, "服务已断开", Toast.LENGTH_SHORT).show();
         }
     };
+
+    // 切换主线程
+    private void transferMainThread(Runnable runnable) {
+        mHandler.post(runnable);
+    }
+
+    private Handler mHandler = new Handler(Looper.getMainLooper()){
+        @Override
+        public void dispatchMessage(Message msg) {
+            super.dispatchMessage(msg);
+        }
+    };
+
+    private Runnable mRunnable = new Runnable() {
+        @Override
+        public void run() {
+            // 更新UI
+        }
+    };
+
+    // 切换工作线程
+    private void transferWorkThread(Runnable runnable) {
+        executorService.execute(runnable);
+    }
+
+    ExecutorService executorService = new ThreadPoolExecutor(3, 5,
+            1, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>(128));
 }

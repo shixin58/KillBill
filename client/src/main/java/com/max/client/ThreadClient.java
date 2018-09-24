@@ -14,6 +14,7 @@ public class ThreadClient {
     private static boolean condition = false;
 
     public static void main(String[] args) {
+        // LinkedBlockingDeque先进先出，通过执行execute方法新任务入队
         ExecutorService executorService = new ThreadPoolExecutor(3, 5,
                 1, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>(128));
         executorService.execute(new Runnable() {
