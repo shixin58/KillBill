@@ -11,11 +11,16 @@ public class AlgorithmClient {
 //        cutSteel();
 //        cutSteelMemo();
 //        cutSteelBottomUp();
+
 //        System.out.println("fibonacci "+fibonacci(4));
 //        System.out.println("fibonacciBottomUp "+fibonacciBottomUp(4));
-        System.out.println("lengthOfLongestSubstring "+lengthOfLongestSubstring("acebhhbdjloium"));
-        System.out.println("lengthOfLongestSubstring2 "+lengthOfLongestSubstring2("acebhhbdjloium"));
-        System.out.println("lengthOfLongestSubstring3 "+lengthOfLongestSubstring3("acebhhbdjloium"));
+
+//        System.out.println("lengthOfLongestSubstring "+lengthOfLongestSubstring("acebhhbdjloium"));
+//        System.out.println("lengthOfLongestSubstring2 "+lengthOfLongestSubstring2("acebhhbdjloium"));
+//        System.out.println("lengthOfLongestSubstring3 "+lengthOfLongestSubstring3("acebhhbdjloium"));
+
+        System.out.println("oneNum "+oneNum(11));
+        System.out.println("oneNum2 "+oneNum2(11));
     }
 
     // 钢条切割
@@ -149,5 +154,23 @@ public class AlgorithmClient {
             }
         }
         return answer;
+    }
+
+    public static int oneNum(int n) {
+        int count = 0;
+        while (n>0) {
+            if((n&1) == 1)
+                count++;
+            n = n >> 1;
+        }
+        return count;
+    }
+
+    public static int oneNum2(int n) {
+        int count = 0;
+        for(;n>0;count++) {
+            n = n & (n-1);
+        }
+        return  count;
     }
 }

@@ -1,15 +1,14 @@
 package com.max.thirdparty;
 
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.view.View;
 
 import com.max.baselib.BaseActivity;
-import com.max.thirdparty.Strategy.VolleyStrategy;
 
 /**
  * <p>Created by shixin on 2018/9/7.
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,18 +18,19 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initView() {
-        VolleyStrategy volleyStrategy = new VolleyStrategy();
-        volleyStrategy.execute();
-        volleyStrategy.executeImage((ImageView) findViewById(R.id.iv_demo));
-
-        /*RetrofitStrategy retrofitStrategy = new RetrofitStrategy();
-        retrofitStrategy.execute();
-        retrofitStrategy.executeRxJava();*/
+        findViewById(R.id.tv_volley).setOnClickListener(this);
+        findViewById(R.id.tv_eventbus).setOnClickListener(this);
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        MyApplication.getInstance().getRequestQueue().cancelAll("xyz");
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_volley:
+                VolleyTestActivity.openActivity(this);
+                break;
+            case R.id.tv_eventbus:
+                EventBusTestActivity.openActivity(this);
+                break;
+        }
     }
 }
