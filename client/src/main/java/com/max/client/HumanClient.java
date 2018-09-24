@@ -63,6 +63,9 @@ public class HumanClient {
             Array.set(object2, 3, "Sports");
             Array.set(object2, 4, "Language");
             System.out.println(Array.get(object2, 1));
+
+            // 数组也是Object子类，可调用Object所有方法
+            // String.valueOf(obj) -> obj.toString()
             System.out.println(Arrays.toString((Object[]) object2));
         } catch (Exception e) {
             e.printStackTrace();
