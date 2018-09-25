@@ -22,11 +22,11 @@ class MainActivity : BaseActivity() {
                 transaction = supportFragmentManager.beginTransaction()
                 if (fragments[0] == null) {
                     fragments[0] = HomeFragment.newInstance()
-                    transaction!!.add(R.id.container_fragment, fragments[0])
+                    fragments[0]?.let { transaction!!.add(R.id.container_fragment, it) }
                 }
-                transaction!!.show(fragments[0])
+                fragments[0]?.let { transaction!!.show(it) }
                 if (mIndex != 0) {
-                    transaction.hide(fragments[mIndex])
+                    fragments[mIndex]?.let { transaction!!.hide(it) }
                     mIndex = 0
                 }
                 transaction.commitAllowingStateLoss()
@@ -36,11 +36,11 @@ class MainActivity : BaseActivity() {
                 transaction = supportFragmentManager.beginTransaction()
                 if (fragments[1] == null) {
                     fragments[1] = DashboardFragment.newInstance()
-                    transaction!!.add(R.id.container_fragment, fragments[1])
+                    fragments[1]?.let { transaction!!.add(R.id.container_fragment, it) }
                 }
-                transaction!!.show(fragments[1])
+                fragments[1]?.let { transaction!!.show(it) }
                 if (mIndex != 1) {
-                    transaction.hide(fragments[mIndex])
+                    fragments[mIndex]?.let{ transaction!!.hide(it) }
                     mIndex = 1
                 }
                 transaction.commitAllowingStateLoss()
@@ -50,11 +50,11 @@ class MainActivity : BaseActivity() {
                 transaction = supportFragmentManager.beginTransaction()
                 if (fragments[2] == null) {
                     fragments[2] = NotificationsFragment.newInstance()
-                    transaction!!.add(R.id.container_fragment, fragments[2])
+                    fragments[2]?.let { transaction!!.add(R.id.container_fragment, it) }
                 }
-                transaction!!.show(fragments[2])
+                fragments[2]?.let { transaction!!.show(it) }
                 if (mIndex != 2) {
-                    transaction.hide(fragments[mIndex])
+                    fragments[mIndex]?.let { transaction!!.hide(it) }
                     mIndex = 2
                 }
                 transaction.commitAllowingStateLoss()

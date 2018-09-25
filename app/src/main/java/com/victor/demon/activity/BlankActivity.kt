@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.util.Log
+import android.view.View
 import com.max.baselib.BaseActivity
 import com.victor.demon.R
 
@@ -16,6 +17,7 @@ class BlankActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_blank)
+        printViewHierarchy(findViewById(R.id.tv_title))
         Log.i("lifecycleB", "onCreate")
     }
 
@@ -49,6 +51,15 @@ class BlankActivity : BaseActivity() {
         fun openActivity(context: FragmentActivity?) {
             val intent = Intent(context, BlankActivity::class.java)
             context?.startActivity(intent)
+        }
+
+        fun printViewHierarchy(view: View?) {
+            Log.i("printViewHierarchy", view?.toString())
+            var viewParent = view?.parent
+            while (viewParent != null) {
+                Log.i("printViewHierarchy", viewParent.toString())
+                viewParent = viewParent.parent
+            }
         }
     }
 }

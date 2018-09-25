@@ -17,7 +17,7 @@ import com.victor.demon.repository.RecyclerViewRepository
  * Created by shixin on 2018/3/6.
  */
 class RecyclerViewActivity : AppCompatActivity(), RecyclerView.OnItemTouchListener {
-    override fun onInterceptTouchEvent(rv: RecyclerView?, e: MotionEvent?): Boolean {
+    override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
         return true
     }
 
@@ -25,7 +25,7 @@ class RecyclerViewActivity : AppCompatActivity(), RecyclerView.OnItemTouchListen
 
     }
 
-    override fun onTouchEvent(rv: RecyclerView?, e: MotionEvent?) {
+    override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
 
     }
 

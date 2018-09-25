@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- SurfaceView取Activity本身的背景，布局其它View根据theme取rootView的颜色 -->
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="0dp"
@@ -14,6 +15,7 @@
         android:gravity="center"
         android:text="Welcome!"/>
 
+    <!-- android:background会遮挡绘制内容 -->
     <com.victor.demon.widgets.MySurfaceView
         android:layout_width="0dp"
         android:layout_height="0dp"
