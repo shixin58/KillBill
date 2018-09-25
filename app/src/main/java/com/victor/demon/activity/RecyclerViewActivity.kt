@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentActivity
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.*
-import android.view.MotionEvent
 import com.victor.demon.R
 import com.victor.demon.adapter.LieAdapter
 import com.victor.demon.adapter.StandAdapter
@@ -16,18 +15,7 @@ import com.victor.demon.repository.RecyclerViewRepository
  *
  * Created by shixin on 2018/3/6.
  */
-class RecyclerViewActivity : AppCompatActivity(), RecyclerView.OnItemTouchListener {
-    override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-        return true
-    }
-
-    override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
-
-    }
-
-    override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
-
-    }
+class RecyclerViewActivity : AppCompatActivity() {
 
     private lateinit var recyclerViewHorizontal: RecyclerView
     private lateinit var recyclerView: RecyclerView
@@ -51,7 +39,6 @@ class RecyclerViewActivity : AppCompatActivity(), RecyclerView.OnItemTouchListen
         dividerItemDecorationHorizontal.setDrawable(ContextCompat.getDrawable(this, R.drawable.shape_vertical)!!)
         recyclerViewHorizontal.addItemDecoration(dividerItemDecorationHorizontal)
         lieAdapter.setList(RecyclerViewRepository.getCountryList())
-        recyclerViewHorizontal.addOnItemTouchListener(this)
 
         val standAdapter = StandAdapter()
         recyclerView.adapter = standAdapter
