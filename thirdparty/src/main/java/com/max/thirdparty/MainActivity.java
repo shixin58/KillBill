@@ -26,7 +26,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_volley:
-                VolleyTestActivity.openActivity(this);
+                VolleyTestActivity.Companion.openActivity(this);
                 break;
             case R.id.tv_eventbus:
                 EventBusTestActivity.openActivity(this);

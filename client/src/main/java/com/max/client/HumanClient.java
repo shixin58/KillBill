@@ -6,6 +6,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.util.Arrays;
 
 /**
@@ -26,12 +27,20 @@ public class HumanClient {
             // 获得Method
             Method method = cl.getMethod("getName");
             Method method1 = cl.getMethod("setName", String.class);
-            // 获得Field
-            Field field = cl.getField("performance");
             System.out.println(method.invoke(object));
             method1.invoke(object, "Jacob");
             System.out.println(method.invoke(object));
+
+            // 获得方法返回值
+            Type returnType = method.getGenericReturnType();
+            Class returnCls = method.getReturnType();
+            System.out.println("returnType "+returnType.toString());
+            System.out.println("returnCls "+returnCls.getName());
+
+            // 获得Field
+            Field field = cl.getField("performance");
             System.out.println(""+field.getInt(object));
+
             if(cl.isInstance(object)) {
                 // 等同于instanceof
             }
@@ -43,11 +52,15 @@ public class HumanClient {
             Field field1 = cl.getDeclaredField("salary");
             field1.setAccessible(true);
             System.out.println(field1.getDouble(object));
+
+            // 遍历类中所有方法
             Method[] methods = cl.getDeclaredMethods();
             for(int i=0;i<methods.length;i++) {
                 System.out.print(methods[i].getName()+", ");
             }
             System.out.println();
+
+            // 遍历类中所有域
             Field[] fields = cl.getDeclaredFields();
             for (int i=0;i<fields.length;i++) {
                 System.out.print(fields[i].getName()+", ");

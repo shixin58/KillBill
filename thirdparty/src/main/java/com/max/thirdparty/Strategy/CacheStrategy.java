@@ -1,6 +1,7 @@
 package com.max.thirdparty.Strategy;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
@@ -42,5 +43,9 @@ public class CacheStrategy implements IStrategy {
         Log.i("getCacheDir", ""+mContext.getCacheDir());
         // /data/data/com.max.thirdparty/files
         Log.i("getFilesDir", ""+mContext.getFilesDir());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            fuckYou();
+        }
     }
 }
