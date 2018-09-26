@@ -1,11 +1,10 @@
 package com.victor.demon.fragment
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import com.max.baselib.BaseFragment
 import com.victor.demon.R
 import com.victor.demon.activity.SecondActivity
 
@@ -13,7 +12,7 @@ import com.victor.demon.activity.SecondActivity
  *
  * Created by shixin on 2018/4/15.
  */
-class DashboardFragment : Fragment(), View.OnClickListener {
+class DashboardFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when {
             // 测试Activity启动方式
