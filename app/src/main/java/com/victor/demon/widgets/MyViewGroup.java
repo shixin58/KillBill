@@ -3,20 +3,28 @@ package com.victor.demon.widgets;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 
 /**
  * <p>Created by shixin on 2018/9/13.
  */
-public class MyViewGroup extends ViewGroup {
+public class MyViewGroup extends ViewGroup implements View.OnClickListener {
 
     public MyViewGroup(Context context) {
         super(context);
+        init();
     }
 
     public MyViewGroup(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
+    }
+
+    private void init() {
+        setOnClickListener(this);
     }
 
     @Override
@@ -51,11 +59,30 @@ public class MyViewGroup extends ViewGroup {
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                break;
+                // true 表示 the event was handled in this view，接收之后的move和up事件
+                return true;
             case MotionEvent.ACTION_MOVE:
+                // 绝对位置和相对位置
+                Log.i("onTouchEvent", "坐标："+event.getRawX()+" - "+event.getRawY()+" - "+event.getX()+" - "+event.getY());
+                // 触控点数，二维数组
+                // points between this event and previous event
+                if(event.getPointerCount()>0 && event.getHistorySize()>0){
+                    Log.i("onTouchEvent", "历史："+event.getPointerCount()+" - "+event.getHistorySize()
+                            +" - "+event.getHistoricalX(event.getPointerCount()-1, event.getHistorySize()-1)
+                            +" - "+event.getHistoricalY(event.getPointerCount()-1, event.getHistorySize()-1));
+                }
                 break;
             case MotionEvent.ACTION_UP:
                 // 处理performClick()
+                performClick();
+                // 查看方法调用栈
+                try {
+                    int i=1/0;
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case MotionEvent.ACTION_CANCEL:
                 break;
         }
         // true消费不再向上传递
@@ -65,5 +92,10 @@ public class MyViewGroup extends ViewGroup {
     @Override
     public boolean performClick() {
         return super.performClick();
+    }
+
+    @Override
+    public void onClick(View v) {
+        Log.i("onClick", "ok");
     }
 }
