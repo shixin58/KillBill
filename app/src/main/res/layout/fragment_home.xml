@@ -53,4 +53,14 @@
         app:layout_constraintTop_toBottomOf="@id/button_base"
         android:gravity="center"
         android:text="test nested RecyclerView"/>
+
+    <TextView
+        android:id="@+id/button_touch"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_recycler_view2"
+        android:gravity="center"
+        android:text="test touch"/>
 </android.support.constraint.ConstraintLayout>

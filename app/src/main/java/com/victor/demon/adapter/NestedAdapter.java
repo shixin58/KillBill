@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.max.baselib.widget.BaseRecyclerAdapter;
+import com.victor.demon.CellScrollHolder;
 import com.victor.demon.R;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 public class NestedAdapter extends BaseRecyclerAdapter {
     private List<List<String>> lists = new ArrayList<>();
+    private CellScrollHolder cellScrollHolder;
 
     public void setList(List<List<String>> lists) {
         this.lists.clear();
@@ -25,6 +27,10 @@ public class NestedAdapter extends BaseRecyclerAdapter {
             this.lists.addAll(lists);
         }
         notifyDataSetChanged();
+    }
+
+    public void setCellScrollHolder(CellScrollHolder holder) {
+        this.cellScrollHolder = holder;
     }
 
     @Override
@@ -54,9 +60,13 @@ public class NestedAdapter extends BaseRecyclerAdapter {
     @Override
     public RecyclerView.ViewHolder onCreateVH(ViewGroup parent, int viewType) {
         if(viewType == 0) {
-            return new AppleViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_nested_apple, parent, false));
+            AppleViewHolder appleViewHolder = new AppleViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_nested_apple, parent, false));
+            cellScrollHolder.register(appleViewHolder.recyclerView);
+            return appleViewHolder;
         }else {
-            return new BananaViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_nested_banana, parent, false));
+            BananaViewHolder bananaViewHolder = new BananaViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_nested_banana, parent, false));
+            cellScrollHolder.register(bananaViewHolder.recyclerView);
+            return bananaViewHolder;
         }
     }
 

@@ -8,11 +8,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MotionEvent;
 
+import com.victor.demon.CellScrollHolder;
 import com.victor.demon.R;
 import com.victor.demon.adapter.NestedAdapter;
 import com.victor.demon.repository.RecyclerViewRepository;
+import com.victor.demon.widget.DispatchFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +25,10 @@ import java.util.List;
  */
 public class RecyclerView2Activity extends AppCompatActivity {
 
+    private DispatchFrameLayout mDispatchFrameLayout;
     private RecyclerView mRecyclerView;
+    private float oldX;
+    private float oldY;
 
     public static void openActivity(Context context) {
         Intent intent = new Intent(context, RecyclerView2Activity.class);
@@ -37,18 +43,46 @@ public class RecyclerView2Activity extends AppCompatActivity {
     }
 
     private void initView() {
+        mDispatchFrameLayout = findViewById(R.id.fl_dispatch);
         mRecyclerView = findViewById(R.id.recycler_view);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         NestedAdapter nestedAdapter = new NestedAdapter();
         mRecyclerView.setAdapter(nestedAdapter);
         mRecyclerView.addOnItemTouchListener(new MyOnItemTouchListener());
         mRecyclerView.addOnScrollListener(new MyOnScrollListener());
 
+        final CellScrollHolder cellScrollHolder = new CellScrollHolder();
+        nestedAdapter.setCellScrollHolder(cellScrollHolder);
         List<List<String>> lists = new ArrayList<>();
         lists.add(RecyclerViewRepository.Companion.getCountryList());
         lists.add(RecyclerViewRepository.Companion.getColorList());
         nestedAdapter.setList(lists);
+
+        mDispatchFrameLayout.setDispatchTouchEventListener(new DispatchFrameLayout.DispatchTouchEventListener() {
+            @Override
+            public void dispatchTouchEvent(MotionEvent ev) {
+                switch (ev.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        oldX = ev.getX();
+                        oldY = ev.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        cellScrollHolder.notifyScroll((int) (oldX - ev.getX()), (int) (oldY - ev.getY()));
+                        Log.i("dispatchTouchEvent", "ACTION_MOVE-"+(oldX - ev.getX())+" - "+(int) (oldY - ev.getY()));
+                        oldX = ev.getX();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        oldX = 0;
+                        oldY = 0;
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                        oldX = 0;
+                        oldY = 0;
+                        break;
+                }
+            }
+        });
     }
 
     private class MyOnItemTouchListener implements RecyclerView.OnItemTouchListener {

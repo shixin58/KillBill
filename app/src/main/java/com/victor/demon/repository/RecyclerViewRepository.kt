@@ -24,6 +24,18 @@ class RecyclerViewRepository {
             colorList.add("Brown")
             colorList.add("Black")
             colorList.add("Red")
+            colorList.add("White")
+            colorList.add("Pink")
+            colorList.add("Violet")
+            colorList.add("Purple")
+            colorList.add("Rose")
+            colorList.add("Grey")
+            colorList.add("Green")
+            colorList.add("light")
+            colorList.add("deep")
+            colorList.add("bright")
+            colorList.add("warm")
+            colorList.add("cold")
             return colorList
         }
     }

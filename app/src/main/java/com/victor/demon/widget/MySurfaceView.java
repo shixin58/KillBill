@@ -1,4 +1,4 @@
-package com.victor.demon.widgets;
+package com.victor.demon.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;

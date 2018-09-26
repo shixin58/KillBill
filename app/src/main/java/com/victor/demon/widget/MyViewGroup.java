@@ -1,4 +1,4 @@
-package com.victor.demon.widgets;
+package com.victor.demon.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -60,14 +60,15 @@ public class MyViewGroup extends ViewGroup implements View.OnClickListener {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 // true 表示 the event was handled in this view，接收之后的move和up事件
+                Log.i("onTouchEvent", "ACTION_DOWN");
                 return true;
             case MotionEvent.ACTION_MOVE:
                 // 绝对位置和相对位置
-                Log.i("onTouchEvent", "坐标："+event.getRawX()+" - "+event.getRawY()+" - "+event.getX()+" - "+event.getY());
+                Log.i("onTouchEvent", "ACTION_MOVE 坐标："+event.getRawX()+" - "+event.getRawY()+" - "+event.getX()+" - "+event.getY());
                 // 触控点数，二维数组
                 // points between this event and previous event
                 if(event.getPointerCount()>0 && event.getHistorySize()>0){
-                    Log.i("onTouchEvent", "历史："+event.getPointerCount()+" - "+event.getHistorySize()
+                    Log.i("onTouchEvent", "ACTION_MOVE 历史："+event.getPointerCount()+" - "+event.getHistorySize()
                             +" - "+event.getHistoricalX(event.getPointerCount()-1, event.getHistorySize()-1)
                             +" - "+event.getHistoricalY(event.getPointerCount()-1, event.getHistorySize()-1));
                 }
@@ -75,14 +76,24 @@ public class MyViewGroup extends ViewGroup implements View.OnClickListener {
             case MotionEvent.ACTION_UP:
                 // 处理performClick()
                 performClick();
-                // 查看方法调用栈
-                try {
+//                 查看方法调用栈
+                /*try {
                     int i=1/0;
                 }catch (Exception e) {
                     e.printStackTrace();
-                }
+                }*/
                 break;
             case MotionEvent.ACTION_CANCEL:
+                Log.i("onTouchEvent", "ACTION_CANCEL");
+                break;
+            case MotionEvent.ACTION_OUTSIDE:
+                Log.i("onTouchEvent", "ACTION_OUTSIDE");
+                break;
+            case MotionEvent.ACTION_POINTER_UP:
+                Log.i("onTouchEvent", "ACTION_POINTER_UP");
+                break;
+            case MotionEvent.ACTION_POINTER_DOWN:
+                Log.i("onTouchEvent", "ACTION_POINTER_DOWN");
                 break;
         }
         // true消费不再向上传递

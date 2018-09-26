@@ -62,6 +62,11 @@
             android:label="@string/activity_recycler_view2"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".activity.TestTouchActivity"
+            android:label="@string/activity_test_touch"
+            android:screenOrientation="portrait"
+            android:launchMode="standard"/>
+
         <service android:name=".MyService"
             android:process=":MyService">
             <intent-filter>

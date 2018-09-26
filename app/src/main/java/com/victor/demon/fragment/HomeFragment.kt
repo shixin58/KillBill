@@ -8,10 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.max.baselib.BaseFragment
 import com.victor.demon.R
-import com.victor.demon.activity.BlankActivity
-import com.victor.demon.activity.RecyclerView2Activity
-import com.victor.demon.activity.RecyclerViewActivity
-import com.victor.demon.activity.TestFragmentActivity
+import com.victor.demon.activity.*
 
 class HomeFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
@@ -20,6 +17,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             v?.id==R.id.button_fragment -> TestFragmentActivity.openActivityForResult(this, 1)
             v?.id==R.id.button_base -> BlankActivity.openActivity(activity)
             v?.id==R.id.button_recycler_view2 -> RecyclerView2Activity.openActivity(activity)
+            v?.id==R.id.button_touch -> TestTouchActivity.openActivity(activity)
         }
     }
 
@@ -33,6 +31,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         view?.findViewById<View>(R.id.button_fragment)?.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_base)?.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_recycler_view2)?.setOnClickListener(this)
+        view?.findViewById<View>(R.id.button_touch)?.setOnClickListener(this)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
