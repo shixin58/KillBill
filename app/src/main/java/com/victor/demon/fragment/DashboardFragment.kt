@@ -16,6 +16,7 @@ import com.victor.demon.activity.SecondActivity
 class DashboardFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when {
+            // 测试Activity启动方式
             v?.id==R.id.tv_jump -> SecondActivity.openActivity(activity)
         }
     }

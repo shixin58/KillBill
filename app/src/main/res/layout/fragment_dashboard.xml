@@ -14,7 +14,7 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="@string/title_dashboard" />
 
-    <!-- 测试android:ellipsize -->
+    <!-- 测试行距、行数、省略 -->
     <TextView
         android:id="@+id/tv_marquee"
         android:layout_width="0dp"
@@ -30,7 +30,7 @@
         android:lineSpacingMultiplier="1.3"
         android:maxLines="2"
         android:ellipsize="end"
-        android:text="我胡汉山又回来了。我胡汉山又回来了。我胡汉山又回来了。我胡汉山又回来了。我胡汉山又回来了。我胡汉山又回来了。"/>
+        android:text="从前有座山，山上有座庙，庙里有个老和尚，老和尚在给小和尚讲故事，故事讲的是从前有座山，山上有座庙，庙里有个老和尚"/>
 
     <TextView
         android:id="@+id/tv_jump"
@@ -40,5 +40,5 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_marquee"
         android:gravity="center"
-        android:text="跳转"/>
+        android:text="跳转到SecondActivity(singleInstance)"/>
 </android.support.constraint.ConstraintLayout>
