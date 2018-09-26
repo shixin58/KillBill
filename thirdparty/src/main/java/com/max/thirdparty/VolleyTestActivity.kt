@@ -4,13 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
-
-import com.android.volley.toolbox.NetworkImageView
+import android.widget.Toast
 import com.max.baselib.BaseActivity
 import com.max.thirdparty.Strategy.VolleyStrategy
 import com.max.thirdparty.bean.MessageEvent
-
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -28,8 +25,9 @@ class VolleyTestActivity : BaseActivity() {
     private fun initView() {
         val volleyStrategy = VolleyStrategy()
         volleyStrategy.execute()
-        volleyStrategy.executeImage(findViewById<View>(R.id.iv_demo) as ImageView)
-        volleyStrategy.executeImage3(findViewById<View>(R.id.iv_demo2) as NetworkImageView)
+        volleyStrategy.executeImage(findViewById(R.id.iv_demo))
+        volleyStrategy.executeImage2(findViewById(R.id.iv_demo1))
+        volleyStrategy.executeImage3(findViewById(R.id.iv_demo2))
     }
 
     override fun onStop() {
@@ -38,6 +36,7 @@ class VolleyTestActivity : BaseActivity() {
     }
 
     fun onClick(view: View) {
+        Toast.makeText(this, "post sticky 事件", Toast.LENGTH_SHORT).show()
         EventBus.getDefault().postSticky(MessageEvent())
     }
 

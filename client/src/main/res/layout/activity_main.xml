@@ -12,7 +12,19 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="center"
+        android:textStyle="bold"
         android:text="诗和远方"/>
+
+    <TextView
+        android:id="@+id/tv_action_view"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        android:gravity="center"
+        android:textStyle="normal"
+        android:text="scheme启动activity"/>
 
     <TextView
         android:id="@+id/tv_implicit"
@@ -20,9 +32,10 @@
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_action_view"
         android:gravity="center"
-        android:text="隐式启动app"/>
+        android:textStyle="italic"
+        android:text="action隐式启动activity"/>
 
     <TextView
         android:id="@+id/tv_app"
@@ -32,7 +45,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_implicit"
         android:gravity="center"
-        android:text="启动app"/>
+        android:text="ComponentName启动activity"/>
 
     <TextView
         android:id="@+id/tv_switch"
@@ -52,7 +65,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_switch"
         android:gravity="center"
-        android:text="使用服务"/>
+        android:text="bind服务"/>
 
     <TextView
         android:id="@+id/tv_changeThread"

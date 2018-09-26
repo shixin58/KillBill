@@ -36,7 +36,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     }
 
     private void initView() {
-        findViewById(R.id.tv_title).setOnClickListener(this);
+        findViewById(R.id.tv_action_view).setOnClickListener(this);
         findViewById(R.id.tv_implicit).setOnClickListener(this);
         findViewById(R.id.tv_app).setOnClickListener(this);
         findViewById(R.id.tv_switch).setOnClickListener(this);
@@ -47,7 +47,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_title:
+            case R.id.tv_action_view:
                 // app进程间调用页面，配置scheme
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
