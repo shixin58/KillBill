@@ -37,6 +37,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private void initView() {
         findViewById(R.id.tv_title).setOnClickListener(this);
+        findViewById(R.id.tv_implicit).setOnClickListener(this);
         findViewById(R.id.tv_app).setOnClickListener(this);
         findViewById(R.id.tv_switch).setOnClickListener(this);
         findViewById(R.id.tv_use_service).setOnClickListener(this);
@@ -48,8 +49,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         switch (v.getId()) {
             case R.id.tv_title:
                 // app进程间调用页面，配置scheme
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("max://demon/recycler.view"));
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+//                intent.setData(Uri.parse("max://demon/recycler.view"));
+                // 调用系统浏览器
+                intent.setData(Uri.parse("https://www.sogou.com"));
                 startActivity(intent);
+                break;
+            case R.id.tv_implicit:
+                // 自定义ACTION，隐式启动
+                // 若俩页面ACTION相同，弹选择对话框
+                Intent intent3 = new Intent();
+                intent3.setAction("com.victor.demon.activity.TestFragmentActivity");
+                startActivity(intent3);
                 break;
             case R.id.tv_app:
                 // app进程间调用页面，配置包名和类名

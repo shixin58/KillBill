@@ -29,6 +29,7 @@
             <intent-filter>
 
                 <action android:name="android.intent.action.VIEW"/>
+
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
 
@@ -42,11 +43,21 @@
         <activity
             android:name=".activity.TestFragmentActivity"
             android:label="@string/activity_test_platform"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.victor.demon.activity.TestFragmentActivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
 
         <activity android:name=".activity.BlankActivity"
             android:label="@string/activity_blank"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.victor.demon.activity.TestFragmentActivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
 
         <activity android:name=".activity.SecondActivity"
             android:label="@string/activity_second"

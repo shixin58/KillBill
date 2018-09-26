@@ -17,7 +17,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             v?.id==R.id.button_fragment -> TestFragmentActivity.openActivityForResult(this, 1)
             v?.id==R.id.button_base -> BlankActivity.openActivity(activity)
             v?.id==R.id.button_recycler_view2 -> RecyclerView2Activity.openActivity(activity)
-            v?.id==R.id.button_touch -> TestTouchActivity.openActivity(activity)
+            v?.id==R.id.button_touch -> TestTouchActivity.openActivity(activity, 0)
         }
     }
 
