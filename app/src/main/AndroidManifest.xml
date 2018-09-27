@@ -76,7 +76,19 @@
         <activity android:name=".activity.TestTouchActivity"
             android:label="@string/activity_test_touch"
             android:screenOrientation="portrait"
-            android:launchMode="standard"/>
+            android:launchMode="standard">
+            <intent-filter>
+
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="max"
+                    android:host="demon"
+                    android:pathPrefix="/test.touch"/>
+            </intent-filter>
+        </activity>
 
         <service android:name=".MyService"
             android:process=":MyService">

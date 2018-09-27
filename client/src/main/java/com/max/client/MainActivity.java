@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.max.baselib.ActivityComponentName;
+import com.max.baselib.ActivitySchemas;
 import com.max.baselib.BaseActivity;
 import com.victor.demon.Form;
 import com.victor.demon.IMyService;
@@ -46,22 +48,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.tv_action_view:
-                // app进程间调用页面，配置scheme
-                Intent intent = new Intent();
+                // 1、app进程间调用页面，配置scheme
+                intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
-//                intent.setData(Uri.parse("max://demon/recycler.view"));
+//                intent.setData(Uri.parse(ActivitySchemas.RECYCLER_VIEW_SCHEMA));
+                String urlString = new ActivitySchemas(ActivitySchemas.TEST_TOUCH_SCHEMA).setParam("type", 0).getUriString();
+                intent.setData(Uri.parse(urlString));
                 // 调用系统浏览器
-                intent.setData(Uri.parse("https://www.sogou.com"));
+//                intent.setData(Uri.parse("https://www.sogou.com"));
                 startActivity(intent);
                 break;
             case R.id.tv_implicit:
-                // 自定义ACTION，隐式启动
+                // 2、自定义ACTION，隐式启动
                 // 若俩页面ACTION相同，弹选择对话框
-                Intent intent3 = new Intent();
+                /*Intent intent3 = new Intent();
                 intent3.setAction("com.victor.demon.activity.TestFragmentActivity");
-                startActivity(intent3);
+                startActivity(intent3);*/
+                intent = new Intent();
+                intent.setComponent(ActivityComponentName.TEST_FRAGMENT);
+                startActivity(intent);
                 break;
             case R.id.tv_app:
                 // app进程间调用页面，配置包名和类名

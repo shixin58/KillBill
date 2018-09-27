@@ -24,7 +24,7 @@ public class TestTouchActivity extends BaseActivity {
     public static void openActivity(Context context, int type) {
         Intent intent = new Intent(context, TestTouchActivity.class);
         // mExtras.putInt(String, int)
-        // Intent和Bundle均实现Parcelable接口，bind进程通信传递Parcelable对象
+        // Intent、ComponentName、Bundle均实现Parcelable接口，bind进程通信传递Parcelable对象
         // intent.getExtras()内部new Bundle(mExtras)为了保护数据吧
         // Intent和Bundle设置的跟获取的均不同
         intent.putExtra("type", type);
