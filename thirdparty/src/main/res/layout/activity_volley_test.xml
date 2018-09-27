@@ -39,6 +39,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_demo1"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:onClick="onClick"/>
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

@@ -36,8 +36,19 @@ class VolleyTestActivity : BaseActivity() {
     }
 
     fun onClick(view: View) {
-        Toast.makeText(this, "post sticky 事件", Toast.LENGTH_SHORT).show()
-        EventBus.getDefault().postSticky(MessageEvent())
+        when(view.id) {
+            R.id.iv_demo -> {
+                Toast.makeText(this, "post sticky 事件", Toast.LENGTH_SHORT).show()
+                EventBus.getDefault().postSticky(MessageEvent("Cute"))
+            }
+            R.id.iv_demo1 -> {
+                Toast.makeText(this, "RxBus.post事件", Toast.LENGTH_SHORT).show()
+                RxBus.getInstance().post(MessageEvent("RxBus is awesome!"))
+            }
+            R.id.iv_demo2 -> {
+
+            }
+        }
     }
 
     companion object {
