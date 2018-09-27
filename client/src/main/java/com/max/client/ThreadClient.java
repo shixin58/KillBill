@@ -6,6 +6,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 1、synchronized同步锁，可重入锁，保证原子性
+ * <p>2、wait/notify等待唤醒
+ * <p>3、ExecutorService线程池
  * <p>Created by shixin on 2018/9/8.
  */
 public class ThreadClient {
