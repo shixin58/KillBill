@@ -31,6 +31,8 @@ public class RxBus {
         return instance;
     }
 
+    // PublishSubject继承Subject，Subject继承Observable实现Observer
+    // 一个Observable对应一个Consumer，Observable.subscribe(Consumer)
     public <T> Observable<T> register(@NonNull Class<T> tag) {
         List<Subject> subjectList = subjectMapper.get(tag);
         if(subjectList == null) {
@@ -59,6 +61,7 @@ public class RxBus {
         }
     }
 
+    // Observer.onNext调用Consumer.accept
     public void post(@NonNull Object event) {
         List<Subject> subjectList = subjectMapper.get(event.getClass());
         if(subjectList!=null) {

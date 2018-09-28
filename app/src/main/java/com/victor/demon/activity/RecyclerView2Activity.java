@@ -71,6 +71,7 @@ public class RecyclerView2Activity extends AppCompatActivity {
                         break;
                     case MotionEvent.ACTION_MOVE:
                         cellScrollHolder.notifyScrollBy((int) (oldX - ev.getX()), (int) (oldY - ev.getY()));
+//                        cellScrollHolder.notifyScrollTo(-(int)ev.getX(), -(int)ev.getY());
                         Log.i("dispatchTouchEvent", "ACTION_MOVE-"+(oldX - ev.getX())+" - "+(int) (oldY - ev.getY()));
                         oldX = ev.getX();
                         break;

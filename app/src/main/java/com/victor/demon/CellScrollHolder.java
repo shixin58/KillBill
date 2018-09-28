@@ -2,6 +2,7 @@ package com.victor.demon;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -38,6 +39,7 @@ public class CellScrollHolder {
         for(RecyclerView recyclerView:set) {
             // 绝对位置
             recyclerView.scrollTo(x, y);
+            Log.i("notifyScrollTo", "scrollTo("+x+", "+y+")");
         }
     }
 
