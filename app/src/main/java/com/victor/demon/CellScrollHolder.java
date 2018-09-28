@@ -1,5 +1,6 @@
 package com.victor.demon;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.HashSet;
@@ -26,9 +27,25 @@ public class CellScrollHolder {
         set.clear();
     }
 
-    public void notifyScroll(int dx, int dy) {
+    public void notifyScrollBy(int dx, int dy) {
         for(RecyclerView recyclerView:set) {
+            // 相对位置
             recyclerView.scrollBy(dx, dy);
+        }
+    }
+
+    public void notifyScrollTo(int x, int y) {
+        for(RecyclerView recyclerView:set) {
+            // 绝对位置
+            recyclerView.scrollTo(x, y);
+        }
+    }
+
+    // 在模版RecyclerView的onScrolled中处理
+    public void notifyScrollToPositionWithOffset(int position, int offset) {
+        for(RecyclerView recyclerView:set) {
+            LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+            layoutManager.scrollToPositionWithOffset(position, offset);
         }
     }
 }

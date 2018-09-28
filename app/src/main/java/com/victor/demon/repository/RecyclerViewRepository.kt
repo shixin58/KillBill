@@ -14,6 +14,10 @@ class RecyclerViewRepository {
             countryList.add("Canada")
             countryList.add("Australia")
             countryList.add("Britain")
+            countryList.add("India")
+            countryList.add("New Zealand")
+            countryList.add("Jamaica")
+            countryList.add("Philippines")
             return countryList
         }
 

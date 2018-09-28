@@ -55,8 +55,10 @@ public class RecyclerView2Activity extends AppCompatActivity {
         final CellScrollHolder cellScrollHolder = new CellScrollHolder();
         nestedAdapter.setCellScrollHolder(cellScrollHolder);
         List<List<String>> lists = new ArrayList<>();
-        lists.add(RecyclerViewRepository.Companion.getCountryList());
-        lists.add(RecyclerViewRepository.Companion.getColorList());
+        for(int i=0;i<10;i++) {
+            lists.add(RecyclerViewRepository.Companion.getCountryList());
+            lists.add(RecyclerViewRepository.Companion.getColorList());
+        }
         nestedAdapter.setList(lists);
 
         mDispatchFrameLayout.setDispatchTouchEventListener(new DispatchFrameLayout.DispatchTouchEventListener() {
@@ -68,7 +70,7 @@ public class RecyclerView2Activity extends AppCompatActivity {
                         oldY = ev.getY();
                         break;
                     case MotionEvent.ACTION_MOVE:
-                        cellScrollHolder.notifyScroll((int) (oldX - ev.getX()), (int) (oldY - ev.getY()));
+                        cellScrollHolder.notifyScrollBy((int) (oldX - ev.getX()), (int) (oldY - ev.getY()));
                         Log.i("dispatchTouchEvent", "ACTION_MOVE-"+(oldX - ev.getX())+" - "+(int) (oldY - ev.getY()));
                         oldX = ev.getX();
                         break;
