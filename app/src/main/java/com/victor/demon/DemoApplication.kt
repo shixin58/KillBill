@@ -10,6 +10,8 @@ import com.squareup.leakcanary.LeakCanary
  * Created by shixin on 2017/12/15.
  */
 class DemoApplication : Application() {
+    private val activityLifecycleCallbacks = MyActivityLifecycleCallbacks()
+
     override fun onCreate() {
         super.onCreate()
 
@@ -25,6 +27,10 @@ class DemoApplication : Application() {
             return
         }
         LeakCanary.install(this)
+
+        // ArrayList, unregister/register, remove/add去重
+        unregisterActivityLifecycleCallbacks(activityLifecycleCallbacks)
+        registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
     }
 
     private fun initBlockCanary() {
