@@ -1,11 +1,14 @@
 package com.max.thirdparty.Strategy;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.max.thirdparty.protocal.IService;
 import com.max.thirdparty.protocal.IStrategy;
 import com.max.thirdparty.bean.PhoneNumberModel;
 import com.max.thirdparty.bean.WrapperModel;
+
+import java.io.IOException;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -78,5 +81,43 @@ public class RetrofitStrategy implements IStrategy {
                         Log.i("onComplete", "what");
                     }
                 });
+    }
+
+    // 封装了Handler和线程池
+    public void testAsyncTask() {
+        Call<WrapperModel<PhoneNumberModel>> call = mService.getPhoneInfo("13701116418", "9a4329bdf84fa69d193ce601c22b949d");
+        AsyncTask<String, Integer, String> asyncTask = new AsyncTask<String, Integer, String>() {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected String doInBackground(String... strings) {
+                try {
+                    publishProgress(1, 2, 3);
+                    Response<WrapperModel<PhoneNumberModel>> response = call.execute();
+                    if(response!=null&&response.body()!=null&&response.body().result!=null)
+                        return response.body().result.toString();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onProgressUpdate(Integer... values) {
+                super.onProgressUpdate(values);
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                super.onPostExecute(result);
+                Log.i("onPostExecute", result);
+                cancel(true);
+            }
+        };
+        asyncTask.execute("A", "B", "C");
     }
 }

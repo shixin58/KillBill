@@ -11,6 +11,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.RemoteException;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -113,8 +114,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                         try {
                             Thread.sleep(10000);
                             // 持有Activity句柄
-                            MainActivity.this.runOnUiThread(mRunnable);
-//                            transferMainThread(mRunnable);
+//                            MainActivity.this.runOnUiThread(mRunnable);
+                            transferMainThread(mRunnable);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -142,7 +143,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     // 切换主线程
     private void transferMainThread(Runnable runnable) {
-        mHandler.post(runnable);
+//        mHandler.post(runnable);
+        // Message一直持有Handler，直到Message.recycle
+        Message message = Message.obtain(mHandler, runnable);
+        message.what = 1;
+        mHandler.sendMessageAtTime(message, SystemClock.uptimeMillis()+10*1000);
     }
 
     private Handler mHandler = new Handler(Looper.getMainLooper()){
@@ -156,6 +161,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         @Override
         public void run() {
             // 更新UI
+            Log.i("run", "更新UI");
         }
     };
 

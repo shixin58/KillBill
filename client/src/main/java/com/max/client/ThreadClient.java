@@ -2,8 +2,10 @@ package com.max.client;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 1、synchronized同步锁，可重入锁，保证原子性
@@ -18,8 +20,15 @@ public class ThreadClient {
 
     public static void main(String[] args) {
         // LinkedBlockingDeque先进先出，通过执行execute方法新任务入队
+        // AsyncTask使用LinkedBlockingQueue
         ExecutorService executorService = new ThreadPoolExecutor(3, 5,
-                1, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>(128));
+                1, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>(128), new ThreadFactory() {
+            private final AtomicInteger mAtomicInteger = new AtomicInteger(1);
+            @Override
+            public Thread newThread(Runnable r) {
+                return new Thread(r, "creative-"+mAtomicInteger.getAndIncrement());
+            }
+        });
         executorService.execute(new Runnable() {
             @Override
             public void run() {
@@ -35,6 +44,7 @@ public class ThreadClient {
     }
 
     private static void runThread1() {
+        System.out.println("start "+Thread.currentThread().getName());
         synchronized (object) {
             while (!condition) {
                 try {
@@ -53,6 +63,7 @@ public class ThreadClient {
     }
 
     private static void runThread2() {
+        System.out.println("start "+Thread.currentThread().getName());
         try {
             // 持有对象锁，阻塞线程
             Thread.sleep(1000*10);

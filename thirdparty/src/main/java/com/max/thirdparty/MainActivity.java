@@ -3,17 +3,14 @@ package com.max.thirdparty;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.max.baselib.BaseActivity;
+import com.max.thirdparty.Strategy.RetrofitStrategy;
 import com.max.thirdparty.bean.MessageEvent;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.subjects.Subject;
 
 /**
  * <p>Created by shixin on 2018/9/7.
@@ -43,6 +40,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 Log.i("MessageEvent", ""+messageEvent.info);
             }
         });
+
+        RetrofitStrategy retrofitStrategy = new RetrofitStrategy();
+        retrofitStrategy.execute();
+        retrofitStrategy.executeRxJava();
+        retrofitStrategy.testAsyncTask();
     }
 
     @Override
