@@ -66,9 +66,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         retrofitStrategy.testAsyncTask();
 
         RxJavaStrategy rxJavaStrategy = new RxJavaStrategy();
-        rxJavaStrategy.execute();
-        rxJavaStrategy.executeMap();
-        rxJavaStrategy.executeFlatMap();
+//        rxJavaStrategy.execute();
+//        rxJavaStrategy.executeMap();
+//        rxJavaStrategy.executeFlatMap();
+        rxJavaStrategy.executeOther();
     }
 
     @Override

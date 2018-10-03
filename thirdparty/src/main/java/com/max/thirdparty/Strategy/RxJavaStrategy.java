@@ -1,5 +1,6 @@
 package com.max.thirdparty.Strategy;
 
+import android.os.SystemClock;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -8,19 +9,40 @@ import com.max.thirdparty.bean.PhoneNumberModel;
 import com.max.thirdparty.bean.WrapperModel;
 import com.max.thirdparty.protocal.IStrategy;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Completable;
+import io.reactivex.CompletableEmitter;
+import io.reactivex.CompletableObserver;
+import io.reactivex.CompletableOnSubscribe;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
+import io.reactivex.Maybe;
+import io.reactivex.MaybeEmitter;
+import io.reactivex.MaybeObserver;
+import io.reactivex.MaybeOnSubscribe;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
+import io.reactivex.Single;
+import io.reactivex.SingleEmitter;
+import io.reactivex.SingleOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.BiConsumer;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Call;
@@ -170,5 +192,168 @@ public class RxJavaStrategy implements IStrategy {
         listC.add("Candle");
         map.put("C", listC);
         return map;
+    }
+
+    public void executeOther() {
+        // cold observables：订阅后才发事件
+        /*Observable.interval(1, 1, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Long>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Long aLong) {
+                        Log.i("interval", ""+aLong);
+                        SystemClock.sleep(1000L);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });*/
+        /*Observable.timer(1, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+
+                    }
+                });*/
+        /*Observable.range(1, 10)
+                .observeOn(Schedulers.newThread())
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        Log.i("accept", integer.toString());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+
+                    }
+                }, new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+
+                    }
+                });*/
+    }
+
+    public void executeFlowable() {
+        // reactive pull, backpressure
+        Flowable.create(new FlowableOnSubscribe<String>() {
+            @Override
+            public void subscribe(FlowableEmitter<String> e) throws Exception {
+                e.onNext("first");
+                e.onNext("second");
+                e.onNext("third");
+                e.onComplete();
+            }
+        }, BackpressureStrategy.BUFFER)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Subscriber<String>() {
+            Subscription subscription;
+            @Override
+            public void onSubscribe(Subscription s) {
+                subscription = s;
+//                s.cancel();
+                s.request(1);
+            }
+
+            @Override
+            public void onNext(String s) {
+                Log.i("onNext", s);
+                SystemClock.sleep(1000L);
+                subscription.request(1);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    public void executeSingle() {
+        Single.create(new SingleOnSubscribe<String>() {
+            @Override
+            public void subscribe(SingleEmitter<String> e) throws Exception {
+                e.onSuccess("awesome");
+            }
+        }).subscribe(new BiConsumer<String, Throwable>() {
+            @Override
+            public void accept(String s, Throwable throwable) throws Exception {
+                Log.i("accept", s);
+            }
+        });
+        // 不发送onNext事件
+        /*Completable.create(new CompletableOnSubscribe() {
+            @Override
+            public void subscribe(CompletableEmitter e) throws Exception {
+
+            }
+        }).subscribe(new CompletableObserver() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });*/
+        // 相当于Single或Completable
+        /*Maybe.create(new MaybeOnSubscribe<String>() {
+            @Override
+            public void subscribe(MaybeEmitter<String> e) throws Exception {
+                e.onSuccess("ok");
+            }
+        }).subscribe(new MaybeObserver<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(String s) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });*/
     }
 }
