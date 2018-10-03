@@ -68,6 +68,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         RxJavaStrategy rxJavaStrategy = new RxJavaStrategy();
         rxJavaStrategy.execute();
         rxJavaStrategy.executeMap();
+        rxJavaStrategy.executeFlatMap();
     }
 
     @Override
