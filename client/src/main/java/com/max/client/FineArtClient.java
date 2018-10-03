@@ -48,6 +48,9 @@ public class FineArtClient {
 
             // 获取父类信息
             System.out.println("getSuperclass "+cls.getSuperclass().getCanonicalName());
+            System.out.println("getInterfaces "+Arrays.toString(cls.getInterfaces()));
+            System.out.println("getGenericSuperclass "+cls.getGenericSuperclass());
+            System.out.println("getGenericInterfaces "+Arrays.toString(cls.getGenericInterfaces()));
         } catch (Exception e) {
             e.printStackTrace();
         }

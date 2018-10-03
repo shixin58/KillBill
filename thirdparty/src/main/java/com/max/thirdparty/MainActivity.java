@@ -6,11 +6,13 @@ import android.view.View;
 
 import com.max.baselib.BaseActivity;
 import com.max.thirdparty.Strategy.RetrofitStrategy;
+import com.max.thirdparty.Strategy.RxJavaStrategy;
 import com.max.thirdparty.bean.MessageEvent;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * <p>Created by shixin on 2018/9/7.
@@ -34,17 +36,38 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private void initData() {
         mObservable = RxBus.getInstance().register(MessageEvent.class);
-        mObservable.observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<MessageEvent>() {
-            @Override
-            public void accept(MessageEvent messageEvent) throws Exception {
-                Log.i("MessageEvent", ""+messageEvent.info);
-            }
-        });
+        // Consumer和Observer均可使用
+        mObservable.observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<MessageEvent>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(MessageEvent messageEvent) {
+                        Log.i("MessageEvent", ""+messageEvent.info);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
         RetrofitStrategy retrofitStrategy = new RetrofitStrategy();
         retrofitStrategy.execute();
         retrofitStrategy.executeRxJava();
         retrofitStrategy.testAsyncTask();
+
+        RxJavaStrategy rxJavaStrategy = new RxJavaStrategy();
+        rxJavaStrategy.execute();
+        rxJavaStrategy.executeMap();
     }
 
     @Override
