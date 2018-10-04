@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.max.client">
+    package="com.bride.client">
 
     <application
         android:allowBackup="true"

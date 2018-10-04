@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.max.thirdparty">
+    package="com.bride.thirdparty">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
-    <application android:name=".MyApplication"
+    <application android:name="com.bride.thirdparty.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
 
-        <activity android:name=".MainActivity"
+        <activity android:name="com.bride.thirdparty.MainActivity"
             android:label="@string/app_name">
 
             <intent-filter>
@@ -21,12 +21,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".VolleyTestActivity"
+        <activity android:name="com.bride.thirdparty.VolleyTestActivity"
             android:label="@string/volley_test_activity"
             android:screenOrientation="portrait"
             android:launchMode="standard"/>
 
-        <activity android:name=".EventBusTestActivity"
+        <activity android:name="com.bride.thirdparty.EventBusTestActivity"
             android:label="@string/event_bus_test_activity"
             android:screenOrientation="portrait"
             android:launchMode="standard"/>

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.victor.demon.widget.DispatchFrameLayout
+    <com.bride.demon.widget.DispatchFrameLayout
         android:id="@+id/fl_dispatch"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -17,5 +17,5 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </com.victor.demon.widget.DispatchFrameLayout>
+    </com.bride.demon.widget.DispatchFrameLayout>
 </android.support.constraint.ConstraintLayout>

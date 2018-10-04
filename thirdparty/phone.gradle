@@ -7,14 +7,14 @@ dependencies {
 
 task compilePhone(type: JavaCompile) {
     source = './src/main/java'
-    include "com/max/thirdparty/bean/Phone.java"
+    include "com/bride/thirdparty/bean/Phone.java"
     classpath = project.configurations.buildDependencies
     destinationDir = file('./bin')
 }
 
 task executeClass(type: JavaExec) {
     classpath = files('./bin', project.configurations.buildDependencies)
-    main = 'com.max.thirdparty.bean.Phone'
+    main = 'com.bride.thirdparty.bean.Phone'
 }
 
 task flow {

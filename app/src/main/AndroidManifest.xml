@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.victor.demon">
+    package="com.bride.demon">
 
     <application
         android:name=".DemoApplication"
@@ -45,7 +45,7 @@
             android:label="@string/activity_test_platform"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="com.victor.demon.activity.TestFragmentActivity"/>
+                <action android:name="com.bride.demon.activity.TestFragmentActivity"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
@@ -54,7 +54,7 @@
             android:label="@string/activity_blank"
             android:screenOrientation="portrait" >
             <intent-filter>
-                <action android:name="com.victor.demon.activity.TestFragmentActivity"/>
+                <action android:name="com.bride.demon.activity.TestFragmentActivity"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
@@ -93,7 +93,7 @@
         <service android:name=".MyService"
             android:process=":MyService">
             <intent-filter>
-                <action android:name="com.victor.demon.IMyService"/>
+                <action android:name="com.bride.demon.IMyService"/>
             </intent-filter>
         </service>
     </application>
