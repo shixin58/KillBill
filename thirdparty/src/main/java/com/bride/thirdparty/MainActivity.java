@@ -7,6 +7,7 @@ import android.view.View;
 import com.bride.baselib.BaseActivity;
 import com.bride.thirdparty.Strategy.RetrofitStrategy;
 import com.bride.thirdparty.Strategy.RxJavaStrategy;
+import com.bride.thirdparty.Strategy.SystemStrategy;
 import com.bride.thirdparty.bean.MessageEvent;
 
 import io.reactivex.Observable;
@@ -61,15 +62,29 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 });
 
         RetrofitStrategy retrofitStrategy = new RetrofitStrategy();
-        retrofitStrategy.execute();
-        retrofitStrategy.executeRxJava();
-        retrofitStrategy.testAsyncTask();
+//        retrofitStrategy.execute();
+//        retrofitStrategy.executeRxJava();
+//        retrofitStrategy.testAsyncTask();
 
         RxJavaStrategy rxJavaStrategy = new RxJavaStrategy();
 //        rxJavaStrategy.execute();
 //        rxJavaStrategy.executeMap();
 //        rxJavaStrategy.executeFlatMap();
-        rxJavaStrategy.executeOther();
+//        rxJavaStrategy.executeInterval();
+//        rxJavaStrategy.executeTimer();
+//        rxJavaStrategy.executeRange();
+//        rxJavaStrategy.executeZip();
+//        rxJavaStrategy.executeConcat();
+//        rxJavaStrategy.executeMerge();
+//        rxJavaStrategy.executeCombineLatest();
+//        rxJavaStrategy.executeReduce();
+//        rxJavaStrategy.executeCollect();
+//        rxJavaStrategy.executeStartWith();
+//        rxJavaStrategy.executeCount();
+//        rxJavaStrategy.executeTake();
+//        rxJavaStrategy.executeLift();
+
+        new SystemStrategy().execute();
     }
 
     @Override

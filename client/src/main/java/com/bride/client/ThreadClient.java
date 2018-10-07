@@ -23,11 +23,33 @@ public class ThreadClient {
     private static boolean condition = false;
 
     public static void main(String[] args) {
+        testThreadPoolExecutor();
+        testOtherThreadPool();
+        testWaitNotify();
+    }
+
+    private static void testWaitNotify() {
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+                executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                runThread1();
+            }
+        });
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                runThread2();
+            }
+        });
+    }
+
+    private static void testThreadPoolExecutor() {
         // LinkedBlockingDeque先进先出，通过执行execute方法新任务入队
 //        LinkedBlockingQueue(AsyncTask128), ArrayBlockingQueue, PriorityBlockingQueue, SynchronousQueue
         // 默认ThreadPoolExecutor.AbortPolicy，超出报RejectedExecutionException
         int cpuCount = Runtime.getRuntime().availableProcessors();
-        ExecutorService executorService = new ThreadPoolExecutor(cpuCount+1, cpuCount*2+1,
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(cpuCount+1, cpuCount*2+1,
                 1, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>(6), new ThreadFactory() {
             private final AtomicInteger mAtomicInteger = new AtomicInteger(1);
             @Override
@@ -36,36 +58,21 @@ public class ThreadClient {
             }
         }, new ThreadPoolExecutor.DiscardOldestPolicy());
         // 允许核心线程被销毁
-        ((ThreadPoolExecutor) executorService).allowCoreThreadTimeOut(true);
-//        executorService.execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                runThread1();
-//            }
-//        });
-//        executorService.execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                runThread2();
-//            }
-//        });
-        /*executorService.execute(new MyRunnable());
-        executorService.execute(new MyRunnable());
-        executorService.execute(new MyRunnable());
+        executor.allowCoreThreadTimeOut(true);
 
-        executorService.execute(new MyRunnable());
-        executorService.execute(new MyRunnable());
-        executorService.execute(new MyRunnable());
-        executorService.execute(new MyRunnable());
-        executorService.execute(new MyRunnable());
-        executorService.execute(new MyRunnable());
+        for(int i=0;i<executor.getCorePoolSize();i++) {
+            executor.execute(new MyRunnable());
+        }
 
-        executorService.execute(new MyRunnable());
-        executorService.execute(new MyRunnable());
+        for (int i=executor.getQueue().remainingCapacity();i>0;i--) {
+            executor.execute(new MyRunnable());
+        }
 
-        executorService.execute(new MyRunnable());*/
+        for(int i=0;i<executor.getMaximumPoolSize();i++) {
+            executor.execute(new MyRunnable());
+        }
 
-        testOtherThreadPool();
+        executor.execute(new MyRunnable());
     }
 
     private static void runThread1() {
@@ -119,10 +126,11 @@ public class ThreadClient {
     }
 
     private static void testOtherThreadPool() {
-        // 核心线程数和最大线程数一样，线程不销毁
+        // 1、核心线程数和最大线程数一样，线程不销毁
         ExecutorService executorService = Executors.newFixedThreadPool(3);
         executorService.shutdown();
-        // 单个工作线程
+
+        // 2、单个工作线程
         ExecutorService executorService1 = Executors.newSingleThreadExecutor();
         Future<String> future = executorService1.submit(new Callable<String>() {
             @Override
@@ -131,23 +139,22 @@ public class ThreadClient {
                 return "OK";
             }
         });
-        /*try {
-            System.out.println("future "+future.get());
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
-
-        // 核心线程0，最大线程MAX, SynchronousQueue
+        // 3、核心线程0，最大线程MAX, SynchronousQueue
         ExecutorService executorService2 = Executors.newCachedThreadPool();
         executorService2.shutdownNow();
 
+        // 4、定时执行任务
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(3);
+        // delay后执行一次
 //        scheduledExecutorService.schedule(new MyRunnable(), 2, TimeUnit.SECONDS);
-        System.out.println("start "+Thread.currentThread().getName()+" "+System.currentTimeMillis());
-        // 一个任务执行完再执行下一个
-        scheduledExecutorService.scheduleAtFixedRate(new MyRunnable(), 2, 3, TimeUnit.SECONDS);
+        // delay后执行第一个任务，一个任务执行完且period到了，再执行下一个
+        System.out.println(Thread.currentThread().getName()+" "+System.currentTimeMillis());
+//        scheduledExecutorService.scheduleAtFixedRate(new MyRunnable(), 2, 3, TimeUnit.SECONDS);
+        // delay后执行下一个任务，执行完，再delay，再执行下一个
 //        scheduledExecutorService.scheduleWithFixedDelay(new MyRunnable(), 2, 3, TimeUnit.SECONDS);
+
+        // 5、单个工作线程
+        ScheduledExecutorService scheduledExecutorService1 = Executors.newSingleThreadScheduledExecutor();
+        scheduledExecutorService1.scheduleWithFixedDelay(new MyRunnable(), 2, 3, TimeUnit.SECONDS);
     }
 }
