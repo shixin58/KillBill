@@ -1,7 +1,8 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
+// Groovy语法糖
+apply ([plugin: 'com.android.application'])
+apply ([plugin: 'kotlin-android'])
 
-android {
+android ({
     compileSdkVersion COMPILE_SDK_VERSION as int
     buildToolsVersion BUILD_TOOLS_VERSION
 
@@ -22,9 +23,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
+})
 
-dependencies {
+// Groovy闭包
+dependencies ({
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     implementation "com.android.support:design:$rootProject.supportLibraryVersion"
@@ -51,8 +53,19 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     implementation project(':baselib')
+})
+
+task myTask {
+    doFirst {
+        println('hello')
+    }
+    doLast {
+        println('world')
+    }
 }
 
-repositories {
-    mavenCentral()
+task taskA << {
+    println('taskA')
 }
+
+taskA.dependsOn ':thirdparty:taskB'
