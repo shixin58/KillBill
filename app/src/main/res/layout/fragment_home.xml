@@ -63,4 +63,14 @@
         app:layout_constraintTop_toBottomOf="@id/button_recycler_view2"
         android:gravity="center"
         android:text="test touch"/>
+
+    <TextView
+        android:id="@+id/button_upload"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_touch"
+        android:gravity="center"
+        android:text="test upload"/>
 </android.support.constraint.ConstraintLayout>

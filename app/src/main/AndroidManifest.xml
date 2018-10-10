@@ -90,12 +90,19 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".activity.UploadActivity"
+            android:label="@string/activity_upload"
+            android:launchMode="standard"
+            android:screenOrientation="portrait"/>
+
         <service android:name=".MyService"
             android:process=":MyService">
             <intent-filter>
                 <action android:name="com.bride.demon.IMyService"/>
             </intent-filter>
         </service>
+
+        <service android:name=".UploadService"/>
     </application>
 
 </manifest>

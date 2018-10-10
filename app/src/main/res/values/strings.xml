@@ -11,4 +11,5 @@
     <string name="activity_third">ThirdActivity</string>
     <string name="activity_recycler_view2">RecyclerView2Activity</string>
     <string name="activity_test_touch">TestTouchActivity</string>
+    <string name="activity_upload">UploadActivity</string>
 </resources>

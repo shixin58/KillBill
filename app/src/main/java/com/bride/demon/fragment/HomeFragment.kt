@@ -18,6 +18,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             v?.id==R.id.button_base -> BlankActivity.openActivity(activity)
             v?.id==R.id.button_recycler_view2 -> RecyclerView2Activity.openActivity(activity)
             v?.id==R.id.button_touch -> TestTouchActivity.openActivity(activity, 0)
+            v?.id==R.id.button_upload -> UploadActivity.openActivity(activity)
         }
     }
 
@@ -32,6 +33,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         view?.findViewById<View>(R.id.button_base)?.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_recycler_view2)?.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_touch)?.setOnClickListener(this)
+        view?.findViewById<View>(R.id.button_upload)?.setOnClickListener(this)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
