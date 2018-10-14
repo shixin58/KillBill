@@ -45,6 +45,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         findViewById(R.id.tv_switch).setOnClickListener(this);
         findViewById(R.id.tv_use_service).setOnClickListener(this);
         findViewById(R.id.tv_changeThread).setOnClickListener(this);
+        findViewById(R.id.tv_execute_task).setOnClickListener(this);
     }
 
     @Override
@@ -119,6 +120,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                    }
+                });
+                break;
+            case R.id.tv_execute_task:
+                // 小于核心线程数，直接创建新线程
+                executorService.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i("execute", "run");
                     }
                 });
                 break;

@@ -4,6 +4,7 @@ apply from: 'phone.gradle'
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION as int
+    buildToolsVersion BUILD_TOOLS_VERSION
 
     defaultConfig {
         applicationId "com.bride.thirdparty"
