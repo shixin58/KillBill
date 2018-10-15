@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 
 import com.bride.demon.CellScrollHolder;
@@ -48,6 +49,8 @@ public class RecyclerView2Activity extends AppCompatActivity {
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         NestedAdapter nestedAdapter = new NestedAdapter();
+        nestedAdapter.addHeaderView(LayoutInflater.from(this).inflate(R.layout.header, mRecyclerView, false));
+        nestedAdapter.addFooterView(LayoutInflater.from(this).inflate(R.layout.footer, mRecyclerView, false));
         mRecyclerView.setAdapter(nestedAdapter);
         mRecyclerView.addOnItemTouchListener(new MyOnItemTouchListener());
         mRecyclerView.addOnScrollListener(new MyOnScrollListener());

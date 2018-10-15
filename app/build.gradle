@@ -34,8 +34,8 @@ dependencies ({
     implementation "com.android.support:support-vector-drawable:$rootProject.supportLibraryVersion"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-//    debugImplementation 'com.github.markzhai:blockcanary-android:1.5.0'
-    debugImplementation 'com.github.markzhai:blockcanary-no-op:1.5.0'
+    debugImplementation 'com.github.markzhai:blockcanary-android:1.5.0'
+//    debugImplementation 'com.github.markzhai:blockcanary-no-op:1.5.0'
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
 //    debugImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'

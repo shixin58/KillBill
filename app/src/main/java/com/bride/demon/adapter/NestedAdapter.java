@@ -11,14 +11,12 @@ import com.bride.baselib.widget.BaseRecyclerAdapter;
 import com.bride.demon.CellScrollHolder;
 import com.bride.demon.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * <p>Created by shixin on 2018/9/25.
  */
-public class NestedAdapter extends BaseRecyclerAdapter {
-    private List<List<String>> lists = new ArrayList<>();
+public class NestedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder, List<String>> {
     private CellScrollHolder cellScrollHolder;
 
     public void setList(List<List<String>> lists) {
@@ -35,22 +33,26 @@ public class NestedAdapter extends BaseRecyclerAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        return position%2;
+        if(position>=getHeaderViewCount() && position<getItemCount()-getFooterViewCount())
+            return position%2;
+        else
+            return super.getItemViewType(position);
     }
 
     @Override
     public void onBindVH(RecyclerView.ViewHolder holder, int position) {
+        if(getItemViewType(position)<0) return;
         if(getItemViewType(position)==0) {
             AppleViewHolder viewHolder = (AppleViewHolder) holder;
             LieAdapter lieAdapter = new LieAdapter();
-            lieAdapter.setList(lists.get(position));
+            lieAdapter.setList(lists.get(position-getHeaderViewCount()));
             viewHolder.recyclerView.setLayoutManager(new LinearLayoutManager(viewHolder.recyclerView.getContext(),
                     LinearLayoutManager.HORIZONTAL, false));
             viewHolder.recyclerView.setAdapter(lieAdapter);
         }else {
             BananaViewHolder viewHolder = (BananaViewHolder) holder;
             StandAdapter standAdapter = new StandAdapter();
-            standAdapter.setFruitList(lists.get(position));
+            standAdapter.setFruitList(lists.get(position-getHeaderViewCount()));
             viewHolder.recyclerView.setLayoutManager(new LinearLayoutManager(viewHolder.recyclerView.getContext(),
                     LinearLayoutManager.HORIZONTAL, false));
             viewHolder.recyclerView.setAdapter(standAdapter);
@@ -59,6 +61,8 @@ public class NestedAdapter extends BaseRecyclerAdapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateVH(ViewGroup parent, int viewType) {
+        if(viewType<0)
+            return new HeaderOrFooterViewHolder(getHeaderOrFooter(viewType));
         if(viewType == 0) {
             AppleViewHolder appleViewHolder = new AppleViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_nested_apple, parent, false));
             cellScrollHolder.register(appleViewHolder.recyclerView);
@@ -68,11 +72,6 @@ public class NestedAdapter extends BaseRecyclerAdapter {
             cellScrollHolder.register(bananaViewHolder.recyclerView);
             return bananaViewHolder;
         }
-    }
-
-    @Override
-    public int getItemCount() {
-        return lists.size();
     }
 
     class AppleViewHolder extends RecyclerView.ViewHolder {
