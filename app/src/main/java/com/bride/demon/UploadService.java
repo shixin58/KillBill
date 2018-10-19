@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.bride.demon.activity.UploadActivity;
 
@@ -26,6 +27,24 @@ public class UploadService extends IntentService {
 
     public UploadService() {
         super("UploadService");
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Log.i("UploadService", "onCreate");
+    }
+
+    @Override
+    public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
+        Log.i("UploadService", "onStartCommand");
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("UploadService", "onDestroy");
     }
 
     @Override

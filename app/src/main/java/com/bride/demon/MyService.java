@@ -13,6 +13,18 @@ import android.util.Log;
  */
 public class MyService extends Service {
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Log.i("MyService", "onCreate");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("MyService", "onDestroy");
+    }
+
     public class MyServiceImpl extends IMyService.Stub {
 
         @Override
@@ -44,6 +56,7 @@ public class MyService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+        Log.i("MyService", "onBind");
         return new MyServiceImpl();
     }
 }
