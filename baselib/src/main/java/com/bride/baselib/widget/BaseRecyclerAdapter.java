@@ -16,7 +16,7 @@ import java.util.List;
 public abstract class BaseRecyclerAdapter<V extends RecyclerView.ViewHolder, T> extends RecyclerView.Adapter<V> implements View.OnClickListener {
     protected OnItemClickListener mOnItemClickListener;
     protected WeakReference<RecyclerView> mRecyclerView;
-    protected List<T> lists = new ArrayList<>();
+    protected List<T> mList = new ArrayList<>();
 
     private List<View> mHeaderViews = new LinkedList<>();
     private List<View> mFooterViews = new LinkedList<>();
@@ -52,7 +52,7 @@ public abstract class BaseRecyclerAdapter<V extends RecyclerView.ViewHolder, T> 
             return -(position+1);
         }
         if(mFooterViews.size()>0 && getItemCount()-position<=mFooterViews.size()) {
-            return -(position-lists.size()+1);
+            return -(position-mList.size()+1);
         }
         return super.getItemViewType(position);
     }
@@ -64,7 +64,7 @@ public abstract class BaseRecyclerAdapter<V extends RecyclerView.ViewHolder, T> 
 
     @Override
     public int getItemCount() {
-        return lists.size()+mHeaderViews.size()+mFooterViews.size();
+        return mList.size()+mHeaderViews.size()+mFooterViews.size();
     }
 
     abstract public void onBindVH(V holder, int position);

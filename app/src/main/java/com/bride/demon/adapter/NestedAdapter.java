@@ -20,9 +20,9 @@ public class NestedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder, 
     private CellScrollHolder cellScrollHolder;
 
     public void setList(List<List<String>> lists) {
-        this.lists.clear();
+        this.mList.clear();
         if(lists!=null && !lists.isEmpty()) {
-            this.lists.addAll(lists);
+            this.mList.addAll(lists);
         }
         notifyDataSetChanged();
     }
@@ -45,14 +45,14 @@ public class NestedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder, 
         if(getItemViewType(position)==0) {
             AppleViewHolder viewHolder = (AppleViewHolder) holder;
             LieAdapter lieAdapter = new LieAdapter();
-            lieAdapter.setList(lists.get(position-getHeaderViewCount()));
+            lieAdapter.setList(mList.get(position-getHeaderViewCount()));
             viewHolder.recyclerView.setLayoutManager(new LinearLayoutManager(viewHolder.recyclerView.getContext(),
                     LinearLayoutManager.HORIZONTAL, false));
             viewHolder.recyclerView.setAdapter(lieAdapter);
         }else {
             BananaViewHolder viewHolder = (BananaViewHolder) holder;
             StandAdapter standAdapter = new StandAdapter();
-            standAdapter.setFruitList(lists.get(position-getHeaderViewCount()));
+            standAdapter.setFruitList(mList.get(position-getHeaderViewCount()));
             viewHolder.recyclerView.setLayoutManager(new LinearLayoutManager(viewHolder.recyclerView.getContext(),
                     LinearLayoutManager.HORIZONTAL, false));
             viewHolder.recyclerView.setAdapter(standAdapter);
