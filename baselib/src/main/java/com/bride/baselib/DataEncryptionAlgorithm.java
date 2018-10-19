@@ -3,8 +3,6 @@ package com.bride.baselib;
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.nio.charset.Charset;
 import java.security.SecureRandom;
 
@@ -132,8 +130,7 @@ public class DataEncryptionAlgorithm {
      * @param ivBytes {@link String#getBytes()}
      */
     @SuppressLint("TrulyRandom")
-    @NotNull
-    public static String encryptDES(@NotNull String src, byte[] keyBytes, byte[] ivBytes) throws Exception {
+    public static String encryptDES(String src, byte[] keyBytes, byte[] ivBytes) throws Exception {
         SecureRandom secureRandom = new SecureRandom();
         DESKeySpec ks = new DESKeySpec(keyBytes);
         SecretKeyFactory skf = SecretKeyFactory.getInstance("DES");

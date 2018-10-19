@@ -11,8 +11,6 @@ import com.bride.baselib.BaseActivity;
 import com.bride.demon.R;
 import com.bride.demon.widget.MyViewGroup;
 
-import org.jetbrains.annotations.Nullable;
-
 /**
  * <p>Created by shixin on 2018/9/13.
  */
@@ -33,7 +31,7 @@ public class TestTouchActivity extends BaseActivity {
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_touch);
         initView();
