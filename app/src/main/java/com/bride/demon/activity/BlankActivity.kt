@@ -2,7 +2,7 @@ package com.bride.demon.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.FragmentActivity
 import android.util.Log
 import android.view.View
 import com.bride.baselib.BaseActivity
@@ -48,7 +48,7 @@ class BlankActivity : BaseActivity() {
 
     companion object {
 
-        fun openActivity(context: FragmentActivity?) {
+        fun openActivity(context: androidx.fragment.app.FragmentActivity?) {
             val intent = Intent(context, BlankActivity::class.java)
             context?.startActivity(intent)
         }

@@ -1,20 +1,17 @@
 package com.bride.demon.adapter
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-
 import com.bride.demon.R
-
-import java.util.ArrayList
+import java.util.*
 
 /**
  *
  * Created by shixin on 2018/3/6.
  */
-class StandAdapter : RecyclerView.Adapter<StandAdapter.ViewHolder>() {
+class StandAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<StandAdapter.ViewHolder>() {
     private val fruitList = ArrayList<String>()
 
     fun setFruitList(fruitList: List<String>?) {
@@ -37,7 +34,7 @@ class StandAdapter : RecyclerView.Adapter<StandAdapter.ViewHolder>() {
         return fruitList.size
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         var tvTitle: TextView = itemView.findViewById(R.id.tv_title)
     }
 }

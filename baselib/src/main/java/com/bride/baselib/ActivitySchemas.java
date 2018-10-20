@@ -1,6 +1,6 @@
 package com.bride.baselib;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * <p>Created by shixin on 2018/9/27.

@@ -4,11 +4,12 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.bride.demon.activity.UploadActivity;
+
+import androidx.annotation.Nullable;
 
 /**
  * <p>Created by shixin on 2018/10/10.

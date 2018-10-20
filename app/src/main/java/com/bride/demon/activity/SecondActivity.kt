@@ -2,7 +2,6 @@ package com.bride.demon.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
 import android.view.View
 import com.bride.baselib.BaseActivity
 import com.bride.demon.R
@@ -29,7 +28,7 @@ class SecondActivity : BaseActivity(), View.OnClickListener {
     }
 
     companion object {
-        fun openActivity(activity: FragmentActivity?) {
+        fun openActivity(activity: androidx.fragment.app.FragmentActivity?) {
             val intent = Intent(activity, SecondActivity::class.java)
             activity?.startActivity(intent)
         }

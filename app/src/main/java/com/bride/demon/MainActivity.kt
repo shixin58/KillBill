@@ -1,24 +1,22 @@
 package com.bride.demon
 
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentTransaction
 import android.util.Log
 import com.bride.baselib.BaseActivity
 import com.bride.demon.fragment.DashboardFragment
 import com.bride.demon.fragment.HomeFragment
 import com.bride.demon.fragment.NotificationsFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : BaseActivity() {
 
-    private val fragments = arrayOfNulls<Fragment>(3)
+    private val fragments = arrayOfNulls<androidx.fragment.app.Fragment>(3)
     private var mIndex: Int = 0
     private val fragmentLifecycleCallbacks = MyFragmentLifecycleCallbacks()
     private val lifecycleObserver = MyLifecycleObserver()
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        var transaction: FragmentTransaction?
+        var transaction: androidx.fragment.app.FragmentTransaction?
         when (item.itemId) {
             R.id.navigation_home -> {
                 transaction = supportFragmentManager.beginTransaction()

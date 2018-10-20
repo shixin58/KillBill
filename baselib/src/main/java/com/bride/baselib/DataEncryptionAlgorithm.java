@@ -1,7 +1,7 @@
 package com.bride.baselib;
 
 import android.annotation.SuppressLint;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.nio.charset.Charset;
 import java.security.SecureRandom;

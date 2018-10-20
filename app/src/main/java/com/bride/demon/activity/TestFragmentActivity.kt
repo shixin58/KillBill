@@ -3,9 +3,7 @@ package com.bride.demon.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import com.bride.baselib.BaseActivity
 import com.bride.demon.R
 
@@ -23,12 +21,12 @@ class TestFragmentActivity : BaseActivity() {
             ContextCompat.startActivity(context, intent, null)
         }
 
-        fun openActivityForResult(activity: FragmentActivity, requestCode: Int) {
+        fun openActivityForResult(activity: androidx.fragment.app.FragmentActivity, requestCode: Int) {
             val intent = Intent(activity, TestFragmentActivity::class.java)
             activity.startActivityForResult(intent, requestCode)
         }
 
-        fun openActivityForResult(fragment: Fragment, requestCode: Int) {
+        fun openActivityForResult(fragment: androidx.fragment.app.Fragment, requestCode: Int) {
             val intent = Intent(fragment.activity, TestFragmentActivity::class.java)
             fragment.startActivityForResult(intent, requestCode)
         }
