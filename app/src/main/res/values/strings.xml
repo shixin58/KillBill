@@ -12,4 +12,5 @@
     <string name="activity_recycler_view2">RecyclerView2Activity</string>
     <string name="activity_test_touch">TestTouchActivity</string>
     <string name="activity_upload">UploadActivity</string>
+    <string name="activity_webp">WebpActivity</string>
 </resources>

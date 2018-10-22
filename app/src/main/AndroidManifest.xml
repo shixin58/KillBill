@@ -95,6 +95,11 @@
             android:launchMode="standard"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".activity.WebpActivity"
+            android:label="@string/activity_webp"
+            android:launchMode="standard"
+            android:screenOrientation="portrait"/>
+
         <service android:name=".MyService"
             android:process=":MyService">
             <intent-filter>
