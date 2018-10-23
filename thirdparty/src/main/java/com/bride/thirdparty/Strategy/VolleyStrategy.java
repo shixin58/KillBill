@@ -123,7 +123,7 @@ public class VolleyStrategy implements IStrategy {
     }
 
     public void executeImage(final ImageView imageView) {
-        String url = "http://n.sinaimg.cn/transform/20150811/Vza--fxftkpx3764400.jpg";
+        String url = "http://img1.3lian.com/2015/a2/204/d/15.jpg";
         ImageRequest imageRequest = new ImageRequest(url, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap bitmap) {
@@ -141,7 +141,7 @@ public class VolleyStrategy implements IStrategy {
 
     public void executeImage2(final ImageView imageView) {
         // 自定义lru缓存
-        String url = "http://img.mingxing.com/upload/attach/2016/02-06/301004-FufQKQ.jpg";
+        String url = "http://www.sc.xinhuanet.com/content/2016-06/21/1119086185_14665015230811n.png";
         ImageLoader imageLoader = new ImageLoader(mQueue, new BitmapCache());
         ImageLoader.ImageListener imageListener = ImageLoader.getImageListener(imageView, R.mipmap.ic_launcher, R.mipmap.ic_launcher);
         imageLoader.get(url, imageListener, 0, 0, ImageView.ScaleType.CENTER_CROP);
@@ -149,7 +149,7 @@ public class VolleyStrategy implements IStrategy {
 
     public void executeImage3(final NetworkImageView imageView) {
         // NetworkImageView使用
-        String url = "http://www.zj.xinhuanet.com/yltd/2016-03/17/1118363732_14582019140151n.jpg";
+        String url = "https://www.nanrenwo.net/uploads/171009/8478-1G009160016215.jpg";
         ImageLoader imageLoader = new ImageLoader(mQueue, new BitmapCache());
         imageView.setDefaultImageResId(R.mipmap.ic_launcher);
         imageView.setErrorImageResId(R.mipmap.ic_launcher);

@@ -32,6 +32,7 @@ public class WebpActivity extends BaseActivity {
 
     private void initView() {
         ImageView imageView = findViewById(R.id.iv_example1);
+        // 关晓彤
         imageView.setImageResource(R.mipmap.actress);
     }
 
