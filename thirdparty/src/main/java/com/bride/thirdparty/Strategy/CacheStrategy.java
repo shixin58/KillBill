@@ -47,5 +47,10 @@ public class CacheStrategy implements IStrategy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             fuckYou();
         }
+        System.out.println("isSDCardMounted "+isSDCardMounted());
+    }
+
+    public static boolean isSDCardMounted() {
+        return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
     }
 }

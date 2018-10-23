@@ -2,6 +2,7 @@ package com.bride.demon.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -45,7 +46,11 @@ public class WebpActivity extends BaseActivity {
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         if(attrs!=null && attrs.getAttributeCount()>0) {
             for(int i=0;i<attrs.getAttributeCount();i++) {
-                Log.i("AttributeSet", attrs.getAttributeName(i)+"-"+attrs.getAttributeValue(i));
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    Log.i("AttributeSet", attrs.getAttributeNamespace(i)+"-"+attrs.getAttributeName(i)+"-"+attrs.getAttributeValue(i));
+                }else {
+                    Log.i("AttributeSet", attrs.getAttributeName(i)+"-"+attrs.getAttributeValue(i));
+                }
             }
         }
         View view = super.onCreateView(parent, name, context, attrs);
