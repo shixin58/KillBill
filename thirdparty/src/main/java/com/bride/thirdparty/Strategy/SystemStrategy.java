@@ -1,15 +1,23 @@
 package com.bride.thirdparty.Strategy;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Process;
 import android.os.SystemClock;
+import android.system.Os;
 import android.telephony.TelephonyManager;
 
 import com.bride.thirdparty.MyApplication;
 import com.bride.thirdparty.protocal.IStrategy;
 
 import java.util.Locale;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 /**
  * <p>Created by shixin on 2018/10/7.
@@ -30,17 +38,26 @@ public class SystemStrategy implements IStrategy {
         // 设备启动时间，不包含deep sleep
         System.out.println("SystemClock.uptimeMillis() "+SystemClock.uptimeMillis());
 
-        System.out.println("getDeviceId "+getDeviceId());
         System.out.println("getDeviceInfo "+getDeviceInfo());
+        testProcessInfo();
     }
 
-    public static String getDeviceId() {
+    public static String getDeviceId(Activity activity) {
+        if(ContextCompat.checkSelfPermission(MyApplication.getInstance(), Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            if(ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.READ_PHONE_STATE)) {
+
+            }else {
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
+            }
+            return "Unknown";
+        }
         TelephonyManager telephonyManager = (TelephonyManager) MyApplication.getInstance().getSystemService(Context.TELEPHONY_SERVICE);
         if(telephonyManager == null) {
             return "Unknown";
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            @SuppressLint({"MissingPermission"})  String imei = telephonyManager.getImei();
+            @SuppressLint({"MissingPermission", })  String imei = telephonyManager.getImei();
             @SuppressLint("MissingPermission") String meid = telephonyManager.getMeid();
             System.out.println("imei: "+imei+"; meid: "+meid);
         }
@@ -64,5 +81,17 @@ public class SystemStrategy implements IStrategy {
                 +"|"+Build.VERSION.SDK_INT
                 +"|"+Build.VERSION.RELEASE
                 +"|"+Locale.getDefault().getLanguage();/* 判断手机系统语言，设置手机默认语言 */
+    }
+
+//    @SuppressLint("NewApi")
+//    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+//    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public static void testProcessInfo() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            System.out.println("Process: "+Process.myPid()+"|"+Process.myTid()+"|"+Process.myUid()+"|"+Process.is64Bit());
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            System.out.println("Os: "+Os.getpid()+"|"+Os.getppid()+"|"+Os.gettid()+"|"+Os.getuid());
+        }
     }
 }

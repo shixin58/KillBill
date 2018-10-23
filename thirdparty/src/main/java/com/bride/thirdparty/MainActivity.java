@@ -1,5 +1,6 @@
 package com.bride.thirdparty;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,8 @@ import com.bride.thirdparty.Strategy.RxJavaStrategy;
 import com.bride.thirdparty.Strategy.SystemStrategy;
 import com.bride.thirdparty.bean.MessageEvent;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -18,7 +21,8 @@ import io.reactivex.disposables.Disposable;
 /**
  * <p>Created by shixin on 2018/9/7.
  */
-public class MainActivity extends BaseActivity implements View.OnClickListener{
+public class MainActivity extends BaseActivity implements View.OnClickListener,
+        ActivityCompat.OnRequestPermissionsResultCallback {
 
     Observable<MessageEvent> mObservable;
 
@@ -85,6 +89,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 //        rxJavaStrategy.executeLift();
 
         new SystemStrategy().execute();
+        System.out.println("getDeviceId "+SystemStrategy.getDeviceId(this));
     }
 
     @Override
@@ -103,5 +108,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     protected void onDestroy() {
         super.onDestroy();
         RxBus.getInstance().unregister(MessageEvent.class, mObservable);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 1:
+                if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    System.out.println("getDeviceId "+SystemStrategy.getDeviceId(this));
+                }
+                break;
+        }
     }
 }
