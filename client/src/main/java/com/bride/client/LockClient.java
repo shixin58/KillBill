@@ -95,12 +95,19 @@ public class LockClient {
             }
         };
         list.add(thread1);
+        // foreach使用迭代器
         for(Thread t:list) {
             try {
                 t.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+        // java.lang.Integer.IntegerCache, 维护一个static Integer数组
+        Integer[] integers = {1, 2, Integer.valueOf(3), null};
+        for(Integer integer:integers) {
+            // 自动拆箱空指针
+            int i = integer.intValue();
         }
     }
 
@@ -139,6 +146,8 @@ public class LockClient {
 
 //        client.joinMethod();
 
-        client.interruptMethod();
+//        client.interruptMethod();
+
+//        client.joinMethod2();
     }
 }
