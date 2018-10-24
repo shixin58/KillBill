@@ -1,9 +1,12 @@
 package com.bride.client;
 
+import java.util.Vector;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
@@ -30,7 +33,7 @@ public class ThreadClient {
 
     private static void testWaitNotify() {
         ExecutorService executorService = Executors.newFixedThreadPool(3);
-                executorService.execute(new Runnable() {
+        executorService.execute(new Runnable() {
             @Override
             public void run() {
                 runThread1();
@@ -126,12 +129,12 @@ public class ThreadClient {
     }
 
     private static void testOtherThreadPool() {
-        // 1、核心线程数和最大线程数一样，线程不销毁
+        // 1、核心线程数和最大线程数一样, LinkedBlockingQueue
         ExecutorService executorService = Executors.newFixedThreadPool(3);
         executorService.shutdown();
-
-        // 2、单个工作线程
+        // 2、核心线程数和最大线程数均为1
         ExecutorService executorService1 = Executors.newSingleThreadExecutor();
+        // Future
         Future<String> future = executorService1.submit(new Callable<String>() {
             @Override
             public String call() throws Exception {
@@ -139,6 +142,29 @@ public class ThreadClient {
                 return "OK";
             }
         });
+        Future<String> future1 = executorService1.submit(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }, "OK");
+        Future<?> future2 = executorService1.submit(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
+        FutureTask<Integer> futureTask = new FutureTask<>(new Callable<Integer>() {
+            @Override
+            public Integer call() throws Exception {
+                return 1;
+            }
+        });
+        executorService1.submit(futureTask);
+        if(future.isDone()&&future1.isDone()&&future2.isDone()&&futureTask.isDone()) {
+
+        }
+
         // 3、核心线程0，最大线程MAX, SynchronousQueue
         ExecutorService executorService2 = Executors.newCachedThreadPool();
         executorService2.shutdownNow();
@@ -152,9 +178,50 @@ public class ThreadClient {
 //        scheduledExecutorService.scheduleAtFixedRate(new MyRunnable(), 2, 3, TimeUnit.SECONDS);
         // delay后执行下一个任务，执行完，再delay，再执行下一个
 //        scheduledExecutorService.scheduleWithFixedDelay(new MyRunnable(), 2, 3, TimeUnit.SECONDS);
-
-        // 5、单个工作线程
+        // 5、核心线程数1，最大线程MAX_VALUE, DelayedWorkQueue
         ScheduledExecutorService scheduledExecutorService1 = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService1.scheduleWithFixedDelay(new MyRunnable(), 2, 3, TimeUnit.SECONDS);
+    }
+
+    private static void testFuture() {
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+        final Vector<Future> vector = new Vector<>();
+        Future<?> future = executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        vector.add(future);
+        Future<?> future2 = executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(6000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        vector.add(future2);
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                for(Future f:vector) {
+                    try {
+                        f.get();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println("所有工作线程执行完毕，切换主线程");
+            }
+        });
     }
 }

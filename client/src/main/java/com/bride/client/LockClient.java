@@ -1,5 +1,7 @@
 package com.bride.client;
 
+import java.util.List;
+import java.util.Vector;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -75,6 +77,31 @@ public class LockClient {
             e.printStackTrace();
         }
         System.out.println("执行后续指令 "+Thread.currentThread().getName()+" "+Thread.currentThread().getId());
+    }
+
+    public void joinMethod2() {
+        List<Thread> list = new Vector<>();
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                super.run();
+            }
+        };
+        list.add(thread);
+        Thread thread1 = new Thread() {
+            @Override
+            public void run() {
+                super.run();
+            }
+        };
+        list.add(thread1);
+        for(Thread t:list) {
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void interruptMethod() {
