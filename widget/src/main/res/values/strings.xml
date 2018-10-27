@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">MaxWidgets</string>
+    <string name="activity_boss">BossActivity</string>
+    <string name="activity_js">JSActivity</string>
+    <string name="activity_scrolling">ScrollingActivity</string>
+
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

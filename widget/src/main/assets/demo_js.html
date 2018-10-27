@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Victor_Shi</title>
+        <script>
+            function callAlert(param) {
+                alert(param);
+            }
+
+            function callConfirm() {
+                var result = confirm("确定是这样吗?");
+                return result;
+            }
+
+            function callPrompt() {
+                var result = prompt("js://webview?arg1=111&arg2=222");
+                return result;
+            }
+
+            function callAndroid() {
+                test.hello("js调用了android中的hello方法");
+            }
+
+            function callAndroid2() {
+                document.location = "js://webview?arg1=111&arg2=222";
+            }
+        </script>
+    </head>
+    <body>
+        <h5>button1</h5>
+        <button type="button" id="button1" onclick="callAndroid()">点击按钮则调用callAndroid函数</button>
+        <h5>button2</h5>
+        <button type="button" id="button2" onclick="callAndroid2()">点击按钮则调用callAndroid2函数</button>
+        <h5>button3</h5>
+        <button type="button" id="button3" onclick="callPrompt()">点击按钮则调用callPrompt函数</button>
+    </body>
+</html>

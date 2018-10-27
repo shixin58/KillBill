@@ -84,6 +84,7 @@ public class VolleyStrategy implements IStrategy {
 
     @Override
     public void execute() {
+        // Cleartext HTTP traffic to apis.juhe.cn not permitted, P开始仅允许https
         // post json
         String url = "http://apis.juhe.cn/mobile/get";
         StringBuilder stringBuilder = new StringBuilder();

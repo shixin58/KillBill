@@ -9,17 +9,40 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".ScrollingActivity"
+        <activity android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:launchMode="standard">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity
+            android:name=".ScrollingActivity"
+            android:label="@string/activity_scrolling"
+            android:launchMode="standard"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".BossActivity"
+            android:label="@string/activity_boss"
+            android:launchMode="standard"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".JSActivity"
+            android:label="@string/activity_js"
+            android:launchMode="standard"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="max"
+                    android:host="widget"
+                    android:pathPrefix="/js"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
