@@ -19,7 +19,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.bride.thirdparty.BitmapCache;
 import com.bride.thirdparty.protocal.IStrategy;
-import com.bride.thirdparty.MyApplication;
+import com.bride.thirdparty.ThirdPartyApplication;
 import com.bride.thirdparty.R;
 
 import org.json.JSONException;
@@ -35,7 +35,7 @@ import java.util.Map;
 public class VolleyStrategy implements IStrategy {
     private RequestQueue mQueue;
     public VolleyStrategy() {
-        mQueue = MyApplication.getInstance().getRequestQueue();
+        mQueue = ThirdPartyApplication.getInstance().getRequestQueue();
     }
 
     public void executeGetString() {

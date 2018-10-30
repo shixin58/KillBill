@@ -11,7 +11,7 @@ import android.os.SystemClock;
 import android.system.Os;
 import android.telephony.TelephonyManager;
 
-import com.bride.thirdparty.MyApplication;
+import com.bride.thirdparty.ThirdPartyApplication;
 import com.bride.thirdparty.protocal.IStrategy;
 
 import java.util.Locale;
@@ -43,7 +43,7 @@ public class SystemStrategy implements IStrategy {
     }
 
     public static String getDeviceId(Activity activity) {
-        if(ContextCompat.checkSelfPermission(MyApplication.getInstance(), Manifest.permission.READ_PHONE_STATE)
+        if(ContextCompat.checkSelfPermission(ThirdPartyApplication.getInstance(), Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
             if(ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.READ_PHONE_STATE)) {
 
@@ -52,7 +52,7 @@ public class SystemStrategy implements IStrategy {
             }
             return "Unknown";
         }
-        TelephonyManager telephonyManager = (TelephonyManager) MyApplication.getInstance().getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager telephonyManager = (TelephonyManager) ThirdPartyApplication.getInstance().getSystemService(Context.TELEPHONY_SERVICE);
         if(telephonyManager == null) {
             return "Unknown";
         }

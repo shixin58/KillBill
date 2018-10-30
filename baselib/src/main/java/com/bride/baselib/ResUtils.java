@@ -13,6 +13,7 @@ public class ResUtils {
 
     private static Context context;
 
+    // 在Application#onCreate设置
     public static void setContext(Context context) {
         ResUtils.context = context;
     }

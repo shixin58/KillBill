@@ -1,6 +1,8 @@
 package com.bride.demon
 
 import android.app.Application
+import com.bride.baselib.PreferenceUtils
+import com.bride.baselib.ResUtils
 
 import com.github.moduth.blockcanary.BlockCanary
 import com.squareup.leakcanary.LeakCanary
@@ -9,11 +11,15 @@ import com.squareup.leakcanary.LeakCanary
  *
  * Created by shixin on 2017/12/15.
  */
-class DemoApplication : Application() {
+class DemonApplication : Application() {
     private val activityLifecycleCallbacks = MyActivityLifecycleCallbacks()
 
     override fun onCreate() {
         super.onCreate()
+
+        ResUtils.setContext(this)
+
+        PreferenceUtils.initialize(this, "demon_prefs")
 
         initLeakCanary()
 

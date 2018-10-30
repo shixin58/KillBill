@@ -32,7 +32,7 @@ class VolleyTestActivity : BaseActivity() {
 
     override fun onStop() {
         super.onStop()
-        MyApplication.getInstance().requestQueue.cancelAll("xyz")
+        ThirdPartyApplication.getInstance().requestQueue.cancelAll("xyz")
     }
 
     fun onClick(view: View) {

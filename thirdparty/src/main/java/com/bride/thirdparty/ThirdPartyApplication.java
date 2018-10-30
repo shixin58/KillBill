@@ -4,15 +4,17 @@ import android.app.Application;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.bride.baselib.PreferenceUtils;
+import com.bride.baselib.ResUtils;
 
 /**
  * <p>Created by shixin on 2018/9/20.
  */
-public class MyApplication extends Application {
-    private static MyApplication application;
+public class ThirdPartyApplication extends Application {
+    private static ThirdPartyApplication application;
     private RequestQueue mRequestQueue;
 
-    public static MyApplication getInstance() {
+    public static ThirdPartyApplication getInstance() {
         return application;
     }
 
@@ -20,10 +22,11 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         application = this;
-        init();
-    }
 
-    private void init() {
+        ResUtils.setContext(this);
+
+        PreferenceUtils.initialize(this, "thirdparty_prefs");
+
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
     }
 
