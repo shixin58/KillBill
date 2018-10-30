@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.bride.demon.fragment.TestPlatformActivityFragment"
-    tools:showIn="@layout/activity_test_platform"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    tools:context="com.bride.demon.fragment.TestPlatformFragment"
+    tools:showIn="@layout/activity_test_platform">
 
     <TextView
         android:id="@+id/tv_greetings"

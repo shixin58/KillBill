@@ -149,6 +149,7 @@ public class JSActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_js:
+                // addView触发performTraversals，之后执行View#post(Runnable), 确保拿到View宽高
                 mWebView.post(new Runnable() {
                     @Override
                     public void run() {
