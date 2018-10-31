@@ -57,11 +57,13 @@ public class TestTouchActivity extends BaseActivity {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+        Log.i("TestTouchActivity", "dispatchTouchEvent "+ev.getAction());
         return super.dispatchTouchEvent(ev);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        Log.i("TestTouchActivity", "onTouchEvent "+event.getAction());
         return super.onTouchEvent(event);
     }
 }

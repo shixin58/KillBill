@@ -46,6 +46,7 @@ public class MyViewGroup extends ViewGroup implements View.OnClickListener {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         // 先调用onTouch，后调用onTouchEvent
         // false未处理，传给上层onTouchEvent
+        Log.i("MyViewGroup", "dispatchTouchEvent "+ev.getAction());
         return super.dispatchTouchEvent(ev);
     }
 
@@ -60,7 +61,7 @@ public class MyViewGroup extends ViewGroup implements View.OnClickListener {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 // true 表示 the event was handled in this view，接收之后的move和up事件
-                Log.i("onTouchEvent", "ACTION_DOWN");
+                Log.i("MyViewGroup", "onTouchEvent "+event.getAction()+" true");
                 return true;
             case MotionEvent.ACTION_MOVE:
                 // 绝对位置和相对位置
@@ -84,20 +85,18 @@ public class MyViewGroup extends ViewGroup implements View.OnClickListener {
                 }*/
                 break;
             case MotionEvent.ACTION_CANCEL:
-                Log.i("onTouchEvent", "ACTION_CANCEL");
                 break;
             case MotionEvent.ACTION_OUTSIDE:
-                Log.i("onTouchEvent", "ACTION_OUTSIDE");
                 break;
             case MotionEvent.ACTION_POINTER_UP:
-                Log.i("onTouchEvent", "ACTION_POINTER_UP");
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
-                Log.i("onTouchEvent", "ACTION_POINTER_DOWN");
                 break;
         }
         // true消费不再向上传递
-        return super.onTouchEvent(event);
+        boolean consumed = super.onTouchEvent(event);
+        Log.i("MyViewGroup", "onTouchEvent "+event.getAction()+" "+consumed);
+        return consumed;
     }
 
     @Override

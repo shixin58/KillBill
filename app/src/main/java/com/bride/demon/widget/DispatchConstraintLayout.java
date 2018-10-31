@@ -1,9 +1,11 @@
 package com.bride.demon.widget;
 
 import android.content.Context;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 /**
  * <p>Created by shixin on 2018/9/26.
@@ -22,6 +24,12 @@ public class DispatchConstraintLayout extends ConstraintLayout {
     }
 
     @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        Log.i("DispatchConstraintLayou", "dispatchTouchEvent "+ev.getAction());
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -35,5 +43,11 @@ public class DispatchConstraintLayout extends ConstraintLayout {
                 break;
         }
         return super.onInterceptTouchEvent(ev);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        Log.i("DispatchConstraintLayou", "onTouchEvent "+event.getAction());
+        return super.onTouchEvent(event);
     }
 }
