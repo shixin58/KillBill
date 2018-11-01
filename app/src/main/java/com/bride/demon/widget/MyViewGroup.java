@@ -24,7 +24,7 @@ public class MyViewGroup extends ViewGroup implements View.OnClickListener {
     }
 
     private void init() {
-        setOnClickListener(this);
+//        setOnClickListener(this);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class MyViewGroup extends ViewGroup implements View.OnClickListener {
                 break;
             case MotionEvent.ACTION_UP:
                 // 处理performClick()
-                performClick();
+//                performClick();
 //                 查看方法调用栈
                 /*try {
                     int i=1/0;

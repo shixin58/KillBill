@@ -40,9 +40,11 @@ public class JSActivity extends BaseActivity {
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+//        webSettings.setSavePassword(false);
 
         // 通过addJavascriptInterface()将Java对象映射到JS对象
         mWebView.addJavascriptInterface(new AndroidToJS(), "test");
+//        mWebView.removeJavascriptInterface("test");
 
         // 载入js代码
         mWebView.loadUrl("file:///android_asset/demo_js.html");
@@ -110,6 +112,16 @@ public class JSActivity extends BaseActivity {
                 builder.create().show();
                 return true;
             }
+
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                super.onReceivedTitle(view, title);
+            }
+
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+            }
         });
 
         mWebView.setWebViewClient(new WebViewClient(){
@@ -142,6 +154,16 @@ public class JSActivity extends BaseActivity {
                     return true;
                 }
                 return super.shouldOverrideUrlLoading(view, url);
+            }
+
+            @Override
+            public void onLoadResource(WebView view, String url) {
+                super.onLoadResource(view, url);
+            }
+
+            @Override
+            public void doUpdateVisitedHistory(WebView view, String url, boolean isReload) {
+                super.doUpdateVisitedHistory(view, url, isReload);
             }
         });
     }

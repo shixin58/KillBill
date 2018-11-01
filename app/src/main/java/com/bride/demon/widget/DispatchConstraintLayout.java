@@ -26,6 +26,16 @@ public class DispatchConstraintLayout extends ConstraintLayout {
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         Log.i("DispatchConstraintLayou", "dispatchTouchEvent "+ev.getAction());
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                break;
+            case MotionEvent.ACTION_MOVE:
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+            case MotionEvent.ACTION_CANCEL:
+                break;
+        }
         return super.dispatchTouchEvent(ev);
     }
 
@@ -48,6 +58,16 @@ public class DispatchConstraintLayout extends ConstraintLayout {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.i("DispatchConstraintLayou", "onTouchEvent "+event.getAction());
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                break;
+            case MotionEvent.ACTION_MOVE:
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+            case MotionEvent.ACTION_CANCEL:
+                break;
+        }
         return super.onTouchEvent(event);
     }
 }
