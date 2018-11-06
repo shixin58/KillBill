@@ -13,21 +13,29 @@ android ({
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    dexOptions {
+        // OutOfMemoryError:GC overhead limit exceeded
+        javaMaxHeapSize "4g"
     }
 })
 
 // Groovy闭包
 dependencies ({
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    implementation 'com.android.support:multidex:1.0.1'
 
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
