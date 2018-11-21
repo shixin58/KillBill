@@ -24,10 +24,12 @@ class VolleyTestActivity : BaseActivity() {
 
     private fun initView() {
         val volleyStrategy = VolleyStrategy()
-        volleyStrategy.execute()
-        volleyStrategy.executeImage(findViewById(R.id.iv_demo))
-        volleyStrategy.executeImage2(findViewById(R.id.iv_demo1))
-        volleyStrategy.executeImage3(findViewById(R.id.iv_demo2))
+//        volleyStrategy.executeGetString()
+        volleyStrategy.executePostString()
+//        volleyStrategy.execute()
+//        volleyStrategy.executeImage(findViewById(R.id.iv_demo))
+//        volleyStrategy.executeImage2(findViewById(R.id.iv_demo1))
+//        volleyStrategy.executeImage3(findViewById(R.id.iv_demo2))
     }
 
     override fun onStop() {

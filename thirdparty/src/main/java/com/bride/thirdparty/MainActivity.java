@@ -1,9 +1,15 @@
 package com.bride.thirdparty;
 
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Layout;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
+import android.widget.TextView;
 
 import com.bride.baselib.BaseActivity;
 import com.bride.thirdparty.Strategy.RetrofitStrategy;
@@ -37,6 +43,36 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     private void initView() {
         findViewById(R.id.tv_volley).setOnClickListener(this);
         findViewById(R.id.tv_eventbus).setOnClickListener(this);
+        testHeight();
+    }
+
+    private void testHeight() {
+        TextView tvHeight = findViewById(R.id.tv_height);
+        String source = getResources().getString(R.string.get_height);
+        tvHeight.setText(source);
+        tvHeight.post(new Runnable() {
+            @Override
+            public void run() {
+                Log.i("View#getHeight", tvHeight.getHeight()+"");
+            }
+        });
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            TextPaint textPaint = new TextPaint();
+            float textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14, getResources().getDisplayMetrics());
+            textPaint.setTextSize(textSize);
+            float width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getResources().getDisplayMetrics());
+            StaticLayout staticLayout = StaticLayout.Builder.obtain(source, 0, source.length(), textPaint, (int) width)
+                    .build();
+            Log.i("Layout#getHeight", staticLayout.getLineCount()+"-"+staticLayout.getHeight());
+        }else {
+            TextPaint textPaint = new TextPaint();
+            float textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14, getResources().getDisplayMetrics());
+            textPaint.setTextSize(textSize);
+            float width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getResources().getDisplayMetrics());
+            StaticLayout staticLayout = new StaticLayout(source, textPaint, (int) width,
+                    Layout.Alignment.ALIGN_NORMAL, 1, 0, true);
+            Log.i("Layout#getHeight", staticLayout.getLineCount()+"-"+staticLayout.getHeight());
+        }
     }
 
     private void initData() {

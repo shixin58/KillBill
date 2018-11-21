@@ -1,0 +1,11 @@
+task printList << {
+    def numList = [1, 3, 5, 7, 9] // java.util.ArrayList
+    println numList.getClass().name
+
+    println numList[-1]
+    println numList[1..3]
+
+    numList.each { // 迭代
+        println it
+    }
+}

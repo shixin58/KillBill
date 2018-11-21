@@ -84,13 +84,14 @@ public class VolleyStrategy implements IStrategy {
 
     @Override
     public void execute() {
-        // Cleartext HTTP traffic to apis.juhe.cn not permitted, P开始仅允许https
+        // target Pie 启用TLS，isCleartextTrafficPermitted返回false
         // post json
         String url = "http://apis.juhe.cn/mobile/get";
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("phone").append("=").append("13701116418");
         stringBuilder.append("&").append("key").append("=").append("9a4329bdf84fa69d193ce601c22b949d");
-        JsonRequest<JSONObject> jsonObjectRequest = new JsonRequest<JSONObject>(Request.Method.POST, url, stringBuilder.toString(), new Response.Listener<JSONObject>() {
+        JsonRequest<JSONObject> jsonObjectRequest = new JsonRequest<JSONObject>(Request.Method.POST, url,
+                stringBuilder.toString(), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 Log.i("onResponse", jsonObject.toString());
