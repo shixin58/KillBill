@@ -19,8 +19,6 @@ import android.webkit.WebViewClient;
 
 import com.bride.baselib.BaseActivity;
 
-import org.jetbrains.annotations.Nullable;
-
 /**
  * <p>Created by shixin on 2018/10/27.
  */
@@ -28,7 +26,7 @@ public class JSActivity extends BaseActivity {
     private WebView mWebView;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_js);
         initView();
@@ -52,6 +50,7 @@ public class JSActivity extends BaseActivity {
         mWebView.setWebChromeClient(new WebChromeClient(){
             @Override
             public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
+                Log.i("WebChromeClient", "onJsAlert "+message);
                 // 拦截警告框
                 AlertDialog.Builder builder = new AlertDialog.Builder(JSActivity.this);
                 builder.setTitle("标题");
@@ -69,6 +68,7 @@ public class JSActivity extends BaseActivity {
 
             @Override
             public boolean onJsConfirm(WebView view, String url, String message, final JsResult result) {
+                Log.i("WebChromeClient", "onJsConfirm "+message);
                 // 拦截确认框
                 AlertDialog.Builder builder = new AlertDialog.Builder(JSActivity.this);
                 builder.setTitle("标题");
@@ -92,6 +92,7 @@ public class JSActivity extends BaseActivity {
 
             @Override
             public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, final JsPromptResult result) {
+                Log.i("WebChromeClient", "onJsPrompt "+message);
                 // 拦截输入框
                 AlertDialog.Builder builder = new AlertDialog.Builder(JSActivity.this);
                 builder.setTitle("标题");
@@ -99,7 +100,7 @@ public class JSActivity extends BaseActivity {
                 builder.setPositiveButton("确认", new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        result.confirm("js调用了Android的方法成功啦");
+                        result.confirm("输入框输入的值");
                     }
                 });
                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -116,11 +117,14 @@ public class JSActivity extends BaseActivity {
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
+                Log.i("WebChromeClient", "onReceivedTitle "+title);
             }
 
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
+                // 获取网页加载进度更新ProgressBar
+                Log.i("WebChromeClient", "onProgressChanged "+newProgress);
             }
         });
 
@@ -145,25 +149,29 @@ public class JSActivity extends BaseActivity {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                // 拦截url
-                Log.i("WebViewClient", "shouldOverrideUrlLoading "+url);
                 Uri uri = Uri.parse(url);
                 if(TextUtils.equals(uri.getScheme(), "js")) {
                     if(TextUtils.equals(uri.getAuthority(), "webview")) {
+                        // 拦截url
+                        Log.i("WebViewClient", "shouldOverrideUrlLoading "
+                                +uri.getQueryParameter("arg1")+" "+uri.getQueryParameter("arg2"));
                     }
                     return true;
                 }
+                Log.i("WebViewClient", "shouldOverrideUrlLoading "+url);
                 return super.shouldOverrideUrlLoading(view, url);
             }
 
             @Override
             public void onLoadResource(WebView view, String url) {
                 super.onLoadResource(view, url);
+                Log.i("WebViewClient", "onLoadResource "+url);
             }
 
             @Override
             public void doUpdateVisitedHistory(WebView view, String url, boolean isReload) {
                 super.doUpdateVisitedHistory(view, url, isReload);
+                Log.i("WebViewClient", "doUpdateVisitedHistory "+url+"-"+isReload);
             }
         });
     }
