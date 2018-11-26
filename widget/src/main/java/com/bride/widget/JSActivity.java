@@ -4,13 +4,16 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.webkit.ConsoleMessage;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
+import android.webkit.SslErrorHandler;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -126,6 +129,25 @@ public class JSActivity extends BaseActivity {
                 // 获取网页加载进度更新ProgressBar
                 Log.i("WebChromeClient", "onProgressChanged "+newProgress);
             }
+
+            @Override
+            public Bitmap getDefaultVideoPoster() {
+                Log.i("WebChromeClient", "getDefaultVideoPoster");
+                return super.getDefaultVideoPoster();
+            }
+
+            @Override
+            public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+                Log.i("WebChromeClient", "onConsoleMessage");
+                return super.onConsoleMessage(consoleMessage);
+            }
+
+            @Override
+            public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback,
+                                             FileChooserParams fileChooserParams) {
+                Log.i("WebChromeClient", "onShowFileChooser");
+                return super.onShowFileChooser(webView, filePathCallback, fileChooserParams);
+            }
         });
 
         mWebView.setWebViewClient(new WebViewClient(){
@@ -172,6 +194,12 @@ public class JSActivity extends BaseActivity {
             public void doUpdateVisitedHistory(WebView view, String url, boolean isReload) {
                 super.doUpdateVisitedHistory(view, url, isReload);
                 Log.i("WebViewClient", "doUpdateVisitedHistory "+url+"-"+isReload);
+            }
+
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                super.onReceivedSslError(view, handler, error);
+                Log.i("WebViewClient", "onReceivedSslError");
             }
         });
     }
