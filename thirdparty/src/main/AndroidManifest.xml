@@ -35,5 +35,11 @@
         <activity android:name=".LandscapeActivity"
             android:label="@string/landscape_activity"
             android:launchMode="standard"/>
+
+        <activity android:name=".PushActivity"
+            android:label="@string/push_activity"
+            android:launchMode="standard"/>
+
+        <receiver android:name=".PushReceiver"/>
     </application>
 </manifest>

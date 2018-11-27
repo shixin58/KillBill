@@ -21,6 +21,10 @@ class TestFragmentActivity : BaseActivity() {
             ContextCompat.startActivity(context, intent, null)
         }
 
+        /**
+         * 先import再引用类，不事先import直接包点类引用有差别吗
+         * @param requestCode -1给startActivity用，>=0能被onActivityResult收到
+         */
         fun openActivityForResult(activity: androidx.fragment.app.FragmentActivity, requestCode: Int) {
             val intent = Intent(activity, TestFragmentActivity::class.java)
             activity.startActivityForResult(intent, requestCode)

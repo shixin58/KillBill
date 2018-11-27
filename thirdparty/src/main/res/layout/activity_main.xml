@@ -45,4 +45,14 @@
         android:gravity="center"
         android:text="test Landscape"/>
 
+    <TextView
+        android:id="@+id/tv_push"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_landscape"
+        android:gravity="center"
+        android:text="test Push"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

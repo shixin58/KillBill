@@ -38,6 +38,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         findViewById(R.id.tv_volley).setOnClickListener(this);
         findViewById(R.id.tv_eventbus).setOnClickListener(this);
         findViewById(R.id.tv_landscape).setOnClickListener(this);
+        findViewById(R.id.tv_push).setOnClickListener(this);
     }
 
     private void initData() {
@@ -108,6 +109,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 break;
             case R.id.tv_landscape:
                 LandscapeActivity.openActivity(this);
+                break;
+            case R.id.tv_push:
+                PushActivity.openActivity(this);
+                break;
+            default:
                 break;
         }
     }
