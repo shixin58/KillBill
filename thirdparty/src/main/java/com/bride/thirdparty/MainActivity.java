@@ -1,15 +1,9 @@
 package com.bride.thirdparty;
 
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.Layout;
-import android.text.StaticLayout;
-import android.text.TextPaint;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
-import android.widget.TextView;
 
 import com.bride.baselib.BaseActivity;
 import com.bride.thirdparty.Strategy.RetrofitStrategy;
@@ -43,39 +37,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     private void initView() {
         findViewById(R.id.tv_volley).setOnClickListener(this);
         findViewById(R.id.tv_eventbus).setOnClickListener(this);
-        testHeight();
-    }
-
-    private void testHeight() {
-        TextView tvHeight = findViewById(R.id.tv_height);
-        String source = getResources().getString(R.string.get_height);
-        tvHeight.setText(source);
-        tvHeight.post(new Runnable() {
-            @Override
-            public void run() {
-                Log.i("View#getHeight", tvHeight.getHeight()+"");
-            }
-        });
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            TextPaint textPaint = new TextPaint();
-            float textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14, getResources().getDisplayMetrics());
-            textPaint.setTextSize(textSize);
-            float width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getResources().getDisplayMetrics());
-            StaticLayout staticLayout = StaticLayout.Builder.obtain(source, 0, source.length(), textPaint, (int) width)
-                    .build();
-            Log.i("Layout#getHeight", staticLayout.getLineCount()+"-"+staticLayout.getHeight());
-        }else {
-            TextPaint textPaint = new TextPaint();
-            float textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14, getResources().getDisplayMetrics());
-            textPaint.setTextSize(textSize);
-            float width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getResources().getDisplayMetrics());
-            StaticLayout staticLayout = new StaticLayout(source, textPaint, (int) width,
-                    Layout.Alignment.ALIGN_NORMAL, 1, 0, true);
-            Log.i("Layout#getHeight", staticLayout.getLineCount()+"-"+staticLayout.getHeight());
-        }
+        findViewById(R.id.tv_landscape).setOnClickListener(this);
     }
 
     private void initData() {
+        // 1、测试RxBus
         mObservable = RxBus.getInstance().register(MessageEvent.class);
         // Consumer和Observer均可使用
         mObservable.observeOn(AndroidSchedulers.mainThread())
@@ -101,11 +67,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                     }
                 });
 
+        // 2、测试Retrofit
         RetrofitStrategy retrofitStrategy = new RetrofitStrategy();
 //        retrofitStrategy.execute();
 //        retrofitStrategy.executeRxJava();
 //        retrofitStrategy.testAsyncTask();
 
+        // 3、测试RxJava
         RxJavaStrategy rxJavaStrategy = new RxJavaStrategy();
 //        rxJavaStrategy.execute();
 //        rxJavaStrategy.executeMap();
@@ -124,6 +92,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 //        rxJavaStrategy.executeTake();
 //        rxJavaStrategy.executeLift();
 
+        // 4、测试请求系统权限
         new SystemStrategy().execute();
         System.out.println("getDeviceId "+SystemStrategy.getDeviceId(this));
     }
@@ -136,6 +105,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 break;
             case R.id.tv_eventbus:
                 EventBusTestActivity.openActivity(this);
+                break;
+            case R.id.tv_landscape:
+                LandscapeActivity.openActivity(this);
                 break;
         }
     }

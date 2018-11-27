@@ -4,7 +4,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
-    <application android:name="com.bride.thirdparty.ThirdPartyApplication"
+    <application android:name=".ThirdPartyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
 
-        <activity android:name="com.bride.thirdparty.MainActivity"
+        <activity android:name=".MainActivity"
             android:label="@string/app_name">
 
             <intent-filter>
@@ -22,14 +22,18 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.bride.thirdparty.VolleyTestActivity"
+        <activity android:name=".VolleyTestActivity"
             android:label="@string/volley_test_activity"
             android:screenOrientation="portrait"
             android:launchMode="standard"/>
 
-        <activity android:name="com.bride.thirdparty.EventBusTestActivity"
+        <activity android:name=".EventBusTestActivity"
             android:label="@string/event_bus_test_activity"
             android:screenOrientation="portrait"
+            android:launchMode="standard"/>
+
+        <activity android:name=".LandscapeActivity"
+            android:label="@string/landscape_activity"
             android:launchMode="standard"/>
     </application>
 </manifest>
