@@ -4,13 +4,14 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
-    <string name="activity_recycler_view">RecyclerViewActivity</string>
-    <string name="activity_test_platform">TestPlatformActivity</string>
-    <string name="activity_blank">BlankActivity</string>
-    <string name="activity_second">SecondActivity</string>
-    <string name="activity_third">ThirdActivity</string>
-    <string name="activity_recycler_view2">RecyclerView2Activity</string>
-    <string name="activity_test_touch">TestTouchActivity</string>
-    <string name="activity_upload">UploadActivity</string>
-    <string name="activity_webp">WebpActivity</string>
+    <string name="activity_recycler_view" translatable="false">RecyclerViewActivity</string>
+    <string name="activity_test_platform" translatable="false">TestPlatformActivity</string>
+    <string name="activity_blank" translatable="false">BlankActivity</string>
+    <string name="activity_recycler_view2" translatable="false">RecyclerView2Activity</string>
+    <string name="activity_test_touch" translatable="false">TestTouchActivity</string>
+    <string name="activity_upload" translatable="false">UploadActivity</string>
+    <string name="activity_webp" translatable="false">WebpActivity</string>
+
+    <string name="activity_second" translatable="false">SecondActivity</string>
+    <string name="activity_third" translatable="false">ThirdActivity</string>
 </resources>
