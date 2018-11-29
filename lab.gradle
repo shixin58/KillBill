@@ -1,0 +1,104 @@
+task printList << {
+    def numList = [1, 3, 5, 7, 9] // java.util.ArrayList
+    println numList.getClass().name
+
+    println numList[-1]
+    println numList[1..3]
+
+    numList.each { // 迭代
+        println it
+    }
+}
+
+task printMap << {
+    def dimensionMap = ['width':1080, 'height':2160, 'depth':180]
+    println dimensionMap.getClass().name
+
+    println dimensionMap['width']
+    println(dimensionMap.height)
+    dimensionMap.each {
+        println("width: ${it.key}; height: ${it.value}")
+    }
+}
+
+task calculator {
+    doLast {
+        def result = add 5, 2
+        println "result: ${result}"
+    }
+}
+
+def add(int a, int b) {
+    if (a >= b) {
+        a
+    } else {
+        b
+    }
+}
+
+// 2018-11-29
+task (sorry) << {
+    println('sorry - doLast1')
+}
+
+sorry.doFirst {
+    println('sorry - doFirst')
+}
+
+sorry.doLast {
+    println project.hasProperty('sorry')
+    println('sorry - doLast2')
+}
+
+tasks.create("cute") {
+    doFirst {
+        println('cute - doFirst')
+    }
+    doLast {
+        println('cute - doLast')
+    }
+}
+
+task pretty {
+    dependsOn sorry, cute
+    doLast {
+        println('pretty - doLast')
+    }
+}
+
+task wonder (dependsOn: sorry) {
+    doFirst {
+        println('wonder - doFirst2')
+    }
+}
+
+wonder.doFirst {
+    println('wonder - doFirst1')
+}
+
+sourceSets.all {
+    ext.resourcesDir = null
+}
+
+sourceSets {
+    main {
+        resourcesDir = "main/res"
+    }
+
+    test {
+        resourcesDir = "test/res"
+    }
+}
+
+static def buildTime() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMdd')
+    formattedDate
+}
+
+task customProperties {
+    sourceSets.each {
+        println "${it.name} ${it.resourcesDir}"
+    }
+    println buildTime()
+}

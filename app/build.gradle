@@ -2,10 +2,17 @@
 apply ([plugin: 'com.android.application'])
 apply ([plugin: 'kotlin-android'])
 
-android ({
+android {
+    signingConfigs {
+        config {
+            keyAlias 'max'
+            keyPassword '123456'
+            storeFile file('/Users/shixin/jacob.keystore')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion COMPILE_SDK_VERSION as int
     buildToolsVersion BUILD_TOOLS_VERSION
-
     defaultConfig {
         applicationId "com.bride.demon"
         minSdkVersion MIN_SDK_VERSION as int
@@ -14,22 +21,22 @@ android ({
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
+        debug {
+            signingConfig signingConfigs.config
+        }
         release {
+            signingConfig signingConfigs.config
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     dexOptions {
         // OutOfMemoryError:GC overhead limit exceeded
         javaMaxHeapSize "4g"
     }
-})
+}
 
 // Groovy闭包
 dependencies ({
@@ -42,28 +49,11 @@ dependencies ({
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-//    debugImplementation 'com.github.markzhai:blockcanary-android:1.5.0'
-    debugImplementation 'com.github.markzhai:blockcanary-no-op:1.5.0'
-
-//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
-
-    testImplementation "junit:junit:$rootProject.junitVersion"
-    testImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
-    androidTestImplementation "com.android.support.test:runner:$rootProject.runnerVersion"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoCoreVersion"
+//    implementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    implementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 
     implementation project(':baselib')
 })
-
-task myTask {
-    doFirst {
-        println('hello')
-    }
-    doLast {
-        println('world')
-    }
-}
 
 task taskA << {
     println('taskA')

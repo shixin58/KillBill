@@ -1,1 +1,12 @@
-include ':app', ':baselib', ':client', ':thirdparty', ':widget'
+rootProject.name = 'KillBill'
+
+include ':app'
+
+include ':client'
+
+include ':thirdparty'
+
+include ':widget'
+
+include ':baselib'
+project(':baselib').projectDir = new File(rootDir, 'baselib')

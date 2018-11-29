@@ -5,7 +5,6 @@ import android.content.Context
 import androidx.multidex.MultiDex
 import com.bride.baselib.PreferenceUtils
 import com.bride.baselib.ResUtils
-import com.github.moduth.blockcanary.BlockCanary
 import com.squareup.leakcanary.LeakCanary
 
 /**
@@ -28,8 +27,6 @@ class DemonApplication : Application() {
         PreferenceUtils.initialize(this, "demon_prefs")
 
         initLeakCanary()
-
-        initBlockCanary()
     }
 
     private fun initLeakCanary() {
@@ -43,10 +40,5 @@ class DemonApplication : Application() {
         // ArrayList, unregister/register, remove/add去重
         unregisterActivityLifecycleCallbacks(activityLifecycleCallbacks)
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
-    }
-
-    private fun initBlockCanary() {
-        // Do it on main process
-        BlockCanary.install(this, AppBlockCanaryContext()).start()
     }
 }
