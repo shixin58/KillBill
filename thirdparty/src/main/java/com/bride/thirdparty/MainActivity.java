@@ -23,6 +23,7 @@ import io.reactivex.disposables.Disposable;
  */
 public class MainActivity extends BaseActivity implements View.OnClickListener,
         ActivityCompat.OnRequestPermissionsResultCallback {
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     Observable<MessageEvent> mObservable;
 
@@ -93,9 +94,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 //        rxJavaStrategy.executeTake();
 //        rxJavaStrategy.executeLift();
 
-        // 4、测试请求系统权限
-        new SystemStrategy().execute();
-        System.out.println("getDeviceId "+SystemStrategy.getDeviceId(this));
+        // 4、请求系统权限
+        Log.i(TAG, "getDeviceId " + SystemStrategy.getDeviceId());
+        Log.i(TAG, "getDeviceInfo " + SystemStrategy.getDeviceInfo());
+        SystemStrategy.printProcessInfo();
+        PermissionUtils.requestPhonePermission(this, 1);
+        PermissionUtils.requestStoragePermission(this, 2);
     }
 
     @Override
@@ -129,8 +133,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case 1:
-                if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    System.out.println("getDeviceId "+SystemStrategy.getDeviceId(this));
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.i(TAG, "onRequestPermissionsResult "+requestCode);
+                }
+                break;
+            case 2:
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.i(TAG, "onRequestPermissionsResult "+requestCode);
                 }
                 break;
         }

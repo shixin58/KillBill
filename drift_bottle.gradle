@@ -1,0 +1,56 @@
+def Task sendLetter = task(sendLetter)
+sendLetter.doLast {
+    println '信鸽传情'
+}
+
+task taskA {
+    description '测试AbstractTask#mustRunAfter'
+    group BasePlugin.BUILD_GROUP
+    configurations {
+        println('configure taskA')
+    }
+
+    doLast {
+        println('taskA doLast')
+    }
+}
+
+task taskB {
+    description '测试AbstractTask#setEnabled'
+    group BasePlugin.ASSEMBLE_TASK_NAME
+    configurations {
+        println('configure taskB')
+    }
+
+    doLast {
+        println('taskB doLast')
+    }
+}
+
+taskA.mustRunAfter taskB
+
+taskA.enabled = false
+
+taskB.onlyIf {
+    def execute = false
+    if(project.hasProperty('executable')) {
+        Object executable = project.property('executable')
+        if(executable == 'true') {
+            execute = true
+        } else {
+            execute = false
+        }
+    }
+    execute
+}
+
+// 测试addRule
+tasks.addRule ("测试用") { String taskName ->
+    task(taskName) << {
+        println("${taskName}不存在，请查证后再执行")
+    }
+}
+
+task exRuleTask {
+    dependsOn missTask
+}
