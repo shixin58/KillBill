@@ -1,16 +1,7 @@
-// Groovy语法糖
-apply ([plugin: 'com.android.application'])
-apply ([plugin: 'kotlin-android'])
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'max'
-            keyPassword '123456'
-            storeFile file('/Users/shixin/jacob.keystore')
-            storePassword '123456'
-        }
-    }
     compileSdkVersion COMPILE_SDK_VERSION as int
     buildToolsVersion BUILD_TOOLS_VERSION
     defaultConfig {
@@ -21,6 +12,14 @@ android {
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
+    }
+    signingConfigs {
+        config {
+            storeFile file('/Users/shixin/jacob.keystore')
+            storePassword '123456'
+            keyAlias 'max'
+            keyPassword '123456'
+        }
     }
     buildTypes {
         debug {
@@ -39,10 +38,10 @@ android {
 }
 
 // Groovy闭包
-dependencies ({
+dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation 'com.android.support:multidex:1.0.1'
+    implementation 'com.android.support:multidex:1.0.3'
 
     implementation "androidx.appcompat:appcompat:$appcompatVersion"
     implementation "com.google.android.material:material:$materialVersion"
@@ -53,10 +52,4 @@ dependencies ({
     implementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 
     implementation project(':baselib')
-})
-
-task taskA << {
-    println('taskA')
 }
-
-taskA.dependsOn ':thirdparty:taskB'
