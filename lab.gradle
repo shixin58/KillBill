@@ -102,3 +102,13 @@ task customProperties {
     }
     println buildTime()
 }
+
+// 覆盖内置wrapper任务
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.6'
+    archiveBase = 'GRADLE_USER_HOME'
+    archivePath = 'wrapper/dists'
+    distributionBase = 'GRADLE_USER_HOME'
+    distributionPath = 'wrapper/dists'
+    distributionUrl = 'https://services.gradle.org/distributions/gradle-4.6-all.zip'
+}
