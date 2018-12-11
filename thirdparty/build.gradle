@@ -27,7 +27,7 @@ android {
         config {
             keyAlias 'max'
             keyPassword '123456'
-            storeFile file('/Users/shixin/jacob.keystore')
+            storeFile file('../sign/jacob.keystore')
             storePassword '123456'
         }
     }
@@ -43,7 +43,7 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.config
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -63,6 +63,7 @@ android {
             res {
                 srcDir 'src/main/res'
             }
+            manifest.srcFile 'src/main/AndroidManifest.xml'
         }
     }
 }

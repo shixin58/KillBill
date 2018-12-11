@@ -2,14 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'max'
-            keyPassword '123456'
-            storeFile file('/Users/shixin/jacob.keystore')
-            storePassword '123456'
-        }
-    }
     compileSdkVersion COMPILE_SDK_VERSION as int
     buildToolsVersion BUILD_TOOLS_VERSION
     defaultConfig {
@@ -20,12 +12,8 @@ android {
     }
     buildTypes {
         release {
-            signingConfig signingConfigs.config
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            signingConfig signingConfigs.config
         }
     }
 }
@@ -36,4 +24,20 @@ dependencies {
     implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+}
+
+task publishJar(type: Jar)
+group 'com.bride.baselib'
+version '1.0.0'
+artifacts {
+    archives publishJar
+}
+uploadArchives {
+    repositories {
+        flatDir {
+            name 'libs'
+            dirs "$projectDir/libs"
+        }
+        mavenLocal()
+    }
 }

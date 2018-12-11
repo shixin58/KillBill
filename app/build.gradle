@@ -15,7 +15,7 @@ android {
     }
     signingConfigs {
         config {
-            storeFile file('/Users/shixin/jacob.keystore')
+            storeFile file('../sign/jacob.keystore')
             storePassword '123456'
             keyAlias 'max'
             keyPassword '123456'
