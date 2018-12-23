@@ -48,6 +48,7 @@ android {
         }
         debug {
             signingConfig signingConfigs.config
+            applicationIdSuffix = '.debug'
         }
     }
     compileOptions {
