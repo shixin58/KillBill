@@ -14,7 +14,7 @@ android {
         multiDexEnabled true
     }
     signingConfigs {
-        config {
+        release {
             storeFile file('../sign/jacob.keystore')
             storePassword '123456'
             keyAlias 'max'
@@ -23,11 +23,12 @@ android {
     }
     buildTypes {
         debug {
-            signingConfig signingConfigs.config
+            signingConfig signingConfigs.release
+            minifyEnabled false
             applicationIdSuffix = '.debug'
         }
         release {
-            signingConfig signingConfigs.config
+            signingConfig signingConfigs.release
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

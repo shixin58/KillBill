@@ -2,14 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 android {
-    signingConfigs {
-        config {
-            keyAlias 'max'
-            keyPassword '123456'
-            storeFile file('../sign/jacob.keystore')
-            storePassword '123456'
-        }
-    }
     compileSdkVersion COMPILE_SDK_VERSION as int
     buildToolsVersion BUILD_TOOLS_VERSION
     defaultConfig {
@@ -19,15 +11,24 @@ android {
         versionCode 1
         versionName "1.0"
     }
-    buildTypes {
+    signingConfigs {
         release {
-            signingConfig signingConfigs.config
+            keyAlias 'max'
+            keyPassword '123456'
+            storeFile file('../sign/jacob.keystore')
+            storePassword '123456'
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            applicationIdSuffix = '.debug'
+        }
+        release {
+            signingConfig signingConfigs.release
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            signingConfig signingConfigs.config
-            applicationIdSuffix = '.debug'
         }
     }
     dataBinding {
