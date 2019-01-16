@@ -1,4 +1,4 @@
-package com.bride.thirdparty;
+package com.bride.thirdparty.activity;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.bride.baselib.BaseActivity;
+import com.bride.thirdparty.PushReceiver;
+import com.bride.thirdparty.R;
 
 /**
  * <p>Created by shixin on 2018/11/27.

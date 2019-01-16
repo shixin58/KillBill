@@ -6,9 +6,13 @@ import android.util.Log;
 import android.view.View;
 
 import com.bride.baselib.BaseActivity;
-import com.bride.thirdparty.Strategy.RetrofitStrategy;
 import com.bride.thirdparty.Strategy.RxJavaStrategy;
 import com.bride.thirdparty.Strategy.SystemStrategy;
+import com.bride.thirdparty.activity.EventBusTestActivity;
+import com.bride.thirdparty.activity.LandscapeActivity;
+import com.bride.thirdparty.activity.PushActivity;
+import com.bride.thirdparty.activity.RetrofitActivity;
+import com.bride.thirdparty.activity.VolleyTestActivity;
 import com.bride.thirdparty.bean.MessageEvent;
 
 import androidx.annotation.NonNull;
@@ -40,6 +44,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         findViewById(R.id.tv_eventbus).setOnClickListener(this);
         findViewById(R.id.tv_landscape).setOnClickListener(this);
         findViewById(R.id.tv_push).setOnClickListener(this);
+        findViewById(R.id.tv_retrofit).setOnClickListener(this);
     }
 
     private void initData() {
@@ -68,12 +73,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
                     }
                 });
-
-        // 2、测试Retrofit
-        RetrofitStrategy retrofitStrategy = new RetrofitStrategy();
-//        retrofitStrategy.execute();
-//        retrofitStrategy.executeRxJava();
-//        retrofitStrategy.testAsyncTask();
 
         // 3、测试RxJava
         RxJavaStrategy rxJavaStrategy = new RxJavaStrategy();
@@ -116,6 +115,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 break;
             case R.id.tv_push:
                 PushActivity.openActivity(this);
+                break;
+            case R.id.tv_retrofit:
+                RetrofitActivity.openActivity(this);
                 break;
             default:
                 break;

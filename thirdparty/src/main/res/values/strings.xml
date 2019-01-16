@@ -4,6 +4,7 @@
     <string name="event_bus_test_activity">EventBusTestActivity</string>
     <string name="landscape_activity">LandscapeActivity</string>
     <string name="push_activity">PushActivity</string>
+    <string name="retrofit_activity">RetrofitActivity</string>
 
     <string name="get_height">svn(Subversion)是集中式管理的版本控制器，版本库集中存放在中央服务器，干活前从中央服务器fetch当前分支最新版本，update本地副本，干完把修改推送到中央服务器</string>
 </resources>

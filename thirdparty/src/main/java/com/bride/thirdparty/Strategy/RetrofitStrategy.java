@@ -7,6 +7,7 @@ import com.bride.thirdparty.protocal.IService;
 import com.bride.thirdparty.protocal.IStrategy;
 import com.bride.thirdparty.bean.PhoneNumberModel;
 import com.bride.thirdparty.bean.WrapperModel;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import java.io.IOException;
 
@@ -15,6 +16,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,7 +32,11 @@ public class RetrofitStrategy implements IStrategy {
     private IService mService;
 
     public RetrofitStrategy() {
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addNetworkInterceptor(new StethoInterceptor())
+                .build();
         Retrofit retrofit = new Retrofit.Builder()
+                .client(okHttpClient)
                 .baseUrl("http://apis.juhe.cn")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

@@ -1,4 +1,4 @@
-package com.bride.thirdparty;
+package com.bride.thirdparty.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.util.TypedValue;
 import android.widget.TextView;
 
 import com.bride.baselib.BaseActivity;
+import com.bride.thirdparty.R;
 
 import org.jetbrains.annotations.Nullable;
 

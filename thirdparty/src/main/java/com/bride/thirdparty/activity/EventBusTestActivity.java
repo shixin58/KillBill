@@ -1,4 +1,4 @@
-package com.bride.thirdparty;
+package com.bride.thirdparty.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.bride.baselib.BaseActivity;
+import com.bride.thirdparty.R;
 import com.bride.thirdparty.bean.MessageEvent;
 
 import org.greenrobot.eventbus.EventBus;

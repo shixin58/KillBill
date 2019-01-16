@@ -4,6 +4,7 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.bride.thirdparty.bean.PhoneNumberModel;
@@ -196,6 +197,7 @@ public class RxJavaStrategy implements IStrategy {
                         Log.i("executeMap", "apply");
                         // retrofit内部集成了okhttp, converter-gson内部集成了GSON
                         OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                                .addNetworkInterceptor(new StethoInterceptor())
                                 .readTimeout(5, TimeUnit.SECONDS)
                                 .build();
                         Request request = new Request.Builder()

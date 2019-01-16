@@ -11,6 +11,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.bride.baselib.PreferenceUtils;
 import com.bride.baselib.ResUtils;
+import com.facebook.stetho.Stetho;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -35,6 +36,7 @@ public class ThirdPartyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Stetho.initializeWithDefaults(this);
         application = this;
 
         ResUtils.setContext(this);
