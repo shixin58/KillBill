@@ -4,39 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.RetrofitActivity">
+    tools:context=".activity.RxJavaActivity">
 
     <TextView
-        android:id="@+id/tv_network"
+        android:id="@+id/tv_base"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="center"
-        android:text="network request"
+        android:text="base"
         android:onClick="onClick"/>
 
     <TextView
-        android:id="@+id/tv_rxjava"
+        android:id="@+id/tv_map"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_network"
+        app:layout_constraintTop_toBottomOf="@id/tv_base"
         android:gravity="center"
-        android:text="request by rxjava"
+        android:text="map"
         android:onClick="onClick"/>
 
     <TextView
-        android:id="@+id/tv_asynctask"
+        android:id="@+id/tv_flatmap"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_rxjava"
+        app:layout_constraintTop_toBottomOf="@id/tv_map"
         android:gravity="center"
-        android:text="request by asynctask"
+        android:text="flatmap"
         android:onClick="onClick"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

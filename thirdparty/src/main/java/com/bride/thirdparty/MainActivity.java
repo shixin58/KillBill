@@ -6,14 +6,16 @@ import android.util.Log;
 import android.view.View;
 
 import com.bride.baselib.BaseActivity;
-import com.bride.thirdparty.Strategy.RxJavaStrategy;
 import com.bride.thirdparty.Strategy.SystemStrategy;
 import com.bride.thirdparty.activity.EventBusTestActivity;
 import com.bride.thirdparty.activity.LandscapeActivity;
 import com.bride.thirdparty.activity.PushActivity;
 import com.bride.thirdparty.activity.RetrofitActivity;
+import com.bride.thirdparty.activity.RxJavaActivity;
 import com.bride.thirdparty.activity.VolleyTestActivity;
 import com.bride.thirdparty.bean.MessageEvent;
+import com.bride.thirdparty.util.PermissionUtils;
+import com.bride.thirdparty.util.RxBus;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -45,6 +47,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         findViewById(R.id.tv_landscape).setOnClickListener(this);
         findViewById(R.id.tv_push).setOnClickListener(this);
         findViewById(R.id.tv_retrofit).setOnClickListener(this);
+        findViewById(R.id.tv_rxjava).setOnClickListener(this);
     }
 
     private void initData() {
@@ -74,26 +77,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                     }
                 });
 
-        // 3、测试RxJava
-        RxJavaStrategy rxJavaStrategy = new RxJavaStrategy();
-//        rxJavaStrategy.execute();
-//        rxJavaStrategy.executeMap();
-//        rxJavaStrategy.executeFlatMap();
-//        rxJavaStrategy.executeInterval();
-//        rxJavaStrategy.executeTimer();
-//        rxJavaStrategy.executeRange();
-//        rxJavaStrategy.executeZip();
-//        rxJavaStrategy.executeConcat();
-//        rxJavaStrategy.executeMerge();
-//        rxJavaStrategy.executeCombineLatest();
-//        rxJavaStrategy.executeReduce();
-//        rxJavaStrategy.executeCollect();
-//        rxJavaStrategy.executeStartWith();
-//        rxJavaStrategy.executeCount();
-//        rxJavaStrategy.executeTake();
-//        rxJavaStrategy.executeLift();
-
-        // 4、请求系统权限
+        // 2、请求系统权限
         Log.i(TAG, "getDeviceId " + SystemStrategy.getDeviceId());
         Log.i(TAG, "getDeviceInfo " + SystemStrategy.getDeviceInfo());
         SystemStrategy.printProcessInfo();
@@ -118,6 +102,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 break;
             case R.id.tv_retrofit:
                 RetrofitActivity.openActivity(this);
+                break;
+            case R.id.tv_rxjava:
+                RxJavaActivity.openActivity(this);
                 break;
             default:
                 break;

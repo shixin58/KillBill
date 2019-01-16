@@ -1,4 +1,4 @@
-package com.bride.thirdparty;
+package com.bride.thirdparty.util;
 
 import android.graphics.Bitmap;
 import android.util.Log;

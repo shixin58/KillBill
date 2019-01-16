@@ -17,7 +17,7 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
-import com.bride.thirdparty.BitmapCache;
+import com.bride.thirdparty.util.BitmapCache;
 import com.bride.thirdparty.protocal.IStrategy;
 import com.bride.thirdparty.ThirdPartyApplication;
 import com.bride.thirdparty.R;

@@ -1,8 +1,10 @@
-package com.bride.thirdparty;
+package com.bride.thirdparty.util;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.util.Log;
+
+import com.bride.thirdparty.ThirdPartyApplication;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;

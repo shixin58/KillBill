@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.bride.baselib.BaseActivity
 import com.bride.thirdparty.R
-import com.bride.thirdparty.RxBus
+import com.bride.thirdparty.util.RxBus
 import com.bride.thirdparty.Strategy.VolleyStrategy
 import com.bride.thirdparty.ThirdPartyApplication
 import com.bride.thirdparty.bean.MessageEvent

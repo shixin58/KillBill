@@ -1,4 +1,4 @@
-package com.bride.thirdparty;
+package com.bride.thirdparty.util;
 
 import androidx.annotation.NonNull;
 
