@@ -138,8 +138,14 @@ public class JSActivity extends BaseActivity {
 
             @Override
             public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-                Log.i("WebChromeClient", "onConsoleMessage");
+                Log.i("WebChromeClient", "onConsoleMessage "+consoleMessage.message()
+                        +" "+consoleMessage.messageLevel() + " " + consoleMessage.sourceId() + " " + consoleMessage.lineNumber());
                 return super.onConsoleMessage(consoleMessage);
+            }
+
+            @Override
+            public void onConsoleMessage(String message, int lineNumber, String sourceID) {
+                super.onConsoleMessage(message, lineNumber, sourceID);
             }
 
             @Override
@@ -263,6 +269,9 @@ public class JSActivity extends BaseActivity {
                         }
                     }
                 });
+                break;
+            case R.id.tv_log:
+                mWebView.loadUrl("javascript:console.log('testConsoleMessage')");
                 break;
         }
     }
