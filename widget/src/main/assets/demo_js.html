@@ -34,5 +34,15 @@
         <button type="button" id="button2" onclick="callAndroid2()">点击按钮则调用callAndroid2函数</button>
         <h5>button3</h5>
         <button type="button" id="button3" onclick="callPrompt()">点击按钮则调用callPrompt函数</button>
+        <p/><p>1. 打开热播频道 ThirdInvokeActivtiy -> VideoActivity</p>
+        <!-- 浏览器链接打开默认用android.intent.action.VIEW和android.intent.category.BROWSABLE -->
+        <!-- Intent#parseUri用链接后参数action、category -->
+        <a href="bdvideo://invoke?#Intent;action=com.baidu.video.channel;end">open app with Uri Scheme</a>
+        <p/><p>2. 播放视频 ThirdInvokeActivtiy ThirdBaiduSearchVideoFrame</p>
+        <a href="bdvideo://invoke?#Intent;action=com.baidu.search.video;S.action=special;S.title=aaa;S.refer=rbbhwdc;S.tomain=0;end">open app with Uri Scheme2</a>
+        <p/><p>3. 进搜索页 ThirdInvokeActivtiy -> SearchActivity</p>
+        <a href="bdvideo://invoke?#Intent;action=com.baidu.video.search;S.action=special;S.title=aaa;S.refer=rbbhwdc;S.tomain=0;end">open app with Uri Scheme3</a>
+        <p/><p>4. 打开热播频道 VideoActivity android native</p>
+        <a href="#Intent;action=action_current_day_notification_num_insufficient;category=bdvideo;end">open app with Uri Scheme4</a>
     </body>
 </html>
