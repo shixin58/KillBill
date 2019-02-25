@@ -131,10 +131,10 @@ public class VolleyStrategy implements IStrategy {
             public void onResponse(Bitmap bitmap) {
                 imageView.setImageBitmap(bitmap);
             }
-        }, 0, 0, ImageView.ScaleType.CENTER_CROP, Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
+        }, 180, 240, ImageView.ScaleType.CENTER_CROP, Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-
+                Log.e("Max","onErrorResponse", volleyError);
             }
         });
         mQueue.add(imageRequest);
@@ -143,7 +143,7 @@ public class VolleyStrategy implements IStrategy {
 
     public void executeImage2(final ImageView imageView) {
         // 自定义lru缓存
-        String url = "http://www.sc.xinhuanet.com/content/2016-06/21/1119086185_14665015230811n.png";
+        String url = "http://img1.3lian.com/2015/a2/204/d/15.jpg";
         ImageLoader imageLoader = new ImageLoader(mQueue, new BitmapCache());
         ImageLoader.ImageListener imageListener = ImageLoader.getImageListener(imageView, R.mipmap.ic_launcher, R.mipmap.ic_launcher);
         imageLoader.get(url, imageListener, 0, 0, ImageView.ScaleType.CENTER_CROP);

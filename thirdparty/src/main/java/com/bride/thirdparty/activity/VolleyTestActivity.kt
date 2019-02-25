@@ -4,13 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import com.bride.baselib.BaseActivity
 import com.bride.thirdparty.R
-import com.bride.thirdparty.util.RxBus
 import com.bride.thirdparty.Strategy.VolleyStrategy
 import com.bride.thirdparty.ThirdPartyApplication
 import com.bride.thirdparty.bean.MessageEvent
+import com.bride.thirdparty.util.RxBus
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -19,6 +18,8 @@ import org.greenrobot.eventbus.EventBus
  */
 class VolleyTestActivity : BaseActivity() {
 
+    private val volleyStrategy = VolleyStrategy()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_volley_test)
@@ -26,13 +27,6 @@ class VolleyTestActivity : BaseActivity() {
     }
 
     private fun initView() {
-        val volleyStrategy = VolleyStrategy()
-//        volleyStrategy.executeGetString()
-        volleyStrategy.executePostString()
-//        volleyStrategy.execute()
-//        volleyStrategy.executeImage(findViewById(R.id.iv_demo))
-//        volleyStrategy.executeImage2(findViewById(R.id.iv_demo1))
-//        volleyStrategy.executeImage3(findViewById(R.id.iv_demo2))
     }
 
     override fun onStop() {
@@ -42,16 +36,29 @@ class VolleyTestActivity : BaseActivity() {
 
     fun onClick(view: View) {
         when(view.id) {
-            R.id.iv_demo -> {
-                Toast.makeText(this, "post sticky 事件", Toast.LENGTH_SHORT).show()
+            R.id.tv_get_string -> {
+                volleyStrategy.executeGetString()
+            }
+            R.id.tv_post_string -> {
+                volleyStrategy.executePostString()
+            }
+            R.id.tv_post_json -> {
+                volleyStrategy.execute()
+            }
+            R.id.image -> {
+                volleyStrategy.executeImage(findViewById(R.id.iv_demo))
+            }
+            R.id.image1 -> {
+                volleyStrategy.executeImage2(findViewById(R.id.iv_demo1))
+            }
+            R.id.image2 -> {
+                volleyStrategy.executeImage3(findViewById(R.id.iv_demo2))
+            }
+            R.id.tv_post_sticky -> {
                 EventBus.getDefault().postSticky(MessageEvent("Cute"))
             }
-            R.id.iv_demo1 -> {
-                Toast.makeText(this, "RxBus.post事件", Toast.LENGTH_SHORT).show()
+            R.id.tv_rxbus_post -> {
                 RxBus.getInstance().post(MessageEvent("RxBus is awesome!"))
-            }
-            R.id.iv_demo2 -> {
-
             }
         }
     }
