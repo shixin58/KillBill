@@ -41,12 +41,13 @@ public class RetrofitStrategy implements IStrategy {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
-        // 返回代理对象
+        // 返回代理对象 Proxy#newProxyInstance
         mService = retrofit.create(IService.class);
     }
 
     @Override
     public void execute() {
+        // InvocationHandler#invoke
         Call<WrapperModel<PhoneNumberModel>> call = mService.getPhoneInfo("13701116418", "9a4329bdf84fa69d193ce601c22b949d");
         call.enqueue(new Callback<WrapperModel<PhoneNumberModel>>() {
             @Override

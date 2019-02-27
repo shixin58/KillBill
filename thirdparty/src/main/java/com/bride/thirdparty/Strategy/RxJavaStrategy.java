@@ -14,6 +14,7 @@ import com.bride.thirdparty.protocal.IStrategy;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,7 @@ import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -199,6 +201,7 @@ public class RxJavaStrategy implements IStrategy {
                         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                                 .addNetworkInterceptor(new StethoInterceptor())
                                 .readTimeout(5, TimeUnit.SECONDS)
+                                .cache(new Cache(new File("cache"), 24*1024*1024))/* 24MB */
                                 .build();
                         Request request = new Request.Builder()
                                 .url(s)

@@ -3,6 +3,7 @@ package com.bride.client.observer;
 import java.util.Observable;
 
 /**
+ * 观察者模式 demo
  * <p>Created by shixin on 2018/11/6.
  */
 public class ObservableCook extends Observable {

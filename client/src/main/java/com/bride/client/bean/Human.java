@@ -1,5 +1,8 @@
 package com.bride.client.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <p>Created by shixin on 2018/9/1.
  */
@@ -12,6 +15,8 @@ public class Human {
     private int age;
 
     private double salary;
+
+    private List<String> hobbies = new ArrayList<>();
 
     public Human() {
     }
@@ -44,5 +49,14 @@ public class Human {
 
     private void setSalary(double salary) {
         this.salary = salary;
+    }
+
+
+    public List<String> getHobbies() {
+        return hobbies;
+    }
+
+    public void setHobbies(List<String> hobbies) {
+        this.hobbies = hobbies;
     }
 }

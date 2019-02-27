@@ -10,6 +10,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 
 /**
+ * Queue子类 demo
  * <p>Created by shixin on 2018/9/7.
  */
 public class QueueClient {

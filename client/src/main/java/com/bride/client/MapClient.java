@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * Map子类 demo
  * <p>Created by shixin on 2018/4/23.
  */
 public class MapClient {

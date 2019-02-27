@@ -6,3 +6,4 @@
 - 测试java反射, 注解: client
 - IPC(bind+AIDL) demo: client -> app
 - OkHttp3, Retrofit, RxJava, Volley: thirdparty
+- 线程池，Observable，synchronized：client

@@ -10,9 +10,10 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 
 /**
+ * 反射reflect
  * <p>Created by shixin on 2018/9/1.
  */
-public class HumanClient {
+public class ReflectClient {
 
     public static void main(String[] args) {
         try {
@@ -34,8 +35,17 @@ public class HumanClient {
             // 获得方法返回值
             Type returnType = method.getGenericReturnType();
             Class returnCls = method.getReturnType();
+            // class java.lang.String
             System.out.println("returnType "+returnType.toString());
+            // java.lang.String
             System.out.println("returnCls "+returnCls.getName());
+
+            Method methodHobbies = cl.getMethod("getHobbies");
+            Type returnTypeHobbies = methodHobbies.getGenericReturnType();
+            // java.util.List<java.lang.String>
+            System.out.println("returnTypeHobbies "+returnTypeHobbies.toString());
+            // interface java.util.List
+            System.out.println("returnClsHobbies "+methodHobbies.getReturnType().toString());
 
             // 获得Field
             Field field = cl.getField("performance");

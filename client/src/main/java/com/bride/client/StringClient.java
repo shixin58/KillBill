@@ -4,6 +4,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 /**
+ * 1、String, StringBuilder, StringBuffer比较
+ * <p>2、synchronized demo
  * <p>Created by shixin on 2018/10/31.
  */
 public class StringClient {

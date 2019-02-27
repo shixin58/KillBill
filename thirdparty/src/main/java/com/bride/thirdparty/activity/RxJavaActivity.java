@@ -42,6 +42,12 @@ public class RxJavaActivity extends BaseActivity {
             case R.id.tv_flatmap:
                 mRxJavaStrategy.executeFlatMap();
                 break;
+            case R.id.tv_take:
+                mRxJavaStrategy.executeTake();
+                break;
+            case R.id.tv_lift:
+                mRxJavaStrategy.executeLift();
+                break;
             default:
                 break;
         }
