@@ -50,8 +50,9 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 
-//    implementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    implementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    implementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+//    implementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    implementation 'com.github.markzhai:blockcanary-android:1.5.0'
 
     implementation project(':baselib')
 }

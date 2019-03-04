@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.multidex.MultiDex
 import com.bride.baselib.PreferenceUtils
 import com.bride.baselib.ResUtils
+import com.github.moduth.blockcanary.BlockCanary
 import com.squareup.leakcanary.LeakCanary
 
 /**
@@ -27,6 +28,8 @@ class DemonApplication : Application() {
         PreferenceUtils.initialize(this, "demon_prefs")
 
         initLeakCanary()
+
+        BlockCanary.install(this, AppBlockContext()).start()
     }
 
     private fun initLeakCanary() {
