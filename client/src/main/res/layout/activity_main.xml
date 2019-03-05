@@ -5,23 +5,12 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:text="诗和远方"/>
-
-    <TextView
         android:id="@+id/tv_action_view"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintTop_toTopOf="parent"
         android:gravity="center"
         android:textStyle="normal"
         android:text="scheme启动activity"/>
@@ -47,6 +36,16 @@
         android:gravity="center"
         android:text="ComponentName启动activity"/>
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tv_app"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@android:color/black"/>
+
     <TextView
         android:id="@+id/tv_switch"
         android:layout_width="0dp"
@@ -67,6 +66,16 @@
         android:gravity="center"
         android:text="bind服务"/>
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tv_use_service"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@android:color/black"/>
+
     <TextView
         android:id="@+id/tv_changeThread"
         android:layout_width="0dp"
@@ -86,4 +95,14 @@
         app:layout_constraintTop_toBottomOf="@id/tv_changeThread"
         android:gravity="center"
         android:text="执行task"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tv_execute_task"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@android:color/black"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

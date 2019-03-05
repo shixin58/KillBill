@@ -74,7 +74,7 @@ public class MapClient {
     }
 
     // LRU缓存算法实现
-    private static class MyLruCache extends LinkedHashMap {
+    private static class MyLruCache extends LinkedHashMap<String,String> {
         private final int CACHE_MAX_SIZE;
         public MyLruCache(int cacheSize) {
             super((int) Math.ceil(cacheSize/0.75f) + 1, 0.75f, true);

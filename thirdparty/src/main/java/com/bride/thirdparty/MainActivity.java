@@ -4,6 +4,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bride.baselib.BaseActivity;
 import com.bride.thirdparty.Strategy.SystemStrategy;
@@ -63,7 +64,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
                     @Override
                     public void onNext(MessageEvent messageEvent) {
-                        Log.i("MessageEvent", ""+messageEvent.info);
+                        Toast.makeText(MainActivity.this, messageEvent.info, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

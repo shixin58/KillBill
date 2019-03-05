@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.os.Process;
 import android.os.RemoteException;
 import android.os.SystemClock;
 import android.util.Log;
@@ -42,8 +43,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         findViewById(R.id.tv_action_view).setOnClickListener(this);
         findViewById(R.id.tv_implicit).setOnClickListener(this);
         findViewById(R.id.tv_app).setOnClickListener(this);
+
         findViewById(R.id.tv_switch).setOnClickListener(this);
         findViewById(R.id.tv_use_service).setOnClickListener(this);
+
         findViewById(R.id.tv_changeThread).setOnClickListener(this);
         findViewById(R.id.tv_execute_task).setOnClickListener(this);
     }
@@ -128,7 +131,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 executorService.execute(new Runnable() {
                     @Override
                     public void run() {
-                        Log.i("execute", "run");
+                        final String msg = "pid = "+Process.myPid()+"; tid = "+Process.myTid();
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 });
                 break;

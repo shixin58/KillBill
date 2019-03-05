@@ -13,7 +13,7 @@ import com.bride.thirdparty.util.RxBus
 import org.greenrobot.eventbus.EventBus
 
 /**
- *
+ * Volley demo
  * Created by shixin on 2018/9/21.
  */
 class VolleyTestActivity : BaseActivity() {
@@ -55,7 +55,7 @@ class VolleyTestActivity : BaseActivity() {
                 volleyStrategy.executeImage3(findViewById(R.id.iv_demo2))
             }
             R.id.tv_post_sticky -> {
-                EventBus.getDefault().postSticky(MessageEvent("Cute"))
+                EventBus.getDefault().postSticky(MessageEvent("Direwolf is really loyal!"))
             }
             R.id.tv_rxbus_post -> {
                 RxBus.getInstance().post(MessageEvent("RxBus is awesome!"))
