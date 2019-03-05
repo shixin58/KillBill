@@ -11,6 +11,7 @@
     <string name="activity_test_touch" translatable="false">TestTouchActivity</string>
     <string name="activity_upload" translatable="false">UploadActivity</string>
     <string name="activity_webp" translatable="false">WebpActivity</string>
+    <string name="activity_glide" translatable="false">GlideActivity</string>
 
     <string name="activity_second" translatable="false">SecondActivity</string>
     <string name="activity_third" translatable="false">ThirdActivity</string>

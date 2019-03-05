@@ -3,6 +3,8 @@ package com.bride.demon
 import android.os.Bundle
 import android.util.Log
 import com.bride.baselib.BaseActivity
+import com.bride.demon.callback.MyFragmentLifecycleCallbacks
+import com.bride.demon.callback.MyLifecycleObserver
 import com.bride.demon.fragment.DashboardFragment
 import com.bride.demon.fragment.HomeFragment
 import com.bride.demon.fragment.NotificationsFragment

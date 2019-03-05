@@ -1,4 +1,4 @@
-package com.bride.demon;
+package com.bride.demon.service;
 
 import android.app.IntentService;
 import android.content.Context;
