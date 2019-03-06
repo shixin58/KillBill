@@ -72,17 +72,29 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+
     implementation group: 'androidx.appcompat', name: 'appcompat', version: appcompatVersion
-    implementation "com.google.android.material:material:$materialVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+
+    implementation group: 'com.google.android.material', name: 'material', version: materialVersion
+
+    implementation group: 'androidx.constraintlayout', name: 'constraintlayout', version: constraintLayoutVersion
+
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk7', version: kotlinVersion
+
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.10'
+
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.16'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+
     implementation group: 'org.greenrobot', name: 'eventbus', version: '3.1.1'
+
     implementation 'com.facebook.stetho:stetho:1.5.0'
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+
+    implementation 'com.google.dagger:dagger:2.11'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
+
     implementation project(':baselib')
 }
