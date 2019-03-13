@@ -11,6 +11,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
  * <p>Created by shixin on 2018/9/26.
  */
 public class DispatchConstraintLayout extends ConstraintLayout {
+    private static final String TAG = DispatchConstraintLayout.class.getSimpleName();
+
     public DispatchConstraintLayout(Context context) {
         super(context);
     }
@@ -25,7 +27,7 @@ public class DispatchConstraintLayout extends ConstraintLayout {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        Log.i("DispatchConstraintLayou", "dispatchTouchEvent "+ev.getAction());
+        Log.i(TAG, "dispatchTouchEvent "+ev.getAction());
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 break;
@@ -57,7 +59,7 @@ public class DispatchConstraintLayout extends ConstraintLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        Log.i("DispatchConstraintLayou", "onTouchEvent "+event.getAction());
+        Log.i(TAG, "onTouchEvent "+event.getAction());
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 break;

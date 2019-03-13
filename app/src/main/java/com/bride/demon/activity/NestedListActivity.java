@@ -3,15 +3,11 @@ package com.bride.demon.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 
+import com.bride.baselib.BaseActivity;
 import com.bride.demon.CellScrollHolder;
 import com.bride.demon.R;
 import com.bride.demon.adapter.NestedAdapter;
@@ -21,10 +17,15 @@ import com.bride.demon.widget.DispatchFrameLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * <p>Created by shixin on 2018/9/26.
  */
-public class RecyclerView2Activity extends AppCompatActivity {
+public class NestedListActivity extends BaseActivity {
 
     private DispatchFrameLayout mDispatchFrameLayout;
     private RecyclerView mRecyclerView;
@@ -32,7 +33,7 @@ public class RecyclerView2Activity extends AppCompatActivity {
     private float oldY;
 
     public static void openActivity(Context context) {
-        Intent intent = new Intent(context, RecyclerView2Activity.class);
+        Intent intent = new Intent(context, NestedListActivity.class);
         context.startActivity(intent);
     }
 

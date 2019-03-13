@@ -12,6 +12,7 @@ import android.view.ViewGroup;
  * <p>Created by shixin on 2018/9/13.
  */
 public class MyViewGroup extends ViewGroup implements View.OnClickListener {
+    private static final String TAG = MyViewGroup.class.getSimpleName();
 
     public MyViewGroup(Context context) {
         super(context);
@@ -46,7 +47,7 @@ public class MyViewGroup extends ViewGroup implements View.OnClickListener {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         // 先调用onTouch，后调用onTouchEvent
         // false未处理，传给上层onTouchEvent
-        Log.i("MyViewGroup", "dispatchTouchEvent "+ev.getAction());
+        Log.i(TAG, "dispatchTouchEvent "+ev.getAction());
         return super.dispatchTouchEvent(ev);
     }
 
@@ -61,15 +62,15 @@ public class MyViewGroup extends ViewGroup implements View.OnClickListener {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 // true 表示 the event was handled in this view，接收之后的move和up事件
-                Log.i("MyViewGroup", "onTouchEvent "+event.getAction()+" true");
+                Log.i(TAG, "onTouchEvent ACTION_DOWN true");
                 return true;
             case MotionEvent.ACTION_MOVE:
                 // 绝对位置和相对位置
-                Log.i("onTouchEvent", "ACTION_MOVE 坐标："+event.getRawX()+" - "+event.getRawY()+" - "+event.getX()+" - "+event.getY());
+                Log.i(TAG, "onTouchEvent ACTION_MOVE 坐标："+event.getRawX()+" - "+event.getRawY()+" - "+event.getX()+" - "+event.getY());
                 // 触控点数，二维数组
                 // points between this event and previous event
                 if(event.getPointerCount()>0 && event.getHistorySize()>0){
-                    Log.i("onTouchEvent", "ACTION_MOVE 历史："+event.getPointerCount()+" - "+event.getHistorySize()
+                    Log.i(TAG, "onTouchEvent ACTION_MOVE 历史："+event.getPointerCount()+" - "+event.getHistorySize()
                             +" - "+event.getHistoricalX(event.getPointerCount()-1, event.getHistorySize()-1)
                             +" - "+event.getHistoricalY(event.getPointerCount()-1, event.getHistorySize()-1));
                 }
@@ -77,12 +78,6 @@ public class MyViewGroup extends ViewGroup implements View.OnClickListener {
             case MotionEvent.ACTION_UP:
                 // 处理performClick()
 //                performClick();
-//                 查看方法调用栈
-                /*try {
-                    int i=1/0;
-                }catch (Exception e) {
-                    e.printStackTrace();
-                }*/
                 break;
             case MotionEvent.ACTION_CANCEL:
                 break;
@@ -95,7 +90,7 @@ public class MyViewGroup extends ViewGroup implements View.OnClickListener {
         }
         // true消费不再向上传递
         boolean consumed = super.onTouchEvent(event);
-        Log.i("MyViewGroup", "onTouchEvent "+event.getAction()+" "+consumed);
+        Log.i(TAG, "onTouchEvent "+event.getAction()+" "+consumed);
         return consumed;
     }
 
@@ -106,6 +101,6 @@ public class MyViewGroup extends ViewGroup implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Log.i("onClick", "ok");
+        Log.i(TAG, "onClick - ok");
     }
 }

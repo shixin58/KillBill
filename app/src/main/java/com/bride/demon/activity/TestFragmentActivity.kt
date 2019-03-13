@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import com.bride.baselib.BaseActivity
+import com.bride.baselib.BaseFragment
 import com.bride.demon.R
 
 class TestFragmentActivity : BaseActivity() {
@@ -25,12 +26,12 @@ class TestFragmentActivity : BaseActivity() {
          * 先import再引用类，不事先import直接包点类引用有差别吗
          * @param requestCode -1给startActivity用，>=0能被onActivityResult收到
          */
-        fun openActivityForResult(activity: androidx.fragment.app.FragmentActivity, requestCode: Int) {
+        fun openActivityForResult(activity: BaseActivity, requestCode: Int) {
             val intent = Intent(activity, TestFragmentActivity::class.java)
             activity.startActivityForResult(intent, requestCode)
         }
 
-        fun openActivityForResult(fragment: androidx.fragment.app.Fragment, requestCode: Int) {
+        fun openActivityForResult(fragment: BaseFragment, requestCode: Int) {
             val intent = Intent(fragment.activity, TestFragmentActivity::class.java)
             fragment.startActivityForResult(intent, requestCode)
         }

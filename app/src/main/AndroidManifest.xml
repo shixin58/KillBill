@@ -45,7 +45,7 @@
 
         <activity
             android:name=".activity.TestFragmentActivity"
-            android:label="@string/activity_test_platform"
+            android:label="@string/activity_test_fragment"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.bride.demon.activity.TestFragmentActivity"/>
@@ -72,8 +72,8 @@
             android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
 
-        <activity android:name=".activity.RecyclerView2Activity"
-            android:label="@string/activity_recycler_view2"
+        <activity android:name=".activity.NestedListActivity"
+            android:label="@string/activity_nested_list"
             android:screenOrientation="portrait"/>
 
         <activity android:name=".activity.TestTouchActivity"

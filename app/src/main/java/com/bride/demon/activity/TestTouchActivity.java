@@ -15,7 +15,7 @@ import com.bride.demon.widget.MyViewGroup;
  * <p>Created by shixin on 2018/9/13.
  */
 public class TestTouchActivity extends BaseActivity {
-
+    private static final String TAG = TestTouchActivity.class.getSimpleName();
     // 包访问权限
     int type;
 
@@ -26,7 +26,7 @@ public class TestTouchActivity extends BaseActivity {
         // intent.getExtras()内部new Bundle(mExtras)为了保护数据吧
         // Intent和Bundle设置的跟获取的均不同
         intent.putExtra("type", type);
-        Log.i("TestTouchActivity", "openActivity-"+intent.hashCode());
+        Log.i(TAG, "openActivity-"+intent.hashCode());
         context.startActivity(intent);
     }
 
@@ -38,15 +38,16 @@ public class TestTouchActivity extends BaseActivity {
     }
 
     private void initView() {
-        Log.i("TestTouchActivity", "onCreate-"+getIntent().hashCode());
+        Log.i(TAG, "onCreate-"+getIntent().hashCode());
         // mExtras.getInt(String, int)
         this.type = getIntent().getIntExtra("type", 0);
         MyViewGroup viewGroup;
-        if(type==1) {
+        if(type == 1) {
             viewGroup = new MyViewGroup(this);
         }else {
             viewGroup = findViewById(R.id.my_view_group);
         }
+        // onTouch -> onTouchEvent -> performClick
         viewGroup.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -57,13 +58,13 @@ public class TestTouchActivity extends BaseActivity {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        Log.i("TestTouchActivity", "dispatchTouchEvent "+ev.getAction());
+        Log.i(TAG, "dispatchTouchEvent "+ev.getAction());
         return super.dispatchTouchEvent(ev);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        Log.i("TestTouchActivity", "onTouchEvent "+event.getAction());
+        Log.i(TAG, "onTouchEvent "+event.getAction());
         return super.onTouchEvent(event);
     }
 }
