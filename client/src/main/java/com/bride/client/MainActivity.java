@@ -111,15 +111,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 }
                 break;
             case R.id.tv_changeThread:
-                // 线程切换
                 transferWorkThread(new Runnable() {
                     @Override
                     public void run() {
                         try {
                             Thread.sleep(10000);
-                            // 持有Activity句柄
-//                            MainActivity.this.runOnUiThread(mRunnable);
-                            transferMainThread(mRunnable);
+                            transferMainThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Log.i("UIThread", "更新UI");
+                                }
+                            });
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -160,9 +162,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         }
     };
 
-    // 切换主线程
     private void transferMainThread(Runnable runnable) {
-//        mHandler.post(runnable);
+//              View#post(Runnable)
+//              View#postDelayed(Runnable, long)
+//              View#postInvalidate();
+//              Activity#runOnUiThread(Runnable);
+//              Handler#post(Runnable);
         // Message一直持有Handler，直到Message.recycle
         Message message = Message.obtain(mHandler, runnable);
         message.what = 1;
@@ -172,15 +177,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private Handler mHandler = new Handler(Looper.getMainLooper()){
         @Override
         public void dispatchMessage(Message msg) {
+            // 1、Message.callback; 2、Handler.callback; 3、Handler.handleMessage
             super.dispatchMessage(msg);
         }
-    };
 
-    private Runnable mRunnable = new Runnable() {
         @Override
-        public void run() {
-            // 更新UI
-            Log.i("run", "更新UI");
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
         }
     };
 
