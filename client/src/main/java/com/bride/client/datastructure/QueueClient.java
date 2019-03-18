@@ -1,13 +1,9 @@
-package com.bride.client;
+package com.bride.client.datastructure;
 
 import java.util.ArrayDeque;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Stack;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.PriorityBlockingQueue;
 
 /**
  * Queue子类 demo
@@ -18,10 +14,6 @@ public class QueueClient {
     public static void main(String[] args) {
 
         testPriorityQueue();
-
-        testStack();
-
-        testArrayBlockingQueue();
 
         testLinkedList();
 
@@ -42,37 +34,6 @@ public class QueueClient {
         priorityQueue.offer(3);
         // 求最大值
         System.out.println("priorityQueue.poll() "+priorityQueue.poll());
-
-        // 多线程同步
-        PriorityBlockingQueue<Integer> priorityBlockingQueue = new PriorityBlockingQueue();
-        priorityBlockingQueue.add(4);
-        priorityBlockingQueue.add(2);
-        priorityBlockingQueue.add(6);
-        // 求最小值
-        System.out.println("priorityBlockingQueue.remove() "+priorityBlockingQueue.remove());
-    }
-
-    private static void testStack() {
-        System.out.println("=== Stack ===");
-        Stack<String> stack = new Stack<>();
-        stack.push("cloud");
-        stack.push("java");
-        stack.push("algorithm");
-        while (!stack.empty()) {
-            System.out.println(stack.peek());
-            stack.pop();
-        }
-    }
-
-    private static void testArrayBlockingQueue() {
-        System.out.println("=== ArrayBlockingDeque ===");
-        Queue<Double> queue = new ArrayBlockingQueue<>(100);
-        queue.offer(1.5);
-        queue.offer(-77.4);
-        queue.offer(9.6);
-        while (!queue.isEmpty()) {
-            System.out.println(queue.poll());
-        }
     }
 
     // 双向链式队列

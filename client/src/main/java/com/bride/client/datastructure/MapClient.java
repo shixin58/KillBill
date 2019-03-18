@@ -1,4 +1,4 @@
-package com.bride.client;
+package com.bride.client.datastructure;
 
 import java.util.Collection;
 import java.util.HashMap;
