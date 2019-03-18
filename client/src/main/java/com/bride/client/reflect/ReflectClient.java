@@ -1,13 +1,9 @@
-package com.bride.client;
+package com.bride.client.reflect;
 
-import com.bride.client.bean.Human;
-
-import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
-import java.util.Arrays;
 
 /**
  * 反射reflect
@@ -76,20 +72,6 @@ public class ReflectClient {
                 System.out.print(fields[i].getName()+", ");
             }
             System.out.println();
-
-            // 反射Array
-            Class<?> stringClass = Class.forName("java.lang.String");
-            Object object2 = Array.newInstance(stringClass, 5);
-            Array.set(object2, 0, "Art");
-            Array.set(object2, 1, "Math");
-            Array.set(object2, 2, "Music");
-            Array.set(object2, 3, "Sports");
-            Array.set(object2, 4, "Language");
-            System.out.println(Array.get(object2, 1));
-
-            // 数组也是Object子类，可调用Object所有方法
-            // String.valueOf(obj) -> obj.toString()
-            System.out.println(Arrays.toString((Object[]) object2));
         } catch (Exception e) {
             e.printStackTrace();
         }

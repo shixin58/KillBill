@@ -1,4 +1,4 @@
-package com.bride.client.bean;
+package com.bride.client.reflect;
 
 import java.util.ArrayList;
 import java.util.List;

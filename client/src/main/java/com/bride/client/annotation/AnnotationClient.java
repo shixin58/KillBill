@@ -1,8 +1,4 @@
-package com.bride.client;
-
-import com.bride.client.annotation.Curriculum;
-import com.bride.client.annotation.Stone;
-import com.bride.client.annotation.Superman;
+package com.bride.client.annotation;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -18,7 +14,7 @@ public class AnnotationClient {
 
     public static void main(String[] args) {
         try {
-            Class<?> cls = Class.forName("com.bride.client.bean.FineArt");
+            Class<?> cls = Class.forName("com.bride.client.annotation.FineArt");
 
             // 运行时通过反射获取注解
             Curriculum curriculum = cls.getAnnotation(Curriculum.class);

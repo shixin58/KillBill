@@ -1,4 +1,4 @@
-package com.bride.client.bean;
+package com.bride.client.annotation;
 
 import com.bride.client.annotation.Curriculum;
 import com.bride.client.annotation.Stone;
