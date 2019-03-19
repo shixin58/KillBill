@@ -141,16 +141,16 @@ public class VolleyStrategy implements IStrategy {
         mQueue.start();
     }
 
+    // 自定义lru缓存
     public void executeImage2(final ImageView imageView) {
-        // 自定义lru缓存
         String url = "http://img1.3lian.com/2015/a2/204/d/15.jpg";
         ImageLoader imageLoader = new ImageLoader(mQueue, new BitmapCache());
         ImageLoader.ImageListener imageListener = ImageLoader.getImageListener(imageView, R.mipmap.ic_launcher, R.mipmap.ic_launcher);
         imageLoader.get(url, imageListener, 0, 0, ImageView.ScaleType.CENTER_CROP);
     }
 
+    // NetworkImageView使用
     public void executeImage3(final NetworkImageView imageView) {
-        // NetworkImageView使用
         String url = "https://www.nanrenwo.net/uploads/171009/8478-1G009160016215.jpg";
         ImageLoader imageLoader = new ImageLoader(mQueue, new BitmapCache());
         imageView.setDefaultImageResId(R.mipmap.ic_launcher);
