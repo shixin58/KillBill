@@ -1,4 +1,4 @@
-package com.bride.client;
+package com.bride.client.multithreading;
 
 import java.util.List;
 import java.util.Vector;
@@ -10,7 +10,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * <p>2、join和interrupt
  * <p>Created by shixin on 2018/9/27.
  */
-public class LockClient {
+public class ReentrantLockClient {
     private ReentrantLock lock = new ReentrantLock();
     private Condition condition = lock.newCondition();
 
@@ -138,7 +138,7 @@ public class LockClient {
     }
 
     public static void main(String[] args) {
-        final LockClient client = new LockClient();
+        final ReentrantLockClient client = new ReentrantLockClient();
 //        client.method();
 
 //        client.waitMethod();
