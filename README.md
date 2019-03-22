@@ -1,6 +1,5 @@
 ### 目录
 - 测试模块化+组件化
-[![](https://jitpack.io/v/shixin58/KillBill.svg)](https://jitpack.io/#shixin58/KillBill)
 
 - 测试Kotlin, LeakCanary, BlockCanary, Glide: app
 - IPC(bind+AIDL) demo: client -> app
