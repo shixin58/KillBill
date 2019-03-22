@@ -10,7 +10,7 @@ buildscript {
     dependencies {
         classpath group: 'com.android.tools.build', name: 'gradle', version: '3.3.2'
 
-        classpath group: 'org.jetbrains.kotlin', name: 'kotlin-gradle-plugin', version:'1.3.20'
+        classpath group: 'org.jetbrains.kotlin', name: 'kotlin-gradle-plugin', version:'1.3.21'
 
         classpath group: 'com.github.dcendents', name: 'android-maven-gradle-plugin', version: '2.1'
 
