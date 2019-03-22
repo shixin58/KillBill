@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
+
 apply plugin: 'com.github.dcendents.android-maven'
-group='com.github.shixin58'
+
 apply plugin: 'kotlin-android'
 
 android {
@@ -25,24 +26,12 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "androidx.appcompat:appcompat:$appcompatVersion"
-    implementation "com.google.android.material:material:$materialVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-}
 
-task publishJar(type: Jar)
-group 'com.bride.baselib'
-version '1.0.0'
-artifacts {
-    archives publishJar
-}
-uploadArchives {
-    repositories {
-        flatDir {
-            name 'libs'
-            dirs "$projectDir/libs"
-        }
-        mavenLocal()
-    }
+    implementation group: 'androidx.appcompat', name: 'appcompat', version: appcompatVersion
+
+    implementation group: 'androidx.constraintlayout', name: 'constraintlayout', version: constraintLayoutVersion
+
+    implementation group: 'com.google.android.material', name: 'material', version: materialVersion
+
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk7', version: kotlinVersion
 }

@@ -74,10 +74,9 @@ dependencies {
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
 
     implementation group: 'androidx.appcompat', name: 'appcompat', version: appcompatVersion
+    implementation group: 'androidx.constraintlayout', name: 'constraintlayout', version: constraintLayoutVersion
 
     implementation group: 'com.google.android.material', name: 'material', version: materialVersion
-
-    implementation group: 'androidx.constraintlayout', name: 'constraintlayout', version: constraintLayoutVersion
 
     implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk7', version: kotlinVersion
 
