@@ -1,7 +1,5 @@
 package com.bride.baselib;
 
-import androidx.annotation.NonNull;
-
 /**
  * <p>Created by shixin on 2018/9/27.
  */
@@ -16,7 +14,7 @@ public class ActivitySchemas {
         url.append(schema);
     }
 
-    public ActivitySchemas setParam(@NonNull String key, @NonNull String value) {
+    public ActivitySchemas setParam(String key, String value) {
         if(url.indexOf("?")<0){
             url.append('?');
         }else {
@@ -26,7 +24,7 @@ public class ActivitySchemas {
         return this;
     }
 
-    public ActivitySchemas setParam(@NonNull String key, int value) {
+    public ActivitySchemas setParam(String key, int value) {
         if(url.indexOf("?")<0){
             url.append('?');
         }else {

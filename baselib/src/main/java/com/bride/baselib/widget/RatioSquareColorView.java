@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.bride.baselib.ResUtils;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 
 /**
@@ -38,7 +37,7 @@ public class RatioSquareColorView extends AppCompatImageView {
         initView();
     }
 
-    public RatioSquareColorView(Context context, @Nullable AttributeSet attrs) {
+    public RatioSquareColorView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView();
     }

@@ -18,7 +18,6 @@ import com.bride.thirdparty.bean.MessageEvent;
 import com.bride.thirdparty.util.PermissionUtils;
 import com.bride.thirdparty.util.RxBus;
 
-import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -90,7 +89,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_volley:
-                VolleyTestActivity.Companion.openActivity(this);
+                VolleyTestActivity.openActivity(this);
                 break;
             case R.id.tv_eventbus:
                 EventBusTestActivity.openActivity(this);
@@ -119,7 +118,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case 1:

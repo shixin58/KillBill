@@ -14,8 +14,6 @@ import android.widget.TextView;
 import com.bride.baselib.BaseActivity;
 import com.bride.thirdparty.R;
 
-import org.jetbrains.annotations.Nullable;
-
 /**
  * <p>Created by shixin on 2018/11/27.
  */
@@ -26,7 +24,7 @@ public class LandscapeActivity extends BaseActivity {
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i("Victor", "onCreate "+savedInstanceState);
         setContentView(R.layout.activity_landscape);

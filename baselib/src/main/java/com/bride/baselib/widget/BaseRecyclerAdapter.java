@@ -1,6 +1,5 @@
 package com.bride.baselib.widget;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,16 +81,15 @@ public abstract class BaseRecyclerAdapter<V extends RecyclerView.ViewHolder, T> 
     public abstract V onCreateVH(ViewGroup parent, int viewType);
 
     @Override
-    public void onBindViewHolder(@NonNull V holder, int position) {
+    public void onBindViewHolder(V holder, int position) {
         if(mOnItemClickListener!=null) {
             holder.itemView.setOnClickListener(this);
         }
         onBindVH(holder, position);
     }
 
-    @NonNull
     @Override
-    public V onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public V onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mRecyclerView == null)
             mRecyclerView = new WeakReference<>((RecyclerView) parent);
         return onCreateVH(parent, viewType);
@@ -115,7 +113,7 @@ public abstract class BaseRecyclerAdapter<V extends RecyclerView.ViewHolder, T> 
     }
 
     public static class HeaderOrFooterViewHolder extends RecyclerView.ViewHolder {
-        public HeaderOrFooterViewHolder(@NonNull View itemView) {
+        public HeaderOrFooterViewHolder(View itemView) {
             super(itemView);
         }
     }

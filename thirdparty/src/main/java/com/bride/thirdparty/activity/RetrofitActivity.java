@@ -9,8 +9,6 @@ import com.bride.baselib.BaseActivity;
 import com.bride.thirdparty.R;
 import com.bride.thirdparty.Strategy.RetrofitStrategy;
 
-import org.jetbrains.annotations.Nullable;
-
 /**
  * <p>Created by shixin on 2019/1/16.
  */
@@ -24,7 +22,7 @@ public class RetrofitActivity extends BaseActivity {
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retrofit);
 

@@ -12,7 +12,6 @@ import android.util.AttributeSet;
 
 import com.bride.baselib.R;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 
 /**
@@ -30,7 +29,7 @@ public class RoundCornerImageView extends AppCompatImageView {
         super(context);
     }
 
-    public RoundCornerImageView(Context context, @Nullable AttributeSet attrs) {
+    public RoundCornerImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         if (attrs != null) {
             TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.RoundCornerImageView, 0, 0);
