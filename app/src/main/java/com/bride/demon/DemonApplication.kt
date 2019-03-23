@@ -41,7 +41,6 @@ class DemonApplication : Application() {
         }
         LeakCanary.install(this)
 
-        // ArrayList, unregister/register, remove/add去重
         unregisterActivityLifecycleCallbacks(activityLifecycleCallbacks)
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
     }

@@ -4,6 +4,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,9 +19,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.bride.baselib.ActivityComponentName;
+import com.bride.baselib.ActivityNameFinals;
 import com.bride.baselib.ActivitySchemas;
 import com.bride.baselib.BaseActivity;
+import com.bride.baselib.PackageNameFinals;
 import com.bride.demon.Form;
 import com.bride.demon.IMyService;
 
@@ -43,6 +46,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         findViewById(R.id.tv_action_view).setOnClickListener(this);
         findViewById(R.id.tv_implicit).setOnClickListener(this);
         findViewById(R.id.tv_app).setOnClickListener(this);
+        findViewById(R.id.tv_component).setOnClickListener(this);
 
         findViewById(R.id.tv_switch).setOnClickListener(this);
         findViewById(R.id.tv_use_service).setOnClickListener(this);
@@ -56,43 +60,39 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         Intent intent;
         switch (v.getId()) {
             case R.id.tv_action_view:
-                // 1、app进程间调用页面，配置scheme
                 intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
-//                intent.setData(Uri.parse(ActivitySchemas.RECYCLER_VIEW_SCHEMA));
                 String urlString = new ActivitySchemas(ActivitySchemas.TEST_TOUCH_SCHEMA).setParam("type", 0).getUriString();
                 intent.setData(Uri.parse(urlString));
-                // 调用系统浏览器
-//                intent.setData(Uri.parse("https://www.sogou.com"));
                 startActivity(intent);
                 break;
             case R.id.tv_implicit:
-                // 2、自定义ACTION，隐式启动
-                // 若俩页面ACTION相同，弹选择对话框
-                /*Intent intent3 = new Intent();
-                intent3.setAction("com.bride.demon.activity.TestFragmentActivity");
-                startActivity(intent3);*/
                 intent = new Intent();
-                intent.setComponent(ActivityComponentName.TEST_FRAGMENT);
+                intent.setAction("com.bride.demon.activity.TestFragmentActivity");
+                intent.addCategory("android.intent.category.DEFAULT");
                 startActivity(intent);
                 break;
             case R.id.tv_app:
-                // app进程间调用页面，配置包名和类名
-                Intent intent2 = new Intent();
-//                intent2.setClassName("com.bride.demon", "com.bride.demon.MainActivity")
-                ComponentName componentName = new ComponentName("com.bride.demon", "com.bride.demon.MainActivity");
-                intent2.setComponent(componentName);
-                intent2.setAction(Intent.ACTION_MAIN);
-                // 多个category放在ArraySet里
-                intent2.addCategory(Intent.CATEGORY_LAUNCHER);
-                startActivity(intent2);
+                String name = PackageNameFinals.APP + ("debug".equals(BuildConfig.BUILD_TYPE)?".debug":"");
+                if(checkPackageInfo(name)) {
+                    intent = getPackageManager().getLaunchIntentForPackage(name);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, "未安装 - "+name, Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.tv_component:
+                intent = new Intent();
+                String packageName = PackageNameFinals.APP + ("debug".equals(BuildConfig.BUILD_TYPE)?".debug":"");
+                intent.setClassName(packageName, ActivityNameFinals.App.TEST_FRAGMENT);
+                startActivity(intent);
                 break;
             case R.id.tv_switch:
                 if(mService==null) {
                     // 启动服务并拿到服务代理
-                    Intent intent1 = new Intent("com.bride.demon.IMyService");
-                    intent1.setPackage("com.bride.demon");
-                    bindService(intent1, mServiceConnection, Context.BIND_AUTO_CREATE);
+                    intent = new Intent("com.bride.demon.IMyService");
+                    intent.setPackage("com.bride.demon");
+                    bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
                 }else {
                     unbindService(mServiceConnection);
                 }
@@ -144,6 +144,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 });
                 break;
         }
+    }
+
+    private boolean checkPackageInfo(String name) {
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = getPackageManager().getPackageInfo(name, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return packageInfo != null;
     }
 
     private IMyService mService;

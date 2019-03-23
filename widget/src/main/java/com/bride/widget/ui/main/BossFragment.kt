@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.bride.widget.R
 
-class BossFragment : androidx.fragment.app.Fragment() {
+class BossFragment : Fragment() {
 
     companion object {
         fun newInstance() = BossFragment()

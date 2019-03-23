@@ -1,7 +1,8 @@
 package com.bride.demon
 
 import android.os.Bundle
-import android.util.Log
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.bride.baselib.BaseActivity
 import com.bride.demon.callback.MyFragmentLifecycleCallbacks
 import com.bride.demon.callback.MyLifecycleObserver
@@ -12,13 +13,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : BaseActivity() {
 
-    private val fragments = arrayOfNulls<androidx.fragment.app.Fragment>(3)
+    private val fragments = arrayOfNulls<Fragment>(3)
     private var mIndex: Int = 0
     private val fragmentLifecycleCallbacks = MyFragmentLifecycleCallbacks()
     private val lifecycleObserver = MyLifecycleObserver()
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        var transaction: androidx.fragment.app.FragmentTransaction?
+        var transaction: FragmentTransaction?
         when (item.itemId) {
             R.id.navigation_home -> {
                 transaction = supportFragmentManager.beginTransaction()
@@ -74,35 +75,12 @@ class MainActivity : BaseActivity() {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.selectedItemId = R.id.navigation_home
 
-        Log.i("lifecycleA", "onCreate")
-        // CopyOnWriteArrayList add/remove
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentLifecycleCallbacks, true)
         lifecycle.addObserver(lifecycleObserver)
     }
 
-    override fun onStart() {
-        super.onStart()
-        Log.i("lifecycleA", "onStart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.i("lifecycleA", "onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.i("lifecycleA", "onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.i("lifecycleA", "onStop")
-    }
-
     override fun onDestroy() {
         super.onDestroy()
-        Log.i("lifecycleA", "onDestroy")
         supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentLifecycleCallbacks)
         lifecycle.removeObserver(lifecycleObserver)
     }

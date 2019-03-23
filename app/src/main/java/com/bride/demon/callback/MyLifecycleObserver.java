@@ -12,12 +12,35 @@ import androidx.lifecycle.OnLifecycleEvent;
  * <p>Created by shixin on 2018/10/1.
  */
 public class MyLifecycleObserver implements LifecycleObserver {
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    public void start(LifecycleOwner lifecycleOwner) {
-        Log.i("start", ""+lifecycleOwner.getLifecycle().getCurrentState());
+    private static final String TAG = MyLifecycleObserver.class.getSimpleName();
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    public void onCreate(LifecycleOwner lifecycleOwner) {
+        Log.i(TAG, lifecycleOwner.getLifecycle().getCurrentState().name());
     }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    public void onStart(LifecycleOwner lifecycleOwner) {
+        Log.i(TAG, lifecycleOwner.getLifecycle().getCurrentState().name());
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    public void onResume(LifecycleOwner lifecycleOwner) {
+        Log.i(TAG, lifecycleOwner.getLifecycle().getCurrentState().name());
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    public void onPause(LifecycleOwner lifecycleOwner) {
+        Log.i(TAG, lifecycleOwner.getLifecycle().getCurrentState().name());
+    }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    public void stop(LifecycleOwner lifecycleOwner) {
-        Log.i("stop", ""+lifecycleOwner.getLifecycle().getCurrentState());
+    public void onStop(LifecycleOwner lifecycleOwner) {
+        Log.i(TAG, lifecycleOwner.getLifecycle().getCurrentState().name());
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    public void onDestroy(LifecycleOwner lifecycleOwner) {
+        Log.i(TAG, lifecycleOwner.getLifecycle().getCurrentState().name());
     }
 }

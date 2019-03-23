@@ -17,8 +17,6 @@ import com.bride.demon.widget.DispatchFrameLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,7 +36,7 @@ public class NestedListActivity extends BaseActivity {
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_view2);
         initView();
@@ -95,12 +93,12 @@ public class NestedListActivity extends BaseActivity {
     private class MyOnItemTouchListener implements RecyclerView.OnItemTouchListener {
 
         @Override
-        public boolean onInterceptTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
+        public boolean onInterceptTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
             return false;
         }
 
         @Override
-        public void onTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
+        public void onTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
 
         }
 
@@ -112,12 +110,12 @@ public class NestedListActivity extends BaseActivity {
 
     private class MyOnScrollListener extends RecyclerView.OnScrollListener {
         @Override
-        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
         }
 
         @Override
-        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
         }
     }
