@@ -11,7 +11,10 @@ import java.util.Scanner;
 public class BigNumberClient {
     public static void main(String[] args) {
 //        additionOrSubtraction();
-        someTest();
+//        testBitSet();
+//        testAscii();
+//        swap();
+        move();
     }
 
     public static void additionOrSubtraction() {
@@ -58,24 +61,64 @@ public class BigNumberClient {
         }
     }
 
-    public static void someTest() {
+    public static void testBigInteger() {
         BigInteger bigInteger = new BigInteger("9999999999");
         BigInteger bigIntegerAnother = new BigInteger("333");
         BigInteger result = bigInteger.add(bigIntegerAnother);
         System.out.println("BigInteger addition: "+result);
+    }
 
+    public static void testBitSet() {
         BitSet bitSet = new BitSet();
         bitSet.set(0, true);
         bitSet.set(1, false);
-        bitSet.clear(2);
-        bitSet.set(3, 8);
+        bitSet.set(2);
+        bitSet.clear(3);
+        bitSet.set(4, 8);
         String bits = bitSet.toString();
-        System.out.println("BitSet: "+bits+"; length: "+bitSet.length());
+        System.out.println("bitSet: "+bits+"; length: "+bitSet.length());
 
+        BitSet anotherBitSet = new BitSet();
+        anotherBitSet.set(0, 3);
+        anotherBitSet.clear(4, 7);
+        anotherBitSet.set(7);
+        System.out.println("anotherBitSet: "+anotherBitSet.toString()+"; length: "+anotherBitSet.length());
+
+        bitSet.xor(anotherBitSet);
+        anotherBitSet.xor(bitSet);
+        bitSet.xor(anotherBitSet);
+        System.out.println(bitSet.toString()+", "+anotherBitSet);
+    }
+
+    // 将字符强转为ASCII
+    public static void testAscii() {
         int i = '0';
         int A = 'A';
         int a = 'a';
         int z = 'z';
         System.out.println("0: "+i+"; A: "+A+"; a: "+a+"; z: "+z);
+    }
+
+    // 异或XOR运算法则：(a^b)^c == a^(b^c)
+    public static void swap() {
+        int a = 5;
+        int b = 9;
+        a = a ^ b;
+        b = a ^ b;
+        a = a ^ b;
+        System.out.println("a = "+a+"; b = "+b);
+    }
+
+    public static void move() {
+        // 真值，机器数
+        // 正数原码、反码、补码均相同
+        // 计算机使用补码运算
+        System.out.println(">>"+(Integer.MIN_VALUE >> 1));
+        System.out.println(">>"+(Integer.MIN_VALUE >> 31));
+
+        // 负数高位补0
+        System.out.println(">>>"+(Integer.MIN_VALUE >>> 1));
+        System.out.println(">>>"+(Integer.MIN_VALUE >>> 2));
+        System.out.println(">>>"+(-1 >>> 1));
     }
 }

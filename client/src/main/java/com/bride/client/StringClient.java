@@ -26,10 +26,17 @@ public class StringClient {
         stringBuilder.capacity();
         stringBuilder.subSequence(0, 1);
 
+
         System.out.println(stringBuilder);
         // for循环对称位置交换
         // 用StringFactory#newStringFromChars(int, int, char[])生成String
         System.out.println(stringBuilder.reverse());
+        stringBuilder.replace(0, 2, "A");
+        System.out.println(stringBuilder);
+        if (stringBuilder.charAt(0) >= 'A' && stringBuilder.charAt(0) <= 'Z') {
+            stringBuilder.setCharAt(0, 'a');
+        }
+        System.out.println(stringBuilder);
     }
 
     public static void testStringBuffer() {
