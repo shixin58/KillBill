@@ -4,20 +4,21 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.*
 import com.bride.demon.R
 import com.bride.demon.adapter.LieAdapter
 import com.bride.demon.adapter.StandAdapter
 import com.bride.demon.repository.RecyclerViewRepository
 
 /**
- *
+ * Adapter, LayoutManager, ViewHolder, ItemDecoration, ItemAnimator, LayoutParams
  * Created by shixin on 2018/3/6.
  */
 class RecyclerViewActivity : AppCompatActivity() {
 
-    private lateinit var recyclerViewHorizontal: androidx.recyclerview.widget.RecyclerView
-    private lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
-    private lateinit var recyclerView2: androidx.recyclerview.widget.RecyclerView
+    private lateinit var recyclerViewHorizontal: RecyclerView
+    private lateinit var recyclerViewGrid: RecyclerView
+    private lateinit var recyclerViewStaggered: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,29 +28,29 @@ class RecyclerViewActivity : AppCompatActivity() {
 
     private fun initView() {
         recyclerViewHorizontal = findViewById(R.id.recycler_view_horizontal)
-        recyclerView = findViewById(R.id.recycler_view)
-        recyclerView2 = findViewById(R.id.recycler_view2)
+        recyclerViewGrid = findViewById(R.id.recycler_view)
+        recyclerViewStaggered = findViewById(R.id.recycler_view2)
 
         val lieAdapter = LieAdapter()
         recyclerViewHorizontal.adapter = lieAdapter
-        recyclerViewHorizontal.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL, true)
-        val dividerItemDecorationHorizontal = androidx.recyclerview.widget.DividerItemDecoration(this, androidx.recyclerview.widget.DividerItemDecoration.HORIZONTAL)
+        recyclerViewHorizontal.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true)
+        val dividerItemDecorationHorizontal = DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL)
         dividerItemDecorationHorizontal.setDrawable(ContextCompat.getDrawable(this, R.drawable.shape_vertical)!!)
         recyclerViewHorizontal.addItemDecoration(dividerItemDecorationHorizontal)
         lieAdapter.setList(RecyclerViewRepository.getCountryList())
 
-        val standAdapter = StandAdapter()
-        recyclerView.adapter = standAdapter
-        recyclerView.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 3, androidx.recyclerview.widget.GridLayoutManager.HORIZONTAL, false)
-        /*val dividerItemDecoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        val gridAdapter = StandAdapter()
+        recyclerViewGrid.adapter = gridAdapter
+        recyclerViewGrid.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.HORIZONTAL, false)
+        val dividerItemDecoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.shape_horizontal)!!)
-        recyclerView.addItemDecoration(dividerItemDecoration)*/
-        standAdapter.setFruitList(RecyclerViewRepository.getColorList())
+        recyclerViewGrid.addItemDecoration(dividerItemDecoration)
+        gridAdapter.setFruitList(RecyclerViewRepository.getColorList())
 
-        val standAdapter2 = StandAdapter()
-        recyclerView2.adapter = standAdapter
-        recyclerView2.layoutManager = androidx.recyclerview.widget.StaggeredGridLayoutManager(2, androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL)
-        standAdapter2.setFruitList(RecyclerViewRepository.getColorList())
+        val staggeredAdapter = StandAdapter()
+        recyclerViewStaggered.adapter = gridAdapter
+        recyclerViewStaggered.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        staggeredAdapter.setFruitList(RecyclerViewRepository.getColorList())
     }
 
     companion object {

@@ -12,12 +12,13 @@ public class BigNumberClient {
     public static void main(String[] args) {
 //        additionOrSubtraction();
 //        testBitSet();
-//        testAscii();
+        testAscii();
 //        swap();
-        move();
+//        move();
     }
 
     public static void additionOrSubtraction() {
+        System.out.println("--- additionOrSubtraction ---");
         // 仅含+, -, 0
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please enter: ");
@@ -62,6 +63,7 @@ public class BigNumberClient {
     }
 
     public static void testBigInteger() {
+        System.out.println("--- testBigInteger ---");
         BigInteger bigInteger = new BigInteger("9999999999");
         BigInteger bigIntegerAnother = new BigInteger("333");
         BigInteger result = bigInteger.add(bigIntegerAnother);
@@ -69,6 +71,7 @@ public class BigNumberClient {
     }
 
     public static void testBitSet() {
+        System.out.println("--- testBitSet ---");
         BitSet bitSet = new BitSet();
         bitSet.set(0, true);
         bitSet.set(1, false);
@@ -92,6 +95,7 @@ public class BigNumberClient {
 
     // 将字符强转为ASCII
     public static void testAscii() {
+        System.out.println("--- testAscii ---");
         int i = '0';
         int A = 'A';
         int a = 'a';
@@ -101,6 +105,7 @@ public class BigNumberClient {
 
     // 异或XOR运算法则：(a^b)^c == a^(b^c)
     public static void swap() {
+        System.out.println("--- swap ---");
         int a = 5;
         int b = 9;
         a = a ^ b;
@@ -110,6 +115,7 @@ public class BigNumberClient {
     }
 
     public static void move() {
+        System.out.println("--- move ---");
         // 真值，机器数
         // 正数原码、反码、补码均相同
         // 计算机使用补码运算

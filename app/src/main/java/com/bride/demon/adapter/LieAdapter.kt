@@ -14,7 +14,7 @@ import java.util.ArrayList
  *
  * Created by shixin on 2018/3/6.
  */
-class LieAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<LieAdapter.ViewHolder>() {
+class LieAdapter : RecyclerView.Adapter<LieAdapter.ViewHolder>() {
     private val countryList = ArrayList<String>()
 
     fun setList(list: List<String>?) {
@@ -37,7 +37,7 @@ class LieAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<LieAdapter.
         return countryList.size
     }
 
-    class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var tvTitle: TextView = itemView.findViewById(R.id.tv_title)
     }
 }
