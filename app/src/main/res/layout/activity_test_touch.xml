@@ -15,10 +15,9 @@
         <com.bride.demon.widget.MyViewGroup
             android:id="@+id/my_view_group"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="200dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"/>
     </com.bride.demon.widget.DispatchConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

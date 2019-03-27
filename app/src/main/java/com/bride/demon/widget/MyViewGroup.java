@@ -11,36 +11,48 @@ import android.view.ViewGroup;
 /**
  * <p>Created by shixin on 2018/9/13.
  */
-public class MyViewGroup extends ViewGroup implements View.OnClickListener {
+public class MyViewGroup extends ViewGroup {
     private static final String TAG = MyViewGroup.class.getSimpleName();
 
     public MyViewGroup(Context context) {
         super(context);
-        init();
     }
 
     public MyViewGroup(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
-    }
-
-    private void init() {
-//        setOnClickListener(this);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        Log.i(TAG, "onMeasure - width["+MeasureSpec.getMode(widthMeasureSpec)+", "+MeasureSpec.getSize(widthMeasureSpec)+"]");
+        Log.i(TAG, "onMeasure - height["+MeasureSpec.getMode(heightMeasureSpec)+", "+MeasureSpec.getSize(heightMeasureSpec)+"]");
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         // 设置child大小和位置
+        Log.i(TAG, "onLayout - "+changed+"["+l+", "+t+", "+r+", "+b+"]");
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        super.draw(canvas);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+    }
+
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        super.dispatchDraw(canvas);
+    }
+
+    @Override
+    protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
+        return super.drawChild(canvas, child, drawingTime);
     }
 
     @Override
@@ -76,8 +88,6 @@ public class MyViewGroup extends ViewGroup implements View.OnClickListener {
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                // 处理performClick()
-//                performClick();
                 break;
             case MotionEvent.ACTION_CANCEL:
                 break;
@@ -97,10 +107,5 @@ public class MyViewGroup extends ViewGroup implements View.OnClickListener {
     @Override
     public boolean performClick() {
         return super.performClick();
-    }
-
-    @Override
-    public void onClick(View v) {
-        Log.i(TAG, "onClick - ok");
     }
 }
