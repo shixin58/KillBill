@@ -12,6 +12,7 @@ import com.android.volley.toolbox.Volley;
 import com.bride.baselib.PreferenceUtils;
 import com.bride.baselib.ResUtils;
 import com.facebook.stetho.Stetho;
+import com.squareup.leakcanary.LeakCanary;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -44,6 +45,8 @@ public class ThirdPartyApplication extends Application {
         PreferenceUtils.initialize(this, "thirdparty_prefs");
 
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+
+        initLeakCanary();
     }
 
     public RequestQueue getRequestQueue() {
@@ -65,5 +68,14 @@ public class ThirdPartyApplication extends Application {
                     .build();
             StrictMode.setVmPolicy(vmPolicy);
         }
+    }
+
+    private void initLeakCanary() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
     }
 }

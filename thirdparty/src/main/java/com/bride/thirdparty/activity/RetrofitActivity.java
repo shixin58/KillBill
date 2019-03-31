@@ -44,4 +44,10 @@ public class RetrofitActivity extends BaseActivity {
                 break;
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRetrofitStrategy.onDestroy();
+    }
 }

@@ -1,5 +1,7 @@
 package com.bride.client;
 
+import java.util.UUID;
+
 /**
  * 1、String, StringBuilder, StringBuffer比较
  * <p>Created by shixin on 2018/10/31.
@@ -9,6 +11,7 @@ public class StringClient {
     public static void main(String[] args) {
         testStringBuilder();
         testStringBuffer();
+        generateUUID();
     }
 
     public static void testStringBuilder() {
@@ -58,5 +61,17 @@ public class StringClient {
 
         stringBuffer.delete(0, 1);
         System.out.println(stringBuffer);
+    }
+
+    public static void generateUUID() {
+        System.out.println("*** UUID ***");
+        UUID uuid = UUID.randomUUID();
+        System.out.println(uuid.toString());
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(UUID.randomUUID().toString());
     }
 }

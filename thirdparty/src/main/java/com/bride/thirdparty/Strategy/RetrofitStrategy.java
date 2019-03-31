@@ -3,10 +3,10 @@ package com.bride.thirdparty.Strategy;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.bride.thirdparty.protocal.IService;
-import com.bride.thirdparty.protocal.IStrategy;
 import com.bride.thirdparty.bean.PhoneNumberModel;
 import com.bride.thirdparty.bean.WrapperModel;
+import com.bride.thirdparty.protocal.IService;
+import com.bride.thirdparty.protocal.IStrategy;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import java.io.IOException;
@@ -30,6 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitStrategy implements IStrategy {
 
     private IService mService;
+    private CustomAsyncTask mAsyncTask;
 
     public RetrofitStrategy() {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -93,38 +94,49 @@ public class RetrofitStrategy implements IStrategy {
     // 封装了Handler和线程池
     public void testAsyncTask() {
         Call<WrapperModel<PhoneNumberModel>> call = mService.getPhoneInfo("13701116418", "9a4329bdf84fa69d193ce601c22b949d");
-        AsyncTask<String, Integer, String> asyncTask = new AsyncTask<String, Integer, String>() {
+        mAsyncTask = new CustomAsyncTask(call);
+        mAsyncTask.execute("A", "B", "C");
+    }
 
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
+    public static class CustomAsyncTask extends AsyncTask<String, Integer, String> {
+        Call<WrapperModel<PhoneNumberModel>> mCall;
 
-            @Override
-            protected String doInBackground(String... strings) {
-                try {
-                    publishProgress(1, 2, 3);
-                    Response<WrapperModel<PhoneNumberModel>> response = call.execute();
-                    if(response!=null&&response.body()!=null&&response.body().result!=null)
-                        return response.body().result.toString();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
+        CustomAsyncTask(Call<WrapperModel<PhoneNumberModel>> call) {
+            mCall = call;
+        }
 
-            @Override
-            protected void onProgressUpdate(Integer... values) {
-                super.onProgressUpdate(values);
-            }
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
 
-            @Override
-            protected void onPostExecute(String result) {
-                super.onPostExecute(result);
-                Log.i("onPostExecute", result);
-                cancel(true);
+        @Override
+        protected String doInBackground(String... strings) {
+            try {
+                publishProgress(1, 2, 3);
+                Response<WrapperModel<PhoneNumberModel>> response = mCall.execute();
+                if(response!=null&&response.body()!=null&&response.body().result!=null)
+                    return response.body().result.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        };
-        asyncTask.execute("A", "B", "C");
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            Log.i("onPostExecute", result);
+            cancel(true);
+        }
+    }
+
+    public void onDestroy() {
+        mAsyncTask.cancel(true);
     }
 }

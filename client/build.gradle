@@ -41,5 +41,6 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appcompatVersion"
     implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation group: 'com.squareup.leakcanary', name: 'leakcanary-android', version: '1.5.4'
     implementation project(':baselib')
 }
