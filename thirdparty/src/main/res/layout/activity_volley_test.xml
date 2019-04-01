@@ -15,7 +15,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:gravity="center"
-            android:text="getString"
+            android:text="Volley getString"
             android:onClick="onClick"/>
 
         <TextView
@@ -26,7 +26,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_get_string"
             android:gravity="center"
-            android:text="postString"
+            android:text="Volley postString"
             android:onClick="onClick"/>
 
         <TextView
@@ -37,7 +37,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_post_string"
             android:gravity="center"
-            android:text="postJson"
+            android:text="Volley postJson"
             android:onClick="onClick"/>
 
         <View
@@ -58,13 +58,16 @@
             app:layout_constraintDimensionRatio="3:4"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_post_json"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"/>
 
         <TextView
             android:id="@+id/image"
-            android:layout_width="90dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/iv_demo"
+            app:layout_constraintTop_toTopOf="@id/iv_demo"
             app:layout_constraintBottom_toBottomOf="@id/iv_demo"
             android:gravity="center"
             android:text="open image"
@@ -78,16 +81,19 @@
             app:layout_constraintDimensionRatio="3:4"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_demo"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"/>
 
         <TextView
             android:id="@+id/image1"
-            android:layout_width="90dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/iv_demo1"
+            app:layout_constraintTop_toTopOf="@id/iv_demo1"
             app:layout_constraintBottom_toBottomOf="@id/iv_demo1"
             android:gravity="center"
-            android:text="open image1"
+            android:text="use ImageCache"
             android:onClick="onClick"/>
 
         <com.android.volley.toolbox.NetworkImageView
@@ -98,16 +104,19 @@
             app:layout_constraintDimensionRatio="3:4"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_demo1"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:background="@android:color/black" />
 
         <TextView
             android:id="@+id/image2"
-            android:layout_width="90dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/iv_demo2"
+            app:layout_constraintTop_toTopOf="@id/iv_demo2"
             app:layout_constraintBottom_toBottomOf="@id/iv_demo2"
             android:gravity="center"
-            android:text="open image2"
+            android:text="open NetworkImageView"
             android:onClick="onClick"/>
 
         <View
@@ -122,12 +131,45 @@
             android:background="@android:color/black"/>
 
         <TextView
-            android:id="@+id/tv_post_sticky"
+            android:id="@+id/tv_urlconnection_get"
             android:layout_width="0dp"
             android:layout_height="40dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_demo2"
+            android:gravity="center"
+            android:text="URLConnection get"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:id="@+id/tv_urlconnection_post"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_urlconnection_get"
+            android:gravity="center"
+            android:text="URLConnection post"
+            android:onClick="onClick"/>
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="0dp"
+            android:layout_height="1px"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/tv_urlconnection_post"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/tv_post_sticky"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_urlconnection_post"
             android:gravity="center"
             android:text="EventBus#postSticky"
             android:onClick="onClick"/>

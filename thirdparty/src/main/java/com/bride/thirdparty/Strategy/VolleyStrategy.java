@@ -3,6 +3,7 @@ package com.bride.thirdparty.Strategy;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -17,10 +18,9 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
-import com.bride.thirdparty.util.BitmapCache;
-import com.bride.thirdparty.protocal.IStrategy;
-import com.bride.thirdparty.ThirdPartyApplication;
 import com.bride.thirdparty.R;
+import com.bride.thirdparty.ThirdPartyApplication;
+import com.bride.thirdparty.util.BitmapCache;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,7 +32,9 @@ import java.util.Map;
 /**
  * <p>Created by shixin on 2018/9/16.
  */
-public class VolleyStrategy implements IStrategy {
+public class VolleyStrategy {
+    private static final String TAG = VolleyStrategy.class.getSimpleName();
+
     private RequestQueue mQueue;
     public VolleyStrategy() {
         mQueue = ThirdPartyApplication.getInstance().getRequestQueue();
@@ -43,12 +45,14 @@ public class VolleyStrategy implements IStrategy {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
-                Log.i("onResponse", s);
+                Log.i(TAG, "executeGetString - onResponse - "+s);
+                Toast.makeText(ThirdPartyApplication.getInstance(), s, Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Log.i("onErrorResponse", volleyError.getMessage());
+                Log.i(TAG, "executeGetString - onErrorResponse - "+volleyError.getMessage());
+                Toast.makeText(ThirdPartyApplication.getInstance(), volleyError.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
         stringRequest.setTag("xyz");
@@ -61,12 +65,14 @@ public class VolleyStrategy implements IStrategy {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
-                Log.i("onResponse", s);
+                Log.i(TAG, "executePostString - onResponse - "+s);
+                Toast.makeText(ThirdPartyApplication.getInstance(), s, Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Log.i("onErrorResponse", volleyError.getMessage());
+                Log.i(TAG, "executePostString - onErrorResponse - "+volleyError.getMessage());
+                Toast.makeText(ThirdPartyApplication.getInstance(), volleyError.getMessage(), Toast.LENGTH_LONG).show();
             }
         }){
             @Override
@@ -82,31 +88,24 @@ public class VolleyStrategy implements IStrategy {
         mQueue.start();
     }
 
-    @Override
-    public void execute() {
+    public void executePostJson() {
         // target Pie 启用TLS，isCleartextTrafficPermitted返回false
-        // post json
-        String url = "http://apis.juhe.cn/mobile/get";
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("phone").append("=").append("13701116418");
-        stringBuilder.append("&").append("key").append("=").append("9a4329bdf84fa69d193ce601c22b949d");
+        String url = "https://postman-echo.com/post";
+        String params = "{\"phone\": \"13701116418\", \"key\": \"9a4329bdf84fa69d193ce601c22b949d\"}";
         JsonRequest<JSONObject> jsonObjectRequest = new JsonRequest<JSONObject>(Request.Method.POST, url,
-                stringBuilder.toString(), new Response.Listener<JSONObject>() {
+                params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
-                Log.i("onResponse", jsonObject.toString());
+                Log.i(TAG, "executePostJson - onResponse - "+jsonObject.toString());
+                Toast.makeText(ThirdPartyApplication.getInstance(), jsonObject.toString(), Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Log.i("onErrorResponse", volleyError.getMessage());
+                Log.i(TAG, "executePostJson - onErrorResponse - "+volleyError.getMessage());
+                Toast.makeText(ThirdPartyApplication.getInstance(), volleyError.getMessage(), Toast.LENGTH_LONG).show();
             }
         }){
-            @Override
-            public String getBodyContentType() {
-                return "application/x-www-form-urlencoded; charset=" + this.getParamsEncoding();
-            }
-
             @Override
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
                 try {
@@ -134,7 +133,7 @@ public class VolleyStrategy implements IStrategy {
         }, 180, 240, ImageView.ScaleType.CENTER_CROP, Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Log.e("Max","onErrorResponse", volleyError);
+                Log.e(TAG,"executeImage - onErrorResponse - "+volleyError.getMessage());
             }
         });
         mQueue.add(imageRequest);
@@ -142,7 +141,7 @@ public class VolleyStrategy implements IStrategy {
     }
 
     // 自定义lru缓存
-    public void executeImage2(final ImageView imageView) {
+    public void executeImageCache(final ImageView imageView) {
         String url = "http://img1.3lian.com/2015/a2/204/d/15.jpg";
         ImageLoader imageLoader = new ImageLoader(mQueue, new BitmapCache());
         ImageLoader.ImageListener imageListener = ImageLoader.getImageListener(imageView, R.mipmap.ic_launcher, R.mipmap.ic_launcher);
@@ -150,7 +149,7 @@ public class VolleyStrategy implements IStrategy {
     }
 
     // NetworkImageView使用
-    public void executeImage3(final NetworkImageView imageView) {
+    public void executeNetworkImageView(final NetworkImageView imageView) {
         String url = "https://www.nanrenwo.net/uploads/171009/8478-1G009160016215.jpg";
         ImageLoader imageLoader = new ImageLoader(mQueue, new BitmapCache());
         imageView.setDefaultImageResId(R.mipmap.ic_launcher);

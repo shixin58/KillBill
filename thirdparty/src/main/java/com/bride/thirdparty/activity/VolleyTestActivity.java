@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.bride.baselib.BaseActivity;
 import com.bride.thirdparty.R;
+import com.bride.thirdparty.Strategy.URLConnectionStrategy;
 import com.bride.thirdparty.Strategy.VolleyStrategy;
 import com.bride.thirdparty.ThirdPartyApplication;
 import com.bride.thirdparty.bean.MessageEvent;
@@ -40,16 +41,22 @@ public class VolleyTestActivity extends BaseActivity {
                 volleyStrategy.executePostString();
                 break;
             case R.id.tv_post_json:
-                volleyStrategy.execute();
+                volleyStrategy.executePostJson();
                 break;
             case R.id.image:
                 volleyStrategy.executeImage(findViewById(R.id.iv_demo));
                 break;
             case R.id.image1:
-                volleyStrategy.executeImage2(findViewById(R.id.iv_demo1));
+                volleyStrategy.executeImageCache(findViewById(R.id.iv_demo1));
                 break;
             case R.id.image2:
-                volleyStrategy.executeImage3(findViewById(R.id.iv_demo2));
+                volleyStrategy.executeNetworkImageView(findViewById(R.id.iv_demo2));
+                break;
+            case R.id.tv_urlconnection_get:
+                URLConnectionStrategy.get();
+                break;
+            case R.id.tv_urlconnection_post:
+                URLConnectionStrategy.post();
                 break;
             case R.id.tv_post_sticky:
                 EventBus.getDefault().postSticky(new MessageEvent("Direwolf is really loyal!"));
