@@ -23,23 +23,18 @@ class DemonApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
-        ResUtils.setContext(this)
-
-        PreferenceUtils.initialize(this, "demon_prefs")
-
-        initLeakCanary()
-
-        BlockCanary.install(this, AppBlockContext()).start()
-    }
-
-    private fun initLeakCanary() {
         if (LeakCanary.isInAnalyzerProcess(this)) {
             // This process is dedicated to LeakCanary for heap analysis.
             // You should not init your app in this process.
             return
         }
         LeakCanary.install(this)
+
+        ResUtils.setContext(this)
+
+        PreferenceUtils.initialize(this, "demon_prefs")
+
+        BlockCanary.install(this, AppBlockContext()).start()
 
         unregisterActivityLifecycleCallbacks(activityLifecycleCallbacks)
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)

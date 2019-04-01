@@ -37,6 +37,13 @@ public class ThirdPartyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
+
         Stetho.initializeWithDefaults(this);
         application = this;
 
@@ -45,8 +52,6 @@ public class ThirdPartyApplication extends Application {
         PreferenceUtils.initialize(this, "thirdparty_prefs");
 
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
-
-        initLeakCanary();
     }
 
     public RequestQueue getRequestQueue() {
@@ -68,14 +73,5 @@ public class ThirdPartyApplication extends Application {
                     .build();
             StrictMode.setVmPolicy(vmPolicy);
         }
-    }
-
-    private void initLeakCanary() {
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
-        LeakCanary.install(this);
     }
 }
