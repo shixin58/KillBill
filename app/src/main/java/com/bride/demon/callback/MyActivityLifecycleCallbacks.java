@@ -14,36 +14,36 @@ public class MyActivityLifecycleCallbacks implements Application.ActivityLifecyc
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        Log.i(TAG, "onActivityCreated - "+activity.getClass().getSimpleName());
+        Log.v(TAG, "onActivityCreated - "+activity.getClass().getSimpleName());
     }
 
     @Override
     public void onActivityStarted(Activity activity) {
-        Log.i(TAG, "onActivityStarted - "+activity.getClass().getSimpleName());
+        Log.v(TAG, "onActivityStarted - "+activity.getClass().getSimpleName());
     }
 
     @Override
     public void onActivityResumed(Activity activity) {
-        Log.i(TAG, "onActivityResumed - "+activity.getClass().getSimpleName());
+        Log.v(TAG, "onActivityResumed - "+activity.getClass().getSimpleName());
     }
 
     @Override
     public void onActivityPaused(Activity activity) {
-        Log.i(TAG, "onActivityPaused - "+activity.getClass().getSimpleName());
+        Log.v(TAG, "onActivityPaused - "+activity.getClass().getSimpleName());
     }
 
     @Override
     public void onActivityStopped(Activity activity) {
-        Log.i(TAG, "onActivityStopped - "+activity.getClass().getSimpleName());
+        Log.v(TAG, "onActivityStopped - "+activity.getClass().getSimpleName());
     }
 
     @Override
     public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-        Log.i(TAG, "onActivitySaveInstanceState - "+activity.getClass().getSimpleName());
+        Log.v(TAG, "onActivitySaveInstanceState - "+activity.getClass().getSimpleName());
     }
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-        Log.i(TAG, "onActivityDestroyed - "+activity.getClass().getSimpleName());
+        Log.v(TAG, "onActivityDestroyed - "+activity.getClass().getSimpleName());
     }
 }

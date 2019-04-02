@@ -2,20 +2,16 @@ package com.bride.thirdparty;
 
 import android.app.Application;
 import android.content.Context;
-import android.os.Build;
-import android.os.StrictMode;
-import android.os.strictmode.Violation;
-import android.util.Log;
+import android.os.Handler;
+import android.os.Looper;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.bride.baselib.CompatUtils;
 import com.bride.baselib.PreferenceUtils;
 import com.bride.baselib.ResUtils;
 import com.facebook.stetho.Stetho;
 import com.squareup.leakcanary.LeakCanary;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * <p>Created by shixin on 2018/9/20.
@@ -23,6 +19,7 @@ import java.util.concurrent.Executors;
 public class ThirdPartyApplication extends Application {
     private static ThirdPartyApplication application;
     private RequestQueue mRequestQueue;
+    private Handler mHandler = new Handler(Looper.getMainLooper());
 
     public static ThirdPartyApplication getInstance() {
         return application;
@@ -31,7 +28,7 @@ public class ThirdPartyApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        detectNonSdkApi();
+        CompatUtils.detectNonSdkApi();
     }
 
     @Override
@@ -58,20 +55,7 @@ public class ThirdPartyApplication extends Application {
         return mRequestQueue;
     }
 
-    private void detectNonSdkApi() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            ExecutorService executorService = Executors.newFixedThreadPool(8);
-            StrictMode.VmPolicy vmPolicy = new StrictMode.VmPolicy.Builder()
-                    .detectNonSdkApiUsage()
-                    .penaltyListener(executorService, new StrictMode.OnVmViolationListener() {
-                        @Override
-                        public void onVmViolation(Violation v) {
-                            Log.i("detectNonSdkApiUsage", "onVmViolation", v);
-                        }
-                    })
-                    /*.penaltyLog()*/
-                    .build();
-            StrictMode.setVmPolicy(vmPolicy);
-        }
+    public Handler getHandler() {
+        return mHandler;
     }
 }

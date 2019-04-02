@@ -18,7 +18,6 @@ import com.bride.demon.R;
  * <p>Created by shixin on 2018/10/22.
  */
 public class WebpActivity extends BaseActivity {
-    private static final String TAG = WebpActivity.class.getSimpleName();
     public static void openActivity(Context context) {
         Intent intent = new Intent(context, WebpActivity.class);
         context.startActivity(intent);

@@ -16,31 +16,31 @@ public class MyLifecycleObserver implements LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     public void onCreate(LifecycleOwner lifecycleOwner) {
-        Log.i(TAG, lifecycleOwner.getLifecycle().getCurrentState().name());
+        Log.v(TAG, lifecycleOwner.getLifecycle().getCurrentState().name());
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     public void onStart(LifecycleOwner lifecycleOwner) {
-        Log.i(TAG, lifecycleOwner.getLifecycle().getCurrentState().name());
+        Log.v(TAG, lifecycleOwner.getLifecycle().getCurrentState().name());
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     public void onResume(LifecycleOwner lifecycleOwner) {
-        Log.i(TAG, lifecycleOwner.getLifecycle().getCurrentState().name());
+        Log.v(TAG, lifecycleOwner.getLifecycle().getCurrentState().name());
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     public void onPause(LifecycleOwner lifecycleOwner) {
-        Log.i(TAG, lifecycleOwner.getLifecycle().getCurrentState().name());
+        Log.v(TAG, lifecycleOwner.getLifecycle().getCurrentState().name());
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     public void onStop(LifecycleOwner lifecycleOwner) {
-        Log.i(TAG, lifecycleOwner.getLifecycle().getCurrentState().name());
+        Log.v(TAG, lifecycleOwner.getLifecycle().getCurrentState().name());
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     public void onDestroy(LifecycleOwner lifecycleOwner) {
-        Log.i(TAG, lifecycleOwner.getLifecycle().getCurrentState().name());
+        Log.v(TAG, lifecycleOwner.getLifecycle().getCurrentState().name());
     }
 }

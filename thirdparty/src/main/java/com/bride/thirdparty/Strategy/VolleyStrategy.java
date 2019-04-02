@@ -18,6 +18,8 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
+import com.bride.baselib.UrlParams;
+import com.bride.baselib.Urls;
 import com.bride.thirdparty.R;
 import com.bride.thirdparty.ThirdPartyApplication;
 import com.bride.thirdparty.util.BitmapCache;
@@ -41,7 +43,7 @@ public class VolleyStrategy {
     }
 
     public void executeGetString() {
-        String url = "http://apis.juhe.cn/mobile/get?phone=13701116418&key=9a4329bdf84fa69d193ce601c22b949d";
+        String url = new UrlParams(Urls.JUHE).put("phone", "13701116418").put("key", Urls.JUHE_KEY).toString();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
@@ -61,8 +63,7 @@ public class VolleyStrategy {
     }
 
     public void executePostString() {
-        String url = "http://apis.juhe.cn/mobile/get";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.JUHE, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
                 Log.i(TAG, "executePostString - onResponse - "+s);
@@ -79,7 +80,7 @@ public class VolleyStrategy {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new Hashtable<>();
                 map.put("phone", "13701116418");
-                map.put("key", "9a4329bdf84fa69d193ce601c22b949d");
+                map.put("key", Urls.JUHE_KEY);
                 return map;
             }
         };
@@ -90,9 +91,8 @@ public class VolleyStrategy {
 
     public void executePostJson() {
         // target Pie 启用TLS，isCleartextTrafficPermitted返回false
-        String url = "https://postman-echo.com/post";
         String params = "{\"phone\": \"13701116418\", \"key\": \"9a4329bdf84fa69d193ce601c22b949d\"}";
-        JsonRequest<JSONObject> jsonObjectRequest = new JsonRequest<JSONObject>(Request.Method.POST, url,
+        JsonRequest<JSONObject> jsonObjectRequest = new JsonRequest<JSONObject>(Request.Method.POST, Urls.POSTMAN,
                 params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
@@ -124,7 +124,7 @@ public class VolleyStrategy {
     }
 
     public void executeImage(final ImageView imageView) {
-        String url = "http://img1.3lian.com/2015/a2/204/d/15.jpg";
+        String url = Urls.Images.BEAUTY;
         ImageRequest imageRequest = new ImageRequest(url, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap bitmap) {
@@ -142,7 +142,7 @@ public class VolleyStrategy {
 
     // 自定义lru缓存
     public void executeImageCache(final ImageView imageView) {
-        String url = "http://img1.3lian.com/2015/a2/204/d/15.jpg";
+        String url = Urls.Images.BEAUTY;
         ImageLoader imageLoader = new ImageLoader(mQueue, new BitmapCache());
         ImageLoader.ImageListener imageListener = ImageLoader.getImageListener(imageView, R.mipmap.ic_launcher, R.mipmap.ic_launcher);
         imageLoader.get(url, imageListener, 0, 0, ImageView.ScaleType.CENTER_CROP);
@@ -150,7 +150,7 @@ public class VolleyStrategy {
 
     // NetworkImageView使用
     public void executeNetworkImageView(final NetworkImageView imageView) {
-        String url = "https://www.nanrenwo.net/uploads/171009/8478-1G009160016215.jpg";
+        String url = Urls.Images.LADY;
         ImageLoader imageLoader = new ImageLoader(mQueue, new BitmapCache());
         imageView.setDefaultImageResId(R.mipmap.ic_launcher);
         imageView.setErrorImageResId(R.mipmap.ic_launcher);

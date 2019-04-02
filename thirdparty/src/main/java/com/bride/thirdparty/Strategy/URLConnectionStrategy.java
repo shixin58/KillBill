@@ -1,29 +1,46 @@
 package com.bride.thirdparty.Strategy;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.bride.baselib.UrlParams;
+import com.bride.baselib.Urls;
+import com.bride.thirdparty.ThirdPartyApplication;
+
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+
+import javax.net.ssl.HttpsURLConnection;
 
 /**
  * <p>Created by shixin on 2019/4/1.
  */
 public class URLConnectionStrategy {
-    public static final String DEMO_URL_GET = "http://apis.juhe.cn/mobile/get?phone=13701116418&key=9a4329bdf84fa69d193ce601c22b949d";
-    public static final String DEMO_URL_POST = "https://postman-echo.com/post";
+    private static final String TAG = URLConnectionStrategy.class.getSimpleName();
 
-    public static void main(String[] args) {
-        get();
-        post();
+    public enum Platform {
+        Java, Android
     }
 
-    public static void get() {
+    public static void main(String[] args) {
+        getJava();
+        postJava();
+    }
+
+    public static void getJava() {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    URL url = new URL(DEMO_URL_GET);
+                    URL url = new URL(new UrlParams(Urls.JUHE).put("phone", "13701116418").put("key", Urls.JUHE_KEY).toString());
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("GET");
                     connection.connect();
@@ -31,9 +48,91 @@ public class URLConnectionStrategy {
                     int responseCode = connection.getResponseCode();
                     if (responseCode == HttpURLConnection.HTTP_OK) {
                         InputStream inputStream = connection.getInputStream();
-                        byte[] bytes = new byte[inputStream.available()];
-                        inputStream.read(bytes);
-                        System.out.println(new String(bytes));
+                        String result = inputStreamToString(inputStream);
+                        show(result, Platform.Java);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    public static void get() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(new UrlParams(Urls.JUHE).put("phone", "13701116418").put("key", Urls.JUHE_KEY).toString());
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.connect();
+
+                    int responseCode = connection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        InputStream inputStream = connection.getInputStream();
+                        String result = inputStreamToString2(inputStream);
+                        show(result, Platform.Android);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    public static void getImage(ImageView imageView) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(Urls.Images.LOGO_REDIRECT);
+                    HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+                    connection.setDoInput(true);
+                    connection.connect();
+
+                    int responseCode = connection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        InputStream inputStream = connection.getInputStream();
+                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                        ThirdPartyApplication.getInstance().getHandler().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                imageView.setImageBitmap(bitmap);
+                            }
+                        });
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    public static void postJava() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(Urls.POSTMAN);
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("POST");
+                    connection.setDoOutput(true);
+                    connection.setDoInput(true);
+                    connection.setUseCaches(false);
+                    connection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
+                    connection.connect();
+
+                    String body = "{\"phone\": \"13701116418\", \"key\": \""+Urls.JUHE_KEY+"\"}";
+                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream(), "UTF-8"));
+                    writer.write(body);
+                    writer.close();
+
+                    int responseCode = connection.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        InputStream inputStream = connection.getInputStream();
+                        String result = inputStreamToString(inputStream);
+                        show(result, Platform.Java);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -47,7 +146,7 @@ public class URLConnectionStrategy {
             @Override
             public void run() {
                 try {
-                    URL url = new URL(DEMO_URL_POST);
+                    URL url = new URL(Urls.POSTMAN);
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("POST");
                     connection.setDoOutput(true);
@@ -56,7 +155,7 @@ public class URLConnectionStrategy {
                     connection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
                     connection.connect();
 
-                    String body = "{\"phone\": \"13701116418\", \"key\": \"9a4329bdf84fa69d193ce601c22b949d\"}";
+                    String body = "{\"phone\": \"13701116418\", \"key\": \""+Urls.JUHE_KEY+"\"}";
                     BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream(), "UTF-8"));
                     writer.write(body);
                     writer.close();
@@ -64,9 +163,8 @@ public class URLConnectionStrategy {
                     int responseCode = connection.getResponseCode();
                     if (responseCode == HttpURLConnection.HTTP_OK) {
                         InputStream inputStream = connection.getInputStream();
-                        byte[] bytes = new byte[inputStream.available()];
-                        inputStream.read(bytes);
-                        System.out.println(new String(bytes));
+                        String result = inputStreamToString2(inputStream);
+                        show(result, Platform.Android);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -74,4 +172,49 @@ public class URLConnectionStrategy {
             }
         }).start();
     }
+
+    public static String inputStreamToString(InputStream inputStream) {
+        try {
+            byte[] bytes = new byte[inputStream.available()];
+            inputStream.read(bytes);
+            return new String(bytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String inputStreamToString2(InputStream inputStream) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int length;
+        try {
+            while ((length = inputStream.read(buffer)) != -1) {
+                byteArrayOutputStream.write(buffer, 0, length);
+            }
+            return byteArrayOutputStream.toString(StandardCharsets.UTF_8.name());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void show(String value, Platform platform) {
+        switch (platform) {
+            case Android:
+                Log.i(TAG, "show - "+value);
+                ThirdPartyApplication.getInstance().getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(ThirdPartyApplication.getInstance(), value, Toast.LENGTH_LONG).show();
+                    }
+                });
+                break;
+            case Java:
+            default:
+                System.out.println(value);
+        }
+    }
+
+
 }

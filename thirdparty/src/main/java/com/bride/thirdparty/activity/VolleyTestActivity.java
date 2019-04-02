@@ -58,6 +58,9 @@ public class VolleyTestActivity extends BaseActivity {
             case R.id.tv_urlconnection_post:
                 URLConnectionStrategy.post();
                 break;
+            case R.id.tv_urlconnection_get_image:
+                URLConnectionStrategy.getImage(findViewById(R.id.iv_demo3));
+                break;
             case R.id.tv_post_sticky:
                 EventBus.getDefault().postSticky(new MessageEvent("Direwolf is really loyal!"));
                 break;
