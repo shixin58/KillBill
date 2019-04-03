@@ -8,12 +8,13 @@ import android.util.Log;
  * <p>Created by shixin on 2018/9/7.
  */
 public interface IStrategy {
+    String TAG = IStrategy.class.getSimpleName();
 
     void execute();
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    default public void fuckYou() {
+    default void fuckYou() {
         // 支持language level 1.8, API level 24
-        Log.i("fuckYou", "Yeah!");
+        Log.i(TAG, "fuckYou - Yeah!");
     }
 }

@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.bride.baselib.BaseActivity;
 import com.bride.thirdparty.Strategy.SystemStrategy;
+import com.bride.thirdparty.activity.DirectoryActivity;
 import com.bride.thirdparty.activity.EventBusTestActivity;
 import com.bride.thirdparty.activity.LandscapeActivity;
 import com.bride.thirdparty.activity.PushActivity;
@@ -48,6 +49,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         findViewById(R.id.tv_push).setOnClickListener(this);
         findViewById(R.id.tv_retrofit).setOnClickListener(this);
         findViewById(R.id.tv_rxjava).setOnClickListener(this);
+        findViewById(R.id.tv_directory).setOnClickListener(this);
     }
 
     private void initData() {
@@ -105,6 +107,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 break;
             case R.id.tv_rxjava:
                 RxJavaActivity.openActivity(this);
+                break;
+            case R.id.tv_directory:
+                DirectoryActivity.openActivity(this);
                 break;
             default:
                 break;

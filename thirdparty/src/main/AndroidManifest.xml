@@ -50,6 +50,10 @@
             android:label="@string/rxjava_activity"
             android:launchMode="standard"/>
 
+        <activity android:name=".activity.DirectoryActivity"
+            android:label="@string/directory_activity"
+            android:launchMode="singleTask"/>
+
         <receiver android:name=".PushReceiver"/>
     </application>
 </manifest>
