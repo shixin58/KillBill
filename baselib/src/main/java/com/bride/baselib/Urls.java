@@ -11,7 +11,11 @@ public interface Urls {
         String LADY = "https://www.nanrenwo.net/uploads/171009/8478-1G009160016215.jpg";
     }
 
-    String JUHE = "http://apis.juhe.cn/mobile/get";
+    String JUHE_HOST = "http://apis.juhe.cn";
+    String JUHE_MOBILE = JUHE_HOST + "/mobile/get";
     String JUHE_KEY = "9a4329bdf84fa69d193ce601c22b949d";
-    String POSTMAN = "https://postman-echo.com/post";
+
+    String POSTMAN_HOST = "https://postman-echo.com";
+    String POSTMAN_GET = POSTMAN_HOST+"/get";
+    String POSTMAN_POST = POSTMAN_HOST+"/post";
 }

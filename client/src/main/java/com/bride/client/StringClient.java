@@ -9,9 +9,16 @@ import java.util.UUID;
 public class StringClient {
 
     public static void main(String[] args) {
+        testString();
         testStringBuilder();
         testStringBuffer();
         generateUUID();
+    }
+
+    public static void testString() {
+        System.out.println("*** String ***");
+        char[] chars = {'C', 'h', 'i', 'n', 'a'};
+        System.out.println(new String(chars));
     }
 
     public static void testStringBuilder() {
@@ -22,7 +29,8 @@ public class StringClient {
                 .append(',')
                 .append(5.1f)
                 .append(true)
-                .append("OK");
+                .append("OK")
+                .append(new char[]{'H', 'i', ',', '石', '鑫'});
 
         stringBuilder.length();
         stringBuilder.trimToSize();

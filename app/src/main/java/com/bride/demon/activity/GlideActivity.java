@@ -15,14 +15,10 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.CustomViewTarget;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.request.target.ViewTarget;
 import com.bumptech.glide.request.transition.Transition;
 
 import org.jetbrains.annotations.Nullable;
-
-import androidx.annotation.NonNull;
 
 /**
  * <p>Created by shixin on 2019/3/5.

@@ -43,7 +43,7 @@ public class VolleyStrategy {
     }
 
     public void executeGetString() {
-        String url = new UrlParams(Urls.JUHE).put("phone", "13701116418").put("key", Urls.JUHE_KEY).toString();
+        String url = new UrlParams(Urls.JUHE_MOBILE).put("phone", "13701116418").put("key", Urls.JUHE_KEY).toString();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
@@ -63,7 +63,7 @@ public class VolleyStrategy {
     }
 
     public void executePostString() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.JUHE, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Urls.JUHE_MOBILE, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
                 Log.i(TAG, "executePostString - onResponse - "+s);
@@ -91,8 +91,8 @@ public class VolleyStrategy {
 
     public void executePostJson() {
         // target Pie 启用TLS，isCleartextTrafficPermitted返回false
-        String params = "{\"phone\": \"13701116418\", \"key\": \"9a4329bdf84fa69d193ce601c22b949d\"}";
-        JsonRequest<JSONObject> jsonObjectRequest = new JsonRequest<JSONObject>(Request.Method.POST, Urls.POSTMAN,
+        String params = "{\"phone\": \"13701116418\", \"key\": \""+Urls.JUHE_KEY+"\"}";
+        JsonRequest<JSONObject> jsonObjectRequest = new JsonRequest<JSONObject>(Request.Method.POST, Urls.POSTMAN_POST,
                 params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {

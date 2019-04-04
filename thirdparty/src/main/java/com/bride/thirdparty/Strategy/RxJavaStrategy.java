@@ -4,6 +4,8 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.bride.baselib.UrlParams;
+import com.bride.baselib.Urls;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -189,8 +191,8 @@ public class RxJavaStrategy implements IStrategy {
 
     public void executeMap() {
         // 线程调度+操作符
-        Observable.just("http://apis.juhe.cn/mobile/get?phone=13701116418&key=9a4329bdf84fa69d193ce601c22b949d",
-                "http://apis.juhe.cn/mobile/get?phone=18600166830&key=9a4329bdf84fa69d193ce601c22b949d")
+        Observable.just(new UrlParams(Urls.JUHE_MOBILE).put("phone", "13701116418").put("key", Urls.JUHE_KEY).toString(),
+                new UrlParams(Urls.JUHE_MOBILE).put("phone", "18600166830").put("key", Urls.JUHE_KEY).toString())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(Schedulers.io())
                 .map(new Function<String, WrapperModel<PhoneNumberModel>>() {
