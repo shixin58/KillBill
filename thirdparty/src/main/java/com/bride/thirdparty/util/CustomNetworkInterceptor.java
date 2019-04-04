@@ -8,7 +8,7 @@ import okhttp3.Response;
 /**
  * <p>Created by shixin on 2019/4/4.
  */
-public class CustomCacheInterceptor implements Interceptor {
+public class CustomNetworkInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Response originResponse = chain.proceed(chain.request());

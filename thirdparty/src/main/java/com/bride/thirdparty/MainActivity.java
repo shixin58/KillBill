@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bride.baselib.BaseActivity;
-import com.bride.thirdparty.Strategy.SystemStrategy;
+import com.bride.baselib.PermissionUtils;
 import com.bride.thirdparty.activity.DirectoryActivity;
 import com.bride.thirdparty.activity.EventBusTestActivity;
 import com.bride.thirdparty.activity.LandscapeActivity;
@@ -16,7 +16,6 @@ import com.bride.thirdparty.activity.RetrofitActivity;
 import com.bride.thirdparty.activity.RxJavaActivity;
 import com.bride.thirdparty.activity.VolleyTestActivity;
 import com.bride.thirdparty.bean.MessageEvent;
-import com.bride.thirdparty.util.PermissionUtils;
 import com.bride.thirdparty.util.RxBus;
 
 import androidx.core.app.ActivityCompat;
@@ -80,11 +79,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 });
 
         // 2、请求系统权限
-        Log.i(TAG, "getDeviceId " + SystemStrategy.getDeviceId());
-        Log.i(TAG, "getDeviceInfo " + SystemStrategy.getDeviceInfo());
-        SystemStrategy.printProcessInfo();
-        PermissionUtils.requestPhonePermission(this, 1);
-        PermissionUtils.requestStoragePermission(this, 2);
+        PermissionUtils.requestAllPermissions(this, 3);
     }
 
     @Override
@@ -127,15 +122,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case 1:
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.i(TAG, "onRequestPermissionsResult "+requestCode);
+                if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.i(TAG, "onRequestPermissionsResult "+permissions[0]);
                 }
                 break;
             case 2:
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.i(TAG, "onRequestPermissionsResult "+requestCode);
+                if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.i(TAG, "onRequestPermissionsResult "+permissions[0]);
                 }
                 break;
+            case 3:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.i(TAG, "onRequestPermissionsResult "+permissions[0]);
+                }
+                if (grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                    Log.i(TAG, "onRequestPermissionsResult "+permissions[1]);
+                }
         }
     }
 }

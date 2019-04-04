@@ -6,8 +6,10 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.bride.baselib.CompatUtils;
+import com.bride.baselib.PermissionUtils;
 import com.bride.baselib.PreferenceUtils;
 import com.bride.baselib.ResUtils;
+import com.bride.baselib.SystemStrategy;
 import com.facebook.stetho.Stetho;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -43,8 +45,9 @@ public class ThirdPartyApplication extends Application {
         application = this;
 
         ResUtils.setContext(this);
-
         PreferenceUtils.initialize(this, "thirdparty_prefs");
+        PermissionUtils.setContext(this);
+        SystemStrategy.setContext(this);
     }
 
     public Handler getHandler() {

@@ -4,8 +4,10 @@ import android.app.Application;
 import android.content.Context;
 
 import com.bride.baselib.CompatUtils;
+import com.bride.baselib.PermissionUtils;
 import com.bride.baselib.PreferenceUtils;
 import com.bride.baselib.ResUtils;
+import com.bride.baselib.SystemStrategy;
 import com.squareup.leakcanary.LeakCanary;
 
 /**
@@ -30,7 +32,8 @@ public class ClientApplication extends Application {
         LeakCanary.install(this);
 
         ResUtils.setContext(this);
-
         PreferenceUtils.initialize(this, "client_prefs");
+        PermissionUtils.setContext(this);
+        SystemStrategy.setContext(this);
     }
 }

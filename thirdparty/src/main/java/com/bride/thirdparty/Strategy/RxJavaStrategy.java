@@ -10,7 +10,8 @@ import com.bride.thirdparty.ThirdPartyApplication;
 import com.bride.thirdparty.bean.PhoneNumberModel;
 import com.bride.thirdparty.bean.WrapperModel;
 import com.bride.thirdparty.protocal.IStrategy;
-import com.bride.thirdparty.util.CustomCacheInterceptor;
+import com.bride.thirdparty.util.CustomInterceptor;
+import com.bride.thirdparty.util.CustomNetworkInterceptor;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -80,9 +81,13 @@ public class RxJavaStrategy implements IStrategy {
         File file = new File(ThirdPartyApplication.getInstance().getExternalCacheDir(), "rxjava");
         Cache cache = new Cache(file, 24*1024*1024);
         mOkHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(new CustomInterceptor())
                 .addNetworkInterceptor(new StethoInterceptor())
-                .addNetworkInterceptor(new CustomCacheInterceptor())
-                .readTimeout(5, TimeUnit.SECONDS)
+                .addNetworkInterceptor(new CustomNetworkInterceptor())
+                .readTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .pingInterval(0, TimeUnit.SECONDS)
                 .cache(cache)/* 24MB */
                 .build();
     }

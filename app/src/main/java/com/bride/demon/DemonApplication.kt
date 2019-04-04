@@ -3,9 +3,7 @@ package com.bride.demon
 import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
-import com.bride.baselib.CompatUtils
-import com.bride.baselib.PreferenceUtils
-import com.bride.baselib.ResUtils
+import com.bride.baselib.*
 import com.bride.demon.callback.MyActivityLifecycleCallbacks
 import com.github.moduth.blockcanary.BlockCanary
 import com.squareup.leakcanary.LeakCanary
@@ -32,12 +30,14 @@ class DemonApplication : Application() {
             return
         }
         LeakCanary.install(this)
+        if (ResUtils.isMainThread(this)) {
+            BlockCanary.install(this, AppBlockContext()).start()
+        }
 
         ResUtils.setContext(this)
-
         PreferenceUtils.initialize(this, "demon_prefs")
-
-        BlockCanary.install(this, AppBlockContext()).start()
+        PermissionUtils.setContext(this)
+        SystemStrategy.setContext(this)
 
         unregisterActivityLifecycleCallbacks(activityLifecycleCallbacks)
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)

@@ -1,4 +1,4 @@
-package com.bride.thirdparty.Strategy;
+package com.bride.baselib;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -11,9 +11,6 @@ import android.system.Os;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import com.bride.thirdparty.ThirdPartyApplication;
-import com.bride.thirdparty.protocal.IStrategy;
-
 import java.util.Locale;
 
 import androidx.core.content.ContextCompat;
@@ -21,10 +18,14 @@ import androidx.core.content.ContextCompat;
 /**
  * <p>Created by shixin on 2018/10/7.
  */
-public class SystemStrategy implements IStrategy {
+public class SystemStrategy {
     private static final String TAG = SystemStrategy.class.getSimpleName();
+    private static Context CONTEXT;
 
-    @Override
+    public static void setContext(Context context) {
+        CONTEXT = context.getApplicationContext();
+    }
+
     public void execute() {
         // UTC时间，依赖系统时钟，设置当前日期、时间用
         System.out.println("System.currentTimeMillis() "+System.currentTimeMillis());
@@ -41,20 +42,23 @@ public class SystemStrategy implements IStrategy {
     }
 
     public static String getDeviceId() {
-        if(ContextCompat.checkSelfPermission(ThirdPartyApplication.getInstance(), Manifest.permission.READ_PHONE_STATE)
+        if(ContextCompat.checkSelfPermission(CONTEXT, Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
             return "Unknown";
         }
-        TelephonyManager telephonyManager = (TelephonyManager) ThirdPartyApplication.getInstance().getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager telephonyManager = (TelephonyManager) CONTEXT.getSystemService(Context.TELEPHONY_SERVICE);
         if(telephonyManager == null) {
             return "Unknown";
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            @SuppressLint({"MissingPermission", })  String imei = telephonyManager.getImei();
-            @SuppressLint("MissingPermission") String meid = telephonyManager.getMeid();
+            @SuppressLint({"MissingPermission", })
+            String imei = telephonyManager.getImei();
+            @SuppressLint("MissingPermission")
+            String meid = telephonyManager.getMeid();
             Log.i(TAG, "imei: "+imei+"; meid: "+meid);
         }
-        @SuppressLint("MissingPermission") String deviceId = telephonyManager.getDeviceId();
+        @SuppressLint("MissingPermission")
+        String deviceId = telephonyManager.getDeviceId();
         if(deviceId != null && deviceId.trim().length()>0) {
             return deviceId;
         }else {

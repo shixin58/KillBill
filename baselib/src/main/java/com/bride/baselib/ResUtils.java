@@ -1,15 +1,23 @@
 package com.bride.baselib;
 
+import android.app.ActivityManager;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
+import android.os.Process;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+
+import java.util.List;
 
 /**
  * <p>Created by shixin on 2018/4/1.
  */
 public class ResUtils {
+    private static final String TAG = ResUtils.class.getSimpleName();
 
     private static Context context;
 
@@ -50,5 +58,32 @@ public class ResUtils {
     public static int sp2px(float spValue) {
         final float fontScale = getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
+    }
+
+    public static boolean isMainThread(Context context) {
+        PackageManager packageManager = context.getPackageManager();
+        PackageInfo packageInfo;
+        try {
+            packageInfo = packageManager.getPackageInfo(context.getPackageName(), PackageManager.GET_SERVICES);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+        String mainProcessName = packageInfo.applicationInfo.processName;
+        int pId = Process.myPid();
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager.RunningAppProcessInfo runningAppProcessInfo = null;
+        List<ActivityManager.RunningAppProcessInfo> processInfos = activityManager.getRunningAppProcesses();
+        if (processInfos != null) {
+            for (ActivityManager.RunningAppProcessInfo processInfo : processInfos) {
+                if (processInfo.pid == pId) {
+                    runningAppProcessInfo = processInfo;
+                }
+            }
+        }
+        if (runningAppProcessInfo != null && TextUtils.equals(mainProcessName, runningAppProcessInfo.processName)) {
+            return true;
+        }
+        return false;
     }
 }
