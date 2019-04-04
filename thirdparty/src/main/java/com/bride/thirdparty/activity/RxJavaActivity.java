@@ -14,8 +14,6 @@ import com.bride.thirdparty.Strategy.RxJavaStrategy;
  */
 public class RxJavaActivity extends BaseActivity {
 
-    private RxJavaStrategy mRxJavaStrategy;
-
     public static void openActivity(Context context) {
         Intent intent = new Intent(context, RxJavaActivity.class);
         context.startActivity(intent);
@@ -26,25 +24,24 @@ public class RxJavaActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rxjava);
 
-        mRxJavaStrategy = new RxJavaStrategy();
     }
 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_base:
-                mRxJavaStrategy.execute();
+                RxJavaStrategy.getInstance().execute();
                 break;
             case R.id.tv_map:
-                mRxJavaStrategy.executeMap();
+                RxJavaStrategy.getInstance().executeMap();
                 break;
             case R.id.tv_flatmap:
-                mRxJavaStrategy.executeFlatMap();
+                RxJavaStrategy.getInstance().executeFlatMap();
                 break;
             case R.id.tv_take:
-                mRxJavaStrategy.executeTake();
+                RxJavaStrategy.getInstance().executeTake();
                 break;
             case R.id.tv_lift:
-                mRxJavaStrategy.executeLift();
+                RxJavaStrategy.getInstance().executeLift();
                 break;
             default:
                 break;

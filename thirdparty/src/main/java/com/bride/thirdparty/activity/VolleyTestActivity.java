@@ -9,7 +9,6 @@ import com.bride.baselib.BaseActivity;
 import com.bride.thirdparty.R;
 import com.bride.thirdparty.Strategy.URLConnectionStrategy;
 import com.bride.thirdparty.Strategy.VolleyStrategy;
-import com.bride.thirdparty.ThirdPartyApplication;
 import com.bride.thirdparty.bean.MessageEvent;
 import com.bride.thirdparty.util.RxBus;
 
@@ -19,7 +18,6 @@ import org.greenrobot.eventbus.EventBus;
  * <p>Created by shixin on 2019/3/22.
  */
 public class VolleyTestActivity extends BaseActivity {
-    private VolleyStrategy volleyStrategy = new VolleyStrategy();
 
     public static void openActivity(Context context) {
         Intent intent = new Intent(context, VolleyTestActivity.class);
@@ -35,22 +33,22 @@ public class VolleyTestActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_get_string:
-                volleyStrategy.executeGetString();
+                VolleyStrategy.getInstance().executeGetString();
                 break;
             case R.id.tv_post_string:
-                volleyStrategy.executePostString();
+                VolleyStrategy.getInstance().executePostString();
                 break;
             case R.id.tv_post_json:
-                volleyStrategy.executePostJson();
+                VolleyStrategy.getInstance().executePostJson();
                 break;
             case R.id.image:
-                volleyStrategy.executeImage(findViewById(R.id.iv_demo));
+                VolleyStrategy.getInstance().executeImage(findViewById(R.id.iv_demo));
                 break;
             case R.id.image1:
-                volleyStrategy.executeImageCache(findViewById(R.id.iv_demo1));
+                VolleyStrategy.getInstance().executeImageCache(findViewById(R.id.iv_demo1));
                 break;
             case R.id.image2:
-                volleyStrategy.executeNetworkImageView(findViewById(R.id.iv_demo2));
+                VolleyStrategy.getInstance().executeNetworkImageView(findViewById(R.id.iv_demo2));
                 break;
             case R.id.tv_urlconnection_get:
                 URLConnectionStrategy.get();
@@ -71,8 +69,8 @@ public class VolleyTestActivity extends BaseActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        ThirdPartyApplication.getInstance().getRequestQueue().cancelAll("xyz");
+    protected void onDestroy() {
+        super.onDestroy();
+        VolleyStrategy.getInstance().cancel("xyz");
     }
 }

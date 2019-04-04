@@ -5,8 +5,6 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.bride.baselib.CompatUtils;
 import com.bride.baselib.PreferenceUtils;
 import com.bride.baselib.ResUtils;
@@ -18,7 +16,6 @@ import com.squareup.leakcanary.LeakCanary;
  */
 public class ThirdPartyApplication extends Application {
     private static ThirdPartyApplication application;
-    private RequestQueue mRequestQueue;
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
     public static ThirdPartyApplication getInstance() {
@@ -48,12 +45,6 @@ public class ThirdPartyApplication extends Application {
         ResUtils.setContext(this);
 
         PreferenceUtils.initialize(this, "thirdparty_prefs");
-
-        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
-    }
-
-    public RequestQueue getRequestQueue() {
-        return mRequestQueue;
     }
 
     public Handler getHandler() {

@@ -12,7 +12,9 @@ import com.android.volley.toolbox.ImageLoader;
 public class BitmapCache implements ImageLoader.ImageCache {
     private LruCache<String, Bitmap> mLruCache;
 
-    public BitmapCache() {
+    private static volatile BitmapCache mBitmapCache;
+
+    private BitmapCache() {
         long maxMemory = Runtime.getRuntime().maxMemory();
         Log.i("maxMemory", maxMemory/(1024*1024f)+"MB");
 
@@ -24,9 +26,21 @@ public class BitmapCache implements ImageLoader.ImageCache {
         };
     }
 
+    public static BitmapCache getInstance() {
+        if (mBitmapCache == null) {
+            synchronized (BitmapCache.class) {
+                if (mBitmapCache == null) {
+                    mBitmapCache = new BitmapCache();
+                }
+            }
+        }
+        return mBitmapCache;
+    }
+
     @Override
     public Bitmap getBitmap(String s) {
-        return mLruCache.get(s);
+        Bitmap bitmap = mLruCache.get(s);
+        return bitmap;
     }
 
     @Override

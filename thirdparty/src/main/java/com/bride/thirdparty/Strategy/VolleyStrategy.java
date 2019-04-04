@@ -18,6 +18,7 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bride.baselib.UrlParams;
 import com.bride.baselib.Urls;
 import com.bride.thirdparty.R;
@@ -38,8 +39,21 @@ public class VolleyStrategy {
     private static final String TAG = VolleyStrategy.class.getSimpleName();
 
     private RequestQueue mQueue;
-    public VolleyStrategy() {
-        mQueue = ThirdPartyApplication.getInstance().getRequestQueue();
+
+    private static class InstanceWrapper {
+        static VolleyStrategy INSTANCE = new VolleyStrategy();
+    }
+
+    private VolleyStrategy() {
+        mQueue = Volley.newRequestQueue(ThirdPartyApplication.getInstance());
+    }
+
+    public static VolleyStrategy getInstance() {
+        return InstanceWrapper.INSTANCE;
+    }
+
+    public void cancel(String tag) {
+        mQueue.cancelAll(tag);
     }
 
     public void executeGetString() {
@@ -143,7 +157,7 @@ public class VolleyStrategy {
     // 自定义lru缓存
     public void executeImageCache(final ImageView imageView) {
         String url = Urls.Images.BEAUTY;
-        ImageLoader imageLoader = new ImageLoader(mQueue, new BitmapCache());
+        ImageLoader imageLoader = new ImageLoader(mQueue, BitmapCache.getInstance());
         ImageLoader.ImageListener imageListener = ImageLoader.getImageListener(imageView, R.mipmap.ic_launcher, R.mipmap.ic_launcher);
         imageLoader.get(url, imageListener, 0, 0, ImageView.ScaleType.CENTER_CROP);
     }
@@ -151,7 +165,7 @@ public class VolleyStrategy {
     // NetworkImageView使用
     public void executeNetworkImageView(final NetworkImageView imageView) {
         String url = Urls.Images.LADY;
-        ImageLoader imageLoader = new ImageLoader(mQueue, new BitmapCache());
+        ImageLoader imageLoader = new ImageLoader(mQueue, BitmapCache.getInstance());
         imageView.setDefaultImageResId(R.mipmap.ic_launcher);
         imageView.setErrorImageResId(R.mipmap.ic_launcher);
         imageView.setImageUrl(url, imageLoader);

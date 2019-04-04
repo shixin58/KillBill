@@ -6,12 +6,14 @@ import android.util.Log;
 
 import com.bride.baselib.UrlParams;
 import com.bride.baselib.Urls;
-import com.facebook.stetho.okhttp3.StethoInterceptor;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.bride.thirdparty.ThirdPartyApplication;
 import com.bride.thirdparty.bean.PhoneNumberModel;
 import com.bride.thirdparty.bean.WrapperModel;
 import com.bride.thirdparty.protocal.IStrategy;
+import com.bride.thirdparty.util.CustomCacheInterceptor;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
@@ -59,11 +61,36 @@ import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * <p>Created by shixin on 2018/9/7.
  */
 public class RxJavaStrategy implements IStrategy {
+    private static final String TAG = RxJavaStrategy.class.getSimpleName();
+
+    private OkHttpClient mOkHttpClient;
+
+    private static class InstanceWrapper {
+        static RxJavaStrategy INSTANCE = new RxJavaStrategy();
+    }
+
+    private RxJavaStrategy() {
+        // retrofit内部集成了okhttp, converter-gson内部集成了GSON
+        File file = new File(ThirdPartyApplication.getInstance().getExternalCacheDir(), "rxjava");
+        Cache cache = new Cache(file, 24*1024*1024);
+        mOkHttpClient = new OkHttpClient.Builder()
+                .addNetworkInterceptor(new StethoInterceptor())
+                .addNetworkInterceptor(new CustomCacheInterceptor())
+                .readTimeout(5, TimeUnit.SECONDS)
+                .cache(cache)/* 24MB */
+                .build();
+    }
+
+    public static RxJavaStrategy getInstance() {
+        return InstanceWrapper.INSTANCE;
+    }
+
     @Override
     public void execute() {
 //        Observable.just("Good", "Better", "Best");
@@ -136,55 +163,62 @@ public class RxJavaStrategy implements IStrategy {
         Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(ObservableEmitter<Integer> e) throws Exception {
+                Log.i(TAG, "executeLift - subscribe");
                 e.onNext(1);
                 e.onNext(2);
                 e.onComplete();
             }
-        }).lift(new ObservableOperator<String, Integer>() {
+        }).subscribeOn(Schedulers.single())
+                .lift(new ObservableOperator<String, Integer>() {
             @Override
             public Observer<? super Integer> apply(Observer<? super String> observer) throws Exception {
 
                 return new Observer<Integer>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        Log.i(TAG, "executeLift - lift - onSubscribe");
+                        observer.onSubscribe(d);
                     }
 
                     @Override
                     public void onNext(Integer integer) {
-                        observer.onNext(integer+")");
+                        Log.i(TAG, "executeLift - lift - onNext - "+integer);
+                        observer.onNext("("+integer+")");
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.i(TAG, "executeLift - lift - onError");
+                        observer.onError(e);
                     }
 
                     @Override
                     public void onComplete() {
-
+                        Log.i(TAG, "executeLift - lift - onComplete");
+                        observer.onComplete();
                     }
                 };
             }
-        }).subscribe(new Observer<String>() {
+        }).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
             @Override
             public void onSubscribe(Disposable d) {
-
+                Log.i(TAG, "executeLift - subscribe - onSubscribe");
             }
 
             @Override
             public void onNext(String s) {
-                Log.i("executeLift", s);
+                Log.i(TAG, "executeLift - subscribe - onNext - "+s);
             }
 
             @Override
             public void onError(Throwable e) {
-
+                Log.i(TAG, "executeLift - subscribe - onError");
             }
 
             @Override
             public void onComplete() {
-
+                Log.i(TAG, "executeLift - subscribe - onComplete");
             }
         });
     }
@@ -198,19 +232,14 @@ public class RxJavaStrategy implements IStrategy {
                 .map(new Function<String, WrapperModel<PhoneNumberModel>>() {
                     @Override
                     public WrapperModel<PhoneNumberModel> apply(String s) throws Exception {
-                        Log.i("executeMap", "apply");
-                        // retrofit内部集成了okhttp, converter-gson内部集成了GSON
-                        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                                .addNetworkInterceptor(new StethoInterceptor())
-                                .readTimeout(5, TimeUnit.SECONDS)
-                                .cache(new Cache(new File("cache"), 24*1024*1024))/* 24MB */
-                                .build();
                         Request request = new Request.Builder()
                                 .url(s)
                                 .get()
                                 .build();
-                        Call call = okHttpClient.newCall(request);
-                        return new Gson().fromJson(call.execute().body().string(),
+                        Call call = mOkHttpClient.newCall(request);
+                        Response response = call.execute();
+                        Log.i(TAG, "executeMap - apply - "+response.cacheResponse()+" - "+response.networkResponse());
+                        return new Gson().fromJson(response.body().string(),
                                 new TypeToken<WrapperModel<PhoneNumberModel>>(){}.getType());
                     }
                 })
@@ -219,14 +248,14 @@ public class RxJavaStrategy implements IStrategy {
                     @Override
                     public void onSubscribe(Disposable d) {
                         // 完成订阅
-                        Log.i("executeMap", "onSubscribe");
+                        Log.i(TAG, "executeMap - onSubscribe");
                         // 断开连接
 //                        d.dispose();
                     }
 
                     @Override
                     public void onNext(WrapperModel<PhoneNumberModel> model) {
-                        Log.i("executeMap", model.result.toString());
+                        Log.i(TAG, "executeMap - "+model.result.toString());
                     }
 
                     @Override
