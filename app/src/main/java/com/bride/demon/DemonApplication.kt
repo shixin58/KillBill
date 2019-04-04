@@ -3,6 +3,7 @@ package com.bride.demon
 import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
+import com.bride.baselib.CompatUtils
 import com.bride.baselib.PreferenceUtils
 import com.bride.baselib.ResUtils
 import com.bride.demon.callback.MyActivityLifecycleCallbacks
@@ -19,6 +20,8 @@ class DemonApplication : Application() {
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         MultiDex.install(base)
+        CompatUtils.detectThread()
+        CompatUtils.detectVm()
     }
 
     override fun onCreate() {

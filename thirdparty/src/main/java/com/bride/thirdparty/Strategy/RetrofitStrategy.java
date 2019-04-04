@@ -29,6 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * <p>Created by shixin on 2018/9/20.
  */
 public class RetrofitStrategy implements IStrategy {
+    private static final String TAG = RetrofitStrategy.class.getSimpleName();
 
     private IService mService;
     private CustomAsyncTask mAsyncTask;
@@ -54,12 +55,12 @@ public class RetrofitStrategy implements IStrategy {
         call.enqueue(new Callback<WrapperModel<PhoneNumberModel>>() {
             @Override
             public void onResponse(Call<WrapperModel<PhoneNumberModel>> call, Response<WrapperModel<PhoneNumberModel>> response) {
-                Log.i("onResponse", response.body().result.toString());
+                Log.i(TAG, "execute - onResponse - "+response.body().result.toString());
             }
 
             @Override
             public void onFailure(Call<WrapperModel<PhoneNumberModel>> call, Throwable t) {
-                Log.i("onFailure", t.getMessage());
+                Log.i(TAG, "execute - onFailure - "+t.getMessage());
             }
         });
     }
@@ -72,22 +73,22 @@ public class RetrofitStrategy implements IStrategy {
                 .subscribe(new Observer<WrapperModel<PhoneNumberModel>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        Log.i("onSubscribe", "what");
+                        Log.i(TAG, "executeRxJava - onSubscribe - what");
                     }
 
                     @Override
                     public void onNext(WrapperModel<PhoneNumberModel> model) {
-                        Log.i("onNext", model.result.toString());
+                        Log.i(TAG, "executeRxJava - onNext - "+model.result.toString());
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i("onError", e.getMessage());
+                        Log.i(TAG, "executeRxJava - onError - "+e.getMessage());
                     }
 
                     @Override
                     public void onComplete() {
-                        Log.i("onComplete", "what");
+                        Log.i(TAG, "executeRxJava - onComplete - what");
                     }
                 });
     }
@@ -132,12 +133,13 @@ public class RetrofitStrategy implements IStrategy {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            Log.i("onPostExecute", result);
-            cancel(true);
+            Log.i(TAG, "testAsyncTask - onPostExecute - "+result);
         }
     }
 
     public void onDestroy() {
-        mAsyncTask.cancel(true);
+        if (mAsyncTask != null) {
+            mAsyncTask.cancel(true);
+        }
     }
 }

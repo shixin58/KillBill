@@ -28,7 +28,8 @@ public class ThirdPartyApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        CompatUtils.detectNonSdkApi();
+        CompatUtils.detectThread();
+        CompatUtils.detectVm();
     }
 
     @Override
