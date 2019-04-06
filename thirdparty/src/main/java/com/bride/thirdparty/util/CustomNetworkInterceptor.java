@@ -12,6 +12,7 @@ public class CustomNetworkInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Response originResponse = chain.proceed(chain.request());
-        return originResponse.newBuilder().header("Cache-Control", "max-age=60").build();
+        return originResponse.newBuilder().removeHeader("pragma")/* pragma: no-cache */
+                .header("Cache-Control", "max-age=60").build();
     }
 }

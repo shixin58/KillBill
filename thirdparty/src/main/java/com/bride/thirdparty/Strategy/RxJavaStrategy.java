@@ -1,8 +1,11 @@
 package com.bride.thirdparty.Strategy;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.bride.baselib.UrlParams;
 import com.bride.baselib.Urls;
@@ -161,24 +164,24 @@ public class RxJavaStrategy implements IStrategy {
         });
     }
 
-    public void executeLift() {
+    public void executeLift(ImageView imageView1, ImageView imageView2) {
         // 代理Observable<Integer>, 真实Observable<String>
         // Observable.subscribe(Observer)调用ObservableCreate.subscribeActual，执行Observer.onSubscribe和ObservableOnSubscribe.subscribe
         // Observable.subscribe(Observer)调用ObservableLift.subscribeActual，执行代理Observable.subscribe(代理Observer)
-        Observable.create(new ObservableOnSubscribe<Integer>() {
+        Observable.create(new ObservableOnSubscribe<String>() {
             @Override
-            public void subscribe(ObservableEmitter<Integer> e) throws Exception {
+            public void subscribe(ObservableEmitter<String> e) throws Exception {
                 Log.i(TAG, "executeLift - subscribe");
-                e.onNext(1);
-                e.onNext(2);
+                e.onNext(Urls.Images.LOGO);
+                e.onNext(Urls.Images.BEAUTY);
                 e.onComplete();
             }
-        }).subscribeOn(Schedulers.single())
-                .lift(new ObservableOperator<String, Integer>() {
+        }).subscribeOn(Schedulers.io())
+                .lift(new ObservableOperator<Response, String>() {
             @Override
-            public Observer<? super Integer> apply(Observer<? super String> observer) throws Exception {
+            public Observer<? super String> apply(Observer<? super Response> observer) throws Exception {
 
-                return new Observer<Integer>() {
+                return new Observer<String>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         Log.i(TAG, "executeLift - lift - onSubscribe");
@@ -186,9 +189,19 @@ public class RxJavaStrategy implements IStrategy {
                     }
 
                     @Override
-                    public void onNext(Integer integer) {
-                        Log.i(TAG, "executeLift - lift - onNext - "+integer);
-                        observer.onNext("("+integer+")");
+                    public void onNext(String url) {
+                        Log.i(TAG, "executeLift - lift - onNext - "+url);
+                        Request request = new Request.Builder()
+                                .url(url)
+                                .get()
+                                .build();
+                        Call call = mOkHttpClient.newCall(request);
+                        try {
+                            Response response = call.execute();
+                            observer.onNext(response);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
@@ -205,15 +218,22 @@ public class RxJavaStrategy implements IStrategy {
                 };
             }
         }).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<String>() {
+                .subscribe(new Observer<Response>() {
             @Override
             public void onSubscribe(Disposable d) {
                 Log.i(TAG, "executeLift - subscribe - onSubscribe");
             }
 
             @Override
-            public void onNext(String s) {
-                Log.i(TAG, "executeLift - subscribe - onNext - "+s);
+            public void onNext(Response response) {
+                Log.i(TAG, "executeLift - subscribe - onNext - "+response);
+                Bitmap bitmap = BitmapFactory.decodeStream(response.body().byteStream());
+                String url = response.request().url().toString();
+                if (TextUtils.equals(url, Urls.Images.BEAUTY)) {
+                    imageView2.setImageBitmap(bitmap);
+                } else {
+                    imageView1.setImageBitmap(bitmap);
+                }
             }
 
             @Override

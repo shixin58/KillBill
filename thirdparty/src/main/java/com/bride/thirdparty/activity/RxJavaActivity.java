@@ -23,7 +23,6 @@ public class RxJavaActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rxjava);
-
     }
 
     public void onClick(View view) {
@@ -41,7 +40,7 @@ public class RxJavaActivity extends BaseActivity {
                 RxJavaStrategy.getInstance().executeTake();
                 break;
             case R.id.tv_lift:
-                RxJavaStrategy.getInstance().executeLift();
+                RxJavaStrategy.getInstance().executeLift(findViewById(R.id.iv_demo1), findViewById(R.id.iv_demo2));
                 break;
             default:
                 break;
