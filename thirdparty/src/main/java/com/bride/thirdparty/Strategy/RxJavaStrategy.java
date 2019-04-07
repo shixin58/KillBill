@@ -24,12 +24,18 @@ import org.reactivestreams.Subscription;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
+
+import javax.annotation.Nullable;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Completable;
@@ -61,11 +67,18 @@ import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.Authenticator;
 import okhttp3.Cache;
 import okhttp3.Call;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.Credentials;
+import okhttp3.Dns;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.Route;
 
 /**
  * <p>Created by shixin on 2018/9/7.
@@ -87,6 +100,35 @@ public class RxJavaStrategy implements IStrategy {
                 .addInterceptor(new CustomInterceptor())
                 .addNetworkInterceptor(new StethoInterceptor())
                 .addNetworkInterceptor(new CustomNetworkInterceptor())
+                .authenticator(new Authenticator() {
+                    @Nullable
+                    @Override
+                    public Request authenticate(Route route, Response response) throws IOException {
+                        String credential = Credentials.basic("13701116418", "house888");
+                        return response.request().newBuilder().header("Authorization", credential).build();
+                    }
+                })
+                .cookieJar(new CookieJar() {
+                    ConcurrentHashMap<String, List<Cookie>> cookieStore = new ConcurrentHashMap<>();
+                    @Override
+                    public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+                        if (cookies != null && !cookies.isEmpty()) {
+                            cookieStore.put(url.host(), cookies);
+                        }
+                    }
+
+                    @Override
+                    public List<Cookie> loadForRequest(HttpUrl url) {
+                        List<Cookie> cookies = cookieStore.get(url.host());
+                        return cookies != null ? cookies : Collections.emptyList();
+                    }
+                })
+                .dns(new Dns() {
+                    @Override
+                    public List<InetAddress> lookup(String hostname) throws UnknownHostException {
+                        return Dns.SYSTEM.lookup(hostname);
+                    }
+                })
                 .readTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)
                 .connectTimeout(10, TimeUnit.SECONDS)
