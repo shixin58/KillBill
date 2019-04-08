@@ -30,7 +30,7 @@ public class MyService extends Service {
         Log.i("MyService", "onDestroy");
     }
 
-    public class MyServiceImpl extends IMyService.Stub {
+    public static class MyServiceImpl extends IMyService.Stub {
 
         @Override
         public void basicTypes(int anInt, long aLong, boolean aBoolean, float aFloat, double aDouble, String aString) throws RemoteException {

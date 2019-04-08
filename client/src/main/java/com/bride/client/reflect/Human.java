@@ -59,4 +59,9 @@ public class Human {
     public void setHobbies(List<String> hobbies) {
         this.hobbies = hobbies;
     }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+    }
 }

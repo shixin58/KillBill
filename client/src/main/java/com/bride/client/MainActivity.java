@@ -88,17 +88,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 startActivity(intent);
                 break;
             case R.id.tv_switch:
-                if(mService==null) {
+                if(mService == null) {
                     // 启动服务并拿到服务代理
                     intent = new Intent("com.bride.demon.IMyService");
-                    intent.setPackage("com.bride.demon");
+                    intent.setPackage("com.bride.demon" + (BuildConfig.DEBUG ? ".debug":""));
+                    /*intent = new Intent();
+                    intent.setClassName("com.bride.demon" + (BuildConfig.DEBUG ? ".debug":""),
+                            "com.bride.demon.service.MyService");*/
                     bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
                 }else {
                     unbindService(mServiceConnection);
                 }
                 break;
             case R.id.tv_use_service:
-                if(mService!=null) {
+                if(mService != null) {
                     try {
                         mService.basicTypes(1, 10L, true, 2.3f, 9.99, "Jacob");
                         Log.i("IMyService", mService.getUser().toString());

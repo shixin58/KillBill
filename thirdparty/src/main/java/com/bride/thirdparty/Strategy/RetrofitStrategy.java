@@ -8,7 +8,7 @@ import com.bride.thirdparty.bean.PhoneNumberModel;
 import com.bride.thirdparty.bean.WrapperModel;
 import com.bride.thirdparty.protocal.IService;
 import com.bride.thirdparty.protocal.IStrategy;
-import com.facebook.stetho.okhttp3.StethoInterceptor;
+import com.bride.thirdparty.util.RetrofitClient;
 
 import java.io.IOException;
 
@@ -17,13 +17,9 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * <p>Created by shixin on 2018/9/20.
@@ -35,17 +31,8 @@ public class RetrofitStrategy implements IStrategy {
     private CustomAsyncTask mAsyncTask;
 
     public RetrofitStrategy() {
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addNetworkInterceptor(new StethoInterceptor())
-                .build();
-        Retrofit retrofit = new Retrofit.Builder()
-                .client(okHttpClient)
-                .baseUrl(Urls.JUHE_HOST)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
         // 返回代理对象 Proxy#newProxyInstance
-        mService = retrofit.create(IService.class);
+        mService = RetrofitClient.getRetrofit().create(IService.class);
     }
 
     @Override
@@ -140,6 +127,24 @@ public class RetrofitStrategy implements IStrategy {
     public void onDestroy() {
         if (mAsyncTask != null) {
             mAsyncTask.cancel(true);
+            mAsyncTask = null;
         }
+        runGc();
+    }
+
+    public static void runGc() {
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                Runtime.getRuntime().gc();
+                try {
+                    Thread.sleep(99, 1000000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.runFinalization();
+            }
+        }.start();
     }
 }

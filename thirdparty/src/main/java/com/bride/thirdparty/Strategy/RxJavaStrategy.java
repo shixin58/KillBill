@@ -100,41 +100,47 @@ public class RxJavaStrategy implements IStrategy {
                 .addInterceptor(new CustomInterceptor())
                 .addNetworkInterceptor(new StethoInterceptor())
                 .addNetworkInterceptor(new CustomNetworkInterceptor())
-                .authenticator(new Authenticator() {
-                    @Nullable
-                    @Override
-                    public Request authenticate(Route route, Response response) throws IOException {
-                        String credential = Credentials.basic("13701116418", "house888");
-                        return response.request().newBuilder().header("Authorization", credential).build();
-                    }
-                })
-                .cookieJar(new CookieJar() {
-                    ConcurrentHashMap<String, List<Cookie>> cookieStore = new ConcurrentHashMap<>();
-                    @Override
-                    public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-                        if (cookies != null && !cookies.isEmpty()) {
-                            cookieStore.put(url.host(), cookies);
-                        }
-                    }
-
-                    @Override
-                    public List<Cookie> loadForRequest(HttpUrl url) {
-                        List<Cookie> cookies = cookieStore.get(url.host());
-                        return cookies != null ? cookies : Collections.emptyList();
-                    }
-                })
-                .dns(new Dns() {
-                    @Override
-                    public List<InetAddress> lookup(String hostname) throws UnknownHostException {
-                        return Dns.SYSTEM.lookup(hostname);
-                    }
-                })
+                .authenticator(new CustomAuthenticator())
+                .cookieJar(new CustomCookieJar())
+                .dns(new HttpDns())
                 .readTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .pingInterval(0, TimeUnit.SECONDS)
                 .cache(cache)/* 24MB */
                 .build();
+    }
+
+    public static class CustomAuthenticator implements Authenticator {
+        @Nullable
+        @Override
+        public Request authenticate(Route route, Response response) throws IOException {
+            String credential = Credentials.basic("13701116418", "house888");
+            return response.request().newBuilder().header("Authorization", credential).build();
+        }
+    }
+
+    public static class HttpDns implements Dns {
+        @Override
+        public List<InetAddress> lookup(String hostname) throws UnknownHostException {
+            return Dns.SYSTEM.lookup(hostname);
+        }
+    }
+
+    public static class CustomCookieJar implements CookieJar {
+        ConcurrentHashMap<String, List<Cookie>> cookieStore = new ConcurrentHashMap<>();
+        @Override
+        public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+            if (cookies != null && !cookies.isEmpty()) {
+                cookieStore.put(url.host(), cookies);
+            }
+        }
+
+        @Override
+        public List<Cookie> loadForRequest(HttpUrl url) {
+            List<Cookie> cookies = cookieStore.get(url.host());
+            return cookies != null ? cookies : Collections.emptyList();
+        }
     }
 
     public static RxJavaStrategy getInstance() {
