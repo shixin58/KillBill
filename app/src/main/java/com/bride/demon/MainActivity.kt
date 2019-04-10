@@ -1,9 +1,11 @@
 package com.bride.demon
 
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.bride.baselib.BaseActivity
+import com.bride.baselib.PermissionUtils
 import com.bride.demon.callback.MyFragmentLifecycleCallbacks
 import com.bride.demon.callback.MyLifecycleObserver
 import com.bride.demon.fragment.DashboardFragment
@@ -77,6 +79,15 @@ class MainActivity : BaseActivity() {
 
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentLifecycleCallbacks, true)
         lifecycle.addObserver(lifecycleObserver)
+
+        PermissionUtils.requestAllPermissions(this, 1)
+    }
+
+    fun onClick(v: View) {
+        val notificationsFragment: NotificationsFragment = fragments[2] as NotificationsFragment
+        if (notificationsFragment.view!!.findViewById<View>(v.id) != null) {
+            notificationsFragment.onClick(v)
+        }
     }
 
     override fun onDestroy() {

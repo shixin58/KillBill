@@ -2,11 +2,15 @@ package com.bride.demon.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
 import androidx.fragment.app.FragmentActivity
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.bride.baselib.BaseActivity
 import com.bride.demon.R
+import com.bride.demon.model.City
+import com.bride.demon.model.Person
 
 /**
  *
@@ -17,8 +21,21 @@ class BlankActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_blank)
-        printViewHierarchy(findViewById(R.id.tv_title))
+        printViewHierarchy(findViewById(R.id.tv_title), this)
         Log.i("lifecycleB", "onCreate")
+    }
+
+    private fun statistics() {
+        var index = intent.getIntExtra("index", 0)
+        if (index == 1) {
+            var city = intent.getParcelableExtra<City>("city")
+            Log.i(TAG, "耗时："+(SystemClock.elapsedRealtime()-city.createTime)+"ms")
+            Toast.makeText(this.applicationContext, city.toString(), Toast.LENGTH_SHORT).show()
+        } else if(index == 2) {
+            var person = intent.getSerializableExtra("person") as Person
+            Log.i(TAG, "耗时："+(SystemClock.elapsedRealtime()-person.createTime)+"ms")
+            Toast.makeText(this.applicationContext, person.toString(), Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onStart() {
@@ -29,6 +46,7 @@ class BlankActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         Log.i("lifecycleB", "onResume")
+        statistics()
     }
 
     override fun onPause() {
@@ -48,16 +66,22 @@ class BlankActivity : BaseActivity() {
 
     companion object {
 
-        fun openActivity(context: androidx.fragment.app.FragmentActivity?) {
+        fun openActivity(context: FragmentActivity?) {
             val intent = Intent(context, BlankActivity::class.java)
             context?.startActivity(intent)
         }
 
-        fun printViewHierarchy(view: View?) {
-            Log.i("printViewHierarchy", view?.toString())
-            var viewParent = view?.parent
+        fun openActivity(context: FragmentActivity?, bundle: Bundle) {
+            val intent = Intent(context, BlankActivity::class.java)
+            intent.putExtras(bundle)
+            context?.startActivity(intent)
+        }
+
+        fun printViewHierarchy(view: View, baseActivity: BaseActivity) {
+            Log.i(baseActivity.javaClass.simpleName, "printViewHierarchy - ${view.javaClass.simpleName}")
+            var viewParent = view.parent
             while (viewParent != null) {
-                Log.i("printViewHierarchy", viewParent.toString())
+                Log.i(baseActivity.javaClass.simpleName, "printViewHierarchy - ${viewParent.javaClass.simpleName}")
                 viewParent = viewParent.parent
             }
         }
