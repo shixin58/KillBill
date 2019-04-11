@@ -31,6 +31,8 @@ class BlankActivity : BaseActivity() {
             var city = intent.getParcelableExtra<City>("city")
             Log.i(TAG, "耗时："+(SystemClock.elapsedRealtime()-city.createTime)+"ms")
             Toast.makeText(this.applicationContext, city.toString(), Toast.LENGTH_SHORT).show()
+            var cities = intent.getParcelableArrayExtra("cityList")
+            Log.i(TAG, "getParcelableArrayExtra - "+cities[0]+" | "+cities[1])
         } else if(index == 2) {
             var person = intent.getSerializableExtra("person") as Person
             Log.i(TAG, "耗时："+(SystemClock.elapsedRealtime()-person.createTime)+"ms")

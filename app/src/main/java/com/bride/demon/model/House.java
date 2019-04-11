@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
  */
 public class House implements Serializable {
     private static final String TAG = House.class.getSimpleName();
+    private static final long serialVersionUID = 0L;
 
     private String address;
     private float space;

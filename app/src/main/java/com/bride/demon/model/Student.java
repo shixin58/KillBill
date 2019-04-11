@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
  * <p>Created by shixin on 2019/4/10.
  */
 public class Student implements Serializable {
+    private static final long serialVersionUID = 0L;
+
     private long id;
     private String name;
     private int age;

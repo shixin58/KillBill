@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
  * <p>Created by shixin on 2019/4/10.
  */
 public class Person implements Externalizable {
+    private static final long serialVersionUID = 0L;
 
     private String name;
     private String gender;
@@ -38,7 +39,6 @@ public class Person implements Externalizable {
         this.gender = (String) in.readObject();
         this.createTime = in.readLong();
     }
-
 
     public String getName() {
         return name;

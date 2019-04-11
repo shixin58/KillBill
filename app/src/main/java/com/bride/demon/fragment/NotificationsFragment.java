@@ -81,6 +81,10 @@ public class NotificationsFragment extends BaseFragment {
                 city.setCreateTime(SystemClock.elapsedRealtime());
                 bundle.putParcelable("city", city);
                 bundle.putInt("index", 1);
+                City[] cities = new City[2];
+                cities[0] = new City("Paris", "Romantic");
+                cities[1] = new City("Hong Kong", "Financial");
+                bundle.putParcelableArray("cityList", cities);
                 BlankActivity.Companion.openActivity(getActivity(), bundle);
                 break;
             case R.id.tv_send_2:
