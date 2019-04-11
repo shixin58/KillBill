@@ -3,6 +3,7 @@
 
 - 测试Kotlin, LeakCanary, BlockCanary, Glide: app
 - IPC(bind+AIDL) demo: client -> app
+- Serializable和Parcelable序列化对比
 
 - 测试java反射, 注解, LinkedHashMap实现LRU算法: client
 - 线程池，Observable，synchronized：client
