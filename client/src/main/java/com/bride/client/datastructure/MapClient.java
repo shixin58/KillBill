@@ -27,7 +27,7 @@ public class MapClient {
     // get通过key计算hash值，通过其找到对象引用
     // 由数组、链表共同完成。数组内存地址连续，length固定，查询时间复杂度O(1)；链表不连续，查询时间复杂度O(n), 插入、删除快
     private static void testHashMap() {
-        System.out.println("*** HashMap ***");
+        System.out.println("\n*** HashMap ***");
         Map<String, String> map = new HashMap<>();
         map.put("cat", "猫");
         map.put("dog", "狗");
@@ -61,7 +61,7 @@ public class MapClient {
     // 多线程访问，通过synchronized加锁保证线程安全
     // 不允许null key和null value
     private static void testHashtable() {
-        System.out.println("*** Hashtable ***");
+        System.out.println("\n*** Hashtable ***");
         Map<String, String> map = new Hashtable<>();
         map.put("cat", "猫");
         map.put("dog", "狗");
@@ -75,15 +75,19 @@ public class MapClient {
     }
 
     private static void testLinkedHashMap() {
-        System.out.println("*** LinkedHashMap ***");
+        System.out.println("\n*** LinkedHashMap ***");
         MyLruCache lruCache = new MyLruCache(5);
         lruCache.put("A", "Apple");
         lruCache.put("B", "Banana");
         lruCache.put("C", "Cat");
         lruCache.put("D", "Dog");
         lruCache.put("E", "Egg");
+        System.out.println(lruCache.toString());
 
         lruCache.get("C");
+        System.out.println(lruCache.toString());
+
+        lruCache.get("B");
         System.out.println(lruCache.toString());
 
         lruCache.put("F", "Fourth");
@@ -106,6 +110,7 @@ public class MapClient {
 
         @Override
         public String toString() {
+            // 遍历LinkedHashMap，超出上限末位淘汰
             StringBuilder stringBuilder = new StringBuilder();
             Set<Entry<String, String>> set = entrySet();
             Iterator<Entry<String, String>> iterator = set.iterator();
