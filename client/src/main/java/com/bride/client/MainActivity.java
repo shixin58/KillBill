@@ -65,6 +65,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.tv_use_service).setOnClickListener(this);
         findViewById(R.id.tv_start_service).setOnClickListener(this);
         findViewById(R.id.tv_open_music).setOnClickListener(this);
+        findViewById(R.id.tv_send_broadcast).setOnClickListener(this);
 
         findViewById(R.id.tv_changeThread).setOnClickListener(this);
         findViewById(R.id.tv_execute_task).setOnClickListener(this);
@@ -116,7 +117,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.tv_switch:
                 if(mService == null) {
                     try {
-                        // 启动服务并拿到服务代理
+                        // 启动服务并拿到服务代理。服务所在进程必须运行
                         intent = new Intent();
                         intent.setClassName("com.bride.demon" + (BuildConfig.DEBUG ? ".debug":""),
                                 "com.bride.demon.service.MyService");
@@ -159,6 +160,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("max://devil/music?from="+getPackageName()));
                 startActivity(intent);
+                break;
+            case R.id.tv_send_broadcast:
+                // Broadcast所在进程必须运行
+                intent = new Intent();
+                intent.setAction("com.roy.devil.action.MUSIC");
+                // 若不设置包名，提示"BroadcastQueue: Background execution not allowed: receiving Intent"
+                intent.setPackage("com.roy.devil"+(BuildConfig.DEBUG?".debug":""));
+                sendBroadcast(intent);
                 break;
             case R.id.tv_changeThread:
                 transferWorkThread(new Runnable() {
@@ -218,6 +227,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
+            // 服务所在进程被杀死
             mService = null;
             Toast.makeText(MainActivity.this, "服务已断开", Toast.LENGTH_SHORT).show();
         }
