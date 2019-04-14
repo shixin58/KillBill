@@ -108,16 +108,14 @@
         <activity android:name=".activity.GlideActivity"
             android:label="@string/activity_glide"
             android:launchMode="standard"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:exported="true"/>
 
         <service android:name=".service.MyService"
-            android:process=":MyService">
-            <intent-filter>
-                <action android:name="com.bride.demon.IMyService"/>
-            </intent-filter>
-        </service>
+            android:exported="true"/>
 
-        <service android:name=".service.UploadService"/>
+        <service android:name=".service.UploadService"
+            android:exported="true"/>
     </application>
 
 </manifest>

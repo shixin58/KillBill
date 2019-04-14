@@ -1,8 +1,10 @@
 package com.bride.client;
 
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -15,6 +17,7 @@ import android.os.Message;
 import android.os.Process;
 import android.os.RemoteException;
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -34,12 +37,22 @@ import java.util.concurrent.TimeUnit;
 /**
  * <p>Created by shixin on 2018/9/4.
  */
-public class MainActivity extends BaseActivity implements View.OnClickListener{
+public class MainActivity extends BaseActivity implements View.OnClickListener {
+    public static String UPLOAD_RESULT = "upload_result";
+    public static final String KEY_NAME = "key_name";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        initData();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(broadcastReceiver);
     }
 
     private void initView() {
@@ -50,9 +63,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
         findViewById(R.id.tv_switch).setOnClickListener(this);
         findViewById(R.id.tv_use_service).setOnClickListener(this);
+        findViewById(R.id.tv_start_service).setOnClickListener(this);
+        findViewById(R.id.tv_open_music).setOnClickListener(this);
 
         findViewById(R.id.tv_changeThread).setOnClickListener(this);
         findViewById(R.id.tv_execute_task).setOnClickListener(this);
+    }
+
+    private void initData() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(UPLOAD_RESULT);
+        registerReceiver(broadcastReceiver, intentFilter);
     }
 
     @Override
@@ -82,20 +103,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 }
                 break;
             case R.id.tv_component:
-                intent = new Intent();
-                String packageName = PackageNameFinals.APP + ("debug".equals(BuildConfig.BUILD_TYPE)?".debug":"");
-                intent.setClassName(packageName, ActivityNameFinals.App.TEST_FRAGMENT);
-                startActivity(intent);
+                try {
+                    intent = new Intent();
+                    String packageName = PackageNameFinals.APP + ("debug".equals(BuildConfig.BUILD_TYPE)?".debug":"");
+                    intent.setClassName(packageName, ActivityNameFinals.App.GLIDE);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    // java.lang.SecurityException: Permission Denial: starting Intent { cmp=com.bride.demon.debug/com.bride.demon.activity.GlideActivity } from ProcessRecord{dabbcc9 10979:com.bride.client.debug/u0a241} (pid=10979, uid=10241) not exported from uid 10248
+                    e.printStackTrace();
+                }
                 break;
             case R.id.tv_switch:
                 if(mService == null) {
-                    // 启动服务并拿到服务代理
-                    intent = new Intent("com.bride.demon.IMyService");
-                    intent.setPackage("com.bride.demon" + (BuildConfig.DEBUG ? ".debug":""));
-                    /*intent = new Intent();
-                    intent.setClassName("com.bride.demon" + (BuildConfig.DEBUG ? ".debug":""),
-                            "com.bride.demon.service.MyService");*/
-                    bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
+                    try {
+                        // 启动服务并拿到服务代理
+                        intent = new Intent();
+                        intent.setClassName("com.bride.demon" + (BuildConfig.DEBUG ? ".debug":""),
+                                "com.bride.demon.service.MyService");
+                        bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
+                    } catch (Exception e) {
+                        // java.lang.SecurityException: Not allowed to bind to service Intent { cmp=com.bride.demon.debug/com.bride.demon.service.MyService }
+                        e.printStackTrace();
+                    }
                 }else {
                     unbindService(mServiceConnection);
                 }
@@ -112,6 +141,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                         e.printStackTrace();
                     }
                 }
+                break;
+            case R.id.tv_start_service:
+                try {
+                    intent = new Intent();
+                    intent.setClassName("com.bride.demon" + (BuildConfig.DEBUG ? ".debug":""),
+                            "com.bride.demon.service.UploadService");
+                    intent.setAction("action_upload");
+                    intent.putExtra(KEY_NAME, "Beauty");
+                    startService(intent);
+                } catch (Exception e) {
+                    // java.lang.SecurityException: Not allowed to start service Intent { act=action_upload cmp=com.bride.demon.debug/com.bride.demon.service.UploadService (has extras) } without permission not exported from uid 10248
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.tv_open_music:
+                intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("max://devil/music?from="+getPackageName()));
+                startActivity(intent);
                 break;
             case R.id.tv_changeThread:
                 transferWorkThread(new Runnable() {
@@ -164,6 +211,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
+            // BindProxy -> Proxy
             mService = IMyService.Stub.asInterface(service);
             Toast.makeText(MainActivity.this, "服务已连接", Toast.LENGTH_SHORT).show();
         }
@@ -172,6 +220,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         public void onServiceDisconnected(ComponentName name) {
             mService = null;
             Toast.makeText(MainActivity.this, "服务已断开", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(TextUtils.equals(UPLOAD_RESULT, intent.getAction())) {
+                String name = intent.getStringExtra(KEY_NAME);
+                Toast.makeText(context, name + " finishes upload", Toast.LENGTH_SHORT).show();
+            }
         }
     };
 

@@ -64,7 +64,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_component"
         android:gravity="center"
-        android:text="服务switch"/>
+        android:text="bind外部服务"/>
 
     <TextView
         android:id="@+id/tv_use_service"
@@ -74,14 +74,34 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_switch"
         android:gravity="center"
-        android:text="bind服务"/>
+        android:text="use外部服务"/>
+
+    <TextView
+        android:id="@+id/tv_start_service"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_use_service"
+        android:gravity="center"
+        android:text="start外部服务"/>
+
+    <TextView
+        android:id="@+id/tv_open_music"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_start_service"
+        android:gravity="center"
+        android:text="open music"/>
 
     <View
         android:layout_width="0dp"
         android:layout_height="1px"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/tv_use_service"
+        app:layout_constraintBottom_toBottomOf="@id/tv_open_music"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@android:color/black"/>
@@ -92,7 +112,7 @@
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_use_service"
+        app:layout_constraintTop_toBottomOf="@id/tv_open_music"
         android:gravity="center"
         android:text="线程切换"/>
 
