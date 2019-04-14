@@ -22,6 +22,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             v?.id == R.id.button_upload -> UploadActivity.openActivity(activity)
             v?.id == R.id.button_webp -> WebpActivity.openActivity(activity)
             v!!.id == R.id.button_glide -> GlideActivity.openActivity(activity)
+            v!!.id == R.id.button_relative_layout -> RelativeLayoutActivity.openActivity(activity)
         }
     }
 
@@ -39,6 +40,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         view?.findViewById<View>(R.id.button_upload)?.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_webp)?.setOnClickListener(this)
         view?.findViewById<TextView>(R.id.button_glide)?.setOnClickListener(this)
+        view?.findViewById<View>(R.id.button_relative_layout)!!.setOnClickListener(this)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

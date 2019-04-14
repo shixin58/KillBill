@@ -12,7 +12,12 @@
     <string name="activity_upload" translatable="false">UploadActivity</string>
     <string name="activity_webp" translatable="false">WebpActivity</string>
     <string name="activity_glide" translatable="false">GlideActivity</string>
+    <string name="activity_relative_layout" translatable="false">RelativeLayoutActivity</string>
 
     <string name="activity_second" translatable="false">SecondActivity</string>
     <string name="activity_third" translatable="false">ThirdActivity</string>
+
+    <string name="tv_1" translatable="false">举头望明月，低头思故乡。</string>
+    <string name="tv_2" translatable="false">举头望明月，低头思故乡。\n举头望明月，低头思故乡。</string>
+    <string name="tv_3" translatable="false">举头望明月，低头思故乡。\n举头望明月，低头思故乡。\n举头望明月，低头思故乡。</string>
 </resources>

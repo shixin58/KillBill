@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="150dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/tv_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tv_1"/>
+
+        <TextView
+            android:id="@+id/tv_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tv_2"/>
+
+        <TextView
+            android:id="@+id/tv_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tv_3"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/ll"
+        android:layout_alignRight="@id/ll"
+        android:layout_below="@id/ll">
+
+        <TextView
+            android:id="@+id/tv_11"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:maxLines="5"
+            android:ellipsize="end"
+            android:text="@string/tv_1"
+            android:layout_alignParentLeft="true"/>
+
+        <TextView
+            android:id="@+id/tv_22"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:maxLines="5"
+            android:ellipsize="end"
+            android:text="@string/tv_3"
+            android:layout_alignParentRight="true"/>
+
+        <TextView
+            android:id="@+id/tv_33"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:maxLines="5"
+            android:ellipsize="end"
+            android:text="@string/tv_2"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/rl"/>
+</RelativeLayout>

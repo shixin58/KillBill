@@ -111,6 +111,11 @@
             android:screenOrientation="portrait"
             android:exported="true"/>
 
+        <activity android:name=".activity.RelativeLayoutActivity"
+            android:label="@string/activity_relative_layout"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+
         <service android:name=".service.MyService"
             android:exported="true"/>
 

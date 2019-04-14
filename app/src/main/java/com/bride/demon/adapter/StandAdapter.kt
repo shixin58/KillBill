@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.bride.demon.R
-import java.util.*
 
 /**
  *
  * Created by shixin on 2018/3/6.
  */
-class StandAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<StandAdapter.ViewHolder>() {
+class StandAdapter : RecyclerView.Adapter<StandAdapter.ViewHolder>() {
     private val fruitList = ArrayList<String>()
 
     fun setFruitList(fruitList: List<String>?) {
@@ -34,7 +34,7 @@ class StandAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<StandAdap
         return fruitList.size
     }
 
-    class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvTitle: TextView = itemView.findViewById(R.id.tv_title)
     }
 }
