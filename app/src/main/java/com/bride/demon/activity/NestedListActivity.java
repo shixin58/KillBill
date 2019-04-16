@@ -3,18 +3,20 @@ package com.bride.demon.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 
 import com.bride.baselib.BaseActivity;
 import com.bride.demon.CellScrollHolder;
 import com.bride.demon.R;
+import com.bride.demon.adapter.LieAdapter;
 import com.bride.demon.adapter.NestedAdapter;
 import com.bride.demon.repository.RecyclerViewRepository;
 import com.bride.demon.widget.DispatchFrameLayout;
+import com.bride.demon.widget.HeaderRecyclerView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class NestedListActivity extends BaseActivity {
 
+    private HeaderRecyclerView mHeaderRecyclerView;
     private DispatchFrameLayout mDispatchFrameLayout;
     private RecyclerView mRecyclerView;
     private float oldX;
@@ -38,14 +41,21 @@ public class NestedListActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycler_view2);
+        setContentView(R.layout.activity_nested_list);
         initView();
     }
 
     private void initView() {
+        mHeaderRecyclerView = findViewById(R.id.header_recycler_view);
+        LinearLayoutManager headerLayoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
+        mHeaderRecyclerView.setLayoutManager(headerLayoutManager);
+        LieAdapter lieAdapter = new LieAdapter();
+        mHeaderRecyclerView.setAdapter(lieAdapter);
+        lieAdapter.setList(RecyclerViewRepository.Companion.getColorList());
+
         mDispatchFrameLayout = findViewById(R.id.fl_dispatch);
         mRecyclerView = findViewById(R.id.recycler_view);
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         NestedAdapter nestedAdapter = new NestedAdapter();
         nestedAdapter.addHeaderView(LayoutInflater.from(this).inflate(R.layout.header, mRecyclerView, false));
@@ -55,10 +65,13 @@ public class NestedListActivity extends BaseActivity {
         mRecyclerView.addOnScrollListener(new MyOnScrollListener());
 
         final CellScrollHolder cellScrollHolder = new CellScrollHolder();
+        mHeaderRecyclerView.setScrollHandler(cellScrollHolder);
         nestedAdapter.setCellScrollHolder(cellScrollHolder);
         List<List<String>> lists = new ArrayList<>();
-        for(int i=0;i<10;i++) {
-            lists.add(RecyclerViewRepository.Companion.getCountryList());
+        List<String> countryList = RecyclerViewRepository.Companion.getCountryList();
+        for(int i = 0; i < 20; i++) {
+            lists.add(Arrays.asList(countryList.get(i*2 % countryList.size()),
+                    countryList.get((i*2+1) % countryList.size()), countryList.get((i*2+2) % countryList.size())));
             lists.add(RecyclerViewRepository.Companion.getColorList());
         }
         nestedAdapter.setList(lists);
@@ -72,9 +85,7 @@ public class NestedListActivity extends BaseActivity {
                         oldY = ev.getY();
                         break;
                     case MotionEvent.ACTION_MOVE:
-                        cellScrollHolder.notifyScrollBy((int) (oldX - ev.getX()), (int) (oldY - ev.getY()));
-//                        cellScrollHolder.notifyScrollTo(-(int)ev.getX(), -(int)ev.getY());
-                        Log.i("dispatchTouchEvent", "ACTION_MOVE-"+(oldX - ev.getX())+" - "+(int) (oldY - ev.getY()));
+                        mHeaderRecyclerView.scrollBy((int) (oldX - ev.getX()), (int) (oldY - ev.getY()));
                         oldX = ev.getX();
                         break;
                     case MotionEvent.ACTION_UP:

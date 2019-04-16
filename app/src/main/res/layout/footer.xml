@@ -5,6 +5,7 @@
     android:layout_height="wrap_content">
 
     <TextView
+        android:id="@+id/tv_footer"
         android:layout_width="0dp"
         android:layout_height="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -12,4 +13,14 @@
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="center"
         android:text="footer"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_footer"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@android:color/black"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

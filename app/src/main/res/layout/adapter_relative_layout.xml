@@ -8,7 +8,7 @@
         android:id="@+id/tv_content"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
         tools:text="@string/tv_3"/>
 
     <View

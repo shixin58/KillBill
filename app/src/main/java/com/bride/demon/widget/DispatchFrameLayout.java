@@ -4,6 +4,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
@@ -11,6 +12,7 @@ import android.widget.FrameLayout;
  * <p>Created by shixin on 2018/9/26.
  */
 public class DispatchFrameLayout extends FrameLayout {
+    private static final String TAG = DispatchFrameLayout.class.getSimpleName();
 
     private DispatchTouchEventListener mDispatchTouchEventListener;
 
@@ -24,14 +26,14 @@ public class DispatchFrameLayout extends FrameLayout {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if(mDispatchTouchEventListener!=null)
+        Log.i(TAG, "dispatchTouchEvent - "+ev.getAction());
+        if(mDispatchTouchEventListener != null)
             mDispatchTouchEventListener.dispatchTouchEvent(ev);
         return super.dispatchTouchEvent(ev);
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-//        return true;
         return super.onInterceptTouchEvent(ev);
     }
 
@@ -39,7 +41,7 @@ public class DispatchFrameLayout extends FrameLayout {
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-//                return true;
+                break;
             case MotionEvent.ACTION_MOVE:
                 break;
             case MotionEvent.ACTION_UP:
@@ -47,7 +49,9 @@ public class DispatchFrameLayout extends FrameLayout {
             case MotionEvent.ACTION_CANCEL:
                 break;
         }
-        return super.onTouchEvent(event);
+        boolean handled = super.onTouchEvent(event);
+        Log.i(TAG, "onTouchEvent - "+event.getAction()+" - "+handled);
+        return handled;
     }
 
     public void setDispatchTouchEventListener(DispatchTouchEventListener dispatchTouchEventListener) {

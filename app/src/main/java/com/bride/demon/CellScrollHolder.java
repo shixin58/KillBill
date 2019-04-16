@@ -1,53 +1,58 @@
 package com.bride.demon;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * <p>Created by shixin on 2018/9/26.
  */
 public class CellScrollHolder {
-    private Set<RecyclerView> set = new HashSet<>();
+
+    private Set<RecyclerView> mSet = new HashSet<>();
+
+    private int offset, position;
+
     public CellScrollHolder() {
 
     }
 
     public void register(RecyclerView recyclerView) {
-        set.add(recyclerView);
+        ((LinearLayoutManager)recyclerView.getLayoutManager()).scrollToPositionWithOffset(position, offset);
+        mSet.add(recyclerView);
     }
 
     public void unregister(RecyclerView recyclerView) {
-        set.remove(recyclerView);
+        mSet.remove(recyclerView);
     }
 
     public void clear() {
-        set.clear();
+        mSet.clear();
     }
 
     public void notifyScrollBy(int dx, int dy) {
-        for(RecyclerView recyclerView:set) {
-            // 相对位置
+        for(RecyclerView recyclerView : mSet) {
             recyclerView.scrollBy(dx, dy);
         }
     }
 
     public void notifyScrollTo(int x, int y) {
-        for(RecyclerView recyclerView:set) {
-            // 绝对位置
+        for(RecyclerView recyclerView : mSet) {
             recyclerView.scrollTo(x, y);
-            Log.i("notifyScrollTo", "scrollTo("+x+", "+y+")");
         }
     }
 
-    // 在模版RecyclerView的onScrolled中处理
     public void notifyScrollToPositionWithOffset(int position, int offset) {
-        for(RecyclerView recyclerView:set) {
+        for(RecyclerView recyclerView : mSet) {
             LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
             layoutManager.scrollToPositionWithOffset(position, offset);
         }
+    }
+
+    public void recordCurrentPosition(int offset, int position) {
+        this.offset = offset;
+        this.position = position;
     }
 }
