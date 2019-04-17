@@ -25,14 +25,14 @@ public class MyViewGroup extends ViewGroup {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        Log.i(TAG, "onMeasure - width["+MeasureSpec.getMode(widthMeasureSpec)+", "+MeasureSpec.getSize(widthMeasureSpec)+"]");
-        Log.i(TAG, "onMeasure - height["+MeasureSpec.getMode(heightMeasureSpec)+", "+MeasureSpec.getSize(heightMeasureSpec)+"]");
+        Log.d(TAG, "onMeasure - width["+MeasureSpec.getMode(widthMeasureSpec)+", "+MeasureSpec.getSize(widthMeasureSpec)+"]");
+        Log.d(TAG, "onMeasure - height["+MeasureSpec.getMode(heightMeasureSpec)+", "+MeasureSpec.getSize(heightMeasureSpec)+"]");
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         // 设置child大小和位置
-        Log.i(TAG, "onLayout - "+changed+"["+l+", "+t+", "+r+", "+b+"]");
+        Log.d(TAG, "onLayout - "+changed+"["+l+", "+t+", "+r+", "+b+"]");
     }
 
     @Override
@@ -70,19 +70,24 @@ public class MyViewGroup extends ViewGroup {
     }
 
     @Override
+    public void requestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+        super.requestDisallowInterceptTouchEvent(disallowIntercept);
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 // true 表示 the event was handled in this view，接收之后的move和up事件
-                Log.i(TAG, "onTouchEvent ACTION_DOWN true");
+                Log.i(TAG, "onTouchEvent 0 true");
                 return true;
             case MotionEvent.ACTION_MOVE:
                 // 绝对位置和相对位置
-                Log.i(TAG, "onTouchEvent ACTION_MOVE 坐标："+event.getRawX()+" - "+event.getRawY()+" - "+event.getX()+" - "+event.getY());
+                Log.d(TAG, "onTouchEvent ACTION_MOVE 坐标："+event.getRawX()+" - "+event.getRawY()+" - "+event.getX()+" - "+event.getY());
                 // 触控点数，二维数组
                 // points between this event and previous event
                 if(event.getPointerCount()>0 && event.getHistorySize()>0){
-                    Log.i(TAG, "onTouchEvent ACTION_MOVE 历史："+event.getPointerCount()+" - "+event.getHistorySize()
+                    Log.d(TAG, "onTouchEvent ACTION_MOVE 历史："+event.getPointerCount()+" - "+event.getHistorySize()
                             +" - "+event.getHistoricalX(event.getPointerCount()-1, event.getHistorySize()-1)
                             +" - "+event.getHistoricalY(event.getPointerCount()-1, event.getHistorySize()-1));
                 }

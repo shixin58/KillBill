@@ -3,6 +3,7 @@ package com.bride.demon.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 
@@ -26,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * <p>Created by shixin on 2018/9/26.
  */
 public class NestedListActivity extends BaseActivity {
+    private static final String TAG = NestedListActivity.class.getSimpleName();
 
     private HeaderRecyclerView mHeaderRecyclerView;
     private DispatchFrameLayout mDispatchFrameLayout;
@@ -105,17 +107,18 @@ public class NestedListActivity extends BaseActivity {
 
         @Override
         public boolean onInterceptTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
+            Log.i(TAG, "onInterceptTouchEvent - "+motionEvent.getAction());
             return false;
         }
 
         @Override
         public void onTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
-
+            Log.i(TAG, "onTouchEvent - "+motionEvent.getAction());
         }
 
         @Override
         public void onRequestDisallowInterceptTouchEvent(boolean b) {
-
+            Log.i(TAG, "onRequestDisallowInterceptTouchEvent - "+b);
         }
     }
 
@@ -123,11 +126,21 @@ public class NestedListActivity extends BaseActivity {
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
+            Log.i(TAG, "onScrolled - "+dx+" - "+dy);
         }
 
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
+            switch (newState) {
+                case RecyclerView.SCROLL_STATE_IDLE:
+                    break;
+                case RecyclerView.SCROLL_STATE_DRAGGING:
+                    break;
+                case RecyclerView.SCROLL_STATE_SETTLING:
+                    break;
+            }
+            Log.i(TAG, "onScrollStateChanged - "+newState);
         }
     }
 }

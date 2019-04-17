@@ -49,14 +49,19 @@ public class DispatchConstraintLayout extends ConstraintLayout {
             case MotionEvent.ACTION_DOWN:
                 break;
             case MotionEvent.ACTION_MOVE:
-//                return true;
-                break;
+                // child收到CANCEL，parent接管之后的MOVE和UP事件
+                return true;
             case MotionEvent.ACTION_UP:
                 break;
             case MotionEvent.ACTION_CANCEL:
                 break;
         }
         return super.onInterceptTouchEvent(ev);
+    }
+
+    @Override
+    public void requestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+        super.requestDisallowInterceptTouchEvent(disallowIntercept);
     }
 
     @Override
