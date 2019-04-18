@@ -9,14 +9,12 @@ import com.bride.widget.activity.BossActivity;
 import com.bride.widget.activity.JSActivity;
 import com.bride.widget.activity.ScrollingActivity;
 
-import org.jetbrains.annotations.Nullable;
-
 /**
  * <p>Created by shixin on 2018/10/27.
  */
 public class MainActivity extends BaseActivity {
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }

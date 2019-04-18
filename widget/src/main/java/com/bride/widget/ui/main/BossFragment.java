@@ -1,9 +1,51 @@
 package com.bride.widget.ui.main;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.bride.baselib.BaseFragment;
+import com.bride.widget.R;
+import com.bride.widget.model.Boss;
 
 /**
  * <p>Created by shixin on 2019-04-18.
  */
 public class BossFragment extends BaseFragment {
+
+    private BossViewModel mViewModel;
+
+    public static BossFragment newInstance() {
+        return new BossFragment();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_boss, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mViewModel = ViewModelProviders.of(this).get(BossViewModel.class);
+        mViewModel.bossLiveData.observe(this, new Observer<Boss>() {
+            @Override
+            public void onChanged(Boss boss) {
+
+            }
+        });
+        getActivity().findViewById(R.id.tv_action).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewModel.doAction();
+            }
+        });
+    }
 }
