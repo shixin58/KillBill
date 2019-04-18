@@ -1,26 +1,5 @@
 apply plugin: 'com.android.application'
 
-// 添加新源集
-sourceSets {
-    vip {
-        java {
-            srcDir 'src/vip/java'
-        }
-        resources {
-            srcDir 'src/vip/res'
-        }
-    }
-}
-
-task printSourceSets << {
-    sourceSets.all {
-        println name
-        println output.classesDir
-        println output.resourcesDir
-        println compileClasspath
-    }
-}
-
 android {
     compileSdkVersion COMPILE_SDK_VERSION as int
     buildToolsVersion BUILD_TOOLS_VERSION
