@@ -12,6 +12,7 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.View;
 import android.widget.TextView;
 
 import com.bride.baselib.BaseActivity;
@@ -33,13 +34,80 @@ public class LandscapeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(TAG, "onCreate - "+savedInstanceState);
         setContentView(R.layout.activity_landscape);
+        initView();
+    }
+
+    private void initView() {
         TextView tvHeight = findViewById(R.id.tv_height);
         String source = ResUtils.getString(R.string.get_height);
         setTypeface(tvHeight);
         testHeight(tvHeight, source);
         testLineCount(source);
         testTextPaint(source);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i(TAG, "onSaveInstanceState - "+outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.i(TAG, "onRestoreInstanceState - "+savedInstanceState);
+    }
+
+    @Override
+    public void recreate() {
+        super.recreate();
+        Log.i(TAG, "recreate");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i(TAG, "onRestart");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i(TAG, "onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(TAG, "onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(TAG, "onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroy");
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_recreate:
+                recreate();
+                break;
+        }
     }
 
     public static void testHeight(TextView textView, String source) {

@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.bride.baselib.BaseActivity;
+import com.bride.widget.activity.BossActivity;
+import com.bride.widget.activity.JSActivity;
+import com.bride.widget.activity.ScrollingActivity;
 
 import org.jetbrains.annotations.Nullable;
 

@@ -36,6 +36,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(TAG, "onCreate - "+savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
         initData();
@@ -83,6 +84,42 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
+    public void recreate() {
+        super.recreate();
+        Log.i(TAG, "recreate");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i(TAG, "onRestart");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i(TAG, "onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(TAG, "onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(TAG, "onStop");
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_volley:
@@ -114,6 +151,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.i(TAG, "onDestroy");
         RxBus.getInstance().unregister(MessageEvent.class, mObservable);
     }
 

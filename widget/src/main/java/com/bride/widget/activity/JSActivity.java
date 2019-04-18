@@ -1,4 +1,4 @@
-package com.bride.widget;
+package com.bride.widget.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -21,6 +21,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.bride.baselib.BaseActivity;
+import com.bride.widget.AndroidToJS;
+import com.bride.widget.R;
 
 /**
  * <p>Created by shixin on 2018/10/27.

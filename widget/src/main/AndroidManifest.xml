@@ -19,16 +19,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ScrollingActivity"
+            android:name=".activity.ScrollingActivity"
             android:label="@string/activity_scrolling"
             android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".BossActivity"
+        <activity android:name=".activity.BossActivity"
             android:label="@string/activity_boss"
-            android:launchMode="standard"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".JSActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".activity.JSActivity"
             android:label="@string/activity_js"
             android:launchMode="standard"
             android:screenOrientation="portrait">
