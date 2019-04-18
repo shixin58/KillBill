@@ -11,6 +11,7 @@ import com.bride.baselib.BaseActivity
 import com.bride.demon.R
 import com.bride.demon.model.City
 import com.bride.demon.model.Person
+import kotlinx.android.synthetic.main.activity_blank.*
 
 /**
  *
@@ -21,7 +22,7 @@ class BlankActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_blank)
-        printViewHierarchy(findViewById(R.id.tv_title), this)
+        printViewHierarchy(tv_title, this)
         Log.i("lifecycleB", "onCreate")
     }
 

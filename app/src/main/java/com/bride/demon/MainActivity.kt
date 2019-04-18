@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentTransaction
 import com.bride.baselib.BaseActivity
 import com.bride.baselib.PermissionUtils
 import com.bride.demon.callback.MyFragmentLifecycleCallbacks
-import com.bride.demon.callback.MyLifecycleObserver
 import com.bride.demon.fragment.DashboardFragment
 import com.bride.demon.fragment.HomeFragment
 import com.bride.demon.fragment.NotificationsFragment
@@ -18,7 +17,6 @@ class MainActivity : BaseActivity() {
     private val fragments = arrayOfNulls<Fragment>(3)
     private var mIndex: Int = 0
     private val fragmentLifecycleCallbacks = MyFragmentLifecycleCallbacks()
-    private val lifecycleObserver = MyLifecycleObserver()
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         var transaction: FragmentTransaction?
@@ -78,7 +76,6 @@ class MainActivity : BaseActivity() {
         navigation.selectedItemId = R.id.navigation_home
 
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentLifecycleCallbacks, true)
-        lifecycle.addObserver(lifecycleObserver)
 
         PermissionUtils.requestAllPermissions(this, 1)
     }
@@ -93,6 +90,5 @@ class MainActivity : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentLifecycleCallbacks)
-        lifecycle.removeObserver(lifecycleObserver)
     }
 }
