@@ -1,4 +1,4 @@
-package com.bride.thirdparty.util;
+package com.bride.baselib;
 
 import java.util.HashMap;
 

@@ -1,13 +1,11 @@
-### 目录
-- 测试模块化+组件化
+### Catalogue
 
-- 测试Kotlin, LeakCanary, BlockCanary, Glide: app
-- IPC(bind+AIDL) demo: client -> app
-- Serializable和Parcelable序列化对比
+- baselib: MD5算法，DES、AES加密算法
 
-- 测试java反射, 注解, LinkedHashMap实现LRU算法: client
-- 线程池，Observable，synchronized：client
+- app: Kotlin, LeakCanary, BlockCanary, Glide, 序列化, binder
 
-- OkHttp3, Retrofit, Volley, RxJava, RxBus, EventBus: thirdparty
+- client: Java8, java反射, 注解, LRU算法, 线程池，Observable，synchronized
 
-- MD5算法，DES、AES加密算法: baselib
+- thirdparty: OkHttp3, Retrofit, Volley, RxJava, RxBus, EventBus
+
+- widget: JUnit, JS, MVVM, CoordinatorLayout
