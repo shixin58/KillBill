@@ -27,6 +27,9 @@ public class RxJavaActivity extends BaseActivity {
 
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.tv_just:
+                RxJavaStrategy.getInstance().executeJust();
+                break;
             case R.id.tv_base:
                 RxJavaStrategy.getInstance().execute();
                 break;

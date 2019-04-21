@@ -149,13 +149,17 @@ public class RxJavaStrategy implements IStrategy {
         return InstanceWrapper.INSTANCE;
     }
 
+    public void executeJust() {
+        Flowable.just("Hello World!")
+                .subscribe(s -> Log.i(TAG, "executeJust - Consumer#accept "+s)).dispose();
+    }
+
     @Override
     public void execute() {
-//        Observable.just("Good", "Better", "Best");
         Observable<String> observable = Observable.create(new ObservableOnSubscribe<String>(){
             @Override
             public void subscribe(ObservableEmitter<String> e) throws Exception {
-                Log.i("Observable", "subscribe");
+                Log.i(TAG, "execute() - Observable#subscribe");
                 e.onNext("Good");
                 e.onNext("Better");
                 e.onNext("Best");
@@ -167,71 +171,63 @@ public class RxJavaStrategy implements IStrategy {
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        Log.i("Observer", "onSubscribe");
+                        Log.i(TAG, "execute() - Observer#onSubscribe");
                     }
 
                     @Override
                     public void onNext(String s) {
-                        Log.i("Observer", "onNext "+s);
+                        Log.i(TAG, "execute() - Observer#onNext "+s);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.i(TAG, "execute() - Observer#onError "+e.getMessage());
                     }
 
                     @Override
                     public void onComplete() {
-                        Log.i("Observer", "onComplete");
+                        Log.i(TAG, "execute() - Observer#onComplete");
                     }
                 });
     }
 
     public void executeTake() {
         Observable.just(1, 2, 3, 4, 5, 6)
-//                .take(5)
-                .takeLast(5)
+                .take(5)
                 .subscribe(new Observer<Integer>() {
-            @Override
-            public void onSubscribe(Disposable d) {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.i(TAG, "executeTake - onSubscribe");
+                    }
 
-            }
+                    @Override
+                    public void onNext(Integer integer) {
+                        Log.i(TAG, "executeTake - onNext "+integer);
+                    }
 
-            @Override
-            public void onNext(Integer integer) {
-                Log.i("executeLift", integer.toString());
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i(TAG, "executeTake - onError "+e.getMessage());
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
+                    @Override
+                    public void onComplete() {
+                        Log.i(TAG, "executeTake - onComplete");
+                    }
+                });
     }
 
     public void executeLift(ImageView imageView1, ImageView imageView2) {
         // 代理Observable<Integer>, 真实Observable<String>
         // Observable.subscribe(Observer)调用ObservableCreate.subscribeActual，执行Observer.onSubscribe和ObservableOnSubscribe.subscribe
         // Observable.subscribe(Observer)调用ObservableLift.subscribeActual，执行代理Observable.subscribe(代理Observer)
-        Observable.create(new ObservableOnSubscribe<String>() {
-            @Override
-            public void subscribe(ObservableEmitter<String> e) throws Exception {
-                Log.i(TAG, "executeLift - subscribe");
-                e.onNext(Urls.Images.LOGO);
-                e.onNext(Urls.Images.BEAUTY);
-                e.onComplete();
-            }
+        Observable.create((ObservableOnSubscribe<String>) e -> {
+            Log.i(TAG, "executeLift - subscribe");
+            e.onNext(Urls.Images.LOGO);
+            e.onNext(Urls.Images.BEAUTY);
+            e.onComplete();
         }).subscribeOn(Schedulers.io())
-                .lift(new ObservableOperator<Response, String>() {
-            @Override
-            public Observer<? super String> apply(Observer<? super Response> observer) throws Exception {
-
-                return new Observer<String>() {
+                .lift((ObservableOperator<Response, String>) observer -> new Observer<String>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         Log.i(TAG, "executeLift - lift - onSubscribe");
@@ -266,37 +262,35 @@ public class RxJavaStrategy implements IStrategy {
                         Log.i(TAG, "executeLift - lift - onComplete");
                         observer.onComplete();
                     }
-                };
-            }
-        }).observeOn(AndroidSchedulers.mainThread())
+                }).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Response>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                Log.i(TAG, "executeLift - subscribe - onSubscribe");
-            }
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.i(TAG, "executeLift - subscribe - onSubscribe");
+                    }
 
-            @Override
-            public void onNext(Response response) {
-                Log.i(TAG, "executeLift - subscribe - onNext - "+response);
-                Bitmap bitmap = BitmapFactory.decodeStream(response.body().byteStream());
-                String url = response.request().url().toString();
-                if (TextUtils.equals(url, Urls.Images.BEAUTY)) {
-                    imageView2.setImageBitmap(bitmap);
-                } else {
-                    imageView1.setImageBitmap(bitmap);
-                }
-            }
+                    @Override
+                    public void onNext(Response response) {
+                        Log.i(TAG, "executeLift - subscribe - onNext - "+response);
+                        Bitmap bitmap = BitmapFactory.decodeStream(response.body().byteStream());
+                        String url = response.request().url().toString();
+                        if (TextUtils.equals(url, Urls.Images.BEAUTY)) {
+                            imageView2.setImageBitmap(bitmap);
+                        } else {
+                            imageView1.setImageBitmap(bitmap);
+                        }
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                Log.i(TAG, "executeLift - subscribe - onError");
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i(TAG, "executeLift - subscribe - onError");
+                    }
 
-            @Override
-            public void onComplete() {
-                Log.i(TAG, "executeLift - subscribe - onComplete");
-            }
-        });
+                    @Override
+                    public void onComplete() {
+                        Log.i(TAG, "executeLift - subscribe - onComplete");
+                    }
+                });
     }
 
     public void executeMap() {
@@ -305,20 +299,17 @@ public class RxJavaStrategy implements IStrategy {
                 new UrlParams(Urls.JUHE_MOBILE).put("phone", "18600166830").put("key", Urls.JUHE_KEY).toString())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(Schedulers.io())
-                .map(new Function<String, WrapperModel<PhoneNumberModel>>() {
-                    @Override
-                    public WrapperModel<PhoneNumberModel> apply(String s) throws Exception {
-                        Request request = new Request.Builder()
-                                .url(s)
-                                .get()
-                                .tag("RxJava")
-                                .build();
-                        Call call = mOkHttpClient.newCall(request);
-                        Response response = call.execute();
-                        Log.i(TAG, "executeMap - apply - "+response.cacheResponse()+" - "+response.networkResponse());
-                        return new Gson().fromJson(response.body().string(),
-                                new TypeToken<WrapperModel<PhoneNumberModel>>(){}.getType());
-                    }
+                .map((Function<String, WrapperModel<PhoneNumberModel>>) s -> {
+                    Request request = new Request.Builder()
+                            .url(s)
+                            .get()
+                            .tag("RxJava")
+                            .build();
+                    Call call = mOkHttpClient.newCall(request);
+                    Response response = call.execute();
+                    Log.i(TAG, "executeMap - apply - "+response.cacheResponse()+" - "+response.networkResponse());
+                    return new Gson().fromJson(response.body().string(),
+                            new TypeToken<WrapperModel<PhoneNumberModel>>(){}.getType());
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<WrapperModel<PhoneNumberModel>>() {
@@ -352,12 +343,9 @@ public class RxJavaStrategy implements IStrategy {
         Observable.fromIterable(listMap.keySet())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(Schedulers.io())
-                .flatMap(new Function<String, ObservableSource<String>>() {
-                    @Override
-                    public ObservableSource<String> apply(String s) throws Exception {
-                        Log.i("executeFlatMap", "apply - "+s);
-                        return Observable.fromIterable(listMap.get(s));
-                    }
+                .flatMap((Function<String, ObservableSource<String>>) s -> {
+                    Log.i("executeFlatMap", "apply - "+s);
+                    return Observable.fromIterable(listMap.get(s));
                 }).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
                     @Override
@@ -433,12 +421,7 @@ public class RxJavaStrategy implements IStrategy {
     public void executeTimer() {
         Observable.timer(1, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Long>() {
-                    @Override
-                    public void accept(Long aLong) throws Exception {
-                        Log.i("executeTimer", aLong.toString());
-                    }
-                });
+                .subscribe(aLong -> Log.i("executeTimer", aLong.toString())).dispose();
     }
 
     // 1, 2, 3, ..., 10
@@ -465,7 +448,7 @@ public class RxJavaStrategy implements IStrategy {
                     public void accept(Disposable disposable) throws Exception {
 
                     }
-                });
+                }).dispose();
     }
 
     // reactive pull, backpressure
@@ -597,7 +580,7 @@ public class RxJavaStrategy implements IStrategy {
                     public void accept(Integer integer) throws Exception {
                         Log.i("executeConcat", integer.toString());
                     }
-                });
+                }).dispose();
     }
 
     // 并行执行
@@ -631,7 +614,7 @@ public class RxJavaStrategy implements IStrategy {
             public void accept(String s) throws Exception {
                 Log.i("executeMerge", s);
             }
-        });
+        }).dispose();
     }
 
     // 合并多个被观察者发送的事件
@@ -683,7 +666,7 @@ public class RxJavaStrategy implements IStrategy {
             @Override
             public void accept(Disposable disposable) throws Exception {
             }
-        });
+        }).dispose();
     }
 
     public void executeCombineLatest() {
@@ -699,7 +682,7 @@ public class RxJavaStrategy implements IStrategy {
             public void accept(String s) throws Exception {
                 Log.i("executeCombineLatest", s);
             }
-        });
+        }).dispose();
     }
 
     // 前两个数据聚合，结果再跟下一个数据聚合
@@ -747,11 +730,11 @@ public class RxJavaStrategy implements IStrategy {
                         integers.add(integer);
                     }
                 }).subscribe(new Consumer<ArrayList<Integer>>() {// Single
-            @Override
-            public void accept(ArrayList<Integer> integers) throws Exception {
-                Log.i("executeCollect", TextUtils.join(",", integers));
-            }
-        });
+                    @Override
+                    public void accept(ArrayList<Integer> integers) throws Exception {
+                        Log.i("executeCollect", TextUtils.join(",", integers));
+                    }
+                }).dispose();
     }
 
     // 追加事件
@@ -764,7 +747,7 @@ public class RxJavaStrategy implements IStrategy {
                     public void accept(Integer integer) throws Exception {
                         Log.i("executeStartWith", integer.toString());
                     }
-                });
+                }).dispose();
     }
 
     // 统计被观察者发送的事件数量
@@ -776,7 +759,7 @@ public class RxJavaStrategy implements IStrategy {
                     public void accept(Long aLong, Throwable throwable) throws Exception {
                         Log.i("executeCount", aLong.toString());
                     }
-                });
+                }).dispose();
     }
 
     public void onDestroy(@NonNull String tag) {
