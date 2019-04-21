@@ -8,6 +8,9 @@ import com.bride.baselib.BaseActivity
 import com.bride.baselib.BaseFragment
 import com.bride.demon.R
 
+/**
+ * test startActivityForResult, View#postInvalidate, Timer
+ */
 class TestFragmentActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

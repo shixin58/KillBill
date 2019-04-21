@@ -9,13 +9,12 @@ import com.bride.demon.R
 import com.bride.demon.activity.SecondActivity
 
 /**
- *
+ * Activity launch mode
  * Created by shixin on 2018/4/15.
  */
 class DashboardFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when {
-            // 测试Activity启动方式
             v?.id==R.id.tv_jump -> SecondActivity.openActivity(activity)
         }
     }

@@ -31,6 +31,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
+ * Serializable, Parcelable, Gson PK
  * <p>Created by shixin on 2019/4/10.
  */
 public class NotificationsFragment extends BaseFragment {

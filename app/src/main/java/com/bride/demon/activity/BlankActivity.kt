@@ -14,7 +14,7 @@ import com.bride.demon.model.Person
 import kotlinx.android.synthetic.main.activity_blank.*
 
 /**
- *
+ * test lifecycle, ViewHierarchy, Serializable
  * Created by shixin on 2018/4/26.
  */
 class BlankActivity : BaseActivity() {
