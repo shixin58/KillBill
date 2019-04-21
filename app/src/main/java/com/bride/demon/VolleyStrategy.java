@@ -1,4 +1,4 @@
-package com.bride.thirdparty.Strategy;
+package com.bride.demon;
 
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -21,9 +21,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bride.baselib.UrlParams;
 import com.bride.baselib.Urls;
-import com.bride.thirdparty.R;
-import com.bride.thirdparty.ThirdPartyApplication;
-import com.bride.thirdparty.util.BitmapCache;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,7 +42,7 @@ public class VolleyStrategy {
     }
 
     private VolleyStrategy() {
-        mQueue = Volley.newRequestQueue(ThirdPartyApplication.getInstance());
+        mQueue = Volley.newRequestQueue(DemonApplication.Companion.getInstance());
     }
 
     public static VolleyStrategy getInstance() {
@@ -62,13 +59,13 @@ public class VolleyStrategy {
             @Override
             public void onResponse(String s) {
                 Log.i(TAG, "executeGetString - onResponse - "+s);
-                Toast.makeText(ThirdPartyApplication.getInstance(), s, Toast.LENGTH_LONG).show();
+                Toast.makeText(DemonApplication.Companion.getInstance(), s, Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Log.i(TAG, "executeGetString - onErrorResponse - "+volleyError.getMessage());
-                Toast.makeText(ThirdPartyApplication.getInstance(), volleyError.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(DemonApplication.Companion.getInstance(), volleyError.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
         stringRequest.setTag("xyz");
@@ -81,13 +78,13 @@ public class VolleyStrategy {
             @Override
             public void onResponse(String s) {
                 Log.i(TAG, "executePostString - onResponse - "+s);
-                Toast.makeText(ThirdPartyApplication.getInstance(), s, Toast.LENGTH_LONG).show();
+                Toast.makeText(DemonApplication.Companion.getInstance(), s, Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Log.i(TAG, "executePostString - onErrorResponse - "+volleyError.getMessage());
-                Toast.makeText(ThirdPartyApplication.getInstance(), volleyError.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(DemonApplication.Companion.getInstance(), volleyError.getMessage(), Toast.LENGTH_LONG).show();
             }
         }){
             @Override
@@ -111,13 +108,13 @@ public class VolleyStrategy {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 Log.i(TAG, "executePostJson - onResponse - "+jsonObject.toString());
-                Toast.makeText(ThirdPartyApplication.getInstance(), jsonObject.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(DemonApplication.Companion.getInstance(), jsonObject.toString(), Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Log.i(TAG, "executePostJson - onErrorResponse - "+volleyError.getMessage());
-                Toast.makeText(ThirdPartyApplication.getInstance(), volleyError.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(DemonApplication.Companion.getInstance(), volleyError.getMessage(), Toast.LENGTH_LONG).show();
             }
         }){
             @Override

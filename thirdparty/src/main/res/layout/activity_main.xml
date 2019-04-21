@@ -5,22 +5,12 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tv_volley"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
-        android:gravity="center"
-        android:text="test Volley"/>
-
-    <TextView
         android:id="@+id/tv_eventbus"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_volley"
+        app:layout_constraintTop_toTopOf="parent"
         android:gravity="center"
         android:text="test EventBus"/>
 
@@ -74,4 +64,23 @@
         android:gravity="center"
         android:text="test Directory"/>
 
+    <TextView
+        android:id="@+id/tv_rx_bus"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_directory"
+        android:gravity="center"
+        android:text="test RxBus"/>
+
+    <TextView
+        android:id="@+id/tv_url_connection"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_rx_bus"
+        android:gravity="center"
+        android:text="test UrlConnection"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

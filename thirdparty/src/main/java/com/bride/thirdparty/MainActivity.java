@@ -13,8 +13,9 @@ import com.bride.thirdparty.activity.EventBusTestActivity;
 import com.bride.thirdparty.activity.LandscapeActivity;
 import com.bride.thirdparty.activity.PushActivity;
 import com.bride.thirdparty.activity.RetrofitActivity;
+import com.bride.thirdparty.activity.RxBusActivity;
 import com.bride.thirdparty.activity.RxJavaActivity;
-import com.bride.thirdparty.activity.VolleyTestActivity;
+import com.bride.thirdparty.activity.UrlConnectionActivity;
 import com.bride.thirdparty.bean.MessageEvent;
 import com.bride.thirdparty.util.RxBus;
 
@@ -43,13 +44,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void initView() {
-        findViewById(R.id.tv_volley).setOnClickListener(this);
         findViewById(R.id.tv_eventbus).setOnClickListener(this);
         findViewById(R.id.tv_landscape).setOnClickListener(this);
         findViewById(R.id.tv_push).setOnClickListener(this);
         findViewById(R.id.tv_retrofit).setOnClickListener(this);
         findViewById(R.id.tv_rxjava).setOnClickListener(this);
         findViewById(R.id.tv_directory).setOnClickListener(this);
+        findViewById(R.id.tv_rx_bus).setOnClickListener(this);
+        findViewById(R.id.tv_url_connection).setOnClickListener(this);
     }
 
     private void initData() {
@@ -122,9 +124,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_volley:
-                VolleyTestActivity.openActivity(this);
-                break;
             case R.id.tv_eventbus:
                 EventBusTestActivity.openActivity(this);
                 break;
@@ -142,6 +141,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 break;
             case R.id.tv_directory:
                 DirectoryActivity.openActivity(this);
+                break;
+            case R.id.tv_rx_bus:
+                RxBusActivity.openActivity(this);
+                break;
+            case R.id.tv_url_connection:
+                UrlConnectionActivity.openActivity(this);
                 break;
             default:
                 break;

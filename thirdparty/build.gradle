@@ -76,6 +76,10 @@ dependencies {
 
     implementation 'com.google.dagger:dagger:2.11'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
+    
+    implementation group: 'com.github.bumptech.glide', name: 'glide', version: '4.9.0'
+    annotationProcessor group: 'com.github.bumptech.glide', name: 'compiler', version: '4.9.0'
+    implementation 'com.github.bumptech.glide:okhttp3-integration:4.9.0@aar'
 
     implementation project(':baselib')
 }

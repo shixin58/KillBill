@@ -25,11 +25,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.VolleyTestActivity"
-            android:label="@string/volley_test_activity"
-            android:screenOrientation="portrait"
-            android:launchMode="standard"/>
-
         <activity android:name=".activity.EventBusTestActivity"
             android:label="@string/event_bus_test_activity"
             android:screenOrientation="portrait"
@@ -54,6 +49,26 @@
         <activity android:name=".activity.DirectoryActivity"
             android:label="@string/directory_activity"
             android:launchMode="singleTask"/>
+
+        <activity android:name=".activity.RxBusActivity"
+            android:label="@string/rx_bus_activity"
+            android:launchMode="singleTask"/>
+
+        <activity android:name=".activity.UrlConnectionActivity"
+            android:label="@string/url_connection_activity"
+            android:launchMode="singleTask">
+            <intent-filter>
+
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="max"
+                    android:host="thirdparty"
+                    android:pathPrefix="/url.connection"/>
+            </intent-filter>
+        </activity>
 
         <receiver android:name=".PushReceiver"/>
     </application>
