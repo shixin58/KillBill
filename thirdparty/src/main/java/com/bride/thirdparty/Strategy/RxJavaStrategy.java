@@ -7,6 +7,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+
 import com.bride.baselib.UrlParams;
 import com.bride.baselib.Urls;
 import com.bride.thirdparty.ThirdPartyApplication;
@@ -242,6 +244,7 @@ public class RxJavaStrategy implements IStrategy {
                         Request request = new Request.Builder()
                                 .url(url)
                                 .get()
+                                .tag("RxJava")
                                 .build();
                         Call call = mOkHttpClient.newCall(request);
                         try {
@@ -308,6 +311,7 @@ public class RxJavaStrategy implements IStrategy {
                         Request request = new Request.Builder()
                                 .url(s)
                                 .get()
+                                .tag("RxJava")
                                 .build();
                         Call call = mOkHttpClient.newCall(request);
                         Response response = call.execute();
@@ -773,5 +777,18 @@ public class RxJavaStrategy implements IStrategy {
                         Log.i("executeCount", aLong.toString());
                     }
                 });
+    }
+
+    public void onDestroy(@NonNull String tag) {
+        for (Call call : mOkHttpClient.dispatcher().queuedCalls()) {
+            if (tag.equals(call.request().tag())) {
+                call.cancel();
+            }
+        }
+        for (Call call : mOkHttpClient.dispatcher().runningCalls()) {
+            if (tag.equals(call.request().tag())) {
+                call.cancel();
+            }
+        }
     }
 }

@@ -46,4 +46,10 @@ public class RxJavaActivity extends BaseActivity {
                 break;
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        RxJavaStrategy.getInstance().onDestroy("RxJava");
+        super.onDestroy();
+    }
 }
