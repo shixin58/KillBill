@@ -63,8 +63,11 @@ dependencies {
     debugImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-support-fragment', version: '1.6.3'
 
     implementation group: 'com.github.markzhai', name: 'blockcanary-android', version: '1.5.0'
+
+    implementation 'com.android.volley:volley:1.1.1'
     implementation group: 'com.github.bumptech.glide', name: 'glide', version: '4.9.0'
     annotationProcessor group: 'com.github.bumptech.glide', name: 'compiler', version: '4.9.0'
+    implementation 'com.github.bumptech.glide:volley-integration:4.9.0@aar'
 
     implementation project(':baselib')
 }

@@ -13,6 +13,7 @@
     <string name="activity_webp" translatable="false">WebpActivity</string>
     <string name="activity_glide" translatable="false">GlideActivity</string>
     <string name="activity_relative_layout" translatable="false">RelativeLayoutActivity</string>
+    <string name="volley_test_activity" translatable="false">VolleyTestActivity</string>
 
     <string name="activity_second" translatable="false">SecondActivity</string>
     <string name="activity_third" translatable="false">ThirdActivity</string>

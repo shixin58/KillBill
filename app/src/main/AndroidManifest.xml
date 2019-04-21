@@ -116,6 +116,11 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
 
+        <activity android:name="com.bride.demon.activity.VolleyTestActivity"
+            android:label="@string/volley_test_activity"
+            android:screenOrientation="portrait"
+            android:launchMode="standard"/>
+
         <service android:name=".service.MyService"
             android:exported="true"/>
 

@@ -7,6 +7,9 @@ import com.bride.baselib.*
 import com.bride.demon.callback.MyActivityLifecycleCallbacks
 import com.github.moduth.blockcanary.BlockCanary
 import com.squareup.leakcanary.LeakCanary
+import java.util.concurrent.Executor
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 /**
  *
@@ -14,6 +17,7 @@ import com.squareup.leakcanary.LeakCanary
  */
 class DemonApplication : Application() {
     private val activityLifecycleCallbacks = MyActivityLifecycleCallbacks()
+    private val executorService: ExecutorService = Executors.newFixedThreadPool(8)
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
@@ -34,6 +38,7 @@ class DemonApplication : Application() {
             BlockCanary.install(this, AppBlockContext()).start()
         }
 
+        instance = this
         ResUtils.setContext(this)
         PreferenceUtils.initialize(this, "demon_prefs")
         PermissionUtils.setContext(this)
@@ -41,5 +46,17 @@ class DemonApplication : Application() {
 
         unregisterActivityLifecycleCallbacks(activityLifecycleCallbacks)
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
+    }
+
+    fun getExecutor(): Executor {
+        return executorService
+    }
+
+    companion object {
+        private lateinit var instance: DemonApplication
+
+        fun getInstance(): DemonApplication {
+            return instance
+        }
     }
 }

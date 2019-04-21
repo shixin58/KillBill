@@ -1,4 +1,4 @@
-package com.bride.thirdparty.activity;
+package com.bride.demon;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,13 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.bride.baselib.BaseActivity;
-import com.bride.thirdparty.R;
-import com.bride.thirdparty.Strategy.URLConnectionStrategy;
-import com.bride.thirdparty.Strategy.VolleyStrategy;
-import com.bride.thirdparty.bean.MessageEvent;
-import com.bride.thirdparty.util.RxBus;
-
-import org.greenrobot.eventbus.EventBus;
 
 /**
  * <p>Created by shixin on 2019/3/22.
@@ -49,21 +42,6 @@ public class VolleyTestActivity extends BaseActivity {
                 break;
             case R.id.image2:
                 VolleyStrategy.getInstance().executeNetworkImageView(findViewById(R.id.iv_demo2));
-                break;
-            case R.id.tv_urlconnection_get:
-                URLConnectionStrategy.get();
-                break;
-            case R.id.tv_urlconnection_post:
-                URLConnectionStrategy.post();
-                break;
-            case R.id.tv_urlconnection_get_image:
-                URLConnectionStrategy.getImage(findViewById(R.id.iv_demo3));
-                break;
-            case R.id.tv_post_sticky:
-                EventBus.getDefault().postSticky(new MessageEvent("Direwolf is really loyal!"));
-                break;
-            case R.id.tv_rxbus_post:
-                RxBus.getInstance().post(new MessageEvent("RxBus is awesome!"));
                 break;
         }
     }
