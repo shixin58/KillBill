@@ -14,7 +14,6 @@ import com.bride.baselib.Urls;
 import com.bride.thirdparty.ThirdPartyApplication;
 import com.bride.thirdparty.bean.PhoneNumberModel;
 import com.bride.thirdparty.bean.WrapperModel;
-import com.bride.thirdparty.protocal.IStrategy;
 import com.bride.thirdparty.util.CustomInterceptor;
 import com.bride.thirdparty.util.CustomNetworkInterceptor;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
@@ -85,7 +84,7 @@ import okhttp3.Route;
 /**
  * <p>Created by shixin on 2018/9/7.
  */
-public class RxJavaStrategy implements IStrategy {
+public class RxJavaStrategy {
     private static final String TAG = RxJavaStrategy.class.getSimpleName();
 
     private OkHttpClient mOkHttpClient;
@@ -150,45 +149,45 @@ public class RxJavaStrategy implements IStrategy {
     }
 
     public void executeJust() {
-        Flowable.just("Hello World!")
-                .subscribe(s -> Log.i(TAG, "executeJust - Consumer#accept "+s)).dispose();
+        Flowable.just("Try again!", "Hello World!")
+                .subscribe(s -> Log.i(TAG, "just - Consumer#accept(String) "+s),
+                    throwable -> Log.i(TAG, "just - Consumer#accept(Throwable) "+throwable.getMessage()),
+                    () -> Log.i(TAG, "just - Action#run()"),
+                    subscription -> {
+                        Log.i(TAG, "just - Consumer#accept(Subscription)");
+                        subscription.request(Long.MAX_VALUE);
+                    }).dispose();
     }
 
-    @Override
     public void execute() {
-        Observable<String> observable = Observable.create(new ObservableOnSubscribe<String>(){
+        Observable.create((ObservableOnSubscribe<String>) e -> {
+            e.onNext("Good");
+            e.onNext("Better");
+            e.onNext("Best");
+            e.onComplete();
+        }).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Observer<String>() {
             @Override
-            public void subscribe(ObservableEmitter<String> e) throws Exception {
-                Log.i(TAG, "execute() - Observable#subscribe");
-                e.onNext("Good");
-                e.onNext("Better");
-                e.onNext("Best");
-                e.onComplete();
+            public void onSubscribe(Disposable d) {
+                Log.i(TAG, "execute() - Observer#onSubscribe");
+            }
+
+            @Override
+            public void onNext(String s) {
+                Log.i(TAG, "execute() - Observer#onNext "+s);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.i(TAG, "execute() - Observer#onError "+e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                Log.i(TAG, "execute() - Observer#onComplete");
             }
         });
-        observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<String>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        Log.i(TAG, "execute() - Observer#onSubscribe");
-                    }
-
-                    @Override
-                    public void onNext(String s) {
-                        Log.i(TAG, "execute() - Observer#onNext "+s);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.i(TAG, "execute() - Observer#onError "+e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Log.i(TAG, "execute() - Observer#onComplete");
-                    }
-                });
     }
 
     public void executeTake() {
@@ -221,84 +220,115 @@ public class RxJavaStrategy implements IStrategy {
         // 代理Observable<Integer>, 真实Observable<String>
         // Observable.subscribe(Observer)调用ObservableCreate.subscribeActual，执行Observer.onSubscribe和ObservableOnSubscribe.subscribe
         // Observable.subscribe(Observer)调用ObservableLift.subscribeActual，执行代理Observable.subscribe(代理Observer)
-        Observable.create((ObservableOnSubscribe<String>) e -> {
-            Log.i(TAG, "executeLift - subscribe");
-            e.onNext(Urls.Images.LOGO);
-            e.onNext(Urls.Images.BEAUTY);
-            e.onComplete();
-        }).subscribeOn(Schedulers.io())
-                .lift((ObservableOperator<Response, String>) observer -> new Observer<String>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        Log.i(TAG, "executeLift - lift - onSubscribe");
-                        observer.onSubscribe(d);
-                    }
+        Observable.fromArray(Urls.Images.LOGO, Urls.Images.LADY)
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(Schedulers.io())
+            .lift(new CustomOperator<>())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Observer<Response>() {
+                @Override
+                public void onSubscribe(Disposable d) {
+                    Log.i(TAG, "executeLift - subscribe - Observer#onSubscribe");
+                }
 
-                    @Override
-                    public void onNext(String url) {
-                        Log.i(TAG, "executeLift - lift - onNext - "+url);
-                        Request request = new Request.Builder()
-                                .url(url)
-                                .get()
-                                .tag("RxJava")
-                                .build();
-                        Call call = mOkHttpClient.newCall(request);
-                        try {
-                            Response response = call.execute();
-                            observer.onNext(response);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                @Override
+                public void onNext(Response response) {
+                    Log.i(TAG, "executeLift - subscribe - Observer#onNext - "+response);
+                    Bitmap bitmap = BitmapFactory.decodeStream(response.body().byteStream());
+                    String url = response.request().url().toString();
+                    if (TextUtils.equals(url, Urls.Images.LADY)) {
+                        imageView2.setImageBitmap(bitmap);
+                    } else {
+                        imageView1.setImageBitmap(bitmap);
                     }
+                }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.i(TAG, "executeLift - lift - onError");
-                        observer.onError(e);
-                    }
+                @Override
+                public void onError(Throwable e) {
+                    Log.i(TAG, "executeLift - subscribe - Observer#onError");
+                }
 
-                    @Override
-                    public void onComplete() {
-                        Log.i(TAG, "executeLift - lift - onComplete");
-                        observer.onComplete();
-                    }
-                }).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Response>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        Log.i(TAG, "executeLift - subscribe - onSubscribe");
-                    }
+                @Override
+                public void onComplete() {
+                    Log.i(TAG, "executeLift - subscribe - Observer#onComplete");
+                }
+            });
+    }
 
-                    @Override
-                    public void onNext(Response response) {
-                        Log.i(TAG, "executeLift - subscribe - onNext - "+response);
-                        Bitmap bitmap = BitmapFactory.decodeStream(response.body().byteStream());
-                        String url = response.request().url().toString();
-                        if (TextUtils.equals(url, Urls.Images.BEAUTY)) {
-                            imageView2.setImageBitmap(bitmap);
-                        } else {
-                            imageView1.setImageBitmap(bitmap);
-                        }
-                    }
+    public final class CustomObserver<T> implements Observer<T>, Disposable {
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.i(TAG, "executeLift - subscribe - onError");
-                    }
+        final Observer<? super Response> downstream;
 
-                    @Override
-                    public void onComplete() {
-                        Log.i(TAG, "executeLift - subscribe - onComplete");
-                    }
-                });
+        Disposable upstream;
+
+        public CustomObserver(Observer<? super Response> downstream) {
+            this.downstream = downstream;
+        }
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            Log.i(TAG, "CustomObserver#onSubscribe");
+            if (upstream != null) {
+                d.dispose();
+            } else {
+                upstream = d;
+                downstream.onSubscribe(this);
+            }
+        }
+
+        @Override
+        public void onNext(T o) {
+            Log.i(TAG, "CustomObserver#onNext - "+o.toString());
+            Request request = new Request.Builder()
+                    .url(o.toString())
+                    .get()
+                    .tag("RxJava")
+                    .build();
+            Call call = mOkHttpClient.newCall(request);
+            try {
+                Response response = call.execute();
+                downstream.onNext(response);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            downstream.onError(e);
+            Log.i(TAG, "CustomObserver#onError");
+        }
+
+        @Override
+        public void onComplete() {
+            downstream.onComplete();
+            Log.i(TAG, "CustomObserver#onComplete");
+        }
+
+        @Override
+        public void dispose() {
+            Log.i(TAG, "CustomObserver#dispose");
+            upstream.dispose();
+        }
+
+        @Override
+        public boolean isDisposed() {
+            return upstream.isDisposed();
+        }
+    }
+
+    final class CustomOperator<T> implements ObservableOperator<Response, T> {
+        @Override
+        public Observer<T> apply(Observer<? super Response> downstream) {
+            return new CustomObserver<>(downstream);
+        }
     }
 
     public void executeMap() {
-        // 线程调度+操作符
         Observable.just(new UrlParams(Urls.JUHE_MOBILE).put("phone", "13701116418").put("key", Urls.JUHE_KEY).toString(),
-                new UrlParams(Urls.JUHE_MOBILE).put("phone", "18600166830").put("key", Urls.JUHE_KEY).toString())
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(Schedulers.io())
+                new UrlParams(Urls.JUHE_MOBILE).put("phone", "18600166830").put("key", Urls.JUHE_KEY).toString(),
+                new UrlParams(Urls.JUHE_MOBILE).put("phone", "17319311840").put("key", Urls.JUHE_KEY).toString())
+                .observeOn(Schedulers.computation())
                 .map((Function<String, WrapperModel<PhoneNumberModel>>) s -> {
                     Request request = new Request.Builder()
                             .url(s)
@@ -307,7 +337,8 @@ public class RxJavaStrategy implements IStrategy {
                             .build();
                     Call call = mOkHttpClient.newCall(request);
                     Response response = call.execute();
-                    Log.i(TAG, "executeMap - apply - "+response.cacheResponse()+" - "+response.networkResponse());
+                    Log.i(TAG, "map - Function#apply "+response.cacheResponse()+" - "+response.networkResponse());
+                    Thread.sleep(5000);
                     return new Gson().fromJson(response.body().string(),
                             new TypeToken<WrapperModel<PhoneNumberModel>>(){}.getType());
                 })
@@ -315,25 +346,22 @@ public class RxJavaStrategy implements IStrategy {
                 .subscribe(new Observer<WrapperModel<PhoneNumberModel>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        // 完成订阅
-                        Log.i(TAG, "executeMap - onSubscribe");
-                        // 断开连接
-//                        d.dispose();
+                        Log.i(TAG, "map - Observer#onSubscribe");
                     }
 
                     @Override
                     public void onNext(WrapperModel<PhoneNumberModel> model) {
-                        Log.i(TAG, "executeMap - "+model.result.toString());
+                        Log.i(TAG, "map - Observer#onNext "+model.result.toString());
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.i(TAG, "map - Observer#onError "+e.getMessage());
                     }
 
                     @Override
                     public void onComplete() {
-
+                        Log.i(TAG, "map - Observer#onComplete");
                     }
                 });
     }
@@ -341,31 +369,31 @@ public class RxJavaStrategy implements IStrategy {
     public void executeFlatMap() {
         Map<String, List<String>> listMap = getListMap();
         Observable.fromIterable(listMap.keySet())
-                .subscribeOn(Schedulers.newThread())
                 .observeOn(Schedulers.io())
                 .flatMap((Function<String, ObservableSource<String>>) s -> {
-                    Log.i("executeFlatMap", "apply - "+s);
+                    Log.i(TAG, "flatMap - apply "+s);
+                    Thread.sleep(5000);
                     return Observable.fromIterable(listMap.get(s));
                 }).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        Log.i(TAG, "flatMap - onSubscribe");
                     }
 
                     @Override
                     public void onNext(String s) {
-                        Log.i("executeFlatMap", "onNext - "+s);
+                        Log.i(TAG, "flatMap - onNext "+s);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.i(TAG, "flatMap - onError "+e.getMessage());
                     }
 
                     @Override
                     public void onComplete() {
-
+                        Log.i(TAG, "flatMap - onComplete");
                     }
                 });
     }

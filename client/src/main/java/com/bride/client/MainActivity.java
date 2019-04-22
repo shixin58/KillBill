@@ -220,7 +220,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            // BindProxy -> Proxy
+            // BinderProxy(IBinder) -> Proxy(IMyService)
             mService = IMyService.Stub.asInterface(service);
             Toast.makeText(MainActivity.this, "服务已连接", Toast.LENGTH_SHORT).show();
         }
