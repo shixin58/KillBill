@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import com.bride.baselib.BaseActivity;
 import com.bride.baselib.Urls;
@@ -30,6 +33,7 @@ import com.bumptech.glide.request.transition.Transition;
  * <p>Created by shixin on 2019/3/5.
  */
 public class GlideActivity extends BaseActivity {
+
     public static void openActivity(Context context) {
         Intent intent = new Intent(context, GlideActivity.class);
         context.startActivity(intent);
@@ -38,6 +42,8 @@ public class GlideActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 切横屏或内存不足销毁，均会保存状态创建新实例。正常退出，不保存状态。
+        Log.i(TAG, "onCreate "+this.hashCode()+" - "+savedInstanceState);
         setContentView(R.layout.activity_glide);
         initView();
 
@@ -45,14 +51,20 @@ public class GlideActivity extends BaseActivity {
         // 对JPG管用，对PNG无用
         options.inPreferredConfig = Bitmap.Config.RGB_565;
         // Bitmap实现Parcelable接口，可以通过Bundle跨页面、Parcel跨进程传输。
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.unnamed, options);
+        // BUGFIX: BitmapFactory#decodeResource解析vector图片失败
+        Bitmap bitmap;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            bitmap = getBitmapFromVector(this, R.mipmap.ic_launcher_round);
+        } else {
+            bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round, options);
+        }
         ImageView imageView = findViewById(R.id.iv_resource);
         imageView.setImageBitmap(bitmap);
         // 4byte*1920*1200
         Log.i(TAG, "bitmap info: "+bitmap.getConfig()+" - "+bitmap.getWidth()
                 +" - "+bitmap.getHeight()+" - "+bitmap.getAllocationByteCount());
         Log.i(TAG, "bitmap.isRecycled() "+bitmap.isRecycled());
-        // BitmapDrawable: Canvas: trying to use a recycled bitmap
+        // BUGFIX: BitmapDrawable: Canvas: trying to use a recycled bitmap
 //        bitmap.recycle();
     }
 
@@ -142,5 +154,18 @@ public class GlideActivity extends BaseActivity {
                 });
                 break;
         }
+    }
+
+    public static Bitmap getBitmapFromVector(Context context, int vectorDrawableId) {
+        final VectorDrawableCompat drawable = VectorDrawableCompat.create(context.getResources(), vectorDrawableId, null);
+        if (drawable == null) {
+            return null;
+        }
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
     }
 }

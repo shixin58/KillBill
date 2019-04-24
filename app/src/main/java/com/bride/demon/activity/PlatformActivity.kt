@@ -11,17 +11,17 @@ import com.bride.demon.R
 /**
  * test startActivityForResult, View#postInvalidate, Timer
  */
-class TestFragmentActivity : BaseActivity() {
+class PlatformActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_test_platform)
+        setContentView(R.layout.activity_platform)
     }
 
     companion object {
 
         fun openActivity(context: Context) {
-            val intent = Intent(context, TestFragmentActivity::class.java)
+            val intent = Intent(context, PlatformActivity::class.java)
             ContextCompat.startActivity(context, intent, null)
         }
 
@@ -30,12 +30,12 @@ class TestFragmentActivity : BaseActivity() {
          * @param requestCode -1给startActivity用，>=0能被onActivityResult收到
          */
         fun openActivityForResult(activity: BaseActivity, requestCode: Int) {
-            val intent = Intent(activity, TestFragmentActivity::class.java)
+            val intent = Intent(activity, PlatformActivity::class.java)
             activity.startActivityForResult(intent, requestCode)
         }
 
         fun openActivityForResult(fragment: BaseFragment, requestCode: Int) {
-            val intent = Intent(fragment.activity, TestFragmentActivity::class.java)
+            val intent = Intent(fragment.activity, PlatformActivity::class.java)
             fragment.startActivityForResult(intent, requestCode)
         }
     }

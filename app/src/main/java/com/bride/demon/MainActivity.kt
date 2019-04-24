@@ -120,9 +120,12 @@ class MainActivity : BaseActivity() {
     }
 
     fun onClick(v: View) {
-        val notificationsFragment: NotificationsFragment = fragments[2] as NotificationsFragment
-        if (notificationsFragment.view!!.findViewById<View>(v.id) != null) {
-            notificationsFragment.onClick(v)
+        if (fragments[mIndex] is DashboardFragment
+                && fragments[mIndex]!!.view!!.findViewById<View>(v.id) != null) {
+            (fragments[mIndex] as DashboardFragment).onClick(v)
+        } else if (fragments[mIndex] is NotificationsFragment
+                && fragments[mIndex]!!.view!!.findViewById<View>(v.id) != null) {
+            (fragments[mIndex] as NotificationsFragment).onClick(v)
         }
     }
 

@@ -15,13 +15,13 @@ import com.bride.demon.widget.MyViewGroup;
 /**
  * <p>Created by shixin on 2018/9/13.
  */
-public class TestTouchActivity extends BaseActivity {
-    private static final String TAG = TestTouchActivity.class.getSimpleName();
+public class TouchActivity extends BaseActivity {
+    private static final String TAG = TouchActivity.class.getSimpleName();
     // 包访问权限
     int type;
 
     public static void openActivity(Context context, int type) {
-        Intent intent = new Intent(context, TestTouchActivity.class);
+        Intent intent = new Intent(context, TouchActivity.class);
         // mExtras.putInt(String, int)
         // Intent、ComponentName、Bundle均实现Parcelable接口，bind进程通信传递Parcelable对象
         // intent.getExtras()内部new Bundle(mExtras)为了保护数据吧
@@ -34,7 +34,7 @@ public class TestTouchActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_touch);
+        setContentView(R.layout.activity_touch);
         initView();
     }
 

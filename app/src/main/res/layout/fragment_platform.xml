@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="com.bride.demon.fragment.TestPlatformFragment"
-    tools:showIn="@layout/activity_test_platform">
+    tools:context="com.bride.demon.fragment.PlatformFragment"
+    tools:showIn="@layout/activity_platform">
 
     <TextView
         android:id="@+id/tv_greetings"

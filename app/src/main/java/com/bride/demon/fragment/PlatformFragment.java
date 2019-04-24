@@ -19,12 +19,12 @@ import androidx.annotation.Nullable;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class TestPlatformFragment extends BaseFragment {
+public class PlatformFragment extends BaseFragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_test_platform, container, false);
+        return inflater.inflate(R.layout.fragment_platform, container, false);
     }
 
     @Override

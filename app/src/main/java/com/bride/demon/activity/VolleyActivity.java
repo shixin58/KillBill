@@ -12,17 +12,17 @@ import com.bride.demon.VolleyStrategy;
 /**
  * <p>Created by shixin on 2019/3/22.
  */
-public class VolleyTestActivity extends BaseActivity {
+public class VolleyActivity extends BaseActivity {
 
     public static void openActivity(Context context) {
-        Intent intent = new Intent(context, VolleyTestActivity.class);
+        Intent intent = new Intent(context, VolleyActivity.class);
         context.startActivity(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_volley_test);
+        setContentView(R.layout.activity_volley);
     }
 
     public void onClick(View v) {

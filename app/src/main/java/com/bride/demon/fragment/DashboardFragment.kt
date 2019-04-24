@@ -6,26 +6,28 @@ import android.view.View
 import android.view.ViewGroup
 import com.bride.baselib.BaseFragment
 import com.bride.demon.R
-import com.bride.demon.activity.SecondActivity
+import com.bride.demon.activity.SingleInstanceActivity
+import com.bride.demon.activity.SingleTaskActivity
+import com.bride.demon.activity.SingleTopActivity
+import com.bride.demon.activity.StandardActivity
 
 /**
  * Activity launch mode
  * Created by shixin on 2018/4/15.
  */
-class DashboardFragment : BaseFragment(), View.OnClickListener {
-    override fun onClick(v: View?) {
+class DashboardFragment : BaseFragment() {
+
+    fun onClick(v: View?) {
         when {
-            v?.id==R.id.tv_jump -> SecondActivity.openActivity(activity)
+            v?.id==R.id.tv_standard -> StandardActivity.openActivity(activity)
+            v?.id==R.id.tv_single_top -> SingleTopActivity.openActivity(activity)
+            v?.id==R.id.tv_single_task -> SingleTaskActivity.openActivity(activity)
+            v?.id==R.id.tv_single_instance -> SingleInstanceActivity.openActivity(activity)
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_dashboard, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        view?.findViewById<View>(R.id.tv_jump)?.setOnClickListener(this)
     }
 
     companion object {

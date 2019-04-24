@@ -5,18 +5,20 @@
     <string name="title_notifications">Notifications</string>
 
     <string name="activity_blank" translatable="false">BlankActivity</string>
-    <string name="activity_test_fragment" translatable="false">TestFragmentActivity</string>
+    <string name="activity_platform" translatable="false">PlatformActivity</string>
     <string name="activity_recycler_view" translatable="false">RecyclerViewActivity</string>
-    <string name="activity_test_touch" translatable="false">TestTouchActivity</string>
+    <string name="activity_touch" translatable="false">TouchActivity</string>
     <string name="activity_nested_list" translatable="false">NestedListActivity</string>
     <string name="activity_upload" translatable="false">UploadActivity</string>
     <string name="activity_webp" translatable="false">WebpActivity</string>
     <string name="activity_glide" translatable="false">GlideActivity</string>
     <string name="activity_relative_layout" translatable="false">RelativeLayoutActivity</string>
-    <string name="volley_test_activity" translatable="false">VolleyTestActivity</string>
+    <string name="volley_activity" translatable="false">VolleyActivity</string>
 
-    <string name="activity_second" translatable="false">SecondActivity</string>
-    <string name="activity_third" translatable="false">ThirdActivity</string>
+    <string name="activity_standard" translatable="false">StandardActivity</string>
+    <string name="activity_single_top" translatable="false">SingleTopActivity</string>
+    <string name="activity_single_task" translatable="false">SingleTaskActivity</string>
+    <string name="activity_single_instance" translatable="false">SingleInstanceActivity</string>
 
     <string name="tv_1" translatable="false">举头望明月，低头思故乡。</string>
     <string name="tv_2" translatable="false">举头望明月，低头思故乡。\n举头望明月，低头思故乡。</string>

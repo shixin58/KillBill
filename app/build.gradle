@@ -27,11 +27,14 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled false
             applicationIdSuffix = '.debug'
+            manifestPlaceholders = ["suffix":applicationIdSuffix]
         }
         release {
             signingConfig signingConfigs.release
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            applicationIdSuffix = ''
+            manifestPlaceholders = ["suffix":applicationIdSuffix]
         }
     }
     dexOptions {

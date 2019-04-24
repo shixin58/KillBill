@@ -2,7 +2,7 @@
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment"
-    android:name="com.bride.demon.fragment.TestPlatformFragment"
+    android:name="com.bride.demon.fragment.PlatformFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:layout="@layout/fragment_test_platform" />
+    tools:layout="@layout/fragment_platform" />
