@@ -81,6 +81,8 @@ class BlankActivity : BaseActivity() {
         }
 
         fun printViewHierarchy(view: View, baseActivity: BaseActivity) {
+            // BlankActivity$Companion
+            Log.i(baseActivity.javaClass.simpleName, BlankActivity.javaClass.name)
             Log.i(baseActivity.javaClass.simpleName, "printViewHierarchy - ${view.javaClass.simpleName}")
             var viewParent = view.parent
             while (viewParent != null) {

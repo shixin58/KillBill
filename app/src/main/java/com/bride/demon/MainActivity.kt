@@ -1,6 +1,7 @@
 package com.bride.demon
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -12,6 +13,9 @@ import com.bride.demon.fragment.HomeFragment
 import com.bride.demon.fragment.NotificationsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+/**
+ *
+ */
 class MainActivity : BaseActivity() {
 
     private val fragments = arrayOfNulls<Fragment>(3)
@@ -25,7 +29,7 @@ class MainActivity : BaseActivity() {
                 transaction = supportFragmentManager.beginTransaction()
                 if (fragments[0] == null) {
                     fragments[0] = HomeFragment.newInstance()
-                    fragments[0]?.let { transaction!!.add(R.id.container_fragment, it) }
+                    fragments[0]?.let { transaction!!.add(R.id.container_fragment, it, HomeFragment::class.simpleName) }
                 }
                 fragments[0]?.let { transaction!!.show(it) }
                 if (mIndex != 0) {
@@ -39,7 +43,7 @@ class MainActivity : BaseActivity() {
                 transaction = supportFragmentManager.beginTransaction()
                 if (fragments[1] == null) {
                     fragments[1] = DashboardFragment.newInstance()
-                    fragments[1]?.let { transaction!!.add(R.id.container_fragment, it) }
+                    fragments[1]?.let { transaction!!.add(R.id.container_fragment, it, DashboardFragment::class.simpleName) }
                 }
                 fragments[1]?.let { transaction!!.show(it) }
                 if (mIndex != 1) {
@@ -53,7 +57,7 @@ class MainActivity : BaseActivity() {
                 transaction = supportFragmentManager.beginTransaction()
                 if (fragments[2] == null) {
                     fragments[2] = NotificationsFragment.newInstance()
-                    fragments[2]?.let { transaction!!.add(R.id.container_fragment, it) }
+                    fragments[2]?.let { transaction!!.add(R.id.container_fragment, it, NotificationsFragment::class.simpleName) }
                 }
                 fragments[2]?.let { transaction!!.show(it) }
                 if (mIndex != 2) {
@@ -71,13 +75,48 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        if (savedInstanceState != null) {
+            mIndex = savedInstanceState.getInt("Index")
+            fragments[0] = supportFragmentManager.findFragmentByTag(HomeFragment::class.simpleName)
+            fragments[1] = supportFragmentManager.findFragmentByTag(DashboardFragment::class.simpleName)
+            // kotlin.jvm.KotlinReflectionNotSupportedError: Kotlin reflection implementation is not found at runtime. Make sure you have kotlin-reflect.jar in the classpath
+            fragments[2] = supportFragmentManager.findFragmentByTag(NotificationsFragment::class.simpleName)
+        }
+
         val navigation = findViewById<BottomNavigationView>(R.id.navigation)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        navigation.selectedItemId = R.id.navigation_home
+        if (savedInstanceState == null) {
+            if (mIndex == 1) {
+                navigation.selectedItemId = R.id.navigation_dashboard
+            }else if (mIndex == 2) {
+                navigation.selectedItemId = R.id.navigation_notifications
+            } else {
+                navigation.selectedItemId = R.id.navigation_home
+            }
+        }
 
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentLifecycleCallbacks, true)
 
         PermissionUtils.requestAllPermissions(this, 1)
+    }
+
+    override fun recreate() {
+        super.recreate()
+        Log.i(TAG, "recreate")
+    }
+
+    override fun onStart() {
+        super.onStart()
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        Log.i(TAG, "onRestoreInstanceState")
+        mIndex = savedInstanceState.getInt("Index")
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
     fun onClick(v: View) {
@@ -85,6 +124,15 @@ class MainActivity : BaseActivity() {
         if (notificationsFragment.view!!.findViewById<View>(v.id) != null) {
             notificationsFragment.onClick(v)
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("Index", mIndex)
     }
 
     override fun onDestroy() {

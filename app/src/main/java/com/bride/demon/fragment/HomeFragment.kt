@@ -1,5 +1,6 @@
 package com.bride.demon.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +13,16 @@ import com.bride.demon.R
 import com.bride.demon.activity.*
 
 class HomeFragment : BaseFragment(), View.OnClickListener {
+
+    private var blankClicked = false
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
@@ -29,11 +40,30 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         view?.findViewById<TextView>(R.id.button_glide)?.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_relative_layout)!!.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_volley)!!.setOnClickListener(this)
+        if (savedInstanceState != null) {
+            blankClicked = savedInstanceState.getBoolean("blankClicked")
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean("blankClicked", blankClicked)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
     }
 
     override fun onClick(v: View?) {
         when {
-            v?.id == R.id.button_base -> BlankActivity.openActivity(activity)
+            v?.id == R.id.button_base -> {
+                BlankActivity.openActivity(activity)
+                blankClicked = true
+            }
             v?.id == R.id.button_fragment -> TestFragmentActivity.openActivityForResult(this, 1)
             v?.id == R.id.button_recycler_view -> RecyclerViewActivity.openActivity(activity)
             v?.id == R.id.button_touch -> TestTouchActivity.openActivity(activity, 0)
@@ -50,6 +80,14 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data)
         // 接收返回
         Log.i("Victor", "requestCode-$requestCode")
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
     }
 
     companion object {

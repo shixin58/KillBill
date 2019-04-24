@@ -35,14 +35,15 @@ import androidx.annotation.Nullable;
  * <p>Created by shixin on 2019/4/10.
  */
 public class NotificationsFragment extends BaseFragment {
+
+    public static NotificationsFragment newInstance() {
+        return new NotificationsFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_notifications, container, false);
-    }
-
-    public static NotificationsFragment newInstance() {
-        return new NotificationsFragment();
     }
 
     public void onClick(View v) {

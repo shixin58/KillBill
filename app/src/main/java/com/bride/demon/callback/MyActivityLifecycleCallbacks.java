@@ -14,7 +14,7 @@ public class MyActivityLifecycleCallbacks implements Application.ActivityLifecyc
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        Log.v(TAG, "onActivityCreated - "+activity.getClass().getSimpleName());
+        Log.v(TAG, "onActivityCreated - "+activity.getClass().getSimpleName()+"|"+savedInstanceState);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class MyActivityLifecycleCallbacks implements Application.ActivityLifecyc
 
     @Override
     public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-        Log.v(TAG, "onActivitySaveInstanceState - "+activity.getClass().getSimpleName());
+        Log.v(TAG, "onActivitySaveInstanceState - "+activity.getClass().getSimpleName()+"|"+outState);
     }
 
     @Override
