@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">ThirdParty</string>
-    <string name="event_bus_test_activity">EventBusTestActivity</string>
+    <string name="event_bus_activity">EventBusActivity</string>
     <string name="landscape_activity">LandscapeActivity</string>
     <string name="push_activity">PushActivity</string>
     <string name="retrofit_activity">RetrofitActivity</string>

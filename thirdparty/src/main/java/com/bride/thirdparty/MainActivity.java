@@ -9,7 +9,7 @@ import android.widget.Toast;
 import com.bride.baselib.BaseActivity;
 import com.bride.baselib.PermissionUtils;
 import com.bride.thirdparty.activity.DirectoryActivity;
-import com.bride.thirdparty.activity.EventBusTestActivity;
+import com.bride.thirdparty.activity.EventBusActivity;
 import com.bride.thirdparty.activity.LandscapeActivity;
 import com.bride.thirdparty.activity.PushActivity;
 import com.bride.thirdparty.activity.RetrofitActivity;
@@ -125,7 +125,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_eventbus:
-                EventBusTestActivity.openActivity(this);
+                EventBusActivity.openActivity(this);
                 break;
             case R.id.tv_landscape:
                 LandscapeActivity.openActivity(this);

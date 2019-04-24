@@ -25,8 +25,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.EventBusTestActivity"
-            android:label="@string/event_bus_test_activity"
+        <activity android:name=".activity.EventBusActivity"
+            android:label="@string/event_bus_activity"
             android:screenOrientation="portrait"
             android:launchMode="standard"/>
 

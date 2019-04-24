@@ -3,7 +3,7 @@ package com.bride.client;
 import java.io.IOException;
 
 /**
- * Throwable实现Serializable，是Exception和Error的父类。String实现Serializable和CharSequence接口。
+ * Throwable实现Serializable，是Exception和Error的父类。
  * <p>Created by shixin on 2019-04-20.
  */
 public class ThrowableClient {
