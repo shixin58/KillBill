@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.bride.baselib.BaseActivity;
 import com.bride.demon.R;
-import com.bride.demon.VolleyStrategy;
+import com.bride.demon.VolleyWrapper;
 
 /**
  * <p>Created by shixin on 2019/3/22.
@@ -28,22 +28,22 @@ public class VolleyActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_get_string:
-                VolleyStrategy.getInstance().executeGetString();
+                VolleyWrapper.getInstance().executeGetString();
                 break;
             case R.id.tv_post_string:
-                VolleyStrategy.getInstance().executePostString();
+                VolleyWrapper.getInstance().executePostString();
                 break;
             case R.id.tv_post_json:
-                VolleyStrategy.getInstance().executePostJson();
+                VolleyWrapper.getInstance().executePostJson();
                 break;
             case R.id.image:
-                VolleyStrategy.getInstance().executeImage(findViewById(R.id.iv_demo));
+                VolleyWrapper.getInstance().executeImage(findViewById(R.id.iv_demo));
                 break;
             case R.id.image1:
-                VolleyStrategy.getInstance().executeImageCache(findViewById(R.id.iv_demo1));
+                VolleyWrapper.getInstance().executeImageCache(findViewById(R.id.iv_demo1));
                 break;
             case R.id.image2:
-                VolleyStrategy.getInstance().executeNetworkImageView(findViewById(R.id.iv_demo2));
+                VolleyWrapper.getInstance().executeNetworkImageView(findViewById(R.id.iv_demo2));
                 break;
         }
     }
@@ -51,6 +51,6 @@ public class VolleyActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        VolleyStrategy.getInstance().cancel("xyz");
+        VolleyWrapper.getInstance().cancel("xyz");
     }
 }

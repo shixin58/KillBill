@@ -7,7 +7,6 @@ import com.bride.baselib.Urls;
 import com.bride.thirdparty.bean.PhoneNumberModel;
 import com.bride.thirdparty.bean.WrapperModel;
 import com.bride.thirdparty.protocal.IService;
-import com.bride.thirdparty.protocal.IStrategy;
 import com.bride.thirdparty.util.RetrofitClient;
 
 import java.io.IOException;
@@ -24,7 +23,7 @@ import retrofit2.Response;
 /**
  * <p>Created by shixin on 2018/9/20.
  */
-public class RetrofitStrategy implements IStrategy {
+public class RetrofitStrategy {
     private static final String TAG = RetrofitStrategy.class.getSimpleName();
 
     private IService mService;
@@ -35,7 +34,6 @@ public class RetrofitStrategy implements IStrategy {
         mService = RetrofitClient.getRetrofit().create(IService.class);
     }
 
-    @Override
     public void execute() {
         // InvocationHandler#invoke
         Call<WrapperModel<PhoneNumberModel>> call = mService.getPhoneInfo("13701116418", Urls.JUHE_KEY);

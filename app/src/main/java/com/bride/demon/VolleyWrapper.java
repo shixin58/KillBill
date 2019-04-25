@@ -30,22 +30,26 @@ import java.util.Hashtable;
 import java.util.Map;
 
 /**
+ * Volley可设置app全局单例
+ * 网络请求入队出队使用 PriorityBlockingQueue<Request>#add/take。
+ * 网络请求默认UrlConnection, 可自定义。
+ * 磁盘缓存目录为Context#getCacheDir()(/data/data/package/cache/volley)，默认5MB。
  * <p>Created by shixin on 2018/9/16.
  */
-public class VolleyStrategy {
-    private static final String TAG = VolleyStrategy.class.getSimpleName();
+public class VolleyWrapper {
+    private static final String TAG = VolleyWrapper.class.getSimpleName();
 
     private RequestQueue mQueue;
 
     private static class InstanceWrapper {
-        static VolleyStrategy INSTANCE = new VolleyStrategy();
+        static VolleyWrapper INSTANCE = new VolleyWrapper();
     }
 
-    private VolleyStrategy() {
+    private VolleyWrapper() {
         mQueue = Volley.newRequestQueue(DemonApplication.Companion.getInstance());
     }
 
-    public static VolleyStrategy getInstance() {
+    public static VolleyWrapper getInstance() {
         return InstanceWrapper.INSTANCE;
     }
 

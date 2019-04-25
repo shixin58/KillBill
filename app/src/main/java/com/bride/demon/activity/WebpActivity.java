@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bride.baselib.BaseActivity;
+import com.bride.baselib.ImageUtils;
 import com.bride.demon.R;
 
 /**
@@ -36,23 +37,13 @@ public class WebpActivity extends BaseActivity {
         options.inSampleSize = 4;
         options.inJustDecodeBounds = false;
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.actress, options);
-        Log.i(TAG, "size = "+options.outWidth+", "+options.outHeight+", "+(getBitmapSize(bitmap)/1024)+"KB");
+        Log.i(TAG, "size = "+options.outWidth+", "+options.outHeight+", "+(ImageUtils.getBitmapSize(bitmap)/1024)+"KB");
         Log.i(TAG, "outMimeType = "+options.outMimeType);// image/jpeg
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Log.i(TAG, "outConfig = "+options.outConfig);// ARGB_8888
             Log.i(TAG, "outColorSpace = "+options.outColorSpace);// sRGB IEC61966-2.1 (id=0, model=RGB)
         }
         imageView.setImageBitmap(bitmap);
-    }
-
-    private int getBitmapSize(Bitmap bitmap) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            return bitmap.getAllocationByteCount();
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
-            return bitmap.getByteCount();
-        } else {
-            return bitmap.getRowBytes() * bitmap.getHeight();
-        }
     }
 
     @Override

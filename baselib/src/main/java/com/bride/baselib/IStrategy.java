@@ -1,4 +1,4 @@
-package com.bride.thirdparty.protocal;
+package com.bride.baselib;
 
 import android.os.Build;
 import androidx.annotation.RequiresApi;

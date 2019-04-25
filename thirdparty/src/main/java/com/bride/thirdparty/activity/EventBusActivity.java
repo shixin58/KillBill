@@ -19,6 +19,8 @@ import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
 
 /**
+ * EventBus为双检查单例模式。
+ * stickyEvents采用ConcurrentHashMap, subscriptionsByEventType采用Map<Class, CopyOnWriteArrayList<Subscription>>。
  * <p>Created by shixin on 2018/9/21.
  */
 public class EventBusActivity extends BaseActivity {

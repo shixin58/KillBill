@@ -1,6 +1,7 @@
 package com.bride.baselib;
 
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.SystemClock;
@@ -45,5 +46,15 @@ public class ImageUtils {
                 SystemClock.elapsedRealtimeNanos():SystemClock.elapsedRealtime();
         Log.i("Victor", name+" isWebp "+isWebp+"; interval "+(end-start));
         return isWebp;
+    }
+
+    public static int getBitmapSize(Bitmap bitmap) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            return bitmap.getAllocationByteCount();
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+            return bitmap.getByteCount();
+        } else {
+            return bitmap.getRowBytes() * bitmap.getHeight();
+        }
     }
 }

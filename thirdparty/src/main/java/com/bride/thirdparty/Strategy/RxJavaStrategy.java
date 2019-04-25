@@ -82,6 +82,8 @@ import okhttp3.Response;
 import okhttp3.Route;
 
 /**
+ * OkHttpClient RealCall分发器维护ArrayDeque, 调用size(), add(Object), remove(Object)
+ * OkHttpClient控制缓存相关类：CacheControl, CacheStrategy, Cache, InternalCache, DiskLruCache
  * <p>Created by shixin on 2018/9/7.
  */
 public class RxJavaStrategy {

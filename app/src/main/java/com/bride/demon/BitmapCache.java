@@ -5,8 +5,10 @@ import android.util.Log;
 import android.util.LruCache;
 
 import com.android.volley.toolbox.ImageLoader;
+import com.bride.baselib.ImageUtils;
 
 /**
+ * 自定义Volley 图片请求内存缓存
  * <p>Created by shixin on 2018/9/16.
  */
 public class BitmapCache implements ImageLoader.ImageCache {
@@ -21,7 +23,7 @@ public class BitmapCache implements ImageLoader.ImageCache {
         mLruCache = new LruCache<String, Bitmap>(64*1024*1024) {// 64MB
             @Override
             protected int sizeOf(String key, Bitmap value) {
-                return value.getByteCount();
+                return ImageUtils.getBitmapSize(value);
             }
         };
     }

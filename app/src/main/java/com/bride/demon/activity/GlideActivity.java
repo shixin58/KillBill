@@ -30,6 +30,10 @@ import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 
 /**
+ * Glide为双检查单例模式。
+ * 磁盘缓存目录为Context#getCacheDir()(/data/data/package/cache/image_manager_disk_cache), InternalCacheDiskCacheFactory, 250MB。
+ * 或者Context#getExternalCacheDir()(/storage/emulated/0/Android/data/package/cache), ExternalPreferredCacheDiskCacheFactory, 250MB。
+ * 内存缓存LruArrayPool, BitmapPool, LruResourceCache。
  * <p>Created by shixin on 2019/3/5.
  */
 public class GlideActivity extends BaseActivity {
