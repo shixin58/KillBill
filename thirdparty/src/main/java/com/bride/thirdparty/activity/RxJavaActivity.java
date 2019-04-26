@@ -42,6 +42,9 @@ public class RxJavaActivity extends BaseActivity {
             case R.id.tv_take:
                 RxJavaStrategy.getInstance().executeTake();
                 break;
+            case R.id.tv_interval:
+                RxJavaStrategy.getInstance().executeInterval();
+                break;
             case R.id.tv_lift:
                 RxJavaStrategy.getInstance().executeLift(findViewById(R.id.iv_demo1), findViewById(R.id.iv_demo2));
                 break;

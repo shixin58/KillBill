@@ -97,8 +97,9 @@ public class RxJavaStrategy {
 
     private RxJavaStrategy() {
         // retrofit内部集成了okhttp, converter-gson内部集成了GSON
+        // /storage/emulated/0/Android/data/package/cache/rxjava, 开启24MB大小的磁盘缓存
         File file = new File(ThirdPartyApplication.getInstance().getExternalCacheDir(), "rxjava");
-        Cache cache = new Cache(file, 24*1024*1024);
+        Cache cache = new Cache(file, 24 * 1024 * 1024);
         mOkHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new CustomInterceptor())
                 .addNetworkInterceptor(new StethoInterceptor())
@@ -344,16 +345,24 @@ public class RxJavaStrategy {
                     return new Gson().fromJson(response.body().string(),
                             new TypeToken<WrapperModel<PhoneNumberModel>>(){}.getType());
                 })
+                .observeOn(Schedulers.computation())
+                .map(new Function<WrapperModel<PhoneNumberModel>, String>() {
+                    @Override
+                    public String apply(WrapperModel<PhoneNumberModel> model) throws Exception {
+                        Log.i(TAG, "map - Function#apply "+model.result);
+                        return model.reason;
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<WrapperModel<PhoneNumberModel>>() {
+                .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         Log.i(TAG, "map - Observer#onSubscribe");
                     }
 
                     @Override
-                    public void onNext(WrapperModel<PhoneNumberModel> model) {
-                        Log.i(TAG, "map - Observer#onNext "+model.result.toString());
+                    public void onNext(String model) {
+                        Log.i(TAG, "map - Observer#onNext "+model);
                     }
 
                     @Override
@@ -422,29 +431,30 @@ public class RxJavaStrategy {
     // 0, 1, 2, 3, ...
     public void executeInterval() {
         Observable.interval(1, 1, TimeUnit.SECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Long>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+            .take(15)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Observer<Long>() {
+                @Override
+                public void onSubscribe(Disposable d) {
+                    Log.i(TAG, "interval onSubscribe");
+                }
 
-                    }
+                @Override
+                public void onNext(Long aLong) {
+                    Log.i(TAG, "interval onNext - "+aLong);
+                    SystemClock.sleep(1000L);
+                }
 
-                    @Override
-                    public void onNext(Long aLong) {
-                        Log.i("executeInterval", ""+aLong);
-                        SystemClock.sleep(1000L);
-                    }
+                @Override
+                public void onError(Throwable e) {
+                    Log.i(TAG, "interval onError");
+                }
 
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                @Override
+                public void onComplete() {
+                    Log.i(TAG, "interval onComplete");
+                }
+            });
     }
 
     // 发一个0

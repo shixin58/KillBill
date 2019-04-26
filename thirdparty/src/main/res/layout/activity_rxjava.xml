@@ -62,12 +62,23 @@
         android:onClick="onClick"/>
 
     <TextView
-        android:id="@+id/tv_lift"
+        android:id="@+id/tv_interval"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_take"
+        android:gravity="center"
+        android:text="interval operator"
+        android:onClick="onClick"/>
+
+    <TextView
+        android:id="@+id/tv_lift"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_interval"
         android:gravity="center"
         android:text="lift 操作符"
         android:onClick="onClick"/>
