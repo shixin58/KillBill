@@ -4,7 +4,8 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * 1、可重用锁ReentrantLock和Condition
+ * 1、可重入互斥锁 ReentrantLock和Condition。默认非公平锁(not FIFO)。
+ * 2、Condition#await()/signal()类似于Object#wait()/notify()。
  * <p>2、join和interrupt
  * <p>Created by shixin on 2018/9/27.
  */
@@ -16,7 +17,7 @@ public class ReentrantLockClient {
         final ReentrantLockClient client = new ReentrantLockClient();
 //        client.method();
 
-        client.waitMethod();
+        client.awaitMethod();
         client.signalMethod();
     }
 
@@ -33,7 +34,7 @@ public class ReentrantLockClient {
         lock.unlock();
     }
 
-    public void waitMethod() {
+    public void awaitMethod() {
         Thread thread1 = new Thread(new Runnable() {
             @Override
             public void run() {
