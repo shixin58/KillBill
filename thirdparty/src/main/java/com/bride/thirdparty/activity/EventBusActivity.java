@@ -1,8 +1,10 @@
 package com.bride.thirdparty.activity;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -29,10 +31,18 @@ public class EventBusActivity extends BaseActivity {
         Intent intent = new Intent(context, EventBusActivity.class);
         context.startActivity(intent);
     }
+
+    public static void openActivity(Application application) {
+        Intent intent = new Intent(application, EventBusActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        application.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_bus);
+        Log.i(TAG, "onCreate "+getTaskId());
 
         beautySoftReference = new SoftReference<>(new Beauty());
         beautyWeakReference = new WeakReference<>(new Beauty());

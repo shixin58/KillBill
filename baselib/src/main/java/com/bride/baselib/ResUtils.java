@@ -23,7 +23,7 @@ public class ResUtils {
 
     // 在Application#onCreate设置
     public static void setContext(Context context) {
-        ResUtils.context = context;
+        ResUtils.context = context.getApplicationContext();
     }
 
     public static String getString(int id) {

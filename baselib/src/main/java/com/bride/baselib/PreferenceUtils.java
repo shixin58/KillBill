@@ -11,7 +11,7 @@ public class PreferenceUtils {
     private static SharedPreferences.Editor editor;
 
     public static void initialize(Context context, String name) {
-        preferences = context.getSharedPreferences(name, Context.MODE_PRIVATE);
+        preferences = context.getApplicationContext().getSharedPreferences(name, Context.MODE_PRIVATE);
     }
 
     public static SharedPreferences.Editor getEditor() {

@@ -38,7 +38,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG, "onCreate - "+savedInstanceState);
+        Log.i(TAG, "onCreate "+getTaskId()+" - "+savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
         initData();
@@ -127,7 +127,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_eventbus:
-                EventBusActivity.openActivity(this);
+                EventBusActivity.openActivity(getApplication());
                 break;
             case R.id.tv_landscape:
                 LandscapeActivity.openActivity(this);
