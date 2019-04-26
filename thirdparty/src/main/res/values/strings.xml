@@ -2,6 +2,7 @@
     <string name="app_name">ThirdParty</string>
     <string name="event_bus_activity">EventBusActivity</string>
     <string name="landscape_activity">LandscapeActivity</string>
+    <string name="fullscreen_activity">FullscreenActivity</string>
     <string name="push_activity">PushActivity</string>
     <string name="retrofit_activity">RetrofitActivity</string>
     <string name="rxjava_activity">RxJavaActivity</string>

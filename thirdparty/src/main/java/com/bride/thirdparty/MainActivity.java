@@ -10,6 +10,7 @@ import com.bride.baselib.BaseActivity;
 import com.bride.baselib.PermissionUtils;
 import com.bride.thirdparty.activity.DirectoryActivity;
 import com.bride.thirdparty.activity.EventBusActivity;
+import com.bride.thirdparty.activity.FullscreenActivity;
 import com.bride.thirdparty.activity.LandscapeActivity;
 import com.bride.thirdparty.activity.PushActivity;
 import com.bride.thirdparty.activity.RetrofitActivity;
@@ -46,6 +47,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     private void initView() {
         findViewById(R.id.tv_eventbus).setOnClickListener(this);
         findViewById(R.id.tv_landscape).setOnClickListener(this);
+        findViewById(R.id.tv_fullscreen).setOnClickListener(this);
         findViewById(R.id.tv_push).setOnClickListener(this);
         findViewById(R.id.tv_retrofit).setOnClickListener(this);
         findViewById(R.id.tv_rxjava).setOnClickListener(this);
@@ -129,6 +131,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 break;
             case R.id.tv_landscape:
                 LandscapeActivity.openActivity(this);
+                break;
+            case R.id.tv_fullscreen:
+                FullscreenActivity.openActivity(this);
                 break;
             case R.id.tv_push:
                 PushActivity.openActivity(this);
