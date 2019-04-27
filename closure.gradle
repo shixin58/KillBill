@@ -1,0 +1,40 @@
+task helloClosure {
+    doLast {
+        eachMap {k, v ->
+            println "${k} -> ${v}"
+        }
+    }
+}
+
+static def eachMap(closure) {
+    def map = ["name":"shixin", "age":30]
+    map.each {
+        closure(it.key, it.value)
+    }
+}
+
+task configClosure {
+    doLast {
+        person {
+            delegate.name = "Victor"
+            delegate.age = 29
+            delegate.dumpPerson()
+        }
+    }
+}
+
+class Person {
+    String name
+    int age
+
+    def dumpPerson() {
+        println "name is ${name}, age is ${age}"
+    }
+}
+
+static def person(Closure<Person> closure) {
+    Person p = new Person()
+    closure.delegate = p
+    closure.setResolveStrategy(Closure.DELEGATE_FIRST)
+    closure(p)
+}
