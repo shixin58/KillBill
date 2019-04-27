@@ -23,15 +23,21 @@ public class ReentrantLockClient {
 
     public void method() {
         lock.lock();
-        System.out.println("method "+lock.getHoldCount());
-        method2();
-        lock.unlock();
+        try {
+            System.out.println("method "+lock.getHoldCount());
+            method2();
+        } finally {
+            lock.unlock();
+        }
     }
 
     public void method2() {
         lock.lock();
-        System.out.println("method2 "+lock.getHoldCount());
-        lock.unlock();
+        try {
+            System.out.println("method2 "+lock.getHoldCount());
+        } finally {
+            lock.unlock();
+        }
     }
 
     public void awaitMethod() {
@@ -45,8 +51,9 @@ public class ReentrantLockClient {
                     System.out.println("after wait");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                } finally {
+                    lock.unlock();
                 }
-                lock.unlock();
             }
         });
         thread1.start();
@@ -57,10 +64,13 @@ public class ReentrantLockClient {
             @Override
             public void run() {
                 lock.lock();
-                System.out.println("before signal");
-                condition.signal();
-                System.out.println("after signal");
-                lock.unlock();
+                try {
+                    System.out.println("before signal");
+                    condition.signal();
+                    System.out.println("after signal");
+                } finally {
+                    lock.unlock();
+                }
             }
         }).start();
     }

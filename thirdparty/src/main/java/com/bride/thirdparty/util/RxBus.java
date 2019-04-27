@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
@@ -14,16 +13,17 @@ import io.reactivex.subjects.Subject;
  * <p>Created by shixin on 2018/9/27.
  */
 public class RxBus {
+
     private static volatile RxBus instance;
-    // 采用分段锁，效率比Hashtable高16倍
-    private ConcurrentHashMap<Object, List<Subject>> subjectMapper = new ConcurrentHashMap<>();
+
+    private final ConcurrentHashMap<Object, List<Subject>> subjectMapper = new ConcurrentHashMap<>();
 
     private RxBus(){}
 
     public static RxBus getInstance() {
-        if(instance==null) {
+        if(instance == null) {
             synchronized (RxBus.class) {
-                if(instance==null) {
+                if(instance == null) {
                     instance = new RxBus();
                 }
             }
@@ -31,30 +31,25 @@ public class RxBus {
         return instance;
     }
 
-    // PublishSubject继承Subject，Subject继承Observable实现Observer
-    // 一个Observable对应一个Consumer，Observable.subscribe(Consumer)
-    public <T> Observable<T> register(@NonNull Class<T> tag) {
+    public <T> Subject<T> register(@NonNull Class<T> tag) {
         List<Subject> subjectList = subjectMapper.get(tag);
         if(subjectList == null) {
             subjectList = new ArrayList<>();
             subjectMapper.put(tag, subjectList);
         }
         Subject<T> subject;
-        subjectList.add(subject=PublishSubject.create());
+        subjectList.add(subject = PublishSubject.create());
         return subject;
     }
 
-    public void unregister(@NonNull Class<?> tag) {
-        List<Subject> subjectList = subjectMapper.get(tag);
-        if(subjectList!=null) {
-            subjectMapper.remove(tag);
-        }
-    }
-
-    public void unregister(@NonNull Class<?> tag, @NonNull Observable observable) {
+    public void unregister(@NonNull Class<?> tag, @NonNull Subject subject) {
         List<Subject> subjectList = subjectMapper.get(tag);
         if(subjectList != null) {
-            subjectList.remove(observable);
+            boolean removed = subjectList.remove(subject);
+            if (!removed) {
+                throw new IllegalStateException("还未注册，不能注销!");
+            }
+            subject.onComplete();
             if(subjectList.isEmpty()) {
                 subjectMapper.remove(tag);
             }
@@ -64,8 +59,8 @@ public class RxBus {
     // Observer.onNext调用Consumer.accept
     public void post(@NonNull Object event) {
         List<Subject> subjectList = subjectMapper.get(event.getClass());
-        if(subjectList!=null) {
-            for(Subject subject:subjectList) {
+        if(subjectList != null) {
+            for(Subject subject : subjectList) {
                 subject.onNext(event);
             }
         }

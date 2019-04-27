@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.core.app.ActivityCompat;
+
 import com.bride.baselib.BaseActivity;
 import com.bride.baselib.PermissionUtils;
 import com.bride.thirdparty.activity.DirectoryActivity;
@@ -20,11 +22,9 @@ import com.bride.thirdparty.activity.UrlConnectionActivity;
 import com.bride.thirdparty.bean.MessageEvent;
 import com.bride.thirdparty.util.RxBus;
 
-import androidx.core.app.ActivityCompat;
-import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.subjects.Subject;
 
 /**
  * <p>Created by shixin on 2018/9/7.
@@ -33,7 +33,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         ActivityCompat.OnRequestPermissionsResultCallback {
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    Observable<MessageEvent> mObservable;
+    private Subject<MessageEvent> mSubject;
+    private Disposable mDisposable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,30 +59,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
     private void initData() {
         // 1、测试RxBus
-        mObservable = RxBus.getInstance().register(MessageEvent.class);
+        mSubject = RxBus.getInstance().register(MessageEvent.class);
         // Consumer和Observer均可使用
-        mObservable.observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<MessageEvent>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(MessageEvent messageEvent) {
-                        Toast.makeText(MainActivity.this, messageEvent.info, Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+        mDisposable = mSubject.observeOn(AndroidSchedulers.mainThread())
+                .subscribe(messageEvent ->
+                        Toast.makeText(MainActivity.this, messageEvent.info, Toast.LENGTH_SHORT).show());
 
         // 2、请求系统权限
         PermissionUtils.requestAllPermissions(this, 3);
@@ -162,7 +144,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     protected void onDestroy() {
         super.onDestroy();
         Log.i(TAG, "onDestroy");
-        RxBus.getInstance().unregister(MessageEvent.class, mObservable);
+        mDisposable.dispose();
+        RxBus.getInstance().unregister(MessageEvent.class, mSubject);
     }
 
     @Override
