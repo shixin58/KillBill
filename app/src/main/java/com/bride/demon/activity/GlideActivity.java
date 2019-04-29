@@ -4,8 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapRegionDecoder;
 import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import com.bride.baselib.BaseActivity;
@@ -28,6 +33,9 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.CustomViewTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Glide为双检查单例模式。
@@ -50,26 +58,9 @@ public class GlideActivity extends BaseActivity {
         Log.i(TAG, "onCreate "+this.hashCode()+" - "+savedInstanceState);
         setContentView(R.layout.activity_glide);
         initView();
-
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        // 对JPG管用，对PNG无用
-        options.inPreferredConfig = Bitmap.Config.RGB_565;
-        // Bitmap实现Parcelable接口，可以通过Bundle跨页面、Parcel跨进程传输。
-        // BUGFIX: BitmapFactory#decodeResource解析vector图片失败
-        Bitmap bitmap;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            bitmap = getBitmapFromVector(this, R.mipmap.ic_launcher_round);
-        } else {
-            bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round, options);
-        }
         ImageView imageView = findViewById(R.id.iv_resource);
-        imageView.setImageBitmap(bitmap);
-        // 4byte*1920*1200
-        Log.i(TAG, "bitmap info: "+bitmap.getConfig()+" - "+bitmap.getWidth()
-                +" - "+bitmap.getHeight()+" - "+bitmap.getAllocationByteCount());
-        Log.i(TAG, "bitmap.isRecycled() "+bitmap.isRecycled());
-        // BUGFIX: BitmapDrawable: Canvas: trying to use a recycled bitmap
-//        bitmap.recycle();
+//        setImage(this, imageView, R.mipmap.ic_launcher_round);
+        setBitmapByRegionDecoder(this, R.mipmap.actress, imageView, ImageView.ScaleType.CENTER_CROP);
     }
 
     private void initView() {
@@ -160,6 +151,39 @@ public class GlideActivity extends BaseActivity {
         }
     }
 
+    public static void setImage(Context context, ImageView imageView, int id) {
+        Bitmap bitmap;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            bitmap = getBitmapFromVector(context, id);
+        } else {
+            bitmap = getBitmapByFactory(context, id);
+        }
+        imageView.setImageBitmap(bitmap);
+        // 4byte*1920*1200
+        Log.i(TAG, "bitmap info: "+bitmap.getConfig()+" - "+bitmap.getWidth()
+                +" - "+bitmap.getHeight()+" - "+bitmap.getAllocationByteCount());
+        Log.i(TAG, "bitmap.isRecycled() "+bitmap.isRecycled());
+        // BUGFIX: BitmapDrawable: Canvas: trying to use a recycled bitmap
+//        bitmap.recycle();
+    }
+
+    public static Bitmap getBitmap(Context context, int id) {
+        Drawable drawable = ContextCompat.getDrawable(context, id);
+        if (drawable instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            return bitmapDrawable.getBitmap();
+        } else if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && (drawable instanceof VectorDrawable))
+                || (drawable instanceof VectorDrawableCompat)) {
+            Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                    drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+            drawable.draw(canvas);
+            return bitmap;
+        }
+        return null;
+    }
+
     public static Bitmap getBitmapFromVector(Context context, int vectorDrawableId) {
         final VectorDrawableCompat drawable = VectorDrawableCompat.create(context.getResources(), vectorDrawableId, null);
         if (drawable == null) {
@@ -171,5 +195,47 @@ public class GlideActivity extends BaseActivity {
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
         return bitmap;
+    }
+
+    public static Bitmap getBitmapByFactory(Context context, int id) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(context.getResources(), id, options);
+        Log.i(TAG, "only bitmap info: "+options.outMimeType+", "+", "+options.outWidth+" * "+options.outHeight);
+
+        options.inSampleSize = 1;
+        // 对JPG管用，对PNG无用
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        // Bitmap实现Parcelable接口，可以通过Bundle跨页面、Parcel跨进程传输。
+        // BUGFIX: BitmapFactory#decodeResource解析vector图片失败
+        return BitmapFactory.decodeResource(context.getResources(), id, options);
+    }
+
+    public static void setBitmapByRegionDecoder(Context context, int id, ImageView imageView, ImageView.ScaleType scaleType) {
+//        FileDescriptor fileDescriptor = context.getResources().openRawResourceFd(id).getFileDescriptor();
+        int needWidth = imageView.getLayoutParams().width, needHeight = imageView.getLayoutParams().height;
+        int rawWidth = 0, rawHeight = 0;
+        InputStream inputStream = context.getResources().openRawResource(id);
+        try {
+            BitmapRegionDecoder regionDecoder = BitmapRegionDecoder.newInstance(inputStream, false);
+            rawWidth = regionDecoder.getWidth();
+            rawHeight = regionDecoder.getHeight();
+            Log.i(TAG, "needSize: "+needWidth+"*"+needHeight+"; rawSize: "+rawWidth+"*"+rawHeight);
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 4;
+            Rect rect;
+            if (scaleType == ImageView.ScaleType.CENTER_CROP) {
+                rect = new Rect(360, 0, 1560, 1200);
+            } else {
+                rect = new Rect(0, 0, rawWidth, rawHeight);
+            }
+
+            Bitmap bitmap = regionDecoder.decodeRegion(rect, options);
+            Log.i(TAG, "bitmap info: "+bitmap.getConfig()+" - "+bitmap.getWidth()
+                    +" - "+bitmap.getHeight()+" - "+bitmap.getAllocationByteCount());
+            imageView.setImageBitmap(bitmap);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
