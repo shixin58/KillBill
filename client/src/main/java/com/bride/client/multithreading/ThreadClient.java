@@ -2,6 +2,7 @@ package com.bride.client.multithreading;
 
 import java.util.List;
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>Created by shixin on 2019/3/21.
@@ -13,6 +14,7 @@ public class ThreadClient {
 //        joinMethod2();
 
         interruptMethod();
+//        daemonThread();
     }
 
     public static void joinMethod() {
@@ -68,16 +70,63 @@ public class ThreadClient {
                     e.printStackTrace();
                 }
             }
-        });
+        }, "Thread-sleep");
         thread.start();
         try {
-            Thread.sleep(5*1000);
+            Thread.sleep(2*1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         // 跳出sleep/join/wait，抛InterruptedException
+        System.out.println("interrupt "+thread.getName()+" "+thread.isInterrupted()+" "+thread.isAlive());
         thread.interrupt();
-        // catch之后
-        System.out.println("interrupt工作线程 "+thread.isInterrupted());
+
+        Thread thread1 = new Thread(new Runnable() {
+            int count = Integer.MAX_VALUE;
+            int i = 0;
+            void f() {
+                System.out.println("start f()");
+                long start = System.nanoTime();
+                while (count-- > 0 && !Thread.interrupted()) {
+                    i = count % 100;
+                }
+                System.out.println("interval "+(System.nanoTime() - start));
+            }
+
+            @Override
+            public void run() {
+                f();
+                System.out.println(Thread.currentThread().getName()+" quit");
+            }
+        }, "Thread-yield");
+        thread1.start();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("interrupt "+thread1.getName()+" "+thread1.isInterrupted()+" "+thread1.isAlive());
+        thread1.interrupt();
+    }
+
+    public static void daemonThread() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(Thread.currentThread().getName()+": "+Thread.currentThread().getPriority()
+                        +" - "+Thread.currentThread().isDaemon());
+//                Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+                try {
+                    TimeUnit.MILLISECONDS.sleep(1000L);
+                    System.err.println(Thread.currentThread().getName()+" wake up.");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.setPriority(Thread.MIN_PRIORITY);
+        thread.setDaemon(true);
+        thread.start();
+        System.out.println(Thread.currentThread().getName()+" is over.");
     }
 }

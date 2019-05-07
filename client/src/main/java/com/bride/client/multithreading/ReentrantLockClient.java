@@ -1,5 +1,6 @@
 package com.bride.client.multithreading;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -17,8 +18,10 @@ public class ReentrantLockClient {
         final ReentrantLockClient client = new ReentrantLockClient();
 //        client.method();
 
-        client.awaitMethod();
-        client.signalMethod();
+//        client.awaitMethod();
+//        client.signalMethod();
+//        client.tryLock();
+        client.lockInterruptibly();
     }
 
     public void method() {
@@ -73,5 +76,43 @@ public class ReentrantLockClient {
                 }
             }
         }).start();
+    }
+
+    public void tryLock() {
+        lock.tryLock();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    System.out.println("before tryLock");
+                    boolean acquired = lock.tryLock(2, TimeUnit.SECONDS);
+                    System.out.println("after tryLock "+acquired);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    public void lockInterruptibly() {
+        lock.lock();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+//                lock.lock();
+                try {
+                    lock.lockInterruptibly();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        thread.interrupt();
     }
 }
