@@ -1,7 +1,10 @@
 package com.bride.client.datastructure;
 
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -11,7 +14,8 @@ public class BlockingQueueClient {
 
     public static void main(String[] args) {
 //        testArrayBlockingQueue();
-        testPriorityBlockingQueue();
+//        testPriorityBlockingQueue();
+        testSynchronousQueue();
     }
 
     private static void testArrayBlockingQueue() {
@@ -53,7 +57,7 @@ public class BlockingQueueClient {
 
     public static void testPriorityBlockingQueue() {
         // 求最小值, 多线程同步
-        PriorityBlockingQueue<Integer> priorityBlockingQueue = new PriorityBlockingQueue<>(5);
+        PriorityBlockingQueue<Integer> priorityBlockingQueue = new PriorityBlockingQueue<>(11);
         priorityBlockingQueue.add(4);
         priorityBlockingQueue.add(2);
         priorityBlockingQueue.add(6);
@@ -82,5 +86,34 @@ public class BlockingQueueClient {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void testSynchronousQueue() {
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        SynchronousQueue<String> synchronousQueue = new SynchronousQueue<>();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String seed = "Apple";
+                    synchronousQueue.put(seed);
+                    System.err.println("after put "+seed);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String result = synchronousQueue.take();
+                    System.err.println("after take "+result);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        executorService.shutdown();
     }
 }

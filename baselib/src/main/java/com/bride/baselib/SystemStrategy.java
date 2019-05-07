@@ -11,9 +11,12 @@ import android.system.Os;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import java.util.Locale;
-
 import androidx.core.content.ContextCompat;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Locale;
 
 /**
  * <p>Created by shixin on 2018/10/7.
@@ -90,5 +93,24 @@ public class SystemStrategy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Log.i(TAG, "Os: "+Os.getpid()+"|"+Os.getppid()+"|"+Os.gettid()+"|"+Os.getuid());
         }
+    }
+
+    public static void inputStream() {
+        try {
+            System.err.println("Type message and press enter");
+            String str = new BufferedReader(new InputStreamReader(System.in)).readLine();
+            System.out.println("You typed "+str);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        inputStream();
+        /*try {
+            int result = System.in.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
     }
 }
