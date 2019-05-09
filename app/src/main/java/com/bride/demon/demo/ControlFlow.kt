@@ -48,3 +48,6 @@ fun main() {
 
     Customer("Max", 30)
 }
+
+// indirect inheritors
+class OldTimes : NextDecade()

@@ -51,6 +51,9 @@ fun main() {
     // destructuring, Pair/Triple
     val (name, age) = max
     println("name = $name, age = $age")
+
+    f(Past("20 years ago"))
+    f(NotAString)
 }
 
 open class Base() {
@@ -131,3 +134,18 @@ const val SUBSYSTEM_DEPRECATED: String = "This subsystem is deprecated"
 }
 
 data class User(val name: String = "Victor", val age: Int = 30)
+
+sealed class Times
+data class Past(val d: String) : Times()
+data class Present(val d: String) : Times()
+data class Future(val d: String) : Times()
+object NotAString : Times()
+open class NextDecade : Times()
+
+fun f(v: Times): String = when(v) {
+    is Past -> v.d
+    is Present -> v.d
+    is Future -> v.d
+    NotAString -> ""
+    is NextDecade -> ""
+}

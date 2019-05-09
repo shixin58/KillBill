@@ -12,8 +12,10 @@ fun main() {
     read(b = bb)
 
     var byte: Byte = 9
-    val bytes: Array<Byte> = Array(3){ 3.toByte() }
+    val bytes: Array<Byte> = Array(3){ i -> 3.toByte() }
     bytes[1] = byte
+//    val bytes = byteArrayOf(3, 9, 3)
+
     read(bytes)
 
     val list = asList("a", "b", "c")
