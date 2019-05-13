@@ -38,14 +38,11 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nullable;
 
-import io.reactivex.BackpressureStrategy;
 import io.reactivex.Completable;
 import io.reactivex.CompletableEmitter;
 import io.reactivex.CompletableObserver;
 import io.reactivex.CompletableOnSubscribe;
 import io.reactivex.Flowable;
-import io.reactivex.FlowableEmitter;
-import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.Maybe;
 import io.reactivex.MaybeEmitter;
 import io.reactivex.MaybeObserver;
@@ -62,10 +59,8 @@ import io.reactivex.SingleObserver;
 import io.reactivex.SingleOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
 import io.reactivex.functions.BiConsumer;
 import io.reactivex.functions.BiFunction;
-import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Authenticator;
@@ -152,17 +147,32 @@ public class RxJavaStrategy {
     }
 
     public void executeJust() {
-        Flowable.just("Try again!", "Hello World!")
-                .subscribe(s -> Log.i(TAG, "just - Consumer#accept(String) "+s),
-                    throwable -> Log.i(TAG, "just - Consumer#accept(Throwable) "+throwable.getMessage()),
-                    () -> Log.i(TAG, "just - Action#run()"),
-                    subscription -> {
-                        Log.i(TAG, "just - Consumer#accept(Subscription)");
-                        subscription.request(Long.MAX_VALUE);
-                    }).dispose();
+        Flowable.just("Try again!", "Hello World!", "May I ask you out?")
+                .subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onSubscribe(Subscription s) {
+                        Log.i(TAG, "Flowable#just onSubscribe");
+                        s.request(Long.MAX_VALUE);
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        Log.i(TAG, "Flowable#just onNext "+s);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        Log.e(TAG, "Flowable#just onError", t);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.i(TAG, "Flowable#just onComplete");
+                    }
+                });
     }
 
-    public void execute() {
+    public void executeObservable() {
         Observable.create((ObservableOnSubscribe<String>) e -> {
             e.onNext("Good");
             e.onNext("Better");
@@ -430,106 +440,97 @@ public class RxJavaStrategy {
     // cold observables：订阅后才发事件
     // 0, 1, 2, 3, ...
     public void executeInterval() {
-        Observable.interval(1, 1, TimeUnit.SECONDS)
-            .take(15)
-            .observeOn(AndroidSchedulers.mainThread())
+        Observable.interval(1, 1, TimeUnit.MILLISECONDS)
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .observeOn(Schedulers.newThread())
             .subscribe(new Observer<Long>() {
                 @Override
                 public void onSubscribe(Disposable d) {
-                    Log.i(TAG, "interval onSubscribe");
+                    Log.i(TAG, "Observable#interval onSubscribe");
                 }
 
                 @Override
                 public void onNext(Long aLong) {
-                    Log.i(TAG, "interval onNext - "+aLong);
-                    SystemClock.sleep(1000L);
+                    Log.i(TAG, "Observable#interval onNext - "+aLong);
+                    SystemClock.sleep(10000L);
                 }
 
                 @Override
                 public void onError(Throwable e) {
-                    Log.i(TAG, "interval onError");
+                    Log.i(TAG, "Observable#interval onError", e);
                 }
 
                 @Override
                 public void onComplete() {
-                    Log.i(TAG, "interval onComplete");
+                    Log.i(TAG, "Observable#interval onComplete");
                 }
             });
     }
 
     // 发一个0
     public void executeTimer() {
-        Observable.timer(1, TimeUnit.SECONDS)
+        Observable.timer(1, TimeUnit.SECONDS, Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aLong -> Log.i("executeTimer", aLong.toString())).dispose();
+                .subscribe(aLong -> Log.i(TAG, "Observable#timer accept "+aLong.toString())).dispose();
     }
 
     // 1, 2, 3, ..., 10
     public void executeRange() {
         Observable.range(1, 10)
                 .observeOn(Schedulers.newThread())
-                .subscribe(new Consumer<Integer>() {
+                .subscribe(new Observer<Integer>() {
                     @Override
-                    public void accept(Integer integer) throws Exception {
-                        Log.i("executeRange", integer.toString());
+                    public void onSubscribe(Disposable d) {
+                        Log.i(TAG, "Observable#range onSubscribe");
                     }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
 
-                    }
-                }, new Action() {
                     @Override
-                    public void run() throws Exception {
-
+                    public void onNext(Integer integer) {
+                        Log.i(TAG, "Observable#range onNext "+integer.toString());
                     }
-                }, new Consumer<Disposable>() {
+
                     @Override
-                    public void accept(Disposable disposable) throws Exception {
-
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "Observable#range onError", e);
                     }
-                }).dispose();
+
+                    @Override
+                    public void onComplete() {
+                        Log.i(TAG, "Observable#range onComplete");
+                    }
+                });
     }
 
     // reactive pull, backpressure
+    // MissingBackpressureException: Can't deliver value 128 due to lack of requests
+    // MissingBackpressureException: Buffer is full
     public void executeFlowable() {
-        Flowable.create(new FlowableOnSubscribe<String>() {
-            @Override
-            public void subscribe(FlowableEmitter<String> e) throws Exception {
-                e.onNext("first");
-                e.onNext("second");
-                e.onNext("third");
-                e.onComplete();
-            }
-        }, BackpressureStrategy.BUFFER)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Subscriber<String>() {
-            Subscription subscription;
-            @Override
-            public void onSubscribe(Subscription s) {
-                subscription = s;
-//                s.cancel();
-                s.request(1);
-            }
+        Flowable.interval(100, 100, TimeUnit.MILLISECONDS, Schedulers.computation())
+                .onBackpressureBuffer(256)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
+                .subscribe(new Subscriber<Long>() {
+                    @Override
+                    public void onSubscribe(Subscription s) {
+                        s.request(Long.MAX_VALUE);
+                    }
 
-            @Override
-            public void onNext(String s) {
-                Log.i("onNext", s);
-                SystemClock.sleep(1000L);
-                subscription.request(1);
-            }
+                    @Override
+                    public void onNext(Long l) {
+                        Log.i(TAG, "Flowable#create onNext "+l);
+                        SystemClock.sleep(1000L);
+                    }
 
-            @Override
-            public void onError(Throwable t) {
+                    @Override
+                    public void onError(Throwable t) {
+                        Log.e(TAG, "Flowable#create onError", t);
+                    }
 
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
+                    @Override
+                    public void onComplete() {
+                        Log.i(TAG, "Flowable#create onComplete");
+                    }
+                });
     }
 
     // 仅发送单个事件
@@ -542,17 +543,17 @@ public class RxJavaStrategy {
         }).subscribe(new SingleObserver<String>() {
             @Override
             public void onSubscribe(Disposable d) {
-
+                Log.i(TAG, "Single#create onSubscribe");
             }
 
             @Override
             public void onSuccess(String s) {
-                Log.i("executeSingle", s);
+                Log.i(TAG, "Single#create onSuccess "+s);
             }
 
             @Override
             public void onError(Throwable e) {
-
+                Log.e(TAG, "Single#create onError", e);
             }
         });
     }
@@ -562,22 +563,22 @@ public class RxJavaStrategy {
         Completable.create(new CompletableOnSubscribe() {
             @Override
             public void subscribe(CompletableEmitter e) throws Exception {
-
+                e.onError(new IllegalStateException());
             }
         }).subscribe(new CompletableObserver() {
             @Override
             public void onSubscribe(Disposable d) {
-
+                Log.i(TAG, "Completable#create onSubscribe");
             }
 
             @Override
             public void onComplete() {
-                Log.i("executeCompletable", "onComplete");
+                Log.i(TAG, "Completable#create onComplete");
             }
 
             @Override
             public void onError(Throwable e) {
-
+                Log.e(TAG, "Completable#create onError", e);
             }
         });
     }
@@ -587,27 +588,27 @@ public class RxJavaStrategy {
         Maybe.create(new MaybeOnSubscribe<String>() {
             @Override
             public void subscribe(MaybeEmitter<String> e) throws Exception {
-                e.onSuccess("ok");
+                e.onSuccess("maybe");
             }
         }).subscribe(new MaybeObserver<String>() {
             @Override
             public void onSubscribe(Disposable d) {
-
+                Log.i(TAG, "Maybe#create onSubscribe");
             }
 
             @Override
             public void onSuccess(String s) {
-                Log.i("executeMaybe", s);
+                Log.i(TAG, "Maybe#create onSuccess "+s);
             }
 
             @Override
             public void onError(Throwable e) {
-
+                Log.e(TAG, "Maybe#create onError", e);
             }
 
             @Override
             public void onComplete() {
-
+                Log.i(TAG, "Maybe#create onComplete");
             }
         });
     }
@@ -615,22 +616,52 @@ public class RxJavaStrategy {
     // 组合多个被观察者一起发送事件，串行执行
     public void executeConcat() {
         Observable.concat(Observable.just(1, 2, 3), Observable.just(4, 5, 6))
-                .subscribe(new Consumer<Integer>() {
+                .subscribe(new Observer<Integer>() {
                     @Override
-                    public void accept(Integer integer) throws Exception {
-                        Log.i("executeConcat", integer.toString());
+                    public void onSubscribe(Disposable d) {
+                        Log.i(TAG, "Observable#concat onSubscribe");
                     }
-                }).dispose();
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        Log.i(TAG, "Observable#concat onNext "+integer);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "Observable#concat onError", e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.i(TAG, "Observable#concat onComplete");
+                    }
+                });
     }
 
     // 并行执行
     public void executeMerge() {
         /*Observable.merge(Observable.intervalRange(0, 3, 1, 1, TimeUnit.SECONDS),
-                Observable.intervalRange(2, 3, 1, 1, TimeUnit.SECONDS))
-                .subscribe(new Consumer<Long>() {
+                Observable.intervalRange(3, 3, 1, 2, TimeUnit.SECONDS))
+                .subscribe(new Observer<Long>() {
                     @Override
-                    public void accept(Long aLong) throws Exception {
-                        Log.i("executeMerge", aLong.toString());
+                    public void onSubscribe(Disposable d) {
+                        Log.i(TAG, "Observable#merge onSubscribe");
+                    }
+
+                    @Override
+                    public void onNext(Long aLong) {
+                        Log.i(TAG, "Observable#merge onNext "+aLong);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "Observable#merge onError", e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.i(TAG, "Observable#merge onComplete");
                     }
                 });*/
 
@@ -641,6 +672,7 @@ public class RxJavaStrategy {
                 e.onError(new IOException());
                 e.onNext("B");
                 e.onNext("C");
+                e.onComplete();
             }
         }), Observable.create(new ObservableOnSubscribe<String>() {
             @Override
@@ -648,13 +680,29 @@ public class RxJavaStrategy {
                 e.onNext("a");
                 e.onNext("b");
                 e.onNext("c");
+                e.onComplete();
             }
-        })).subscribe(new Consumer<String>() {
+        })).subscribe(new Observer<String>() {
             @Override
-            public void accept(String s) throws Exception {
-                Log.i("executeMerge", s);
+            public void onSubscribe(Disposable d) {
+                Log.i(TAG, "Observable.mergeDelayError onSubscribe");
             }
-        }).dispose();
+
+            @Override
+            public void onNext(String s) {
+                Log.i(TAG, "Observable.mergeDelayError onNext "+s);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e(TAG, "Observable.mergeDelayError onError", e);
+            }
+
+            @Override
+            public void onComplete() {
+                Log.i(TAG, "Observable.mergeDelayError onComplete");
+            }
+        });
     }
 
     // 合并多个被观察者发送的事件
@@ -663,10 +711,13 @@ public class RxJavaStrategy {
             @Override
             public void subscribe(ObservableEmitter<Integer> e) throws Exception {
                 e.onNext(1);
-                Thread.sleep(1000);
+                SystemClock.sleep(1000L);
+                e.onError(new IOException());
+                SystemClock.sleep(1000L);
                 e.onNext(2);
-                Thread.sleep(1000);
+                SystemClock.sleep(1000L);
                 e.onNext(3);
+                e.onComplete();
             }
         }).subscribeOn(Schedulers.newThread());
         Observable<String> observable2 = Observable.create(new ObservableOnSubscribe<String>(){
@@ -674,12 +725,13 @@ public class RxJavaStrategy {
             @Override
             public void subscribe(ObservableEmitter<String> e) throws Exception {
                 e.onNext("A");
-                Thread.sleep(1000);
+                SystemClock.sleep(1000L);
                 e.onNext("B");
-                Thread.sleep(1000);
+                SystemClock.sleep(1000L);
                 e.onNext("C");
-                Thread.sleep(1000);
+                SystemClock.sleep(1000L);
                 e.onNext("D");
+                e.onComplete();
             }
         }).subscribeOn(Schedulers.newThread());
         Observable.zip(observable1, observable2, new BiFunction<Integer, String, String>() {
@@ -687,42 +739,58 @@ public class RxJavaStrategy {
             public String apply(Integer integer, String s) throws Exception {
                 return integer+s;
             }
-        }).subscribe(new Consumer<String>() {
+        }).subscribe(new Observer<String>() {
             @Override
-            public void accept(String s) throws Exception {
-                Log.i("accept", s);
+            public void onSubscribe(Disposable d) {
+                Log.i(TAG, "Observable#zip onSubscribe");
             }
-        }, new Consumer<Throwable>() {
-            @Override
-            public void accept(Throwable throwable) throws Exception {
 
-            }
-        }, new Action() {
             @Override
-            public void run() throws Exception {
-                Log.i("onComplete", "OK");
+            public void onNext(String s) {
+                Log.i(TAG, "Observable#zip onNext "+s);
             }
-        }, new Consumer<Disposable>() {
+
             @Override
-            public void accept(Disposable disposable) throws Exception {
+            public void onError(Throwable e) {
+                Log.e(TAG, "Observable#zip onError", e);
             }
-        }).dispose();
+
+            @Override
+            public void onComplete() {
+                Log.i(TAG, "Observable#zip onComplete");
+            }
+        });
     }
 
     public void executeCombineLatest() {
         Observable.combineLatest(Observable.just(1L, 2L, 3L),
-                Observable.intervalRange(0, 3, 1, 1, TimeUnit.SECONDS),
+                Observable.intervalRange(4, 4, 1, 1, TimeUnit.SECONDS),
                 new BiFunction<Long, Long, String>() {
             @Override
             public String apply(Long aLong, Long aLong2) throws Exception {
-                return aLong.toString()+" "+aLong2.toString();
+                return String.valueOf(aLong)+" "+String.valueOf(aLong2);
             }
-        }).subscribe(new Consumer<String>() {
+        }).subscribe(new Observer<String>() {
             @Override
-            public void accept(String s) throws Exception {
-                Log.i("executeCombineLatest", s);
+            public void onSubscribe(Disposable d) {
+                Log.i(TAG, "Observable#combineLatest onSubscribe");
             }
-        }).dispose();
+
+            @Override
+            public void onNext(String s) {
+                Log.i(TAG, "Observable#combineLatest onNext "+s);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e(TAG, "Observable#combineLatest onError", e);
+            }
+
+            @Override
+            public void onComplete() {
+                Log.i(TAG, "Observable#combineLatest onComplete");
+            }
+        });
     }
 
     // 前两个数据聚合，结果再跟下一个数据聚合
@@ -730,30 +798,30 @@ public class RxJavaStrategy {
         Observable.just(1, 2, 3, 4)
                 .reduce(new BiFunction<Integer, Integer, Integer>() {
                     @Override
-                    public Integer apply(Integer integer, Integer integer2) throws Exception {
-                        return integer*integer2;
+                    public Integer apply(Integer integer1, Integer integer2) throws Exception {
+                        return integer1 * integer2;
                     }
                 }).subscribe(new MaybeObserver<Integer>() {// Maybe
-            @Override
-            public void onSubscribe(Disposable d) {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.i(TAG, "reduce onSubscribe");
+                    }
 
-            }
+                    @Override
+                    public void onSuccess(Integer integer) {
+                        Log.i(TAG, "reduce onSuccess "+integer);
+                    }
 
-            @Override
-            public void onSuccess(Integer integer) {
-                Log.i("executeReduce", integer.toString());
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i(TAG, "reduce onError", e);
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-                Log.i("executeReduce", "onComplete");
-            }
-        });
+                    @Override
+                    public void onComplete() {
+                        Log.i(TAG, "reduce onComplete");
+                    }
+                });
     }
 
     // 将被观察者发送的数据收集到一个集合里
@@ -769,12 +837,45 @@ public class RxJavaStrategy {
                     public void accept(ArrayList<Integer> integers, Integer integer) throws Exception {
                         integers.add(integer);
                     }
-                }).subscribe(new Consumer<ArrayList<Integer>>() {// Single
+                }).subscribe(new SingleObserver<ArrayList<Integer>>() {
                     @Override
-                    public void accept(ArrayList<Integer> integers) throws Exception {
-                        Log.i("executeCollect", TextUtils.join(",", integers));
+                    public void onSubscribe(Disposable d) {
+                        Log.i(TAG, "collect onSubscribe");
                     }
-                }).dispose();
+
+                    @Override
+                    public void onSuccess(ArrayList<Integer> integers) {
+                        Log.i(TAG, "collect onSuccess "+TextUtils.join(",", integers));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "collect onError", e);
+                    }
+                });
+    }
+
+    // 统计被观察者发送的事件数量
+    public void executeCount() {
+        Observable.just(1, 2, 3, 4)
+                .count()
+                .subscribe(new SingleObserver<Long>() {
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.i(TAG, "count onSubscribe");
+                    }
+
+                    @Override
+                    public void onSuccess(Long aLong) {
+                        Log.i(TAG, "count onSuccess "+aLong);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i(TAG, "count onError", e);
+                    }
+                });
     }
 
     // 追加事件
@@ -782,24 +883,28 @@ public class RxJavaStrategy {
         Observable.just(4, 5, 6)
                 .startWith(0)
                 .startWithArray(1, 2, 3)
-                .subscribe(new Consumer<Integer>() {
+                .observeOn(Schedulers.computation())
+                .subscribe(new Observer<Integer>() {
                     @Override
-                    public void accept(Integer integer) throws Exception {
-                        Log.i("executeStartWith", integer.toString());
+                    public void onSubscribe(Disposable d) {
+                        Log.i(TAG, "startWith onSubscribe");
                     }
-                }).dispose();
-    }
 
-    // 统计被观察者发送的事件数量
-    public void executeCount() {
-        Observable.just(1, 2, 3, 4)
-                .count()
-                .subscribe(new BiConsumer<Long, Throwable>() {// Single
                     @Override
-                    public void accept(Long aLong, Throwable throwable) throws Exception {
-                        Log.i("executeCount", aLong.toString());
+                    public void onNext(Integer integer) {
+                        Log.i(TAG, "startWith onNext "+integer);
                     }
-                }).dispose();
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i(TAG, "startWith onError", e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.i(TAG, "startWith onComplete");
+                    }
+                });
     }
 
     public void onDestroy(@NonNull String tag) {

@@ -1,101 +1,260 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.RxJavaActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_just"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center"
-        android:text="Hello World!"
-        android:onClick="onClick"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".activity.RxJavaActivity">
 
-    <TextView
-        android:id="@+id/tv_base"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_just"
-        android:gravity="center"
-        android:text="基本操作"
-        android:onClick="onClick"/>
+        <TextView
+            android:id="@+id/tv_just"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center"
+            android:text="@string/rxjava_flowable"
+            android:onClick="onClick"/>
 
-    <TextView
-        android:id="@+id/tv_map"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_base"
-        android:gravity="center"
-        android:text="map 操作符"
-        android:onClick="onClick"/>
+        <TextView
+            android:id="@+id/tv_base"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_just"
+            android:gravity="center"
+            android:text="@string/rxjava_observable"
+            android:onClick="onClick"/>
 
-    <TextView
-        android:id="@+id/tv_flatmap"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_map"
-        android:gravity="center"
-        android:text="flatmap 操作符"
-        android:onClick="onClick"/>
+        <TextView
+            android:id="@+id/tv_single"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_base"
+            android:gravity="center"
+            android:text="@string/rxjava_single"
+            android:onClick="onClick"/>
 
-    <TextView
-        android:id="@+id/tv_take"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_flatmap"
-        android:gravity="center"
-        android:text="take 操作符"
-        android:onClick="onClick"/>
+        <TextView
+            android:id="@+id/tv_completable"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_single"
+            android:gravity="center"
+            android:text="@string/rxjava_completable"
+            android:onClick="onClick"/>
 
-    <TextView
-        android:id="@+id/tv_interval"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_take"
-        android:gravity="center"
-        android:text="interval operator"
-        android:onClick="onClick"/>
+        <TextView
+            android:id="@+id/tv_maybe"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_completable"
+            android:gravity="center"
+            android:text="@string/rxjava_maybe"
+            android:onClick="onClick"/>
 
-    <TextView
-        android:id="@+id/tv_lift"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_interval"
-        android:gravity="center"
-        android:text="lift 操作符"
-        android:onClick="onClick"/>
+        <TextView
+            android:id="@+id/tv_concat"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_maybe"
+            android:gravity="center"
+            android:text="Observable#concat"
+            android:onClick="onClick"/>
 
-    <ImageView
-        android:id="@+id/iv_demo1"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_lift"
-        android:scaleType="centerCrop"/>
+        <TextView
+            android:id="@+id/tv_merge"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_concat"
+            android:gravity="center"
+            android:text="Observable#merge"
+            android:onClick="onClick"/>
 
-    <ImageView
-        android:id="@+id/iv_demo2"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        app:layout_constraintLeft_toRightOf="@id/iv_demo1"
-        app:layout_constraintTop_toTopOf="@id/iv_demo1"
-        android:scaleType="centerCrop"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_backpressure"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_merge"
+            android:gravity="center"
+            android:text="@string/rxjava_backpressure"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:id="@+id/tv_map"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_backpressure"
+            android:gravity="center"
+            android:text="map operator"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:id="@+id/tv_flatmap"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_map"
+            android:gravity="center"
+            android:text="flatmap operator"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:id="@+id/tv_take"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_flatmap"
+            android:gravity="center"
+            android:text="take operator"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:id="@+id/tv_interval"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_take"
+            android:gravity="center"
+            android:text="interval operator"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:id="@+id/tv_timer"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_interval"
+            android:gravity="center"
+            android:text="timer operator"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:id="@+id/tv_range"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_timer"
+            android:gravity="center"
+            android:text="range operator"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:id="@+id/tv_zip"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_range"
+            android:gravity="center"
+            android:text="Observable#zip"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:id="@+id/tv_combineLatest"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_zip"
+            android:gravity="center"
+            android:text="Observable#combineLatest"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:id="@+id/tv_startWith"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_combineLatest"
+            android:gravity="center"
+            android:text="startWith operator"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:id="@+id/tv_reduce"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_startWith"
+            android:gravity="center"
+            android:text="reduce operator"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:id="@+id/tv_collect"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_reduce"
+            android:gravity="center"
+            android:text="collect operator"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:id="@+id/tv_count"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_collect"
+            android:gravity="center"
+            android:text="count operator"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:id="@+id/tv_lift"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_count"
+            android:gravity="center"
+            android:text="lift operator"
+            android:onClick="onClick"/>
+
+        <ImageView
+            android:id="@+id/iv_demo1"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_lift"
+            android:scaleType="centerCrop"/>
+
+        <ImageView
+            android:id="@+id/iv_demo2"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:layout_constraintLeft_toRightOf="@id/iv_demo1"
+            app:layout_constraintTop_toTopOf="@id/iv_demo1"
+            android:scaleType="centerCrop"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

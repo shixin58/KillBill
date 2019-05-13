@@ -31,7 +31,25 @@ public class RxJavaActivity extends BaseActivity {
                 RxJavaStrategy.getInstance().executeJust();
                 break;
             case R.id.tv_base:
-                RxJavaStrategy.getInstance().execute();
+                RxJavaStrategy.getInstance().executeObservable();
+                break;
+            case R.id.tv_single:
+                RxJavaStrategy.getInstance().executeSingle();
+                break;
+            case R.id.tv_completable:
+                RxJavaStrategy.getInstance().executeCompletable();
+                break;
+            case R.id.tv_maybe:
+                RxJavaStrategy.getInstance().executeMaybe();
+                break;
+            case R.id.tv_concat:
+                RxJavaStrategy.getInstance().executeConcat();
+                break;
+            case R.id.tv_merge:
+                RxJavaStrategy.getInstance().executeMerge();
+                break;
+            case R.id.tv_backpressure:
+                RxJavaStrategy.getInstance().executeFlowable();
                 break;
             case R.id.tv_map:
                 RxJavaStrategy.getInstance().executeMap();
@@ -44,6 +62,30 @@ public class RxJavaActivity extends BaseActivity {
                 break;
             case R.id.tv_interval:
                 RxJavaStrategy.getInstance().executeInterval();
+                break;
+            case R.id.tv_timer:
+                RxJavaStrategy.getInstance().executeTimer();
+                break;
+            case R.id.tv_range:
+                RxJavaStrategy.getInstance().executeRange();
+                break;
+            case R.id.tv_zip:
+                RxJavaStrategy.getInstance().executeZip();
+                break;
+            case R.id.tv_combineLatest:
+                RxJavaStrategy.getInstance().executeCombineLatest();
+                break;
+            case R.id.tv_reduce:
+                RxJavaStrategy.getInstance().executeReduce();
+                break;
+            case R.id.tv_collect:
+                RxJavaStrategy.getInstance().executeCollect();
+                break;
+            case R.id.tv_count:
+                RxJavaStrategy.getInstance().executeCount();
+                break;
+            case R.id.tv_startWith:
+                RxJavaStrategy.getInstance().executeStartWith();
                 break;
             case R.id.tv_lift:
                 RxJavaStrategy.getInstance().executeLift(findViewById(R.id.iv_demo1), findViewById(R.id.iv_demo2));
