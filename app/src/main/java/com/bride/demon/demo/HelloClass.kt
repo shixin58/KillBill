@@ -1,6 +1,10 @@
 package com.bride.demon.demo
 
+import android.content.ContentProvider
+import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
+import android.net.Uri
 import android.util.AttributeSet
 import android.view.View
 
@@ -54,6 +58,14 @@ fun main() {
 
     f(Past("20 years ago"))
     f(NotAString)
+
+    val i = Outer.Nested().get()
+    val j = Outer().Inner().retrieve()
+    println("i = $i, j = $j")
+
+    DataProviderManager.create()
+    val factory = MyClass.Companion
+    factory.create()
 }
 
 open class Base() {
@@ -76,6 +88,15 @@ open class Base() {
 }
 
 class Derived : Base(), Foo {
+
+    override fun struggle() {
+
+    }
+
+    override fun eat() {
+
+    }
+
     override val count: Int
         get() = super.a + 1
 
@@ -120,11 +141,22 @@ internal interface Foo : Edible, Capable {
 }
 
 internal interface Edible {
-
+    fun eat()
 }
 
 internal interface Capable {
+    fun struggle()
+}
 
+private fun func() = object : Edible, Capable{
+
+    override fun eat() {
+
+    }
+
+    override fun struggle() {
+
+    }
 }
 
 // Top-level, Compile-Time Constants
@@ -148,4 +180,53 @@ fun f(v: Times): String = when(v) {
     is Future -> v.d
     NotAString -> ""
     is NextDecade -> ""
+}
+
+// anonymous inner class, lambda expressions
+val listener = View.OnClickListener {
+    when(it.id) {
+
+    }
+}
+
+val onLongClickListener = object : View.OnLongClickListener {
+    override fun onLongClick(v: View?): Boolean {
+        return false
+    }
+}
+
+class Outer {
+
+    class Nested {
+        fun get() = 1
+    }
+
+    inner class Inner {
+        fun retrieve(): Int {
+            return 2
+        }
+    }
+}
+
+abstract class DataProvider {
+    abstract fun create()
+}
+
+object DataProviderManager : DataProvider() {
+    override fun create() {
+        println("DataProviderManager#create")
+    }
+}
+
+interface Factory<T> {
+    fun create(): T
+}
+
+class MyClass {
+    companion object : Factory<MyClass> {
+        @JvmStatic
+        override fun create(): MyClass {
+            return MyClass()
+        }
+    }
 }
