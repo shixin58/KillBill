@@ -75,6 +75,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.tv_start_service).setOnClickListener(this);
         findViewById(R.id.tv_open_music).setOnClickListener(this);
         findViewById(R.id.tv_send_broadcast).setOnClickListener(this);
+        findViewById(R.id.tv_send_broadcast2).setOnClickListener(this);
+        findViewById(R.id.tv_open_binder).setOnClickListener(this);
 
         findViewById(R.id.tv_changeThread).setOnClickListener(this);
         findViewById(R.id.tv_execute_task).setOnClickListener(this);
@@ -126,7 +128,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
                 break;
             case R.id.tv_switch:
-                if(mService == null) {
+                /*if(mService == null) {*/
                     try {
                         // 启动服务并拿到服务代理。服务所在进程必须运行
                         intent = new Intent();
@@ -137,9 +139,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         // java.lang.SecurityException: Not allowed to bind to service Intent { cmp=com.bride.demon.debug/com.bride.demon.service.MyService }
                         e.printStackTrace();
                     }
-                }else {
+                /*}else {
+                    // IllegalArgumentException: Service not registered: com.bride.client.MainActivity$3@dc78e3b
                     unbindService(mServiceConnection);
-                }
+                    mService = null;
+                }*/
                 break;
             case R.id.tv_use_service:
                 if(mService != null) {
@@ -179,6 +183,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 // 若不设置包名，提示"BroadcastQueue: Background execution not allowed: receiving Intent"
                 intent.setPackage("com.roy.devil"+(BuildConfig.DEBUG?".debug":""));
                 sendBroadcast(intent);
+                break;
+            case R.id.tv_send_broadcast2:
+                // Broadcast所在进程必须运行
+                intent = new Intent();
+                intent.setAction("com.roy.devil.action.LOCAL");
+                // 若不设置包名，提示"BroadcastQueue: Background execution not allowed: receiving Intent"
+                intent.setPackage("com.roy.devil"+(BuildConfig.DEBUG?".debug":""));
+                sendBroadcast(intent);
+                break;
+            case R.id.tv_open_binder:
+                BinderActivity.openActivity(this);
                 break;
             case R.id.tv_changeThread:
                 transferWorkThread(new Runnable() {

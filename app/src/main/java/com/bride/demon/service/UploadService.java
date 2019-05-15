@@ -1,6 +1,7 @@
 package com.bride.demon.service;
 
 import android.app.IntentService;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
@@ -21,11 +22,11 @@ public class UploadService extends IntentService {
     public static final String KEY_NAME = "key_name";
     public static final String ACTION_UPLOAD = "action_upload";
 
-    public static void openService(Context context, String name) {
+    public static ComponentName openService(Context context, String name) {
         Intent intent = new Intent(context, UploadService.class);
         intent.setAction(ACTION_UPLOAD);
         intent.putExtra(KEY_NAME, name);
-        context.startService(intent);
+        return context.startService(intent);
     }
 
     public UploadService() {
