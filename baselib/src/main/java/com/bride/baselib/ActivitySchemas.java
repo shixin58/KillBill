@@ -6,7 +6,7 @@ package com.bride.baselib;
 public class ActivitySchemas {
     private final static String SCHEMA_FORMAT = "max://demon/%s";
     public final static String RECYCLER_VIEW_SCHEMA = String.format(SCHEMA_FORMAT, "recycler.view");
-    public final static String TEST_TOUCH_SCHEMA = String.format(SCHEMA_FORMAT, "test.touch");
+    public final static String TOUCH_SCHEMA = String.format(SCHEMA_FORMAT, "touch");
 
     private StringBuilder url = new StringBuilder();
 

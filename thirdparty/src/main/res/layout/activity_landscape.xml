@@ -29,4 +29,23 @@
         android:onClick="onClick"
         android:gravity="center"
         android:text="recreate"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tv_recreate"
+        android:background="@android:color/black"/>
+
+    <TextView
+        android:id="@+id/tv_eventbus"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_recreate"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:text="test EventBus"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

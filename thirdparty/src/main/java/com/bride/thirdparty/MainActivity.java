@@ -1,5 +1,6 @@
 package com.bride.thirdparty;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,7 +40,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG, "onCreate "+getTaskId()+" - "+savedInstanceState);
+        Log.i(TAG, "onCreate "+getTaskId()+" "+hashCode());
         setContentView(R.layout.activity_main);
         initView();
         initData();
@@ -67,6 +68,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 
         // 2、请求系统权限
         PermissionUtils.requestAllPermissions(this, 3);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.i(TAG, "onNewIntent "+getTaskId()+" "+hashCode());
     }
 
     @Override
@@ -106,6 +113,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroy "+getTaskId()+" "+hashCode());
+        mDisposable.dispose();
+        RxBus.getInstance().unregister(MessageEvent.class, mSubject);
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_eventbus:
@@ -138,14 +153,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
             default:
                 break;
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.i(TAG, "onDestroy");
-        mDisposable.dispose();
-        RxBus.getInstance().unregister(MessageEvent.class, mSubject);
     }
 
     @Override

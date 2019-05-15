@@ -8,26 +8,22 @@ import androidx.fragment.app.FragmentActivity
 import com.bride.baselib.BaseActivity
 import com.bride.demon.R
 
-/**
- *
- * Created by shixin on 2018/9/6.
- */
 class SingleInstanceActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.i(TAG, "onCreate $taskId")
+        Log.i(TAG, "onCreate $taskId ${hashCode()}")
         setContentView(R.layout.activity_single_instance)
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        Log.i(TAG, "onNewIntent $taskId")
+        Log.i(TAG, "onNewIntent $taskId ${hashCode()}")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.i(TAG, "onDestroy $taskId")
+        Log.i(TAG, "onDestroy $taskId ${hashCode()}")
     }
 
     fun onClick(v: View?) {
@@ -40,6 +36,8 @@ class SingleInstanceActivity : BaseActivity() {
     }
 
     companion object {
+        private val TAG: String = SingleInstanceActivity::class.java.simpleName
+
         fun openActivity(activity: FragmentActivity?) {
             val intent = Intent(activity, SingleInstanceActivity::class.java)
             activity?.startActivity(intent)

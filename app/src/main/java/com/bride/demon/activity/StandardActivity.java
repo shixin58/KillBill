@@ -9,10 +9,8 @@ import android.view.View;
 import com.bride.baselib.BaseActivity;
 import com.bride.demon.R;
 
-/**
- * <p>Created by shixin on 2019-04-24.
- */
 public class StandardActivity extends BaseActivity {
+    private static final String TAG = StandardActivity.class.getSimpleName();
 
     public static void openActivity(Context context) {
         Intent intent = new Intent(context, StandardActivity.class);
@@ -22,20 +20,20 @@ public class StandardActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG, "onCreate "+getTaskId());
+        Log.i(TAG, "onCreate "+getTaskId()+" "+hashCode());
         setContentView(R.layout.activity_standard);
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        Log.i(TAG, "onNewIntent "+getTaskId());
+        Log.i(TAG, "onNewIntent "+getTaskId()+" "+hashCode());
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i(TAG, "onDestroy "+getTaskId());
+        Log.i(TAG, "onDestroy "+getTaskId()+" "+hashCode());
     }
 
     public void onClick(View v) {

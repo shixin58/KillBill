@@ -27,7 +27,6 @@ public class TouchActivity extends BaseActivity {
         // intent.getExtras()内部new Bundle(mExtras)为了保护数据吧
         // Intent和Bundle设置的跟获取的均不同
         intent.putExtra("type", type);
-        Log.i(TAG, "openActivity-"+intent.hashCode());
         context.startActivity(intent);
     }
 
@@ -36,10 +35,10 @@ public class TouchActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_touch);
         initView();
+        Log.i(TAG, "onCreate "+getTaskId()+" "+hashCode());
     }
 
     private void initView() {
-        Log.i(TAG, "onCreate-"+getIntent().hashCode());
         // mExtras.getInt(String, int)
         this.type = getIntent().getIntExtra("type", 0);
         MyViewGroup viewGroup;
@@ -68,6 +67,18 @@ public class TouchActivity extends BaseActivity {
                 viewGroup.setBackgroundColor(Color.BLUE);
             }
         });
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.i(TAG, "onNewIntent "+getTaskId()+" "+hashCode());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroy "+getTaskId()+" "+hashCode());
     }
 
     @Override

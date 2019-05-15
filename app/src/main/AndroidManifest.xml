@@ -52,7 +52,7 @@
             android:label="@string/activity_platform"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="com.bride.demon.activity.TestFragmentActivity"/>
+                <action android:name="com.bride.demon.activity.PlatformActivity"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
@@ -101,7 +101,7 @@
 
                 <data android:scheme="max"
                     android:host="demon"
-                    android:pathPrefix="/test.touch"/>
+                    android:pathPrefix="/touch"/>
             </intent-filter>
         </activity>
 

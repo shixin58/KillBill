@@ -1,7 +1,7 @@
 package com.bride.thirdparty.activity;
 
+import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,15 +26,18 @@ import java.lang.ref.WeakReference;
  * <p>Created by shixin on 2018/9/21.
  */
 public class EventBusActivity extends BaseActivity {
+    private static final String TAG = EventBusActivity.class.getSimpleName();
 
-    public static void openActivity(Context context) {
-        Intent intent = new Intent(context, EventBusActivity.class);
-        context.startActivity(intent);
+    public static void openActivity(Activity activity) {
+        Intent intent = new Intent(activity, EventBusActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
     }
 
     public static void openActivity(Application application) {
         Intent intent = new Intent(application, EventBusActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        // android.util.AndroidRuntimeException: Calling startActivity() from outside of an Activity  context requires the FLAG_ACTIVITY_NEW_TASK flag. Is this really what you want?
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         application.startActivity(intent);
     }
 
@@ -42,7 +45,7 @@ public class EventBusActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_bus);
-        Log.i(TAG, "onCreate "+getTaskId());
+        Log.i(TAG, "onCreate "+getTaskId()+" "+hashCode());
 
         beautySoftReference = new SoftReference<>(new Beauty());
         beautyWeakReference = new WeakReference<>(new Beauty());
@@ -53,15 +56,47 @@ public class EventBusActivity extends BaseActivity {
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.i(TAG, "onNewIntent "+getTaskId()+" "+hashCode());
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i(TAG, "onRestart");
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+        Log.i(TAG, "onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(TAG, "onPause");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+        Log.i(TAG, "onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroy "+getTaskId()+" "+hashCode());
     }
 
     public void onMessageClick(View v) {
@@ -106,5 +141,13 @@ public class EventBusActivity extends BaseActivity {
     public void onReferenceQueueClick(View v) {
         // 如果弱引用引用的对象弱可达，弱引用会加入到引用队列。
         Toast.makeText(this, ""+referenceQueue.poll(), Toast.LENGTH_SHORT).show();
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_landscape:
+                LandscapeActivity.openActivity(this);
+                break;
+        }
     }
 }

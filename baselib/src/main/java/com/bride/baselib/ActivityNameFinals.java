@@ -18,7 +18,7 @@ public interface ActivityNameFinals {
 
         String SECOND = "com.bride.demon.activity.SecondActivity";
 
-        String TEST_FRAGMENT = "com.bride.demon.activity.TestFragmentActivity";
+        String PLATFORM = "com.bride.demon.activity.PlatformActivity";
 
         String TEST_TOUCH = "com.bride.demon.activity.TestTouchActivity";
 

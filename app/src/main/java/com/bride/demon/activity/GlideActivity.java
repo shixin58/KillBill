@@ -45,6 +45,7 @@ import java.io.InputStream;
  * <p>Created by shixin on 2019/3/5.
  */
 public class GlideActivity extends BaseActivity {
+    private static final String TAG = GlideActivity.class.getSimpleName();
 
     public static void openActivity(Context context) {
         Intent intent = new Intent(context, GlideActivity.class);

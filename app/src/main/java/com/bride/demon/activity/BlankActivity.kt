@@ -69,6 +69,8 @@ class BlankActivity : BaseActivity() {
 
     companion object {
 
+        private val TAG: String = BlankActivity::class.java.simpleName
+
         fun openActivity(context: FragmentActivity?) {
             val intent = Intent(context, BlankActivity::class.java)
             context?.startActivity(intent)

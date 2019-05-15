@@ -38,6 +38,7 @@ import java.util.concurrent.TimeUnit;
  * <p>Created by shixin on 2018/9/4.
  */
 public class MainActivity extends BaseActivity implements View.OnClickListener {
+    private static final String TAG = MainActivity.class.getSimpleName();
     public static String UPLOAD_RESULT = "upload_result";
     public static final String KEY_NAME = "key_name";
 
@@ -47,12 +48,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         initView();
         initData();
+        Log.i(TAG, "onCreate "+getTaskId()+" "+hashCode());
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.i(TAG, "onNewIntent "+getTaskId()+" "+hashCode());
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(broadcastReceiver);
+        Log.i(TAG, "onNewIntent "+getTaskId()+" "+hashCode());
     }
 
     private void initView() {
@@ -84,14 +93,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.tv_action_view:
                 intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
-                String urlString = new ActivitySchemas(ActivitySchemas.TEST_TOUCH_SCHEMA).setParam("type", 0).getUriString();
+                String urlString = new ActivitySchemas(ActivitySchemas.TOUCH_SCHEMA).setParam("type", 0).getUriString();
                 intent.setData(Uri.parse(urlString));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
                 break;
             case R.id.tv_implicit:
                 intent = new Intent();
-                intent.setAction("com.bride.demon.activity.TestFragmentActivity");
+                intent.setAction(ActivityNameFinals.App.PLATFORM);
                 intent.addCategory("android.intent.category.DEFAULT");
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                 startActivity(intent);
                 break;
             case R.id.tv_app:

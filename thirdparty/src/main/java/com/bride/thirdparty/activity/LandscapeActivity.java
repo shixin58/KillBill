@@ -31,7 +31,7 @@ public class LandscapeActivity extends BaseActivity {
         }
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
-        Log.i(TAG, "onCreate - "+savedInstanceState);
+        Log.i(TAG, "onCreate "+getTaskId()+" "+hashCode());
         setContentView(R.layout.activity_landscape);
         initView();
     }
@@ -46,15 +46,9 @@ public class LandscapeActivity extends BaseActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Log.i(TAG, "onSaveInstanceState - "+outState);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        Log.i(TAG, "onRestoreInstanceState - "+savedInstanceState);
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.i(TAG, "onNewIntent "+getTaskId()+" "+hashCode());
     }
 
     @Override
@@ -96,13 +90,16 @@ public class LandscapeActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i(TAG, "onDestroy");
+        Log.i(TAG, "onDestroy "+getTaskId()+" "+hashCode());
     }
 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_recreate:
                 recreate();
+                break;
+            case R.id.tv_eventbus:
+                EventBusActivity.openActivity(this);
                 break;
         }
     }

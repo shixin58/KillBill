@@ -13,9 +13,6 @@ import com.bride.demon.fragment.HomeFragment
 import com.bride.demon.fragment.NotificationsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-/**
- *
- */
 class MainActivity : BaseActivity() {
 
     private val fragments = arrayOfNulls<Fragment>(3)
@@ -141,5 +138,9 @@ class MainActivity : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentLifecycleCallbacks)
+    }
+
+    companion object {
+        private val TAG: String = MainActivity::class.java.simpleName
     }
 }
