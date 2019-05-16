@@ -10,14 +10,14 @@ import android.view.View;
 
 import com.bride.baselib.BaseActivity;
 import com.bride.demon.R;
-import com.bride.demon.widget.MyViewGroup;
+import com.bride.demon.widget.CustomViewGroup;
 
 /**
  * <p>Created by shixin on 2018/9/13.
  */
 public class TouchActivity extends BaseActivity {
     private static final String TAG = TouchActivity.class.getSimpleName();
-    // 包访问权限
+
     int type;
 
     public static void openActivity(Context context, int type) {
@@ -39,23 +39,24 @@ public class TouchActivity extends BaseActivity {
     }
 
     private void initView() {
-        // mExtras.getInt(String, int)
         this.type = getIntent().getIntExtra("type", 0);
-        MyViewGroup viewGroup;
-        if(type == 1) {
-            viewGroup = new MyViewGroup(this);
-        }else {
-            viewGroup = findViewById(R.id.my_view_group);
-        }
-        // onTouch -> onTouchEvent -> performClick
+        CustomViewGroup viewGroup = type == 1 ? new CustomViewGroup(this) : findViewById(R.id.my_view_group);
+
+        // ViewGroup#dispatchTouchEvent利用touch坐标查找合适的child, 然后调用ViewGroup#dispatchTransformedTouchEvent。
+        // 若有，执行child#dispatchTouchEvent; 否则执行super#dispatchTouchEvent。
+        // ViewGroup#dispatchTouchEvent调用onTouch和onTouchEvent，onTouchEvent调用performClick。
         viewGroup.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                Log.i(TAG, "onTouch "+event.getAction());
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         break;
                     case MotionEvent.ACTION_UP:
-                        v.performClick();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
                         break;
                 }
                 return false;
@@ -64,6 +65,7 @@ public class TouchActivity extends BaseActivity {
         viewGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i(TAG, "onClick");
                 viewGroup.setBackgroundColor(Color.BLUE);
             }
         });

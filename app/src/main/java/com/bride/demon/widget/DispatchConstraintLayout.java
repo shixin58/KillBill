@@ -33,9 +33,9 @@ public class DispatchConstraintLayout extends ConstraintLayout {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 break;
-            case MotionEvent.ACTION_MOVE:
-                break;
             case MotionEvent.ACTION_UP:
+                break;
+            case MotionEvent.ACTION_MOVE:
                 break;
             case MotionEvent.ACTION_CANCEL:
                 break;
@@ -48,10 +48,9 @@ public class DispatchConstraintLayout extends ConstraintLayout {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 break;
-            case MotionEvent.ACTION_MOVE:
-                // child收到CANCEL，parent接管之后的MOVE和UP事件
-                return true;
             case MotionEvent.ACTION_UP:
+                break;
+            case MotionEvent.ACTION_MOVE:
                 break;
             case MotionEvent.ACTION_CANCEL:
                 break;
@@ -70,9 +69,9 @@ public class DispatchConstraintLayout extends ConstraintLayout {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 break;
-            case MotionEvent.ACTION_MOVE:
-                break;
             case MotionEvent.ACTION_UP:
+                break;
+            case MotionEvent.ACTION_MOVE:
                 break;
             case MotionEvent.ACTION_CANCEL:
                 break;

@@ -12,12 +12,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <com.bride.demon.widget.MyViewGroup
+        <com.bride.demon.widget.CustomViewGroup
             android:id="@+id/my_view_group"
             android:layout_width="0dp"
             android:layout_height="200dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/tv_direction"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:background="@android:color/holo_purple"
+                android:text="左上角"/>
+        </com.bride.demon.widget.CustomViewGroup>
     </com.bride.demon.widget.DispatchConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
