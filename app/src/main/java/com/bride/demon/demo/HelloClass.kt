@@ -60,12 +60,18 @@ fun main() {
     f(NotAString)
 
     val i = Outer.Nested().get()
+    val k = ShorterNested().get()
     val j = Outer().Inner().retrieve()
     println("i = $i, j = $j")
 
     DataProviderManager.create()
     val factory = MyClass.Companion
     factory.create()
+
+    val f: (Int) -> Boolean = { it > 0 }
+    println(foo(f))
+    val p: Predicate<Int> = { it > 0 }
+    println(listOf(1, -1).filter(p))
 }
 
 open class Base() {
@@ -208,6 +214,8 @@ class Outer {
     }
 }
 
+typealias ShorterNested = Outer.Nested
+
 abstract class DataProvider {
     abstract fun create()
 }
@@ -230,3 +238,8 @@ class MyClass {
         }
     }
 }
+
+// function type
+typealias Predicate<T> = (T) -> Boolean
+
+fun foo(p: Predicate<Int>) = p(24)

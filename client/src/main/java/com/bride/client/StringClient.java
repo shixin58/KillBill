@@ -1,5 +1,7 @@
 package com.bride.client;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.UUID;
 
 /**
@@ -14,6 +16,9 @@ public class StringClient {
         testStringBuilder();
         testStringBuffer();
         generateUUID();
+
+//        diskClassLoader();
+        networkClassLoader();
     }
 
     public static void testString() {
@@ -93,5 +98,41 @@ public class StringClient {
             e.printStackTrace();
         }
         System.out.println(UUID.randomUUID().toString());
+    }
+
+    public static void diskClassLoader() {
+        CustomClassLoader classLoader = new CustomClassLoader("/Users/shixin/CreativeProjects/HelloJava/classes");
+        try {
+            Class<?> cls = classLoader.loadClass("com.max.creative.ClassLoaderClient");
+            Method method = cls.getMethod("main", String[].class);
+            String[] params = new String[]{"Victor", "Max", "Jacob"};
+            method.invoke(null, (Object) params);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void networkClassLoader() {
+        NetworkClassLoader classLoader = new NetworkClassLoader("http://47.91.249.201:8080/classes");
+        try {
+            Class<?> cls = classLoader.loadClass("com.max.creative.ClassLoaderClient");
+            Method method = cls.getMethod("main", String[].class);
+            String[] params = new String[]{"Victor", "Max", "Jacob"};
+            method.invoke(null, (Object) params);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -25,4 +25,15 @@
         android:gravity="center"
         android:onClick="onClick"
         android:text="use外部服务"/>
+
+    <TextView
+        android:id="@+id/tv_class_loader"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_use_service"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:text="load class"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

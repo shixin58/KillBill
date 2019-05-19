@@ -1,5 +1,6 @@
 package com.bride.demon.demo
 
+import java.lang.StringBuilder
 import java.util.concurrent.locks.Lock
 import java.util.concurrent.locks.ReentrantLock
 
@@ -40,16 +41,31 @@ fun main() {
     }
     println()
 
-    lock(ReentrantLock()) {
+    lock(ReentrantLock()) lit@{
         fool()
+        return@lit
     }
 
-    ff {
+    ff lit@ {
         fool()
+        return@lit
+    }
+
+    // non-local returns
+    sing lit@{
+        println(it)
+        return@lit
     }
 
     // character literal
     println("decimalDigitValue: ${decimalDigitValue('1')}")
+
+    val root = TreeNode(1, null)
+    val left = TreeNode(2, root)
+    val right = TreeNode(3, root)
+    println(left.findParentOfType(TreeNode::class.java))
+    println(right.findParentOfType<TreeNode>())
+    println(membersOf<StringBuilder>())
 }
 
 val i: Int = 0b01010101_10101010
@@ -79,16 +95,21 @@ fun printStrLength(str: String?): Unit {
 }
 
 fun fool() {
+    // in lambda expressions, return at labels
+    // forEach is inline function, take lambda as parameter
     listOf(1, 3, 5, 7).forEach lit@{
         if (it == 5)
             return@lit
         print("it = $it, ")
     }
+
+    // return from anonymous function
     arrayOf(2, 4, 6, 8).forEach(fun(value: Int) {
         if (value == 6)
             return
         print("value = $value, ")
     })
+
     run loop@{
         doubleArrayOf(1.1, 2.2, 3.3, 4.4).forEach {
             if (it == 3.3)
@@ -113,3 +134,32 @@ inline fun ff(crossinline body: () -> Unit) {
         override fun run() = body()
     }
 }
+
+inline fun sing(body: (String) -> Unit) {
+    body("I like it.")
+}
+
+class TreeNode(var value: Int, var parent: TreeNode?) {
+    override fun toString(): String {
+        return "TreeNode[value = $value, parent = $parent]"
+    }
+}
+
+fun <T> TreeNode.findParentOfType(clazz: Class<T>): T? {
+    var p = parent
+    while (p != null && !clazz.isInstance(p)) {
+        p = p.parent
+    }
+    return p as T?
+}
+
+inline fun <reified T> TreeNode.findParentOfType(): T? {
+    var p = parent
+    while (p != null && p !is T) {
+        p = p.parent
+    }
+    return p as T?
+}
+
+// For java, in runtime, instanceof operator is replaced by Class#isInstance(Object).
+inline fun <reified T> membersOf() = T::class.members

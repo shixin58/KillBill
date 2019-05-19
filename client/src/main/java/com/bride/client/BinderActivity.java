@@ -9,6 +9,7 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bride.baselib.BaseActivity;
@@ -19,6 +20,8 @@ import com.bride.demon.IMyService;
  * <p>Created by shixin on 2019-05-15.
  */
 public class BinderActivity extends BaseActivity {
+    private static final String TAG = BinderActivity.class.getSimpleName();
+
     private IMyService mService;
 
     public static void openActivity(Context context) {
@@ -64,6 +67,29 @@ public class BinderActivity extends BaseActivity {
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
+                }
+                break;
+            case R.id.tv_class_loader:
+                Log.i(TAG, "class loader for com.bride.client.BinderActivity");
+                // java.lang.BootClassLoader, dalvik.system.PathClassLoader
+                ClassLoader cl = BinderActivity.class.getClassLoader();
+                while (cl != null) {
+                    Log.i(TAG, "ClassLoader "+cl);
+                    cl = cl.getParent();
+                }
+
+                Log.i(TAG, "class loader for java.lang.String");
+                cl = String.class.getClassLoader();
+                while (cl != null) {
+                    Log.i(TAG, "ClassLoader "+cl);
+                    cl = cl.getParent();
+                }
+
+                Log.i(TAG, "class loader for android.widget.TextView");
+                cl = TextView.class.getClassLoader();
+                while (cl != null) {
+                    Log.i(TAG, "ClassLoader "+cl);
+                    cl = cl.getParent();
                 }
                 break;
         }
