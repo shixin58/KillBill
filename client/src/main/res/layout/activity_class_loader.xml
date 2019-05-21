@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tv_switch"
+        android:id="@+id/tv_class_loader"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -13,16 +13,27 @@
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="center"
         android:onClick="onClick"
-        android:text="bind外部服务"/>
+        android:text="load class"/>
 
     <TextView
-        android:id="@+id/tv_use_service"
+        android:id="@+id/tv_download_plugin"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_switch"
+        app:layout_constraintTop_toBottomOf="@id/tv_class_loader"
         android:gravity="center"
         android:onClick="onClick"
-        android:text="use外部服务"/>
+        android:text="download plugin"/>
+
+    <TextView
+        android:id="@+id/tv_load_plugin"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_download_plugin"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:text="load plugin"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,6 +26,9 @@ import com.bride.baselib.ActivityNameFinals;
 import com.bride.baselib.ActivitySchemas;
 import com.bride.baselib.BaseActivity;
 import com.bride.baselib.PackageNameFinals;
+import com.bride.baselib.PermissionUtils;
+import com.bride.client.activity.BinderActivity;
+import com.bride.client.activity.ClassLoaderActivity;
 import com.bride.demon.Form;
 import com.bride.demon.IMyService;
 
@@ -48,6 +51,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         initView();
         initData();
+        PermissionUtils.requestAllPermissions(this, 1);
         Log.i(TAG, "onCreate "+getTaskId()+" "+hashCode());
     }
 
@@ -80,6 +84,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         findViewById(R.id.tv_changeThread).setOnClickListener(this);
         findViewById(R.id.tv_execute_task).setOnClickListener(this);
+        findViewById(R.id.tv_plugin).setOnClickListener(this);
     }
 
     private void initData() {
@@ -227,6 +232,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         });
                     }
                 });
+                break;
+            case R.id.tv_plugin:
+                ClassLoaderActivity.openActivity(this);
                 break;
         }
     }
