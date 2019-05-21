@@ -102,4 +102,15 @@
         android:gravity="center"
         android:onClick="onClick"
         android:text="Context#getFilesDir"/>
+
+    <TextView
+        android:id="@+id/tv_dir10"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_dir9"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:text="Context#getDir"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

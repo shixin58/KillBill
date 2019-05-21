@@ -10,6 +10,8 @@ import android.widget.Toast;
 import com.bride.baselib.BaseActivity;
 import com.bride.thirdparty.R;
 
+import java.io.File;
+
 /**
  * <p>Created by shixin on 2019/4/3.
  */
@@ -61,6 +63,13 @@ public class DirectoryActivity extends BaseActivity {
                 break;
             case R.id.tv_dir9:
                 Toast.makeText(this, getFilesDir().getPath(), Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv_dir10:
+                File pluginDir = new File(getDir("plugin", Context.MODE_PRIVATE), "apk");
+                if (!pluginDir.exists()) {
+                    pluginDir.mkdirs();
+                }
+                Toast.makeText(this, pluginDir.getPath(), Toast.LENGTH_SHORT).show();
                 break;
         }
     }
