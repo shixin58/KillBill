@@ -11,6 +11,7 @@ import java.util.Scanner;
 public class BigNumberClient {
     public static void main(String[] args) {
 //        additionOrSubtraction();
+        testBigInteger();
 //        testBitSet();
         testAscii();
 //        swap();
@@ -68,6 +69,10 @@ public class BigNumberClient {
         BigInteger bigIntegerAnother = new BigInteger("333");
         BigInteger result = bigInteger.add(bigIntegerAnother);
         System.out.println("BigInteger addition: "+result);
+
+        System.out.format("%%d: %d %d %d\n", bigInteger, bigIntegerAnother, result);
+        System.out.printf("%%x: %x\n", bigInteger);
+        System.out.printf("%%h: %h\n", bigInteger);
     }
 
     public static void testBitSet() {
@@ -94,6 +99,7 @@ public class BigNumberClient {
     }
 
     // 将字符强转为ASCII
+    // 0: 48; A: 65; a: 97; z: 122
     public static void testAscii() {
         System.out.println("--- testAscii ---");
         int i = '0';
