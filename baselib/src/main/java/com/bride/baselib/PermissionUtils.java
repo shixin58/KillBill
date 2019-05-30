@@ -16,6 +16,7 @@ import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.READ_PHONE_NUMBERS;
 import static android.Manifest.permission.READ_PHONE_STATE;
+import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.USE_SIP;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
@@ -62,13 +63,41 @@ public class PermissionUtils {
         }
     }
 
+    public static void requestCameraPermission(Activity activity, int requestCode) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+            return;
+        if(ContextCompat.checkSelfPermission(CONTEXT, CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            if(ActivityCompat.shouldShowRequestPermissionRationale(activity, CAMERA)) {
+                Toast.makeText(activity, "您需要到系统设置里打开Camera权限", Toast.LENGTH_SHORT).show();
+            }else {
+                ActivityCompat.requestPermissions(activity, new String[]{CAMERA,
+                        WRITE_EXTERNAL_STORAGE}, requestCode);
+            }
+        }
+    }
+
+    public static void requestRecordAudioPermission(Activity activity, int requestCode) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+            return;
+        if(ContextCompat.checkSelfPermission(CONTEXT, RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED) {
+            if(ActivityCompat.shouldShowRequestPermissionRationale(activity, RECORD_AUDIO)) {
+                Toast.makeText(activity, "您需要到系统设置里打开录音权限", Toast.LENGTH_SHORT).show();
+            }else {
+                ActivityCompat.requestPermissions(activity, new String[]{RECORD_AUDIO,
+                        WRITE_EXTERNAL_STORAGE}, requestCode);
+            }
+        }
+    }
+
     public static void requestAllPermissions(Activity activity, int requestCode) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
             return;
         if(ContextCompat.checkSelfPermission(CONTEXT, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(CONTEXT, READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(CONTEXT, CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity, new String[]{READ_EXTERNAL_STORAGE, READ_PHONE_STATE, CAMERA}, requestCode);
+                || ContextCompat.checkSelfPermission(CONTEXT, READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, new String[]{READ_EXTERNAL_STORAGE,
+                    READ_PHONE_STATE}, requestCode);
         }
     }
 }

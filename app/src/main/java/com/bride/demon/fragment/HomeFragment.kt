@@ -33,6 +33,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         view?.findViewById<View>(R.id.button_base)?.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_fragment)?.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_texture_view)?.setOnClickListener(this)
+        view?.findViewById<View>(R.id.button_audio_record)?.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_recycler_view)?.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_touch)?.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_nested_list)?.setOnClickListener(this)
@@ -60,21 +61,22 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        when {
-            v?.id == R.id.button_base -> {
+        when (v?.id){
+            R.id.button_base -> {
                 BlankActivity.openActivity(activity)
                 blankClicked = true
             }
-            v?.id == R.id.button_fragment -> PlatformActivity.openActivityForResult(this, 1)
-            v?.id == R.id.button_texture_view -> LiveCameraActivity.openActivity(activity)
-            v?.id == R.id.button_recycler_view -> RecyclerViewActivity.openActivity(activity)
-            v?.id == R.id.button_touch -> TouchActivity.openActivity(activity, 0)
-            v?.id == R.id.button_nested_list -> NestedListActivity.openActivity(activity)
-            v?.id == R.id.button_upload -> UploadActivity.openActivity(activity)
-            v?.id == R.id.button_webp -> WebpActivity.openActivity(activity)
-            v!!.id == R.id.button_glide -> GlideActivity.openActivity(activity)
-            v!!.id == R.id.button_relative_layout -> RelativeLayoutActivity.openActivity(activity)
-            v!!.id == R.id.button_volley -> VolleyActivity.openActivity(activity)
+            R.id.button_fragment -> PlatformActivity.openActivityForResult(this, 1)
+            R.id.button_texture_view -> LiveCameraActivity.openActivity(activity)
+            R.id.button_audio_record -> AudioRecordActivity.openActivity(activity)
+            R.id.button_recycler_view -> RecyclerViewActivity.openActivity(activity)
+            R.id.button_touch -> TouchActivity.openActivity(activity, 0)
+            R.id.button_nested_list -> NestedListActivity.openActivity(activity)
+            R.id.button_upload -> UploadActivity.openActivity(activity)
+            R.id.button_webp -> WebpActivity.openActivity(activity)
+            R.id.button_glide -> GlideActivity.openActivity(activity)
+            R.id.button_relative_layout -> RelativeLayoutActivity.openActivity(activity)
+            R.id.button_volley -> VolleyActivity.openActivity(activity)
         }
     }
 

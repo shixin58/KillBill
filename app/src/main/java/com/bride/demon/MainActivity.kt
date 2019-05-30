@@ -1,5 +1,6 @@
 package com.bride.demon
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -138,6 +139,20 @@ class MainActivity : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentLifecycleCallbacks)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when(requestCode) {
+            1 -> {
+                for(result in grantResults) {
+                    if (result != PackageManager.PERMISSION_GRANTED) {
+                        finish()
+                        break
+                    }
+                }
+            }
+        }
     }
 
     companion object {
