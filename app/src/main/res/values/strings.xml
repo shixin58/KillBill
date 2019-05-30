@@ -14,6 +14,7 @@
     <string name="activity_glide" translatable="false">GlideActivity</string>
     <string name="activity_relative_layout" translatable="false">RelativeLayoutActivity</string>
     <string name="volley_activity" translatable="false">VolleyActivity</string>
+    <string name="activity_live_camera" translatable="false">LiveCameraActivity</string>
 
     <string name="activity_standard" translatable="false">StandardActivity</string>
     <string name="activity_single_top" translatable="false">SingleTopActivity</string>

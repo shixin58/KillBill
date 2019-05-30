@@ -32,6 +32,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         super.onActivityCreated(savedInstanceState)
         view?.findViewById<View>(R.id.button_base)?.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_fragment)?.setOnClickListener(this)
+        view?.findViewById<View>(R.id.button_texture_view)?.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_recycler_view)?.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_touch)?.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_nested_list)?.setOnClickListener(this)
@@ -65,6 +66,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                 blankClicked = true
             }
             v?.id == R.id.button_fragment -> PlatformActivity.openActivityForResult(this, 1)
+            v?.id == R.id.button_texture_view -> LiveCameraActivity.openActivity(activity)
             v?.id == R.id.button_recycler_view -> RecyclerViewActivity.openActivity(activity)
             v?.id == R.id.button_touch -> TouchActivity.openActivity(activity, 0)
             v?.id == R.id.button_nested_list -> NestedListActivity.openActivity(activity)

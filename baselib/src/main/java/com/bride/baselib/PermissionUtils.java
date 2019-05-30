@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat;
 import static android.Manifest.permission.ADD_VOICEMAIL;
 import static android.Manifest.permission.ANSWER_PHONE_CALLS;
 import static android.Manifest.permission.CALL_PHONE;
+import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.READ_PHONE_NUMBERS;
 import static android.Manifest.permission.READ_PHONE_STATE;
@@ -65,8 +66,9 @@ public class PermissionUtils {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
             return;
         if(ContextCompat.checkSelfPermission(CONTEXT, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(CONTEXT, READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity, new String[]{READ_EXTERNAL_STORAGE, READ_PHONE_STATE}, requestCode);
+                || ContextCompat.checkSelfPermission(CONTEXT, READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(CONTEXT, CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, new String[]{READ_EXTERNAL_STORAGE, READ_PHONE_STATE, CAMERA}, requestCode);
         }
     }
 }
