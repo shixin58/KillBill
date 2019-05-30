@@ -137,5 +137,6 @@ public class StringClient {
         String dolphin = "Dolphin";
         // .任意单个字符，*0到多个字符，?0到1个字符，+1到多个字符
         System.out.println(dolphin.matches("Dolphi.")+" "+dolphin.matches("Dolphin.*")+" "+dolphin.matches("Dolphi.?"));
+        System.out.println("MainActivity".matches("^M.*y$"));
     }
 }

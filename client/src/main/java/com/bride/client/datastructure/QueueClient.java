@@ -63,7 +63,9 @@ public class QueueClient {
         System.out.println();
     }
 
-    // 双向顺序队列
+    // 双向顺序队列，内部Object数组默认容量16，若判定容量已满，双倍扩容。
+    // head指向第一个元素位置，tail指向最后元素下一个位置。
+    // 插入null会抛出NullPointer；not thread-safe, 用作栈比Stack更快，用作链表比LinkedList更快
     private static void testArrayDeque() {
         System.out.println("=== ArrayDeque ===");
         ArrayDeque<Integer> arrayDeque = new ArrayDeque<>(100);
@@ -81,5 +83,15 @@ public class QueueClient {
             System.out.print(arrayDeque.removeLast()+", ");
         }
         System.out.println();
+        int pointer = 0;
+        String[] values = {"copper", "iron", "gold", "silver"};
+        System.out.println(values[pointer = (pointer - 1) & (values.length - 1)]);// 双端队列
+        pointer = 0;
+        System.out.println(values[pointer++]);
+        pointer = 0;
+        System.out.println(values[++pointer]);
+        pointer = 0;
+        System.out.println(values[pointer += 1]);// 相当于++i
+        System.out.println((-1 & 15) + " " + (-2 & 15));
     }
 }
