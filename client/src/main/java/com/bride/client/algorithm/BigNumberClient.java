@@ -1,5 +1,6 @@
 package com.bride.client.algorithm;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.BitSet;
 import java.util.LinkedList;
@@ -12,6 +13,7 @@ public class BigNumberClient {
     public static void main(String[] args) {
 //        additionOrSubtraction();
         testBigInteger();
+        testBigDecimal();
 //        testBitSet();
         testAscii();
 //        swap();
@@ -73,6 +75,23 @@ public class BigNumberClient {
         System.out.format("%%d: %d %d %d\n", bigInteger, bigIntegerAnother, result);
         System.out.printf("%%x: %x\n", bigInteger);
         System.out.printf("%%h: %h\n", bigInteger);
+    }
+
+    public static void testBigDecimal() {
+        System.out.println("--- testBigDecimal ---");
+        BigDecimal bigDecimal = new BigDecimal("8.9999999999");
+        String input = "13701116418\n1.2222222222 2.3333333333 3.4444444444";
+        Scanner scanner = new Scanner(input);
+        scanner.useDelimiter("\\s*,\\s*");// scanner.delimiter()
+        if (scanner.hasNextBigInteger()) {
+            BigInteger bigInteger = scanner.nextBigInteger();
+            System.out.println(bigInteger.toString());
+        }
+        while (scanner.hasNextBigDecimal()) {
+            BigDecimal decimal = scanner.nextBigDecimal();
+            System.out.println(decimal.toString());
+        }
+        System.err.println(scanner.ioException());
     }
 
     public static void testBitSet() {

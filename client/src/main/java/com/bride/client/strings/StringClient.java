@@ -1,6 +1,5 @@
-package com.bride.client;
+package com.bride.client.strings;
 
-import java.util.Arrays;
 import java.util.Formatter;
 import java.util.UUID;
 
@@ -16,7 +15,6 @@ public class StringClient {
         testStringBuilder();
         testStringBuffer();
         generateUUID();
-        testRegularExpressions();
     }
 
     public static void testString() {
@@ -116,27 +114,5 @@ public class StringClient {
             e.printStackTrace();
         }
         System.out.println(UUID.randomUUID().toString());
-    }
-
-    public static void testRegularExpressions() {
-        System.out.println("\n*** regular expressions ***");
-        System.out.println("-123".matches("-?\\d+")+" "+"-123".matches("-?\\w+"));
-        System.out.println("\\".matches("\\\\"));
-        System.out.println("+911".matches("(-|\\+)?\\d+"));
-        // illegal escape character in String literal。Java不支持\e么？
-        // \r \015
-        System.out.println("e\n\t\r\f".matches("e\\e?\\s+"));
-        String greetings = "Victor, welcome to Beijing";
-        System.out.println(Arrays.toString(greetings.split("\\W+")));
-        System.out.println(Arrays.toString(greetings.split(" ", 3)));
-        System.out.println(Arrays.toString(greetings.split("c\\w+")));
-        System.out.println(greetings.replaceFirst("B\\w+", "China"));
-        System.out.println(greetings.replaceFirst("B[a-zA-Z0-9]+", "China"));
-        System.out.println(greetings.replaceAll("\\x6f", "\117"));// o(十六进制) O(八进制)
-
-        String dolphin = "Dolphin";
-        // .任意单个字符，*0到多个字符，?0到1个字符，+1到多个字符
-        System.out.println(dolphin.matches("Dolphi.")+" "+dolphin.matches("Dolphin.*")+" "+dolphin.matches("Dolphi.?"));
-        System.out.println("MainActivity".matches("^M.*y$"));
     }
 }
