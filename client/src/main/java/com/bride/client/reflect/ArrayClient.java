@@ -1,6 +1,7 @@
 package com.bride.client.reflect;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -26,5 +27,16 @@ public class ArrayClient {
         // 数组也是Object子类，可调用Object所有方法
         // String.valueOf(obj) -> obj.toString()
         System.out.println(Arrays.toString((Object[]) object2));
+
+        String[] names = (String[]) Array.newInstance(String.class, 6);
+        names[0] = "New York City";
+        names[1] = "Los Angeles";
+        names[2] = "Mexico City";
+        System.out.println(Arrays.toString(names));
+
+        Object[] objects = {"Victor", "Jacob", "Max"};
+        objects = names;
+        // 类型擦除，Object[]
+        ArrayList<String> arrayList = new ArrayList<>();
     }
 }
