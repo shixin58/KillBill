@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 
 /**
  * 反射reflect
@@ -17,6 +18,7 @@ public class ReflectClient {
             Class<?> cl = Human.class;
             // 创建对象
             Constructor constructor = cl.getConstructor(String.class, int.class, double.class);
+            System.out.println(constructor.toString());
             Object object = constructor.newInstance("Max", 29, 100000);
             // 创建空参构造
             Object object1 = cl.newInstance();
@@ -45,7 +47,7 @@ public class ReflectClient {
 
             // 获得Field
             Field field = cl.getField("performance");
-            System.out.println(""+field.getInt(object));
+            System.out.println(field.toString()+" "+field.getInt(object));
 
             if(cl.isInstance(object)) {
                 // 等同于instanceof
@@ -54,10 +56,12 @@ public class ReflectClient {
             // 调用私有方法和域
             Method method2 = cl.getDeclaredMethod("getSalary");
             method2.setAccessible(true);
-            System.out.println(method2.invoke(object));
+            System.out.println(method2.toString()+" "+method2.invoke(object));
             Field field1 = cl.getDeclaredField("salary");
             field1.setAccessible(true);
-            System.out.println(field1.getDouble(object));
+            System.out.println(field1.toString()+" "+field1.getDouble(object));
+            // 子类覆盖的方法Method和父类相同
+            Individual.class.getMethod("born").invoke(object);
 
             // 遍历类中所有方法
             Method[] methods = cl.getDeclaredMethods();
@@ -68,10 +72,14 @@ public class ReflectClient {
 
             // 遍历类中所有域
             Field[] fields = cl.getDeclaredFields();
-            for (int i=0;i<fields.length;i++) {
-                System.out.print(fields[i].getName()+", ");
+            for (Field f : fields) {
+                System.out.print(f.getName()+", ");
             }
             System.out.println();
+
+            new Human.Factory().create();
+
+            System.out.println(Arrays.toString(Human.class.getClasses()));
         } catch (Exception e) {
             e.printStackTrace();
         }
