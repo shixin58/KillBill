@@ -63,4 +63,15 @@
         android:onClick="onClick"
         android:gravity="center"
         android:text="test Landscape"/>
+
+    <TextView
+        android:id="@+id/tv_anr"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_landscape"
+        android:onClick="onClick"
+        android:gravity="center"
+        android:text="test ANR"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
