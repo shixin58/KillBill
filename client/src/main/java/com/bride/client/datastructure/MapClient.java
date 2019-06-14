@@ -35,9 +35,16 @@ public class MapClient {
         map.put("fox", "狐狸");
         map.put(null, "Empty!");
         map.put("plant", null);
+        System.out.println(map);
+        HashMap<String, String> submap = new LinkedHashMap<>();
+        submap.put("plant", "rose");
+        submap.put("wolf", "smart");
+        submap.put("mouse", "鼠标");
+        map.putAll(submap);
+        System.out.println(map);
 
-        System.out.println(map.get(null));
-        System.out.println(map.get("fish"));// null
+        System.out.println(map.containsKey(null) +" "+ map.containsKey("plant"));
+        System.out.println(map.get("fish")+" "+map.get(null)+" "+map.get("plant"));// 返回null而不是异常
 
         Set<Map.Entry<String, String>> set = map.entrySet();
         for(Map.Entry<String, String> entry : set) {

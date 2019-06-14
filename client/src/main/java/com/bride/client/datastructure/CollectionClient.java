@@ -3,6 +3,7 @@ package com.bride.client.datastructure;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -12,6 +13,7 @@ public class CollectionClient {
 
     public static void main(String[] args) {
         collections();
+        anonymous();
     }
 
     public static void collections() {
@@ -28,5 +30,16 @@ public class CollectionClient {
 
         Integer[] ints = linkedList.toArray(new Integer[linkedList.size()]);
         System.out.println(Arrays.toString(ints));
+        Integer[] integers = (Integer[]) linkedList.toArray();
+
+    }
+
+    public static void anonymous() {
+        List<String> unmodifiableList = Collections.unmodifiableList(Arrays.asList("Victor", "Simon", "Max", "Jacob"));
+        for (String s: unmodifiableList) {
+            System.out.print(s+", ");
+        }
+        List<String> synchronizedList = Collections.synchronizedList(Arrays.asList("Mouse", "Rat", "Hamster"));
+        List<String> singletonList = Collections.singletonList("Google");
     }
 }
