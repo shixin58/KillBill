@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * <p>Created by shixin on 2018/9/1.
  */
-public class Human {
+public class Human implements Individual {
 
     public int performance = 99;
 
@@ -63,5 +63,30 @@ public class Human {
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
+    }
+
+    @Override
+    public void born() {
+        System.out.println("I'm born in Shanxi Province.");
+    }
+
+    public static class Factory implements com.bride.client.reflect.Factory<Human> {
+
+        @Override
+        public Human create() {
+            return new Human();
+        }
+    }
+
+    public interface Edible {
+
+    }
+
+    public @interface Careful {
+
+    }
+
+    public enum Sex {
+
     }
 }

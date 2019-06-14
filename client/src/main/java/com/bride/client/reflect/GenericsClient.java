@@ -1,4 +1,4 @@
-package com.bride.client;
+package com.bride.client.reflect;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
