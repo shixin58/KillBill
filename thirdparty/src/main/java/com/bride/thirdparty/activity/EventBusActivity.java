@@ -28,6 +28,14 @@ import java.lang.ref.WeakReference;
  */
 public class EventBusActivity extends BaseActivity {
     private static final String TAG = EventBusActivity.class.getSimpleName();
+    static SoftReference<Beauty> beautySoftReference;
+
+    static WeakReference<Beauty> beautyWeakReference;
+
+    final ReferenceQueue<Object> referenceQueue = new ReferenceQueue<>();
+
+    Beauty beauty;
+    CustomWeakReference<Beauty> weakReference;
 
     public static void openActivity(Activity activity) {
         Intent intent = new Intent(activity, EventBusActivity.class);
@@ -111,15 +119,6 @@ public class EventBusActivity extends BaseActivity {
         Toast.makeText(this, event.info, Toast.LENGTH_SHORT).show();
         EventBus.getDefault().removeStickyEvent(event);
     }
-
-    static SoftReference<Beauty> beautySoftReference;
-
-    static WeakReference<Beauty> beautyWeakReference;
-
-    final ReferenceQueue<Object> referenceQueue = new ReferenceQueue<>();
-
-    Beauty beauty;
-    CustomWeakReference<Beauty> weakReference;
 
     static class Beauty {
 

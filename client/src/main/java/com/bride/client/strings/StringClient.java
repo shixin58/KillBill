@@ -12,6 +12,7 @@ public class StringClient {
 
     public static void main(String[] args) {
         testString();
+        exploreMemory();
         testStringBuilder();
         testStringBuffer();
         generateUUID();
@@ -44,10 +45,20 @@ public class StringClient {
         double x = 179.543;
         System.out.printf("%%e: %.4e\n", x);
         System.out.format("%%f: %-10.2f\n", x);
+    }
 
+    public static void exploreMemory() {
+        System.out.println("\n*** exploreMemory ***");
         Object o = new Object();
         // 打印内存地址(java.lang.Object@60e53b93)。VM constant pool
-        System.out.println(o.toString()+" "+str.intern());
+        System.out.println(o.toString()+" " + (new String("hi").intern() == new String("hi").intern()));
+
+        // 不同对象，相同hash值
+        System.out.print(new String("hi") == new String("hi"));
+        System.out.println(" "+new String("hi").hashCode() +" " +new String("hi").hashCode());
+
+        String str = "0xFF";// 255
+        System.out.println(Integer.decode(str)+" "+str.hashCode());
     }
 
     public static void testStringBuilder() {

@@ -6,7 +6,9 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.NavigableMap;
 import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * Map子类 demo
@@ -21,6 +23,8 @@ public class MapClient {
         testHashtable();
 
         testLinkedHashMap();
+
+        testTreeMap();
     }
 
     // put通过key计算hash值，将其映射到对象引用
@@ -130,5 +134,14 @@ public class MapClient {
             }
             return stringBuilder.toString();
         }
+    }
+
+    private static void testTreeMap() {
+        System.out.println("\n*** TreeMap ***");
+        NavigableMap<Integer, String> map = new TreeMap<>();
+        map.put(2, "rabbit");
+        map.put(1, "turtle");
+        map.put(3, "fox");
+        System.out.println(map);
     }
 }

@@ -2,7 +2,6 @@ package com.bride.client.algorithm;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.BitSet;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -14,7 +13,6 @@ public class BigNumberClient {
 //        additionOrSubtraction();
         testBigInteger();
         testBigDecimal();
-//        testBitSet();
         testAscii();
 //        swap();
 //        move();
@@ -94,33 +92,10 @@ public class BigNumberClient {
         System.err.println(scanner.ioException());
     }
 
-    public static void testBitSet() {
-        System.out.println("--- testBitSet ---");
-        BitSet bitSet = new BitSet();
-        bitSet.set(0, true);
-        bitSet.set(1, false);
-        bitSet.set(2);
-        bitSet.clear(3);
-        bitSet.set(4, 8);
-        String bits = bitSet.toString();
-        System.out.println("bitSet: "+bits+"; length: "+bitSet.length());
-
-        BitSet anotherBitSet = new BitSet();
-        anotherBitSet.set(0, 3);
-        anotherBitSet.clear(4, 7);
-        anotherBitSet.set(7);
-        System.out.println("anotherBitSet: "+anotherBitSet.toString()+"; length: "+anotherBitSet.length());
-
-        bitSet.xor(anotherBitSet);
-        anotherBitSet.xor(bitSet);
-        bitSet.xor(anotherBitSet);
-        System.out.println(bitSet.toString()+", "+anotherBitSet);
-    }
-
     // 将字符强转为ASCII
     // 0: 48; A: 65; a: 97; z: 122
     public static void testAscii() {
-        System.out.println("--- testAscii ---");
+        System.out.println("\n--- testAscii ---");
         int i = '0';
         int A = 'A';
         int a = 'a';
