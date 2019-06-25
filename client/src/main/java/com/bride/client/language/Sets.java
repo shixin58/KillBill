@@ -30,9 +30,11 @@ public class Sets {
     }
 
     public static void treeSet() {
+        // 1.6新增NavigableSet接口，ConcurrentSkipListSet、ConcurrentSkipListMap类
         NavigableSet<String> set = new TreeSet<>();
-        Collections.addAll(set, "Dog", "Cat", "Fox");
+        Collections.addAll(set, "Dog", "Cat", "Fox", "Tiger", "Lion", "Crow", "Dragonfly", "Spider");
         System.out.println(set);
+        System.out.println(set.ceiling("Mouse") +" "+set.floor("Snake"));
     }
 
     // 并集

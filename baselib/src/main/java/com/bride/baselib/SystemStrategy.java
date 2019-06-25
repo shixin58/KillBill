@@ -32,7 +32,8 @@ public class SystemStrategy {
     public void execute() {
         // UTC时间，依赖系统时钟，设置当前日期、时间用
         System.out.println("System.currentTimeMillis() "+System.currentTimeMillis());
-        // 0代表设备启动时间，不包含deep sleep，计算间隔时间用
+        // 0代表设备启动时间，不包含deep sleep，计算间隔时间用；
+        // 纳秒nano，one billionth of a second, 10^-9, micro-benchmark具有更好的分辨率
         System.out.println("System.nanoTime() "+System.nanoTime());
 
         // 当前线程启动时间
