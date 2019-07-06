@@ -20,6 +20,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 /**
  * EventBus为双检查单例模式。
@@ -151,6 +153,19 @@ public class EventBusActivity extends BaseActivity {
             case R.id.tv_anr:
                 SystemClock.sleep(10000L);
                 Toast.makeText(this, "respond", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv_null_pointer:
+                String s = null;
+                s.toCharArray();
+                break;
+            case R.id.tv_work_thread_exception:
+                Executor executor = Executors.newCachedThreadPool();
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        int i = 1/0;
+                    }
+                });
                 break;
         }
     }

@@ -74,4 +74,26 @@
         android:onClick="onClick"
         android:gravity="center"
         android:text="test ANR"/>
+
+    <TextView
+        android:id="@+id/tv_null_pointer"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_anr"
+        android:onClick="onClick"
+        android:gravity="center"
+        android:text="text null pointer"/>
+
+    <TextView
+        android:id="@+id/tv_work_thread_exception"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_null_pointer"
+        android:onClick="onClick"
+        android:gravity="center"
+        android:text="test work thread exception"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

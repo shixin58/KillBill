@@ -36,27 +36,30 @@ public class MyService extends Service {
 
         @Override
         public void basicTypes(int anInt, long aLong, boolean aBoolean, float aFloat, double aDouble, String aString) throws RemoteException {
-            Log.i("MyServiceImpl", "basicTypes "+anInt+"_"+aLong+"_"+aBoolean+"_"+aFloat+"_"+aDouble+"_"+aString);
+            Log.i("MyServiceImpl", Thread.currentThread().getName()+" basicTypes() "+anInt+"_"+aLong+"_"+aBoolean+"_"+aFloat+"_"+aDouble+"_"+aString);
         }
 
         @Override
         public String getValue() throws RemoteException {
+            Log.i("MyServiceImpl", Thread.currentThread().getName()+" getValue()");
             return "终于等到你";
         }
 
         @Override
         public int add(int a, int b) throws RemoteException {
+            Log.i("MyServiceImpl", Thread.currentThread().getName()+" add()");
             return a+b;
         }
 
         @Override
         public User getUser() throws RemoteException {
+            Log.i("MyServiceImpl", Thread.currentThread().getName()+" getUser() ");
             return new User("Max", "137", Process.myPid()+"");
         }
 
         @Override
         public void sendForm(Form f) throws RemoteException {
-            Log.i("MyServiceImpl", "sendForm "+f.toString());
+            Log.i("MyServiceImpl", Thread.currentThread().getName()+" sendForm() "+f.toString());
         }
     }
 

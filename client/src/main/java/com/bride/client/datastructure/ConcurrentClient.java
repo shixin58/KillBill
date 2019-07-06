@@ -2,7 +2,6 @@ package com.bride.client.datastructure;
 
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -11,8 +10,6 @@ import java.util.concurrent.Delayed;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * <p>Created by shixin on 2019-04-23.
@@ -40,13 +37,6 @@ public class ConcurrentClient {
         CopyOnWriteArraySet<String> arraySet = new CopyOnWriteArraySet<>();
         arraySet.add("Day");
         arraySet.contains("Day");
-    }
-
-    public static void reviewArrayList() {
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("Joyful");
-        Logger.getLogger("Victor").log(Level.WARNING, "Catch a cold!");
-        arrayList.remove(0);
     }
 
     public static void reviewThreadLocal() {

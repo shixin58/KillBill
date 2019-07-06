@@ -1,5 +1,6 @@
 package com.bride.client.multithreading;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
 
 /**
@@ -19,16 +20,20 @@ public class LockSupportClient {
             @Override
             public void run() {
                 super.run();
-                LockSupport.unpark(Thread.currentThread());
+                System.out.println("LockSupport#unpark");
+                LockSupport.unpark(this);
+                System.out.println("LockSupport#park");
                 LockSupport.park();
-                // 不会抛异常
-                LockSupport.parkNanos(10000000000L);
+
+                // 阻塞10秒，不会抛异常
+                System.out.println("LockSupport#parkNanos");
+                LockSupport.parkNanos(10_000_000_000L);
                 System.out.println("It's over");
             }
         };
         thread.start();
         try {
-            Thread.sleep(2000L);
+            Thread.sleep(5000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -47,7 +52,7 @@ public class LockSupportClient {
         };
         thread.start();
         try {
-            Thread.sleep(2000L);
+            TimeUnit.NANOSECONDS.sleep(2_000_000_000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

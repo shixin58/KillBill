@@ -94,9 +94,11 @@ public class PermissionUtils {
     public static void requestAllPermissions(Activity activity, int requestCode) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
             return;
+        // 仅请求READ_EXTERNAL_STORAGE，无写权限
         if(ContextCompat.checkSelfPermission(CONTEXT, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(CONTEXT, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(CONTEXT, READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity, new String[]{READ_EXTERNAL_STORAGE,
+            ActivityCompat.requestPermissions(activity, new String[]{READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE,
                     READ_PHONE_STATE}, requestCode);
         }
     }
