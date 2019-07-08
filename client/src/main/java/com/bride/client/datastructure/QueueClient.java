@@ -2,6 +2,7 @@ package com.bride.client.datastructure;
 
 import java.util.ArrayDeque;
 import java.util.Comparator;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
@@ -18,6 +19,7 @@ public class QueueClient {
         testLinkedList();
 
         testArrayDeque();
+        simulateArrayDeque();
     }
 
     private static void testPriorityQueue() {
@@ -45,7 +47,7 @@ public class QueueClient {
     // 双向链式队列
     private static void testLinkedList() {
         System.out.println("=== LinkedList ===");
-        LinkedList<Integer> linkedList = new LinkedList<>();
+        Deque<Integer> linkedList = new LinkedList<>();
         linkedList.addLast(1);
         linkedList.addLast(3);
         linkedList.addLast(-5);
@@ -68,7 +70,7 @@ public class QueueClient {
     // 插入null会抛出NullPointer；not thread-safe, 用作栈比Stack更快，用作链表比LinkedList更快
     private static void testArrayDeque() {
         System.out.println("=== ArrayDeque ===");
-        ArrayDeque<Integer> arrayDeque = new ArrayDeque<>(100);
+        Deque<Integer> arrayDeque = new ArrayDeque<>(100);
         arrayDeque.addLast(1);
         arrayDeque.addLast(2);
         while (!arrayDeque.isEmpty()) {
@@ -83,15 +85,19 @@ public class QueueClient {
             System.out.print(arrayDeque.removeLast()+", ");
         }
         System.out.println();
+    }
+
+    static void simulateArrayDeque() {
         int pointer = 0;
         String[] values = {"copper", "iron", "gold", "silver"};
         System.out.println(values[pointer = (pointer - 1) & (values.length - 1)]);// 双端队列
+        System.out.println(((0-1) & 15) + " " + ((15+1) & 15));
+
         pointer = 0;
         System.out.println(values[pointer++]);
         pointer = 0;
         System.out.println(values[++pointer]);
         pointer = 0;
         System.out.println(values[pointer += 1]);// 相当于++i
-        System.out.println((-1 & 15) + " " + (-2 & 15));
     }
 }
