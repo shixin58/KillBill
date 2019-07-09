@@ -145,6 +145,10 @@
             android:label="@string/activity_audio_record"
             android:launchMode="singleTask"/>
 
+        <activity android:name=".activity.ExceptionActivity"
+            android:label="@string/activity_exception"
+            android:launchMode="singleTask"/>
+
         <service android:name=".service.MyService"
             android:exported="true"/>
 

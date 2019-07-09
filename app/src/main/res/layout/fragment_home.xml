@@ -123,4 +123,14 @@
         app:layout_constraintTop_toBottomOf="@id/button_volley"
         android:gravity="center"
         android:text="test RelativeLayout"/>
+
+    <TextView
+        android:id="@+id/button_exception"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_relative_layout"
+        android:gravity="center"
+        android:text="test Exception"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

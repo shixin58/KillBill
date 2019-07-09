@@ -16,6 +16,7 @@
     <string name="volley_activity" translatable="false">VolleyActivity</string>
     <string name="activity_live_camera" translatable="false">LiveCameraActivity</string>
     <string name="activity_audio_record" translatable="false">AudioRecordActivity</string>
+    <string name="activity_exception" translatable="false">ExceptionActivity</string>
 
     <string name="activity_standard" translatable="false">StandardActivity</string>
     <string name="activity_single_top" translatable="false">SingleTopActivity</string>

@@ -42,6 +42,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         view?.findViewById<TextView>(R.id.button_glide)?.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_relative_layout)!!.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_volley)!!.setOnClickListener(this)
+        view?.findViewById<View>(R.id.button_exception)?.setOnClickListener(this)
         if (savedInstanceState != null) {
             blankClicked = savedInstanceState.getBoolean("blankClicked")
         }
@@ -77,6 +78,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             R.id.button_glide -> GlideActivity.openActivity(activity)
             R.id.button_relative_layout -> RelativeLayoutActivity.openActivity(activity)
             R.id.button_volley -> VolleyActivity.openActivity(activity)
+            R.id.button_exception -> ExceptionActivity.openActivity(activity)
         }
     }
 
