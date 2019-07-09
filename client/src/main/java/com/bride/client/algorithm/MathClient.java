@@ -1,5 +1,8 @@
 package com.bride.client.algorithm;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.MathContext;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -11,6 +14,7 @@ public class MathClient {
     public static void main(String[] args) {
         testRandom();
         testMath();
+        mathContext();
     }
 
     public static void testRandom() {
@@ -31,6 +35,17 @@ public class MathClient {
         int result = (int) Math.floor(origin+0.5f);
         // 小数位四舍五入
         int terminal = Math.round(origin);
-        System.out.printf("result = %d, terminal = %d", result, terminal);
+        System.out.printf("result = %d, terminal = %d\n", result, terminal);
+    }
+
+    public static void mathContext() {
+        MathContext mc = new MathContext(7);
+        BigDecimal bd = new BigDecimal(1.1, mc);
+        // the Unit in the Last Place
+        System.out.println(bd + " " + bd.ulp());
+
+        BigInteger bi = BigInteger.valueOf(17L);
+        System.out.println(bi.nextProbablePrime());
+        System.out.println(bi.isProbablePrime(5));
     }
 }

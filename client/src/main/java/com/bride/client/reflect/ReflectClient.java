@@ -26,6 +26,9 @@ public class ReflectClient {
             // 获得Method
             Method method = cl.getMethod("getName");
             Method method1 = cl.getMethod("setName", String.class);
+            // 考虑到重载、覆盖，getName不唯一，toString唯一
+            System.out.println("Method#getName() "+method.getName()+"|"+method1.getName());
+            System.out.println("Method#toString() "+method.toString()+"|"+method1.toString());
             System.out.println(method.invoke(object));
             method1.invoke(object, "Jacob");
             System.out.println(method.invoke(object));
