@@ -31,9 +31,14 @@ public class ExceptionActivity extends BaseActivity {
 
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tv_stutter:
+                // CPU Profiler中Sample Java Methods可查看方法调用栈和每个方法调用时长
+                SystemClock.sleep(2000);
+                Toast.makeText(this, "test stutter", Toast.LENGTH_SHORT).show();
+                break;
             case R.id.tv_anr:
                 SystemClock.sleep(10000L);
-                Toast.makeText(this, "respond", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "test anr", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tv_null_pointer:
                 String s = null;
