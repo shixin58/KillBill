@@ -15,12 +15,14 @@ import java.util.LinkedList;
  */
 public class References {
     private static ReferenceQueue<VeryBig> rq = new ReferenceQueue<>();
+
     public static void checkQueue() {
         Reference<? extends VeryBig> inq = rq.poll();
         if (inq != null) {
             System.out.println("In queue: "+inq+"|"+inq.get());
         }
     }
+
     public static void main(String[] args) {
         int size = 10;
         LinkedList<SoftReference<VeryBig>> sa = new LinkedList<>();
@@ -29,14 +31,15 @@ public class References {
             System.out.println("Just created "+sa.getLast());
             checkQueue();
         }
-        LinkedList<WeakReference<VeryBig>> wa = new LinkedList<>();
+        LinkedList<CustomWeakReference<VeryBig>> wa = new LinkedList<>();
         for (int i=0; i<size; i++) {
-            wa.add(new WeakReference<>(new VeryBig("Weak "+i), rq));
+            wa.add(new CustomWeakReference<>(new VeryBig("Weak " + i), rq));
             System.out.println("Just created "+wa.getLast());
             checkQueue();
         }
+        VeryBig veryBig = wa.getLast().get();
         SoftReference<VeryBig> sr = new SoftReference<>(new VeryBig("Soft"));
-        WeakReference<VeryBig> wr = new WeakReference<>(new VeryBig("Weak"));
+        CustomWeakReference<VeryBig> wr = new CustomWeakReference<>(new VeryBig("Weak "+size));
         System.gc();
         LinkedList<PhantomReference<VeryBig>> pa = new LinkedList<>();
         for (int i=0; i<size; i++) {
@@ -65,5 +68,24 @@ class VeryBig {
     @Override
     protected void finalize() throws Throwable {
         System.out.println("Finalizing "+ident);
+    }
+}
+
+class CustomWeakReference<T> extends WeakReference<T> {
+    private static int counter = 0;
+    private final int id = counter++;
+
+    public CustomWeakReference(T referent) {
+        super(referent);
+    }
+
+    public CustomWeakReference(T referent, ReferenceQueue<? super T> q) {
+        super(referent, q);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "CustomWeakReference - "+id;
     }
 }
