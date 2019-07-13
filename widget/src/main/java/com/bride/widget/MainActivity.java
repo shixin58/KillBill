@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.bride.baselib.BaseActivity;
+import com.bride.widget.activity.BlueprintActivity;
 import com.bride.widget.activity.BossActivity;
 import com.bride.widget.activity.JSActivity;
 import com.bride.widget.activity.ScrollingActivity;
@@ -32,6 +33,10 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.tv_js:
                 intent = new Intent(this, JSActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_blueprint:
+                intent = new Intent(this, BlueprintActivity.class);
                 startActivity(intent);
                 break;
         }
