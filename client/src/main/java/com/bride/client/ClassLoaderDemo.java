@@ -12,7 +12,7 @@ import java.net.URLClassLoader;
 public class ClassLoaderDemo {
 
     public static void main(String[] args) {
-//        diskClassLoader();
+        diskClassLoader();
 
 //        networkClassLoader();
 

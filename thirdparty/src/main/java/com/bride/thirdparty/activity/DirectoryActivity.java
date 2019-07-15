@@ -2,6 +2,7 @@ package com.bride.thirdparty.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -70,6 +71,11 @@ public class DirectoryActivity extends BaseActivity {
                     pluginDir.mkdirs();
                 }
                 Toast.makeText(this, pluginDir.getPath(), Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv_dir11:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Toast.makeText(this, getDataDir().getPath(), Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }

@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.bride.baselib.BaseActivity;
 import com.bride.client.R;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -43,27 +44,14 @@ public class ClassLoaderActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_class_loader:
-                Log.i(TAG, "class loader for com.bride.client.activity.BinderActivity");
-                // java.lang.BootClassLoader, dalvik.system.PathClassLoader
-                ClassLoader cl = BinderActivity.class.getClassLoader();
-                while (cl != null) {
-                    Log.i(TAG, "ClassLoader "+cl);
-                    cl = cl.getParent();
-                }
+                // java.lang.BootClassLoader -> dalvik.system.PathClassLoader
+                printClassLoaders(BinderActivity.class);
 
-                Log.i(TAG, "class loader for java.lang.String");
-                cl = String.class.getClassLoader();
-                while (cl != null) {
-                    Log.i(TAG, "ClassLoader "+cl);
-                    cl = cl.getParent();
-                }
+                // java.lang.BootClassLoader
+                printClassLoaders(String.class);
 
-                Log.i(TAG, "class loader for android.widget.TextView");
-                cl = TextView.class.getClassLoader();
-                while (cl != null) {
-                    Log.i(TAG, "ClassLoader "+cl);
-                    cl = cl.getParent();
-                }
+                // java.lang.BootClassLoader
+                printClassLoaders(TextView.class);
                 break;
             case R.id.tv_download_plugin:
                 OkHttpClient client = new OkHttpClient.Builder().build();
@@ -80,31 +68,41 @@ public class ClassLoaderActivity extends BaseActivity {
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        Log.i(TAG, "onResponse");
                         File pluginDir = new File(getDir("plugin", Context.MODE_PRIVATE), "apk");
                         if (!pluginDir.exists()) {
                             pluginDir.mkdirs();
                         }
-                        FileOutputStream fos = new FileOutputStream(new File(pluginDir, "app-arm-free-debug.zip"));
-                        fos.write(response.body().bytes());
-                        fos.flush();
-                        fos.close();
+                        // /data/user/0/com.bride.client.debug/app_plugin/apk
+                        Log.i(TAG, "onResponse "+pluginDir.getAbsolutePath());
+                        BufferedOutputStream bos = new BufferedOutputStream(
+                                new FileOutputStream(new File(pluginDir, "app-arm-free-debug.zip")));
+                        bos.write(response.body().bytes());
+                        bos.flush();
+                        bos.close();
                     }
                 });
                 break;
             case R.id.tv_load_plugin:
-                String dexPath = new File(getDir("plugin", Context.MODE_PRIVATE), "apk/app-arm-free-debug.zip").getPath();
+                // 私有进程共享getDir目录，包名。
+                String dexPath = new File(getDir("plugin", Context.MODE_PRIVATE), "apk/app-arm-free-debug.zip").getAbsolutePath();
+
                 File dexOutputDir = new File(getDir("explugin", Context.MODE_PRIVATE), "com.roy.devil.debug");
                 if (!dexOutputDir.exists())
                     dexOutputDir.mkdirs();
-                String dexOutputPath = dexOutputDir.getPath();
+                String dexOutputPath = dexOutputDir.getAbsolutePath();
+                // /data/user/0/com.bride.client.debug/app_explugin/com.roy.devil.debug
+                Log.i(TAG, "path: "+dexPath+" "+dexOutputPath);
 
                 String hostLibPath = getApplicationInfo().nativeLibraryDir;
                 String pluginLibPath = dexOutputPath;
                 String libPath = pluginLibPath + File.pathSeparator + hostLibPath;
-                DexClassLoader classLoader = new DexClassLoader(dexPath, dexOutputPath, libPath, ClassLoaderActivity.class.getClassLoader().getParent());
+
+                // 从指定目录zip文件提取dex。PathClassLoader仅能从安装过的apk加载
+                DexClassLoader classLoader = new DexClassLoader(dexPath, dexOutputPath, libPath, ClassLoaderActivity.class.getClassLoader());
                 try {
                     Class clazz = classLoader.loadClass("com.roy.devil.model.HomeModel");
+                    // java.lang.BootClassLoader@665cd80 -> dalvik.system.PathClassLoader -> dalvik.system.DexClassLoader
+                    printClassLoaders(clazz);
                     Constructor constructor = clazz.getConstructor(Class.class, String.class);
                     Object o = constructor.newInstance(int.class, "baby");
                     Toast.makeText(this, "showName = "+clazz.getField("showName").get(o), Toast.LENGTH_SHORT).show();
@@ -113,5 +111,17 @@ public class ClassLoaderActivity extends BaseActivity {
                 }
                 break;
         }
+    }
+
+    public static void printClassLoaders(Class<?> clz) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("load ").append(clz.getName()).append(": ");
+
+        ClassLoader cl = clz.getClassLoader();
+        while (cl != null) {
+            sb.append(cl.toString()).append(", ");
+            cl = cl.getParent();
+        }
+        Log.i(TAG, sb.toString());
     }
 }
