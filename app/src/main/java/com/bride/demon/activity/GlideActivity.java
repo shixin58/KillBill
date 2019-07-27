@@ -6,6 +6,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapRegionDecoder;
 import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -28,14 +34,20 @@ import com.bride.demon.DemonApplication;
 import com.bride.demon.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.CustomViewTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 
 import java.io.IOException;
 import java.io.InputStream;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
+import jp.wasabeef.glide.transformations.ColorFilterTransformation;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
  * Glide为双检查单例模式。
@@ -62,6 +74,36 @@ public class GlideActivity extends BaseActivity {
         ImageView imageView = findViewById(R.id.iv_resource);
 //        setImage(this, imageView, R.mipmap.ic_launcher_round);
         setBitmapByRegionDecoder(this, R.mipmap.actress, imageView, ImageView.ScaleType.CENTER_CROP);
+
+        Glide.with(this).load(R.mipmap.actress)
+//                .apply(RequestOptions.circleCropTransform())
+//                .apply(RequestOptions.bitmapTransform(new BlurTransformation()))
+                .apply(RequestOptions.bitmapTransform(new MultiTransformation<>(
+                        new CropCircleTransformation(), new BlurTransformation(25, 1),
+                        new ColorFilterTransformation(0x7FFF0000))))
+                .into((ImageView) findViewById(R.id.iv_transform));
+
+        Bitmap bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        Paint paint = new Paint();paint.setStyle(Paint.Style.FILL);
+        canvas.drawCircle(50, 50, 50, paint);
+        Paint paint1 = new Paint();
+        // 图像组合
+        paint1.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        // 颜色滤镜
+        paint1.setColorFilter(new PorterDuffColorFilter(0x7F000000, PorterDuff.Mode.SRC_ATOP));
+        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.actress), null, new Rect(0, 0, 100, 100), paint1);
+        canvas.setBitmap(null);
+        ImageView ivCircle = findViewById(R.id.iv_circle);
+        ivCircle.setImageBitmap(bitmap);
+
+        ColorFilter colorFilter = new ColorMatrixColorFilter(new float[]{0, 0, 0, 0, 0,
+                0, 0, 0, 0, 255,
+                0, 0, 0, 0, 0,
+                0, 0, 0, 1, 0});
+        ImageView ivFilter = findViewById(R.id.iv_filter);
+        ivFilter.setColorFilter(colorFilter);
+        ivFilter.setImageResource(android.R.drawable.stat_notify_more);
     }
 
     private void initView() {

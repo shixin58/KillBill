@@ -56,9 +56,9 @@ dependencies {
 
     implementation group: 'com.google.android.material', name: 'material', version: materialVersion
 
-    debugImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-android', version: '1.6.3'
+    debugImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-android-no-op', version: '1.6.3'
     releaseImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-android-no-op', version: '1.6.3'
-    debugImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-support-fragment', version: '1.6.3'
+//    debugImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-support-fragment', version: '1.6.3'
 
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
