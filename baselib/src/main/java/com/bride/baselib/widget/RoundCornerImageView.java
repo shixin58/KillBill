@@ -14,6 +14,8 @@ import com.bride.baselib.R;
 
 import androidx.appcompat.widget.AppCompatImageView;
 
+import java.util.Arrays;
+
 /**
  * <p>Created by shixin on 2018/4/3.
  */
@@ -35,9 +37,7 @@ public class RoundCornerImageView extends AppCompatImageView {
             TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.RoundCornerImageView, 0, 0);
             // 设置圆角
             float radius = a.getDimension(R.styleable.RoundCornerImageView_corner_radius, 0f);
-            for(int i=0;i<radii.length;i++) {
-                radii[i] = radius;
-            }
+            Arrays.fill(radii, radius);
             // 设置边框
             mStrokeWidth = a.getDimension(R.styleable.RoundCornerImageView_stroke_width, 0f);
             a.recycle();

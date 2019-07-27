@@ -8,6 +8,8 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * <p>Created by shixin on 2018/5/11.
  */
@@ -19,7 +21,7 @@ public class ImageUtils {
      */
     public static boolean isWebp(Resources resources, int resId) {
         long start = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 ?
-                SystemClock.elapsedRealtimeNanos() : SystemClock.elapsedRealtime();
+                SystemClock.elapsedRealtimeNanos() : TimeUnit.NANOSECONDS.convert(SystemClock.elapsedRealtime(), TimeUnit.MILLISECONDS);
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
@@ -28,7 +30,7 @@ public class ImageUtils {
         boolean isWebp = TextUtils.equals(type, "image/webp");
 
         long end = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 ?
-                SystemClock.elapsedRealtimeNanos() : SystemClock.elapsedRealtime();
+                SystemClock.elapsedRealtimeNanos() : TimeUnit.NANOSECONDS.convert(SystemClock.elapsedRealtime(), TimeUnit.MILLISECONDS);
         Log.i("Victor", resources.getResourceEntryName(resId)+" isWebp "+isWebp+"; type "+type+"; interval "+(end - start));
         return isWebp;
     }
@@ -38,12 +40,12 @@ public class ImageUtils {
      */
     public static boolean isWebp(String name) {
         long start = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 ?
-                SystemClock.elapsedRealtimeNanos() : SystemClock.elapsedRealtime();
+                SystemClock.elapsedRealtimeNanos() : TimeUnit.NANOSECONDS.convert(SystemClock.elapsedRealtime(), TimeUnit.MILLISECONDS);
 
         boolean isWebp = name.contains("skin" + "_" + "w" + "_");
 
         long end = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 ?
-                SystemClock.elapsedRealtimeNanos() : SystemClock.elapsedRealtime();
+                SystemClock.elapsedRealtimeNanos() : TimeUnit.NANOSECONDS.convert(SystemClock.elapsedRealtime(), TimeUnit.MILLISECONDS);
         Log.i("Victor", name+" isWebp "+isWebp+"; interval "+(end - start));
         return isWebp;
     }
