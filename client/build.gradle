@@ -9,6 +9,12 @@ android {
         targetSdkVersion TARGET_SDK_VERSION as int
         versionCode 1
         versionName "1.0"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
     signingConfigs {
         release {
@@ -47,6 +53,9 @@ dependencies {
 //    debugImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-support-fragment', version: '1.6.3'
 
     implementation "com.squareup.okhttp3:okhttp:3.14.2"
+
+    implementation 'com.alibaba:arouter-api:1.5.0'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
 
     implementation project(':baselib')
 }

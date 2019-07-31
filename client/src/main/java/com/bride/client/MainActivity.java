@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bride.baselib.ActivityNameFinals;
 import com.bride.baselib.ActivitySchemas;
 import com.bride.baselib.BaseActivity;
@@ -69,10 +70,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initView() {
-        findViewById(R.id.tv_action_view).setOnClickListener(this);
-        findViewById(R.id.tv_implicit).setOnClickListener(this);
-        findViewById(R.id.tv_app).setOnClickListener(this);
-        findViewById(R.id.tv_component).setOnClickListener(this);
 
         findViewById(R.id.tv_switch).setOnClickListener(this);
         findViewById(R.id.tv_use_service).setOnClickListener(this);
@@ -93,8 +90,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         registerReceiver(broadcastReceiver, intentFilter);
     }
 
-    @Override
-    public void onClick(View v) {
+    public void onJumpClick(View v) {
         Intent intent;
         switch (v.getId()) {
             case R.id.tv_action_view:
@@ -132,6 +128,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     e.printStackTrace();
                 }
                 break;
+            case R.id.tv_glide:
+                ARouter.getInstance().build("/demon/activity").navigation();
+                break;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent;
+        switch (v.getId()) {
             case R.id.tv_switch:
                 /*if(mService == null) {*/
                     try {

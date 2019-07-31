@@ -13,6 +13,12 @@ android {
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
     signingConfigs {
         release {
@@ -73,6 +79,9 @@ dependencies {
     annotationProcessor group: 'com.github.bumptech.glide', name: 'compiler', version: '4.9.0'
     implementation 'jp.wasabeef:glide-transformations:4.0.0'
 //    implementation 'com.github.bumptech.glide:volley-integration:4.9.0@aar'
+
+    implementation 'com.alibaba:arouter-api:1.5.0'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
 
     implementation project(':baselib')
 }

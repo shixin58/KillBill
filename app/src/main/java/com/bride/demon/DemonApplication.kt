@@ -3,6 +3,7 @@ package com.bride.demon
 import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
+import com.alibaba.android.arouter.launcher.ARouter
 import com.bride.baselib.*
 import com.bride.demon.callback.MyActivityLifecycleCallbacks
 import com.github.moduth.blockcanary.BlockCanary
@@ -46,6 +47,8 @@ class DemonApplication : Application() {
 
         unregisterActivityLifecycleCallbacks(activityLifecycleCallbacks)
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
+
+        initRouter()
     }
 
     fun getExecutor(): Executor {
@@ -58,5 +61,13 @@ class DemonApplication : Application() {
         fun getInstance(): DemonApplication {
             return instance
         }
+    }
+
+    private fun initRouter() {
+        if (BuildConfig.DEBUG) {
+            ARouter.openLog()
+            ARouter.openDebug()
+        }
+        ARouter.init(this)
     }
 }

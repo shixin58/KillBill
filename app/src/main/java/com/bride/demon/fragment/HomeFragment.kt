@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.bride.baselib.BaseFragment
 import com.bride.demon.R
 import com.bride.demon.activity.*
@@ -75,7 +76,10 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             R.id.button_nested_list -> NestedListActivity.openActivity(activity)
             R.id.button_upload -> UploadActivity.openActivity(activity)
             R.id.button_webp -> WebpActivity.openActivity(activity)
-            R.id.button_glide -> GlideActivity.openActivity(activity)
+//            R.id.button_glide -> GlideActivity.openActivity(activity)
+            R.id.button_glide -> {
+                ARouter.getInstance().build("/demon/activity").navigation()
+            }
             R.id.button_relative_layout -> RelativeLayoutActivity.openActivity(activity)
             R.id.button_volley -> VolleyActivity.openActivity(activity)
             R.id.button_exception -> ExceptionActivity.openActivity(activity)

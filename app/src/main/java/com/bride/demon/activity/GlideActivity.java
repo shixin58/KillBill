@@ -28,6 +28,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bride.baselib.BaseActivity;
 import com.bride.baselib.Urls;
 import com.bride.demon.DemonApplication;
@@ -56,6 +57,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
  * 内存缓存LruArrayPool, BitmapPool, LruResourceCache。
  * <p>Created by shixin on 2019/3/5.
  */
+@Route(path = "/demon/activity")
 public class GlideActivity extends BaseActivity {
     private static final String TAG = GlideActivity.class.getSimpleName();
 

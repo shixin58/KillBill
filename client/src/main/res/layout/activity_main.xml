@@ -16,6 +16,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:gravity="center"
             android:textStyle="normal"
+            android:onClick="onJumpClick"
             android:text="scheme启动activity"/>
 
         <TextView
@@ -27,6 +28,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_action_view"
             android:gravity="center"
             android:textStyle="italic"
+            android:onClick="onJumpClick"
             android:text="action+category启动activity"/>
 
         <TextView
@@ -37,6 +39,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_implicit"
             android:gravity="center"
+            android:onClick="onJumpClick"
             android:text="包名启动app"/>
 
         <TextView
@@ -47,6 +50,18 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_app"
             android:gravity="center"
+            android:onClick="onJumpClick"
+            android:text="包名+类名启动activity"/>
+
+        <TextView
+            android:id="@+id/tv_glide"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_component"
+            android:gravity="center"
+            android:onClick="onJumpClick"
             android:text="包名+类名启动activity"/>
 
         <View
@@ -54,7 +69,7 @@
             android:layout_height="1px"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/tv_component"
+            app:layout_constraintBottom_toBottomOf="@id/tv_glide"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="@android:color/black"/>
@@ -65,7 +80,7 @@
             android:layout_height="40dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_component"
+            app:layout_constraintTop_toBottomOf="@id/tv_glide"
             android:gravity="center"
             android:text="bind外部服务"/>
 
