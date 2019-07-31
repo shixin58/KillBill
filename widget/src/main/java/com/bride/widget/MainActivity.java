@@ -7,6 +7,7 @@ import android.view.View;
 import com.bride.baselib.BaseActivity;
 import com.bride.widget.activity.BlueprintActivity;
 import com.bride.widget.activity.BossActivity;
+import com.bride.widget.activity.CustomViewActivity;
 import com.bride.widget.activity.JSActivity;
 import com.bride.widget.activity.ScrollingActivity;
 
@@ -38,6 +39,9 @@ public class MainActivity extends BaseActivity {
             case R.id.tv_blueprint:
                 intent = new Intent(this, BlueprintActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.tv_custom_view:
+                CustomViewActivity.openActivity(this);
                 break;
         }
     }

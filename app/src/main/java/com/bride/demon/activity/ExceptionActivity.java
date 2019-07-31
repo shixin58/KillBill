@@ -7,6 +7,8 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import com.bride.baselib.BaseActivity;
 import com.bride.demon.R;
 
@@ -18,6 +20,11 @@ import java.util.concurrent.Executors;
  */
 public class ExceptionActivity extends BaseActivity {
 
+    static Custom custom = new Custom();
+    CustomInt customInt = new CustomInt();
+    CustomObject customObject = new CustomObject(new CustomInt());
+    static CustomString customString = new CustomString();
+
     public static void openActivity(Context context) {
         Intent intent = new Intent(context, ExceptionActivity.class);
         context.startActivity(intent);
@@ -27,6 +34,21 @@ public class ExceptionActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exception);
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
     }
 
     public void onClick(View v) {
@@ -54,5 +76,34 @@ public class ExceptionActivity extends BaseActivity {
                 });
                 break;
         }
+    }
+
+    public static class Custom {
+        // 8 bytes
+    }
+
+    public static class CustomInt {
+        int i;// 4 bytes
+        char ch;
+        long l;
+    }
+
+    public static class CustomObject {
+        Custom custom;
+        CustomInt customInt;// 4 bytes
+        int i;
+        byte b;// 1 byte
+        double d;// 8 bytes
+
+        CustomObject(CustomInt customInt) {
+            this.customInt = customInt;
+        }
+    }
+
+    public static class CustomString {
+        char[] chars = new char[]{'a', 'b', 'c', 'd'};// 4 bytes
+        int i;
+        byte b;
+        float f;// 4 bytes
     }
 }
