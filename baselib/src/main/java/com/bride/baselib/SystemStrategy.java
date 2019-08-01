@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Process;
 import android.os.SystemClock;
 import android.system.Os;
@@ -104,6 +105,10 @@ public class SystemStrategy {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static boolean isSDCardMounted() {
+        return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
     }
 
     public static void main(String[] args) {

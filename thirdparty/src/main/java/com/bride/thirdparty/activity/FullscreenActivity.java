@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import com.bride.baselib.BaseActivity;
-import com.bride.baselib.utils.OrientationUtils;
+import com.bride.ui_lib.BaseActivity;
+import com.bride.baselib.ui.OrientationUtils;
 import com.bride.thirdparty.R;
 
 /**

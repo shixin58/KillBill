@@ -20,7 +20,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.bride.baselib.BaseActivity;
+import com.bride.ui_lib.BaseActivity;
 import com.bride.widget.AndroidToJS;
 import com.bride.widget.R;
 

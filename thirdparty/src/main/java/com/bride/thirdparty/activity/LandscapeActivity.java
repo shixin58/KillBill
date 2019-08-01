@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.bride.baselib.BaseActivity;
+import com.bride.ui_lib.BaseActivity;
 import com.bride.baselib.ResUtils;
-import com.bride.baselib.utils.ViewUtils;
+import com.bride.baselib.ui.ViewUtils;
 import com.bride.thirdparty.R;
 
 /**

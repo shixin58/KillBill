@@ -4,9 +4,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bride.baselib.widget.BaseRecyclerAdapter;
 import com.bride.demon.CellScrollHolder;
 import com.bride.demon.R;
+import com.bride.ui_lib.BaseRecyclerAdapter;
 
 import java.util.List;
 

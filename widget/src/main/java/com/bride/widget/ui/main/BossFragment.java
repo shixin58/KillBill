@@ -12,7 +12,7 @@ import androidx.databinding.Observable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.bride.baselib.BaseFragment;
+import com.bride.ui_lib.BaseFragment;
 import com.bride.widget.R;
 import com.bride.widget.databinding.FragmentBossBinding;
 import com.bride.widget.model.Boss;

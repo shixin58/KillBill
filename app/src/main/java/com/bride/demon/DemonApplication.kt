@@ -5,9 +5,11 @@ import android.content.Context
 import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
 import com.bride.baselib.*
+import com.bride.baselib.net.VolleyWrapper
 import com.bride.demon.callback.MyActivityLifecycleCallbacks
 import com.github.moduth.blockcanary.BlockCanary
 import com.squareup.leakcanary.LeakCanary
+import io.rong.imkit.RongIM
 import java.util.concurrent.Executor
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -44,11 +46,13 @@ class DemonApplication : Application() {
         PreferenceUtils.initialize(this, "demon_prefs")
         PermissionUtils.setContext(this)
         SystemStrategy.setContext(this)
+        VolleyWrapper.init(this)
 
         unregisterActivityLifecycleCallbacks(activityLifecycleCallbacks)
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
 
         initRouter()
+        RongIM.init(this)
     }
 
     fun getExecutor(): Executor {

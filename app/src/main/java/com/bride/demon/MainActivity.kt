@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.bride.baselib.BaseActivity
+import com.bride.ui_lib.BaseActivity
 import com.bride.baselib.PermissionUtils
 import com.bride.demon.callback.MyFragmentLifecycleCallbacks
 import com.bride.demon.fragment.DashboardFragment
@@ -124,6 +124,9 @@ class MainActivity : BaseActivity() {
         } else if (fragments[mIndex] is NotificationsFragment
                 && fragments[mIndex]!!.view!!.findViewById<View>(v.id) != null) {
             (fragments[mIndex] as NotificationsFragment).onClick(v)
+        } else if (fragments[mIndex] is HomeFragment
+                && fragments[mIndex]!!.view!!.findViewById<View>(v.id) != null) {
+            (fragments[mIndex] as HomeFragment).onClick(v)
         }
     }
 

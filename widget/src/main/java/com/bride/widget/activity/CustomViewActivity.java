@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.widget.GridView;
 import android.widget.ListView;
 
-import com.bride.baselib.BaseActivity;
+import com.bride.ui_lib.BaseActivity;
 import com.bride.widget.R;
 import com.bride.widget.adapter.CustomViewAdapter;
 

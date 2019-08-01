@@ -3,7 +3,7 @@ package com.bride.thirdparty.Strategy;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.bride.baselib.Urls;
+import com.bride.baselib.net.Urls;
 import com.bride.thirdparty.bean.PhoneNumberModel;
 import com.bride.thirdparty.bean.WrapperModel;
 import com.bride.thirdparty.protocal.IService;

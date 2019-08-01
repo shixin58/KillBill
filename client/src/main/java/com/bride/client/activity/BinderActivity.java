@@ -11,7 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.bride.baselib.BaseActivity;
+import com.bride.ui_lib.BaseActivity;
 import com.bride.client.BuildConfig;
 import com.bride.client.R;
 import com.bride.demon.Form;

@@ -1,6 +1,6 @@
 package com.bride.client;
 
-import com.bride.baselib.DataEncryptionAlgorithm;
+import com.bride.baselib.codec.DataEncryptionAlgorithm;
 
 /**
  * <p>Created by shixin on 2018/9/6.

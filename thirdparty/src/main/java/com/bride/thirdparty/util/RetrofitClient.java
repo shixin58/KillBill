@@ -1,6 +1,6 @@
 package com.bride.thirdparty.util;
 
-import com.bride.baselib.Urls;
+import com.bride.baselib.net.Urls;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import java.lang.ref.SoftReference;

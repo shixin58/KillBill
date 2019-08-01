@@ -8,7 +8,7 @@ import android.os.Environment;
 import android.view.View;
 import android.widget.Toast;
 
-import com.bride.baselib.BaseActivity;
+import com.bride.ui_lib.BaseActivity;
 import com.bride.thirdparty.R;
 
 import java.io.File;

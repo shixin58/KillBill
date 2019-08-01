@@ -1,6 +1,6 @@
 rootProject.name = 'KillBill'
 
-include ':app'
+include ':app', ':ui_lib'
 
 include ':client'
 

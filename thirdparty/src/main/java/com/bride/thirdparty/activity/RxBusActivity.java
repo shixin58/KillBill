@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.bride.baselib.BaseActivity;
+import com.bride.ui_lib.BaseActivity;
 import com.bride.thirdparty.R;
 import com.bride.thirdparty.bean.MessageEvent;
 import com.bride.thirdparty.util.RxBus;

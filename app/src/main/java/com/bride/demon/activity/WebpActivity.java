@@ -11,8 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bride.baselib.BaseActivity;
-import com.bride.baselib.ImageUtils;
+import com.bride.ui_lib.BaseActivity;
+import com.bride.baselib.ui.ImageUtils;
 import com.bride.demon.R;
 
 /**

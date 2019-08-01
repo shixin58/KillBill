@@ -9,8 +9,8 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
-import com.bride.baselib.UrlParams;
-import com.bride.baselib.Urls;
+import com.bride.baselib.net.UrlParams;
+import com.bride.baselib.net.Urls;
 import com.bride.thirdparty.ThirdPartyApplication;
 import com.bride.thirdparty.bean.PhoneNumberModel;
 import com.bride.thirdparty.bean.WrapperModel;

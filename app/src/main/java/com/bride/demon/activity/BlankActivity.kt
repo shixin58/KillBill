@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.bride.baselib.BaseActivity
+import com.bride.ui_lib.BaseActivity
 import com.bride.demon.R
 import com.bride.demon.model.City
 import com.bride.demon.model.Person

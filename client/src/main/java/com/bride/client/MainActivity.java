@@ -23,10 +23,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bride.baselib.ActivityNameFinals;
-import com.bride.baselib.ActivitySchemas;
-import com.bride.baselib.BaseActivity;
-import com.bride.baselib.PackageNameFinals;
+import com.bride.baselib.module.ActivityNameFinals;
+import com.bride.baselib.module.ActivitySchemas;
+import com.bride.ui_lib.BaseActivity;
+import com.bride.baselib.module.PackageNameFinals;
 import com.bride.baselib.PermissionUtils;
 import com.bride.client.activity.BinderActivity;
 import com.bride.client.activity.ClassLoaderActivity;

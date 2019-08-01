@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bride.baselib.BaseFragment
+import com.bride.ui_lib.BaseFragment
 import com.bride.demon.R
 import com.bride.demon.activity.SingleInstanceActivity
 import com.bride.demon.activity.SingleTaskActivity

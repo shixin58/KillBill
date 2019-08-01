@@ -11,7 +11,7 @@ import android.view.TextureView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
-import com.bride.baselib.BaseActivity;
+import com.bride.ui_lib.BaseActivity;
 import com.bride.baselib.PermissionUtils;
 
 import java.io.IOException;

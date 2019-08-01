@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 
-import com.bride.baselib.BaseActivity;
+import com.bride.ui_lib.BaseActivity;
 import com.bride.baselib.PermissionUtils;
 import com.bride.thirdparty.activity.DirectoryActivity;
 import com.bride.thirdparty.activity.EventBusActivity;

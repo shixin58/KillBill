@@ -6,8 +6,8 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bride.baselib.UrlParams;
-import com.bride.baselib.Urls;
+import com.bride.baselib.net.UrlParams;
+import com.bride.baselib.net.Urls;
 import com.bride.thirdparty.ThirdPartyApplication;
 import com.facebook.stetho.urlconnection.ByteArrayRequestEntity;
 import com.facebook.stetho.urlconnection.SimpleRequestEntity;

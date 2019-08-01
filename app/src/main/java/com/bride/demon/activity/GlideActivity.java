@@ -29,8 +29,8 @@ import androidx.core.content.ContextCompat;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.bride.baselib.BaseActivity;
-import com.bride.baselib.Urls;
+import com.bride.ui_lib.BaseActivity;
+import com.bride.baselib.net.Urls;
 import com.bride.demon.DemonApplication;
 import com.bride.demon.R;
 import com.bumptech.glide.Glide;

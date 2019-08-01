@@ -137,6 +137,11 @@
             android:screenOrientation="portrait"
             android:launchMode="standard"/>
 
+        <activity android:name=".activity.RongDemoActivity"
+            android:label="@string/activity_rong_demo"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"/>
+
         <activity android:name=".activity.LiveCameraActivity"
             android:label="@string/activity_live_camera"
             android:launchMode="singleTask"/>
@@ -149,11 +154,63 @@
             android:label="@string/activity_exception"
             android:launchMode="singleTask"/>
 
+        <activity
+            android:name=".activity.ConversationListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.bride.demon${suffix}"
+                    android:pathPrefix="/conversationlist"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.ConversationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.bride.demon${suffix}"
+                    android:pathPrefix="/conversation/"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+
         <service android:name=".service.MyService"
             android:exported="true"/>
 
         <service android:name=".service.UploadService"
             android:exported="true"/>
+
+        <receiver
+            android:name=".SealNotificationReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="io.rong.push.intent.MESSAGE_ARRIVED" />
+                <action android:name="io.rong.push.intent.MESSAGE_CLICKED" />
+                <action android:name="io.rong.push.intent.THIRD_PARTY_PUSH_STATE" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.bride.demon${suffix}.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/rc_file_path" />
+        </provider>
     </application>
 
 </manifest>

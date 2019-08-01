@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.bride.baselib.BaseFragment;
+import com.bride.ui_lib.BaseFragment;
 import com.bride.demon.R;
 import com.bride.demon.activity.BlankActivity;
 import com.bride.demon.model.City;

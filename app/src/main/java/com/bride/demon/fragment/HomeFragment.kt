@@ -7,11 +7,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.alibaba.android.arouter.launcher.ARouter
-import com.bride.baselib.BaseFragment
 import com.bride.demon.R
 import com.bride.demon.activity.*
+import com.bride.ui_lib.BaseFragment
 
 class HomeFragment : BaseFragment(), View.OnClickListener {
 
@@ -39,11 +38,6 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         view?.findViewById<View>(R.id.button_touch)?.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_nested_list)?.setOnClickListener(this)
         view?.findViewById<View>(R.id.button_upload)?.setOnClickListener(this)
-        view?.findViewById<View>(R.id.button_webp)?.setOnClickListener(this)
-        view?.findViewById<TextView>(R.id.button_glide)?.setOnClickListener(this)
-        view?.findViewById<View>(R.id.button_relative_layout)!!.setOnClickListener(this)
-        view?.findViewById<View>(R.id.button_volley)!!.setOnClickListener(this)
-        view?.findViewById<View>(R.id.button_exception)?.setOnClickListener(this)
         if (savedInstanceState != null) {
             blankClicked = savedInstanceState.getBoolean("blankClicked")
         }
@@ -82,6 +76,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             }
             R.id.button_relative_layout -> RelativeLayoutActivity.openActivity(activity)
             R.id.button_volley -> VolleyActivity.openActivity(activity)
+            R.id.button_rong -> RongDemoActivity.openActivity(activity)
             R.id.button_exception -> ExceptionActivity.openActivity(activity)
         }
     }

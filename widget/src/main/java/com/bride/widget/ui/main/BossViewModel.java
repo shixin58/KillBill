@@ -4,7 +4,7 @@ import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.bride.baselib.Urls;
+import com.bride.baselib.net.Urls;
 import com.bride.widget.model.Boss;
 
 /**

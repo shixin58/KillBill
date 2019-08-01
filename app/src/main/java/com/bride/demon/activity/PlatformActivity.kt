@@ -5,8 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.core.content.ContextCompat
-import com.bride.baselib.BaseActivity
-import com.bride.baselib.BaseFragment
+import com.bride.ui_lib.BaseActivity
+import com.bride.ui_lib.BaseFragment
 import com.bride.demon.R
 
 /**

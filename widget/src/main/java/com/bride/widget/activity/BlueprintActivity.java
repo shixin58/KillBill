@@ -2,7 +2,7 @@ package com.bride.widget.activity;
 
 import android.os.Bundle;
 
-import com.bride.baselib.BaseActivity;
+import com.bride.ui_lib.BaseActivity;
 import com.bride.widget.R;
 
 /**
