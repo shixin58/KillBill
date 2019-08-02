@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.bride.plugin.MyPlugin'
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION as int
@@ -91,4 +92,16 @@ dependencies {
 
     implementation project(':baselib')
     implementation project(':ui_lib')
+}
+
+apply plugin: CustomPlugin
+
+class CustomPlugin implements Plugin<Project> {
+
+    @Override
+    void apply(Project target) {
+        target.task('print_info') {
+            println "创建自定义插件"
+        }
+    }
 }
