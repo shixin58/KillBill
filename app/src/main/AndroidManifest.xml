@@ -84,7 +84,7 @@
             android:label="@string/activity_single_task"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
-            android:taskAffinity="com.bride.demon${suffix}"/>
+            android:taskAffinity="${applicationId}"/>
 
         <activity android:name=".activity.SingleInstanceActivity"
             android:label="@string/activity_single_instance"
@@ -164,7 +164,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data
-                    android:host="com.bride.demon${suffix}"
+                    android:host="${applicationId}"
                     android:pathPrefix="/conversationlist"
                     android:scheme="rong" />
             </intent-filter>
@@ -180,7 +180,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data
-                    android:host="com.bride.demon${suffix}"
+                    android:host="${applicationId}"
                     android:pathPrefix="/conversation/"
                     android:scheme="rong" />
             </intent-filter>
@@ -204,7 +204,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.bride.demon${suffix}.FileProvider"
+            android:authorities="${applicationId}.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
