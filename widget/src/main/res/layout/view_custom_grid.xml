@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/gridView_wrapper"
     android:layout_width="match_parent"
-    android:layout_height="120dp">
+    android:layout_height="wrap_content">
 
-    <com.bride.ui_lib.widget.CustomGridView
+    <com.bride.ui_lib.widget.NoScrollGridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
         android:numColumns="3"/>
 </LinearLayout>

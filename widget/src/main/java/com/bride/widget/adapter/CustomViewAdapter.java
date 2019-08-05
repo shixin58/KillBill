@@ -1,5 +1,6 @@
 package com.bride.widget.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,13 @@ public class CustomViewAdapter extends BaseAdapter {
 
     public CustomViewAdapter(List<String> list) {
         mList.addAll(list);
+    }
+
+    public void setList(List<String> list) {
+        Log.i("CustomViewAdapter", "setList");
+        mList.clear();
+        mList.addAll(list);
+        notifyDataSetChanged();
     }
 
     @Override

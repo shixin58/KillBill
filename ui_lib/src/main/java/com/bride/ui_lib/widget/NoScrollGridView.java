@@ -1,6 +1,7 @@
 package com.bride.ui_lib.widget;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.GridView;
@@ -29,9 +30,21 @@ public class NoScrollGridView extends GridView {
 
         // ListView内嵌NoScrollGridView：0 1920, 0 1920, 0 1590
         // 线性布局内嵌NoScrollGridView：AT_MOST 1920, AT_MOST 1920。ListView内嵌NoScrollGridView：UNSPECIFIED 1560, UNSPECIFIED 1560, UNSPECIFIED 1560
-        Log.i("NoScrollGridView", hashCode()+": "+MeasureSpec.getMode(heightMeasureSpec)+" "+MeasureSpec.getSize(heightMeasureSpec));
+        Log.i("NoScrollGridView", "onMeasure #"+hashCode()+" "+MeasureSpec.getMode(heightMeasureSpec)+" "+MeasureSpec.getSize(heightMeasureSpec));
         // 默认UNSPECIFIED，取GridView单行高度；改为AT_MOST，根据行数计算实际需要高度
         heightMeasureSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        Log.i("NoScrollGridView", "onLayout #"+hashCode()+" "+changed+" "+l+" "+t+" "+r+" "+b);
+        super.onLayout(changed, l, t, r, b);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        Log.i("NoScrollGridView", "onDraw #"+hashCode());
+        super.onDraw(canvas);
     }
 }
