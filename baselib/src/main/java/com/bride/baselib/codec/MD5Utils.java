@@ -1,5 +1,7 @@
 package com.bride.baselib.codec;
 
+import androidx.annotation.NonNull;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.security.MessageDigest;
@@ -14,45 +16,38 @@ public class MD5Utils {
 
     private static final int BUFFER_LENGTH = 1024;
 
-    public static String getMD5(String val) {
-        if(val==null) {
-            return null;
-        }
-        return getMD5(val.getBytes());
-    }
-
-    public static String getMD5(byte[] val) {
-        String rst = null;
+    public static String getMD5(@NonNull String val) {
         try {
             MessageDigest md5 = MessageDigest.getInstance("MD5");
-            md5.update(val);
+            md5.update(val.getBytes());
             byte[] b = md5.digest();
-            StringBuffer sb = new StringBuffer();
+            StringBuffer buf = new StringBuffer();
             for (int i = 0; i < b.length; i++) {
-                int temp = 0xFF & b[i];
-                String s = Integer.toHexString(temp);
-                if (temp <= 0x0F) {
-                    s = "0" + s;
-                }
-                sb.append(s);
+                int a = 0xFF & b[i];
+                if (a <= 0x0F)
+                    buf.append("0");
+                buf.append(Integer.toHexString(a));
             }
-            rst = sb.toString();
+            return buf.toString();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        return rst;
+        return null;
     }
 
-    public static String sha1(String data) {
+    /**
+     * Secure Hash Algorithm, 一种数据加密算法，将明文以不可逆的方式转化为较短的密文(hash值)。
+     */
+    public static String sha1(@NonNull String val) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA1");
-            md.update(data.getBytes());
-            StringBuffer buf = new StringBuffer();
+            md.update(val.getBytes());
+            StringBuilder buf = new StringBuilder();
             byte[] bits = md.digest();
-            for(int i=0;i<bits.length;i++){
-                int a = bits[i];
-                if(a<0) a+=256;
-                if(a<16) buf.append("0");
+            for(int i=0; i<bits.length; i++){
+                int a = bits[i] < 0 ? (bits[i]+256) : bits[i];
+                if (a < 0x0F)
+                    buf.append("0");
                 buf.append(Integer.toHexString(a));
             }
             return buf.toString();

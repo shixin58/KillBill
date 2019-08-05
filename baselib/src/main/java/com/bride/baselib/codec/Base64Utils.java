@@ -35,8 +35,6 @@ public class Base64Utils {
 
     /**
      * 将base64编码的数据解码成原始数据
-     *
-     * @throws Exception
      */
     public static byte[] decode(char[] data) throws Exception {
         int len = ((data.length + 3) / 4) * 3;
