@@ -57,6 +57,10 @@ dependencies {
     implementation group: 'com.github.bumptech.glide', name: 'glide', version: '4.9.0'
     annotationProcessor group: 'com.github.bumptech.glide', name: 'compiler', version: '4.9.0'
 
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-15'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-andx-15'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
     implementation project(':baselib')
     implementation project(':ui_lib')
 }

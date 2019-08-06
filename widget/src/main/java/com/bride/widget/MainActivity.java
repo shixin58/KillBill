@@ -9,6 +9,7 @@ import com.bride.widget.activity.BlueprintActivity;
 import com.bride.widget.activity.BossActivity;
 import com.bride.widget.activity.CustomViewActivity;
 import com.bride.widget.activity.JSActivity;
+import com.bride.widget.activity.RefreshActivity;
 import com.bride.widget.activity.ScrollingActivity;
 
 /**
@@ -42,6 +43,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.tv_custom_view:
                 CustomViewActivity.openActivity(this);
+                break;
+            case R.id.tv_refresh:
+                RefreshActivity.openActivity(this);
                 break;
         }
     }

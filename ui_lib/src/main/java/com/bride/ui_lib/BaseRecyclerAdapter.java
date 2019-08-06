@@ -1,8 +1,9 @@
 package com.bride.ui_lib;
 
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -20,6 +21,20 @@ public abstract class BaseRecyclerAdapter<V extends RecyclerView.ViewHolder, T> 
     private List<View> mHeaderViews = new LinkedList<>();
     private List<View> mFooterViews = new LinkedList<>();
 
+    public void setList(List<T> list) {
+        if (list != null && !list.isEmpty()) {
+            mList.clear();
+            mList.addAll(list);
+            notifyDataSetChanged();
+        }
+    }
+
+    public void addMore(List<T> list) {
+        if (list != null && !list.isEmpty()) {
+            mList.addAll(list);
+            notifyDataSetChanged();
+        }
+    }
     public void addHeaderView(View view) {
         mHeaderViews.add(view);
     }

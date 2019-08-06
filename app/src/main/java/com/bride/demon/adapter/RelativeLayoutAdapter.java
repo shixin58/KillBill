@@ -5,26 +5,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bride.demon.R;
-import com.bride.ui_lib.BaseRecyclerAdapter;
-
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bride.demon.R;
+import com.bride.ui_lib.BaseRecyclerAdapter;
 
 /**
  * <p>Created by shixin on 2019/4/14.
  */
 public class RelativeLayoutAdapter extends BaseRecyclerAdapter<RelativeLayoutAdapter.CustomViewHolder, String> {
-
-    public void setList(List<String> list) {
-        if (list != null && !list.isEmpty()) {
-            mList.clear();
-            mList.addAll(list);
-            notifyDataSetChanged();
-        }
-    }
 
     @Override
     public void onBindVH(CustomViewHolder holder, int position) {

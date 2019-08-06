@@ -53,6 +53,10 @@
             android:label="@string/activity_custom_view"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.RefreshActivity"
+            android:label="@string/activity_refresh"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

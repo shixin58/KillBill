@@ -22,8 +22,8 @@ import java.util.List;
  */
 public class CustomViewActivity extends BaseActivity {
 
-    private String[] weather = {"rainy", "snow", "storm", "wind", "freezing", "warm", "hot", "cool", "cold", "wet"};
-    private String[] colors = {"RED", "GREEN", "BLUE", "YELLOW", "GREY", "BLACK", "PURPLE", "ORANGE", "PINK"};
+    private String[] weather;
+    private String[] colors;
 
     public static void openActivity(Context context) {
         Intent intent = new Intent(context, CustomViewActivity.class);
@@ -34,6 +34,9 @@ public class CustomViewActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_view);
+
+        weather = getResources().getStringArray(R.array.weather);
+        colors = getResources().getStringArray(R.array.color_grid);
 
         GridView titleGv = findViewById(R.id.gridView);
         titleGv.setAdapter(new CustomViewAdapter(Arrays.asList(colors)));

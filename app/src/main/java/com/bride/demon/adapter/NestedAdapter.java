@@ -20,14 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 public class NestedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder, List<String>> {
     private CellScrollHolder cellScrollHolder;
 
-    public void setList(List<List<String>> lists) {
-        this.mList.clear();
-        if(lists != null && !lists.isEmpty()) {
-            this.mList.addAll(lists);
-        }
-        notifyDataSetChanged();
-    }
-
     public void setCellScrollHolder(CellScrollHolder holder) {
         this.cellScrollHolder = holder;
     }
