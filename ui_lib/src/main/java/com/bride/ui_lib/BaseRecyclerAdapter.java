@@ -62,9 +62,11 @@ public abstract class BaseRecyclerAdapter<V extends RecyclerView.ViewHolder, T> 
 
     @Override
     public int getItemViewType(int position) {
+        // -1, -2, -3..
         if(mHeaderViews.size()>0 && position<mHeaderViews.size()) {
             return -(position+1);
         }
+        // -4, -5, -6..
         if(mFooterViews.size()>0 && getItemCount()-position<=mFooterViews.size()) {
             return -(position-mList.size()+1);
         }

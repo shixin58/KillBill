@@ -18,6 +18,7 @@ import com.bride.demon.widget.HeaderRecyclerView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,7 +34,6 @@ public class NestedListActivity extends BaseActivity {
     private DispatchFrameLayout mDispatchFrameLayout;
     private RecyclerView mRecyclerView;
     private float oldX;
-    private float oldY;
 
     public static void openActivity(Context context) {
         Intent intent = new Intent(context, NestedListActivity.class);
@@ -70,11 +70,15 @@ public class NestedListActivity extends BaseActivity {
         mHeaderRecyclerView.setScrollHandler(cellScrollHolder);
         nestedAdapter.setCellScrollHolder(cellScrollHolder);
         List<List<String>> lists = new ArrayList<>();
-        List<String> countryList = RecyclerViewRepository.Companion.getCountryList();
+        String[] countries = getResources().getStringArray(R.array.countries);
+        String[] colors = getResources().getStringArray(R.array.colors);
         for(int i = 0; i < 20; i++) {
-            lists.add(Arrays.asList(countryList.get(i*2 % countryList.size()),
-                    countryList.get((i*2+1) % countryList.size()), countryList.get((i*2+2) % countryList.size())));
-            lists.add(RecyclerViewRepository.Companion.getColorList());
+            lists.add(Arrays.asList(countries[i%countries.length], countries[(i+1)%countries.length],
+                    countries[(i+2)%countries.length], countries[(i+3)%countries.length]));
+
+            List<String> colorList = new ArrayList<>();
+            Collections.addAll(colorList, colors);
+            lists.add(colorList);
         }
         nestedAdapter.setList(lists);
 
@@ -84,19 +88,16 @@ public class NestedListActivity extends BaseActivity {
                 switch (ev.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         oldX = ev.getX();
-                        oldY = ev.getY();
                         break;
                     case MotionEvent.ACTION_MOVE:
-                        mHeaderRecyclerView.scrollBy((int) (oldX - ev.getX()), (int) (oldY - ev.getY()));
+                        mHeaderRecyclerView.scrollBy((int) (oldX - ev.getX()), 0);
                         oldX = ev.getX();
                         break;
                     case MotionEvent.ACTION_UP:
                         oldX = 0;
-                        oldY = 0;
                         break;
                     case MotionEvent.ACTION_CANCEL:
                         oldX = 0;
-                        oldY = 0;
                         break;
                 }
             }

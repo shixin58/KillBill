@@ -28,6 +28,7 @@ public class CellRecyclerView extends RecyclerView {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+        // cell在分发时判断上下滚动，将MOVE转换为CANCEL。下次move事件分发，outer拦截并消费。
         Log.i(TAG, "dispatchTouchEvent - "+ev.getAction());
         return super.dispatchTouchEvent(ev);
     }

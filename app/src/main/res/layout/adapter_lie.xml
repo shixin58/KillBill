@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="122dp"
     android:layout_height="50dp">
 
@@ -8,5 +9,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Example"/>
+        tools:text="Example"/>
+
+    <View
+        android:id="@+id/divider_right"
+        android:layout_width="1px"
+        android:layout_height="50dp"
+        android:layout_gravity="right"
+        android:background="@android:color/black"/>
+
+    <View
+        android:id="@+id/divider_bottom"
+        android:layout_width="122dp"
+        android:layout_height="1px"
+        android:layout_gravity="bottom"
+        android:background="@android:color/black"/>
 </FrameLayout>

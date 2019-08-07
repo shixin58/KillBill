@@ -27,7 +27,7 @@ public class NestedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder, 
     @Override
     public int getItemViewType(int position) {
         if(position >= getHeaderViewCount() && position < (getItemCount() - getFooterViewCount()))
-            return position % 2;
+            return (position-getHeaderViewCount()) % 2;
         else
             return super.getItemViewType(position);
     }
@@ -35,7 +35,7 @@ public class NestedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder, 
     @Override
     public void onBindVH(RecyclerView.ViewHolder holder, int position) {
         if(getItemViewType(position) < 0) return;
-        if(getItemViewType(position) == 0) {
+        if(getItemViewType(position) == 1) {
             AppleViewHolder viewHolder = (AppleViewHolder) holder;
             LieAdapter lieAdapter = new LieAdapter();
             lieAdapter.setList(mList.get(position - getHeaderViewCount()));
@@ -52,7 +52,7 @@ public class NestedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder, 
     public RecyclerView.ViewHolder onCreateVH(ViewGroup parent, int viewType) {
         if(viewType < 0)
             return new HeaderOrFooterViewHolder(getHeaderOrFooter(viewType));
-        if(viewType == 0) {
+        if(viewType == 1) {
             AppleViewHolder appleViewHolder = new AppleViewHolder(LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.adapter_nested_apple, parent, false));
             cellScrollHolder.register(appleViewHolder.recyclerView);
@@ -60,7 +60,6 @@ public class NestedAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder, 
         }else {
             BananaViewHolder bananaViewHolder = new BananaViewHolder(LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.adapter_nested_banana, parent, false));
-            cellScrollHolder.register(bananaViewHolder.recyclerView);
             return bananaViewHolder;
         }
     }
