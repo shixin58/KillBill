@@ -1,6 +1,6 @@
 rootProject.name = 'KillBill'
 
-include ':app', ':ui_lib', ':buildSrc'
+include ':app'
 
 include ':client'
 
@@ -10,3 +10,7 @@ include ':widget'
 
 include ':baselib'
 project(':baselib').projectDir = new File(rootDir, 'baselib')
+
+include ':ui_lib'
+
+include ':buildSrc'
