@@ -1,9 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-
-project.group = 'com.github.shixin58'
-project.archivesBaseName = 'baselib'
-project.version = '1.0.0'
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION as int
