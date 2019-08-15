@@ -1,4 +1,4 @@
-package com.bride.demon.activity;
+package com.bride.demon.module.framework.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,11 +9,11 @@ import android.view.View;
 import com.bride.ui_lib.BaseActivity;
 import com.bride.demon.R;
 
-public class SingleTopActivity extends BaseActivity {
-    private static final String TAG = SingleTopActivity.class.getSimpleName();
+public class StandardActivity extends BaseActivity {
+    private static final String TAG = StandardActivity.class.getSimpleName();
 
     public static void openActivity(Context context) {
-        Intent intent = new Intent(context, SingleTopActivity.class);
+        Intent intent = new Intent(context, StandardActivity.class);
         context.startActivity(intent);
     }
 
@@ -21,7 +21,7 @@ public class SingleTopActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate "+getTaskId()+" "+hashCode());
-        setContentView(R.layout.activity_single_top);
+        setContentView(R.layout.activity_standard);
     }
 
     @Override

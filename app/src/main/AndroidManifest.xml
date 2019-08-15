@@ -72,21 +72,21 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.StandardActivity"
+        <activity android:name=".module.framework.activity.StandardActivity"
             android:label="@string/activity_standard"
             android:launchMode="standard"/>
 
-        <activity android:name=".activity.SingleTopActivity"
+        <activity android:name=".module.framework.activity.SingleTopActivity"
             android:label="@string/activity_single_top"
             android:launchMode="singleTop" />
 
-        <activity android:name=".activity.SingleTaskActivity"
+        <activity android:name=".module.framework.activity.SingleTaskActivity"
             android:label="@string/activity_single_task"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:taskAffinity="${applicationId}"/>
 
-        <activity android:name=".activity.SingleInstanceActivity"
+        <activity android:name=".module.framework.activity.SingleInstanceActivity"
             android:label="@string/activity_single_instance"
             android:screenOrientation="portrait"
             android:launchMode="singleInstance" />
@@ -137,16 +137,16 @@
             android:screenOrientation="portrait"
             android:launchMode="standard"/>
 
-        <activity android:name=".activity.RongDemoActivity"
+        <activity android:name=".module.rong.activity.RongDemoActivity"
             android:label="@string/activity_rong_demo"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"/>
 
-        <activity android:name=".activity.LiveCameraActivity"
+        <activity android:name=".module.video.activity.LiveCameraActivity"
             android:label="@string/activity_live_camera"
             android:launchMode="singleTask"/>
 
-        <activity android:name=".activity.AudioRecordActivity"
+        <activity android:name=".module.video.activity.AudioRecordActivity"
             android:label="@string/activity_audio_record"
             android:launchMode="singleTask"/>
 
@@ -155,7 +155,7 @@
             android:launchMode="singleTask"/>
 
         <activity
-            android:name=".activity.ConversationListActivity"
+            android:name=".module.rong.activity.ConversationListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
@@ -171,7 +171,7 @@
         </activity>
 
         <activity
-            android:name=".activity.ConversationActivity"
+            android:name=".module.rong.activity.ConversationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
@@ -193,7 +193,7 @@
             android:exported="true"/>
 
         <receiver
-            android:name=".SealNotificationReceiver"
+            android:name=".module.rong.SealNotificationReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="io.rong.push.intent.MESSAGE_ARRIVED" />

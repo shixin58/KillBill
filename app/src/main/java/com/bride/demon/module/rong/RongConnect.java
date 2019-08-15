@@ -1,4 +1,4 @@
-package com.bride.demon.repository;
+package com.bride.demon.module.rong;
 
 import android.util.Log;
 import android.widget.Toast;

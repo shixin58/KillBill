@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.bride.ui_lib.BaseFragment
 import com.bride.demon.R
-import com.bride.demon.activity.SingleInstanceActivity
-import com.bride.demon.activity.SingleTaskActivity
-import com.bride.demon.activity.SingleTopActivity
-import com.bride.demon.activity.StandardActivity
+import com.bride.demon.module.framework.activity.SingleInstanceActivity
+import com.bride.demon.module.framework.activity.SingleTaskActivity
+import com.bride.demon.module.framework.activity.SingleTopActivity
+import com.bride.demon.module.framework.activity.StandardActivity
 
 /**
  * Activity launch mode

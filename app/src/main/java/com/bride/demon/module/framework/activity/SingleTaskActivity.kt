@@ -1,4 +1,4 @@
-package com.bride.demon.activity
+package com.bride.demon.module.framework.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -30,7 +30,7 @@ class SingleTaskActivity : BaseActivity() {
         when {
             v?.id==R.id.tv_standard -> StandardActivity.openActivity(this)
             v?.id==R.id.tv_single_top -> SingleTopActivity.openActivity(this)
-            v?.id==R.id.tv_single_task -> SingleTaskActivity.openActivity(this)
+            v?.id==R.id.tv_single_task -> openActivity(this)
             v?.id==R.id.tv_single_instance -> SingleInstanceActivity.openActivity(this)
         }
     }

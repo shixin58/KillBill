@@ -1,4 +1,4 @@
-package com.bride.demon.activity;
+package com.bride.demon.module.rong.activity;
 
 import android.net.Uri;
 import android.os.Bundle;

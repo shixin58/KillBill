@@ -1,4 +1,4 @@
-package com.bride.demon.activity;
+package com.bride.demon.module.rong.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +8,7 @@ import android.widget.EditText;
 
 import com.bride.demon.R;
 import com.bride.demon.model.User;
-import com.bride.demon.repository.RongConnect;
+import com.bride.demon.module.rong.RongConnect;
 import com.bride.ui_lib.BaseActivity;
 
 import java.util.HashMap;

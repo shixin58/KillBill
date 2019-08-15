@@ -1,4 +1,4 @@
-package com.bride.demon;
+package com.bride.demon.module.rong;
 
 import android.content.Context;
 

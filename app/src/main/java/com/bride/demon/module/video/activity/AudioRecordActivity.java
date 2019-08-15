@@ -1,4 +1,4 @@
-package com.bride.demon.activity;
+package com.bride.demon.module.video.activity;
 
 import android.content.Context;
 import android.content.Intent;
