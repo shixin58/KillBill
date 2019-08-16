@@ -16,7 +16,7 @@
         android:text="Welcome!"/>
 
     <!-- android:background会遮挡绘制内容 -->
-    <com.bride.demon.widget.MySurfaceView
+    <com.bride.demon.module.video.widget.CustomSurfaceView
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"

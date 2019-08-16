@@ -2,6 +2,7 @@ package com.bride.demon
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
 import com.bride.baselib.*
@@ -27,6 +28,7 @@ class DemonApplication : Application() {
         MultiDex.install(base)
         CompatUtils.detectThread()
         CompatUtils.detectVm()
+        Thread.setDefaultUncaughtExceptionHandler(CustomUncaughtExceptionHandler())
     }
 
     override fun onCreate() {
@@ -73,5 +75,11 @@ class DemonApplication : Application() {
             ARouter.openDebug()
         }
         ARouter.init(this)
+    }
+
+    class CustomUncaughtExceptionHandler : Thread.UncaughtExceptionHandler {
+        override fun uncaughtException(t: Thread?, e: Throwable?) {
+            Log.e("UncaughtException", t?.name, e)
+        }
     }
 }

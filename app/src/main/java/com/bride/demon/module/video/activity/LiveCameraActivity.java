@@ -6,11 +6,13 @@ import android.content.pm.PackageManager;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.TextureView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+import com.bride.demon.module.video.widget.CustomTextureView;
 import com.bride.ui_lib.BaseActivity;
 import com.bride.baselib.PermissionUtils;
 
@@ -22,6 +24,8 @@ import static android.Manifest.permission.CAMERA;
  * <p>Created by shixin on 2019-05-30.
  */
 public class LiveCameraActivity extends BaseActivity implements TextureView.SurfaceTextureListener {
+    private static final String TAG = LiveCameraActivity.class.getSimpleName();
+
     private Camera mCamera;
     private TextureView mTextureView;
 
@@ -33,13 +37,13 @@ public class LiveCameraActivity extends BaseActivity implements TextureView.Surf
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mTextureView = new TextureView(this);
+        mTextureView = new CustomTextureView(this);
         mTextureView.setSurfaceTextureListener(this);
         setContentView(mTextureView);
     }
 
-    @Override
-    public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
+    @Override public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
+        Log.i(TAG, "onSurfaceTextureAvailable");
         if (ContextCompat.checkSelfPermission(getApplicationContext(), CAMERA) == PackageManager.PERMISSION_GRANTED) {
             mCamera = Camera.open();
             try {
@@ -53,13 +57,12 @@ public class LiveCameraActivity extends BaseActivity implements TextureView.Surf
         }
     }
 
-    @Override
-    public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
-
+    @Override public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
+        Log.i(TAG, "onSurfaceTextureSizeChanged");
     }
 
-    @Override
-    public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
+    @Override public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
+        Log.i(TAG, "onSurfaceTextureDestroyed");
         if (mCamera != null) {
             mCamera.stopPreview();
             mCamera.release();
@@ -68,9 +71,8 @@ public class LiveCameraActivity extends BaseActivity implements TextureView.Surf
         return true;
     }
 
-    @Override
-    public void onSurfaceTextureUpdated(SurfaceTexture surface) {
-
+    @Override public void onSurfaceTextureUpdated(SurfaceTexture surface) {
+//        Log.i(TAG, "onSurfaceTextureUpdated");
     }
 
     @Override
@@ -82,16 +84,16 @@ public class LiveCameraActivity extends BaseActivity implements TextureView.Surf
                     finish();
                     return;
                 }
+                if (mTextureView.getSurfaceTexture() != null) {
+                    mCamera = Camera.open();
+                    try {
+                        mCamera.setPreviewTexture(mTextureView.getSurfaceTexture());
+                        mCamera.startPreview();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 break;
-        }
-        if (mTextureView.getSurfaceTexture() != null) {
-            mCamera = Camera.open();
-            try {
-                mCamera.setPreviewTexture(mTextureView.getSurfaceTexture());
-                mCamera.startPreview();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 }
