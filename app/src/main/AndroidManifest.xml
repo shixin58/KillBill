@@ -154,6 +154,10 @@
             android:label="@string/activity_exception"
             android:launchMode="singleTask"/>
 
+        <activity android:name=".activity.SerializableActivity"
+            android:label="@string/activity_serializable"
+            android:launchMode="singleTop"/>
+
         <activity
             android:name=".module.rong.activity.ConversationListActivity"
             android:screenOrientation="portrait"

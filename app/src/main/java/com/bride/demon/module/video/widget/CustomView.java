@@ -1,4 +1,4 @@
-package com.bride.demon.widget;
+package com.bride.demon.module.video.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -17,7 +17,7 @@ import com.bride.baselib.ResUtils;
 /**
  * <p>Created by shixin on 2018/10/30.
  */
-public class MyView extends View {
+public class CustomView extends View {
     public static final int COUNT = 10;
 
     private int i = COUNT;
@@ -25,12 +25,12 @@ public class MyView extends View {
 
     private int reopened;
 
-    public MyView(Context context) {
+    public CustomView(Context context) {
         super(context);
         init();
     }
 
-    public MyView(Context context, AttributeSet attrs) {
+    public CustomView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }

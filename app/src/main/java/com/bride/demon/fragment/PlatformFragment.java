@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.bride.ui_lib.BaseFragment;
 import com.bride.demon.R;
-import com.bride.demon.widget.MyView;
+import com.bride.demon.module.video.widget.CustomView;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -34,18 +34,18 @@ public class PlatformFragment extends BaseFragment {
     }
 
     private void initView() {
-        final MyView myView = getView().findViewById(R.id.my_view);
-        myView.setI(MyView.COUNT);
-        myView.invalidate();
+        final CustomView customView = getView().findViewById(R.id.my_view);
+        customView.setI(CustomView.COUNT);
+        customView.invalidate();
         final Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                int i = myView.getI();
+                int i = customView.getI();
                 Log.i("TimerTask", i+"");
                 if(i>0) {
-                    myView.setI(--i);
-                    myView.postInvalidate();
+                    customView.setI(--i);
+                    customView.postInvalidate();
                 }else {
                     timer.cancel();
                 }
