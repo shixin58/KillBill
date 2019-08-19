@@ -11,12 +11,13 @@ import com.bride.baselib.PermissionUtils
 import com.bride.demon.callback.MyFragmentLifecycleCallbacks
 import com.bride.demon.fragment.DashboardFragment
 import com.bride.demon.fragment.HomeFragment
+import com.bride.demon.fragment.MineFragment
 import com.bride.demon.fragment.NotificationsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : BaseActivity() {
 
-    private val fragments = arrayOfNulls<Fragment>(3)
+    private val fragments = arrayOfNulls<Fragment>(4)
     private var mIndex: Int = 0
     private val fragmentLifecycleCallbacks = MyFragmentLifecycleCallbacks()
 
@@ -65,6 +66,20 @@ class MainActivity : BaseActivity() {
                 transaction.commitAllowingStateLoss()
                 return@OnNavigationItemSelectedListener true
             }
+            R.id.navigation_mine -> {
+                transaction = supportFragmentManager.beginTransaction()
+                if (fragments[3] == null) {
+                    fragments[3] = MineFragment.newInstance()
+                    fragments[3]?.let { transaction!!.add(R.id.container_fragment, it, MineFragment::class.simpleName) }
+                }
+                fragments[3]?.let { transaction!!.show(it) }
+                if (mIndex != 3) {
+                    fragments[mIndex]?.let { transaction!!.hide(it) }
+                    mIndex = 3
+                }
+                transaction.commitAllowingStateLoss()
+                return@OnNavigationItemSelectedListener true
+            }
         }
         false
     }
@@ -79,6 +94,7 @@ class MainActivity : BaseActivity() {
             fragments[1] = supportFragmentManager.findFragmentByTag(DashboardFragment::class.simpleName)
             // kotlin.jvm.KotlinReflectionNotSupportedError: Kotlin reflection implementation is not found at runtime. Make sure you have kotlin-reflect.jar in the classpath
             fragments[2] = supportFragmentManager.findFragmentByTag(NotificationsFragment::class.simpleName)
+            fragments[3] = supportFragmentManager.findFragmentByTag(MineFragment::class.simpleName)
         }
 
         val navigation = findViewById<BottomNavigationView>(R.id.navigation)
@@ -88,6 +104,8 @@ class MainActivity : BaseActivity() {
                 navigation.selectedItemId = R.id.navigation_dashboard
             }else if (mIndex == 2) {
                 navigation.selectedItemId = R.id.navigation_notifications
+            } else if (mIndex == 3){
+                navigation.selectedItemId = R.id.navigation_mine
             } else {
                 navigation.selectedItemId = R.id.navigation_home
             }
@@ -127,6 +145,9 @@ class MainActivity : BaseActivity() {
         } else if (fragments[mIndex] is HomeFragment
                 && fragments[mIndex]!!.view!!.findViewById<View>(v.id) != null) {
             (fragments[mIndex] as HomeFragment).onClick(v)
+        } else if (fragments[mIndex] is MineFragment
+                && fragments[mIndex]!!.view!!.findViewById<View>(v.id) != null) {
+            (fragments[mIndex] as MineFragment).onClick(v)
         }
     }
 

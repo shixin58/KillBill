@@ -23,6 +23,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".MainActivity"
             android:launchMode="standard"
@@ -156,6 +157,10 @@
 
         <activity android:name=".activity.SerializableActivity"
             android:label="@string/activity_serializable"
+            android:launchMode="singleTop"/>
+
+        <activity android:name=".activity.LoginActivity"
+            android:label="@string/activity_login"
             android:launchMode="singleTop"/>
 
         <activity

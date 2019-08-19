@@ -3,6 +3,7 @@ package com.bride.demon.module.rong;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.bride.baselib.ResUtils;
 import com.bride.baselib.codec.MD5Utils;
 import com.bride.baselib.net.Urls;
 import com.bride.demon.DemonApplication;
@@ -75,8 +76,8 @@ public class RongConnect {
             }
 
             @Override
-            public void onSuccess(String s) {
-                Log.i(TAG, "onSuccess "+s);
+            public void onSuccess(String userId) {
+                Log.i(TAG, "onSuccess "+userId);
             }
 
             @Override

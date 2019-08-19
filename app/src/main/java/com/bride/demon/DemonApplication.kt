@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
 import com.bride.baselib.*
+import com.bride.baselib.net.Urls
 import com.bride.baselib.net.VolleyWrapper
 import com.bride.demon.callback.MyActivityLifecycleCallbacks
 import com.github.moduth.blockcanary.BlockCanary
@@ -54,7 +55,7 @@ class DemonApplication : Application() {
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
 
         initRouter()
-        RongIM.init(this)
+        RongIM.init(this, Urls.RONG_APP_KEY)
     }
 
     fun getExecutor(): Executor {

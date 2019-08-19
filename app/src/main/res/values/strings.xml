@@ -3,6 +3,7 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_mine">Mine</string>
 
     <string name="activity_blank" translatable="false">BlankActivity</string>
     <string name="activity_platform" translatable="false">PlatformActivity</string>
@@ -19,6 +20,7 @@
     <string name="activity_audio_record" translatable="false">AudioRecordActivity</string>
     <string name="activity_exception" translatable="false">ExceptionActivity</string>
     <string name="activity_serializable" translatable="false">SerializableActivity</string>
+    <string name="activity_login" translatable="false">LoginActivity</string>
 
     <string name="activity_standard" translatable="false">StandardActivity</string>
     <string name="activity_single_top" translatable="false">SingleTopActivity</string>

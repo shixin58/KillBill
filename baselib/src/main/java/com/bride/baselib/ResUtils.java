@@ -2,6 +2,7 @@ package com.bride.baselib;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
@@ -85,5 +86,22 @@ public class ResUtils {
             return true;
         }
         return false;
+    }
+
+    public static String getMetaValue(Context context, String metaKey) {
+        String apiKey = null;
+        if (context == null || metaKey == null) {
+            return null;
+        }
+        try {
+            ApplicationInfo ai = context.getPackageManager().getApplicationInfo(
+                    context.getPackageName(), PackageManager.GET_META_DATA);
+            if (null != ai && ai.metaData != null) {
+                apiKey = ai.metaData.getString(metaKey);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return apiKey;
     }
 }

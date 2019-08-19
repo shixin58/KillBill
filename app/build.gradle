@@ -40,12 +40,9 @@ android {
             signingConfig signingConfigs.release
         }
         release {
-            applicationIdSuffix = ''
-
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             shrinkResources true
-
             zipAlignEnabled true
 
             signingConfig signingConfigs.release
@@ -89,9 +86,9 @@ dependencies {
     implementation 'com.alibaba:arouter-api:1.5.0'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
 
-    api 'cn.rongcloud.sdk:im_kit:2.9.20'
+    api 'cn.rongcloud.sdk:im_kit:2.9.21'
     //im_kit必须依赖im_lib，所以需要加入对应依赖
-    api 'cn.rongcloud.sdk:im_lib:2.9.20'
+    api 'cn.rongcloud.sdk:im_lib:2.9.21'
 
     implementation project(':baselib')
     implementation project(':ui_lib')
