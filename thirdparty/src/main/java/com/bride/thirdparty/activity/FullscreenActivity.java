@@ -53,6 +53,7 @@ public class FullscreenActivity extends BaseActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        mOrientationUtils.onConfigurationChanged(newConfig.orientation);
         Log.i(TAG, "onConfigurationChanged - "+newConfig.orientation);
     }
 

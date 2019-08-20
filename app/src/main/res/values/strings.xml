@@ -18,6 +18,7 @@
     <string name="activity_rong_demo" translatable="false">RongDemoActivity</string>
     <string name="activity_live_camera" translatable="false">LiveCameraActivity</string>
     <string name="activity_audio_record" translatable="false">AudioRecordActivity</string>
+    <string name="activity_video_view" translatable="false">VideoViewActivity</string>
     <string name="activity_exception" translatable="false">ExceptionActivity</string>
     <string name="activity_serializable" translatable="false">SerializableActivity</string>
     <string name="activity_login" translatable="false">LoginActivity</string>

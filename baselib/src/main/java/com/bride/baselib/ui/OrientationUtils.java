@@ -45,6 +45,7 @@ public class OrientationUtils {
 
     private void init(final Activity activity, final ChangePageOrientationCallback callback) {
         mActivity = activity;
+        mIsLandscape = activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
         mOrientationEventListener = new OrientationEventListener(activity) {
             @Override
             public void onOrientationChanged(int orientation) {

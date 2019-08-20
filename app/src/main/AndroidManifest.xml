@@ -151,6 +151,10 @@
             android:label="@string/activity_audio_record"
             android:launchMode="singleTask"/>
 
+        <activity android:name=".module.video.activity.VideoViewActivity"
+            android:label="@string/activity_video_view"
+            android:launchMode="standard"/>
+
         <activity android:name=".activity.ExceptionActivity"
             android:label="@string/activity_exception"
             android:launchMode="singleTask"/>

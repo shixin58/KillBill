@@ -15,6 +15,7 @@ import com.bride.demon.activity.BlankActivity;
 import com.bride.demon.activity.PlatformActivity;
 import com.bride.demon.module.video.activity.AudioRecordActivity;
 import com.bride.demon.module.video.activity.LiveCameraActivity;
+import com.bride.demon.module.video.activity.VideoViewActivity;
 import com.bride.ui_lib.BaseFragment;
 
 /**
@@ -63,6 +64,9 @@ public class NotificationsFragment extends BaseFragment {
                 break;
             case R.id.button_audio_record:
                 AudioRecordActivity.openActivity(getActivity());
+                break;
+            case R.id.btn_video:
+                VideoViewActivity.openActivity(getActivity());
                 break;
         }
     }
