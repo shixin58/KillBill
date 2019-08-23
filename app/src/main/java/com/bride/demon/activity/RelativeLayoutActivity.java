@@ -3,6 +3,7 @@ package com.bride.demon.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.bride.ui_lib.BaseActivity;
 import com.bride.demon.R;
@@ -44,5 +45,13 @@ public class RelativeLayoutActivity extends BaseActivity {
         list.add(getResources().getString(R.string.tv_2));
         list.add(getResources().getString(R.string.tv_3));
         adapter.setList(list);
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_stub:
+                findViewById(R.id.stub_import).setVisibility(View.VISIBLE);
+                break;
+        }
     }
 }
