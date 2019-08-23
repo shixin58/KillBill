@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -7,18 +8,12 @@
         android:id="@+id/ll"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="150dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:weightSum="3">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tv_1"
-            android:layout_width="0dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/tv_1"/>
 
         <TextView
@@ -39,12 +34,9 @@
     <RelativeLayout
         android:id="@+id/rl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/ll"
-        android:layout_alignRight="@id/ll"
-        android:layout_below="@id/ll">
+        android:layout_height="wrap_content">
 
-        <TextView
+        <com.bride.ui_lib.widget.CustomTextView
             android:id="@+id/tv_11"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
@@ -53,7 +45,7 @@
             android:text="@string/tv_1"
             android:layout_alignParentLeft="true"/>
 
-        <TextView
+        <com.bride.ui_lib.widget.CustomTextView
             android:id="@+id/tv_22"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
@@ -62,7 +54,7 @@
             android:text="@string/tv_3"
             android:layout_alignParentRight="true"/>
 
-        <TextView
+        <com.bride.ui_lib.widget.CustomTextView
             android:id="@+id/tv_33"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
@@ -75,7 +67,5 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/rl"/>
-</RelativeLayout>
+        android:layout_height="match_parent"/>
+</LinearLayout>
