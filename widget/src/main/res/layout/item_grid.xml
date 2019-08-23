@@ -12,6 +12,4 @@
         android:gravity="center"
         android:textSize="12sp"
         tools:text="title"/>
-
-    <include layout="@layout/view_line_horizontal"/>
 </LinearLayout>

@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.GridView;
 import android.widget.ListView;
 
 import com.bride.ui_lib.BaseActivity;
 import com.bride.widget.R;
-import com.bride.widget.adapter.CustomViewAdapter;
+import com.bride.widget.adapter.CustomGridViewAdapter;
+import com.bride.widget.adapter.GridViewAdapter;
 import com.bride.widget.adapter.MultiTypeAdapter;
 
 import java.util.ArrayList;
@@ -35,19 +37,21 @@ public class CustomViewActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_view);
 
+        GridView titleGv = findViewById(R.id.gridView);
+        ListView listView = findViewById(R.id.listView);
+
         weather = getResources().getStringArray(R.array.weather);
         colors = getResources().getStringArray(R.array.color_grid);
 
-        GridView titleGv = findViewById(R.id.gridView);
-        titleGv.setAdapter(new CustomViewAdapter(Arrays.asList(colors)));
+        titleGv.setAdapter(new GridViewAdapter(Arrays.asList(colors)));
 
-        ListView listView = findViewById(R.id.listView);
-        GridView gridView = LayoutInflater.from(this).inflate(R.layout.view_custom_grid, listView, false)
-                .findViewById(R.id.gridView);
-        gridView.setAdapter(new CustomViewAdapter(Arrays.asList(colors)));
-        listView.addHeaderView(gridView, null, false);
-        listView.addFooterView(LayoutInflater.from(this)
-                .inflate(R.layout.item_custom_text, listView, false), null, false);
+        View headerView = LayoutInflater.from(this).inflate(R.layout.view_custom_grid, listView, false);
+        GridView headerGridView = headerView.findViewById(R.id.gridView);
+        headerGridView.setAdapter(new CustomGridViewAdapter(Arrays.asList(colors)));
+        listView.addHeaderView(headerView, null, false);
+
+        View footerView = LayoutInflater.from(this).inflate(R.layout.item_custom_text, listView, false);
+        listView.addFooterView(footerView, null, false);
 
         List<MultiTypeAdapter.Type> list = new ArrayList<>();
         String[] colorsCopy = new String[this.colors.length];

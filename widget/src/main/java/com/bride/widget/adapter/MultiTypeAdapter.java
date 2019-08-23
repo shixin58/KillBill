@@ -55,7 +55,7 @@ public class MultiTypeAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             if (mList.get(position).getType() == TYPE_GRID) {
-                convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_grid, parent, false);
+                convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_custom_grid, parent, false);
             } else {
                 convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list, parent, false);
             }
@@ -63,9 +63,9 @@ public class MultiTypeAdapter extends BaseAdapter {
         if (mList.get(position).getType() == TYPE_GRID) {
             GridItem gridItem = (GridItem) mList.get(position);
             GridView gridView = convertView.findViewById(R.id.gridView);
-            CustomViewAdapter adapter = (CustomViewAdapter) gridView.getAdapter();
+            CustomGridViewAdapter adapter = (CustomGridViewAdapter) gridView.getAdapter();
             if (adapter == null) {
-                adapter = new CustomViewAdapter(gridItem.titles);
+                adapter = new CustomGridViewAdapter(gridItem.titles);
             } else {
                 // notifyDataSetChanged后GridView不刷新，重新setAdapter
                 adapter.setList(gridItem.titles);
