@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewStub;
 
 import com.bride.ui_lib.BaseActivity;
 import com.bride.demon.R;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class RelativeLayoutActivity extends BaseActivity {
     private RecyclerView mRecyclerView;
+    private View mViewDetail;
 
     public static void openActivity(Context context) {
         Intent intent = new Intent(context, RelativeLayoutActivity.class);
@@ -50,7 +52,12 @@ public class RelativeLayoutActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_stub:
-                findViewById(R.id.stub_import).setVisibility(View.VISIBLE);
+                if (mViewDetail == null)
+                    mViewDetail = ((ViewStub)findViewById(R.id.stub_import)).inflate();
+                else if (mViewDetail.getVisibility() == View.VISIBLE)
+                    mViewDetail.setVisibility(View.GONE);
+                else
+                    mViewDetail.setVisibility(View.VISIBLE);
                 break;
         }
     }
