@@ -22,6 +22,7 @@
     <string name="activity_exception" translatable="false">ExceptionActivity</string>
     <string name="activity_serializable" translatable="false">SerializableActivity</string>
     <string name="activity_login" translatable="false">LoginActivity</string>
+    <string name="activity_codec" translatable="false">CodecActivity</string>
 
     <string name="activity_standard" translatable="false">StandardActivity</string>
     <string name="activity_single_top" translatable="false">SingleTopActivity</string>

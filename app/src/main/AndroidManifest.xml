@@ -167,6 +167,10 @@
             android:label="@string/activity_login"
             android:launchMode="singleTop"/>
 
+        <activity android:name=".activity.CodecActivity"
+            android:label="@string/activity_codec"
+            android:launchMode="singleTop"/>
+
         <activity
             android:name=".module.rong.activity.ConversationListActivity"
             android:screenOrientation="portrait"

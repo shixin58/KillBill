@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bride.demon.R;
+import com.bride.demon.activity.CodecActivity;
 import com.bride.demon.activity.LoginActivity;
 import com.bride.ui_lib.BaseFragment;
 
@@ -32,6 +33,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.btn_login:
                 LoginActivity.openActivity(getActivity());
+                break;
+            case R.id.btn_codec:
+                CodecActivity.openActivity(getActivity());
                 break;
         }
     }
