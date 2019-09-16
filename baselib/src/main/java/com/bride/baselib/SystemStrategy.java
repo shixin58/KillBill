@@ -32,18 +32,23 @@ public class SystemStrategy {
 
     public void execute() {
         // UTC时间，依赖系统时钟，设置当前日期、时间用
+        // Timer#schedule(TimerTask, long)
         System.out.println("System.currentTimeMillis() "+System.currentTimeMillis());
-        // 0代表设备启动时间，不包含deep sleep，计算间隔时间用；
+
+        // 设备启动时间，不包含deep sleep，计算间隔时间用；
         // 纳秒nano，one billionth of a second, 10^-9, micro-benchmark具有更好的分辨率
         System.out.println("System.nanoTime() "+System.nanoTime());
 
-        // 当前线程启动时间
-        System.out.println("SystemClock.currentThreadTimeMillis() "+SystemClock.currentThreadTimeMillis());
-        // 自设备启动时间
+        // 设备启动时间，不包含deep sleep
+        // Handler#sendMessageDelayed
+        System.out.println("SystemClock.uptimeMillis() "+SystemClock.uptimeMillis());
+
+        // 设备启动时间
         System.out.println("SystemClock.elapsedRealtime() "+SystemClock.elapsedRealtime());
         System.out.println("SystemClock.elapsedRealtimeNanos() "+SystemClock.elapsedRealtimeNanos());
-        // 设备启动时间，不包含deep sleep
-        System.out.println("SystemClock.uptimeMillis() "+SystemClock.uptimeMillis());
+
+        // 当前线程启动时间
+        System.out.println("SystemClock.currentThreadTimeMillis() "+SystemClock.currentThreadTimeMillis());
     }
 
     public static String getDeviceId() {

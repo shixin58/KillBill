@@ -80,6 +80,10 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".PushReceiver"/>
+        <receiver android:name=".PushReceiver">
+            <intent-filter>
+                <action android:name="com.bride.thirdparty.broadcast.ACTION_TEST_MESSAGE"/>
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>
