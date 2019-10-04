@@ -10,12 +10,11 @@ import java.nio.charset.Charset;
 
 public class EncryptDecryptUtils {
 
-
     private static final String ENCODE = "UTF-8";
     //AES算法加解密模式有多种，这里选择 CBC + PKCS5Padding 模式，CBC 需要一个AES_IV偏移量参数，而AES_KEY是密钥
     private static final String AES = "AES";
     private static final String AES_IV = "abzdfxercmriowps";
-    private static final String AES_KEY = "LuckyGoldZWHL809"; //16字节，128bit，三种密钥长度中的一种
+    private static final String AES_KEY = "NIMByTiMKKINA001"; //16字节，128bit，三种密钥长度中的一种
 //    private static final String AES_KEY = "NIMByTiMKKINA001"; //16字节，128bit，三种密钥长度中的一种
     private static final String CIPHER_ALGORITHM = "AES/CBC/PKCS5Padding";
 
@@ -38,7 +37,6 @@ public class EncryptDecryptUtils {
         }
     }
 
-
     /**
      * Base64解码后再进行AES解密，最后对二进制明文串进行UTF-8编码输出明文串
      */
@@ -54,5 +52,4 @@ public class EncryptDecryptUtils {
         //3. 最后将二进制的明文串以UTF-8格式编码成字符串后输出
         return new String(result, Charset.forName(ENCODE));
     }
-
 }

@@ -1,36 +1,59 @@
 package com.bride.demon.demo
 
 import kotlinx.coroutines.*
+import java.text.DateFormat
+import java.util.*
 import java.util.concurrent.atomic.AtomicLong
 import kotlin.concurrent.thread
 
 /**
  * <p>Created by shixin on 2019-04-20.
  */
-fun main() {
-//    example()
+/*fun main() {
+    example()
 //    example2()
-    example3()
+//    example3()
+}*/
+
+fun main() = runBlocking<Unit> {
+    /*GlobalScope.launch {
+        delay(1000L)
+        printWithTime("one")
+    }
+    printWithTime("two")
+    delay(2000L)*/
+
+    val job = GlobalScope.launch {
+        delay(1000L)
+        printWithTime("world")
+    }
+    printWithTime("Hello, ")
+    job.join()
 }
 
 fun example(): Unit {
-    println("Start")
+    printWithTime("Start")
 
     GlobalScope.launch {
-        delay(1000)
-        println("Hello")
+        delay(1000L)
+        printWithTime("Hello")
     }
 
+    /*thread {
+        Thread.sleep(1000L)
+        printWithTime("Hello")
+    }*/
+
     Thread.sleep(2000)
-    println("Stop")
+    printWithTime("Stop")
 
     runBlocking {
         delay(1000)
-        println("World")
+        printWithTime("World")
     }
 
     Thread.sleep(2000)
-    println("End")
+    printWithTime("End")
 }
 
 fun example2(): Unit {
@@ -44,13 +67,13 @@ fun example2(): Unit {
 }
 
 fun example3(): Unit {
-    val deferred = (1..1_000_000).map { n ->
+    val deferredList = (1..1_000_000).map { n ->
         GlobalScope.async {
             workload(n)
         }
     }
     runBlocking {
-        val sum = deferred.sumBy {
+        val sum = deferredList.sumBy {
             it.await()
         }
         println("Sum: $sum")
@@ -60,4 +83,14 @@ fun example3(): Unit {
 suspend fun workload(n: Int): Int {
     delay(1000)
     return n
+}
+
+fun printWithTime(msg: String) {
+//    val time = Date(System.currentTimeMillis()).toString()
+//    println("$time: $msg")
+
+    val dateFormat = DateFormat.getDateTimeInstance()
+    // GMT-08:00
+    dateFormat.timeZone = TimeZone.getTimeZone("GMT+08:00")
+    println("${dateFormat.format(Date())}: $msg")
 }

@@ -160,10 +160,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case 1:
-                if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.i(TAG, "onRequestPermissionsResult "+permissions[0]);
-                }
-                break;
             case 2:
                 if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.i(TAG, "onRequestPermissionsResult "+permissions[0]);
