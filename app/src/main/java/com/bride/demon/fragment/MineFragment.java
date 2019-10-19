@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.bride.demon.R;
 import com.bride.demon.activity.CodecActivity;
+import com.bride.demon.activity.JobSchedulerActivity;
 import com.bride.demon.activity.LoginActivity;
 import com.bride.ui_lib.BaseFragment;
 
@@ -37,6 +38,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             case R.id.btn_codec:
                 CodecActivity.openActivity(getActivity());
                 break;
+            case R.id.btn_job_scheduler:
+                JobSchedulerActivity.Companion.openActivity(getActivity());
         }
     }
 }

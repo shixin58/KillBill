@@ -203,11 +203,17 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".activity.JobSchedulerActivity"
+            android:launchMode="singleTop"/>
+
         <service android:name=".service.MyService"
             android:exported="true"/>
 
         <service android:name=".service.UploadService"
             android:exported="true"/>
+
+        <service android:name=".service.MyJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
 
         <receiver
             android:name=".module.rong.SealNotificationReceiver"

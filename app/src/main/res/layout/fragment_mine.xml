@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:onClick="onClick"
         android:gravity="center"
-        android:text="test Login"/>
+        android:text="@string/mine_btn_login"/>
 
     <TextView
         android:id="@+id/btn_codec"
@@ -24,5 +24,16 @@
         app:layout_constraintTop_toBottomOf="@id/btn_login"
         android:onClick="onClick"
         android:gravity="center"
-        android:text="test codec"/>
+        android:text="@string/mine_btn_codec"/>
+
+    <TextView
+        android:id="@+id/btn_job_scheduler"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_codec"
+        android:onClick="onClick"
+        android:gravity="center"
+        android:text="@string/mine_btn_job_scheduler"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

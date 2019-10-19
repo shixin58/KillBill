@@ -32,4 +32,11 @@
     <string name="tv_1" translatable="false">举头望明月，低头思故乡。</string>
     <string name="tv_2" translatable="false">举头望明月，低头思故乡。\n举头望明月，低头思故乡。</string>
     <string name="tv_3" translatable="false">举头望明月，低头思故乡。\n举头望明月，低头思故乡。\n举头望明月，低头思故乡。</string>
+    
+    <string name="mine_btn_login" translatable="false">test Login</string>
+    <string name="mine_btn_codec" translatable="false">test codec</string>
+    <string name="mine_btn_job_scheduler" translatable="false">test JobScheduler</string>
+
+    <string name="schedule" translatable="false">schedule</string>
+    <string name="cancel" translatable="false">cancel</string>
 </resources>
