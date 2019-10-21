@@ -9,4 +9,5 @@ object Finals {
     const val TO_USER_PHONE = "to_user_phone"
 
     const val TAG_JOB_SCHEDULER = "cute_job_scheduler"
+    const val TAG_GL_SURFACE_VIEW = "cute_gl_surface_view"
 }

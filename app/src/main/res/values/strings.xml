@@ -39,4 +39,11 @@
 
     <string name="schedule" translatable="false">schedule</string>
     <string name="cancel" translatable="false">cancel</string>
+
+    <string name="test_surfaceview" translatable="false">test SurfaceView</string>
+    <string name="test_customview" translatable="false">test CustomView</string>
+    <string name="test_textureview" translatable="false">test TextureView</string>
+    <string name="test_mediarecorder" translatable="false">test MediaRecorder</string>
+    <string name="test_videoview" translatable="false">test VideoView</string>
+    <string name="test_glsurfaceview" translatable="false">test GLSurfaceView</string>
 </resources>
