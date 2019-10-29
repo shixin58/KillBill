@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bride.demon.R;
+import com.bride.demon.service.CustomForegroundService;
 import com.bride.demon.service.UploadService;
 
 import androidx.annotation.Nullable;
@@ -50,10 +51,26 @@ public class UploadActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        String name = "talent";
-        ComponentName componentName = UploadService.openService(this, name);
-        Log.i(TAG, "componentName = "+componentName);
-        Toast.makeText(this, name + " starts upload", Toast.LENGTH_SHORT).show();
+        switch (view.getId()) {
+            case R.id.tv_upload:
+                String name = "talent";
+                ComponentName componentName = UploadService.openService(this, name);
+                Log.i(TAG, "componentName = "+componentName);
+                Toast.makeText(this, name + " starts upload", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv_start_foreground:
+                CustomForegroundService.Companion.runForegroundSrv(this);
+                Toast.makeText(this, "startForegroundService", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv_run_task:
+                CustomForegroundService.Companion.runForegroundTask(this);
+                Toast.makeText(this, "runForegroundTask", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv_stop:
+                stopService(new Intent(this, CustomForegroundService.class));
+                Toast.makeText(this, "stopService", Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 
     @Override
