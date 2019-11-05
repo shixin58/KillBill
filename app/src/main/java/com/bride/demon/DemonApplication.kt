@@ -65,6 +65,7 @@ class DemonApplication : Application() {
 
     companion object {
         private lateinit var instance: DemonApplication
+        val exec: ExecutorService by lazy { Executors.newCachedThreadPool() }
 
         fun getInstance(): DemonApplication {
             return instance

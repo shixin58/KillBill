@@ -51,4 +51,7 @@
     <string name="start_foreground" translatable="false">startForeground</string>
     <string name="run_task" translatable="false">runTask</string>
     <string name="stop_service" translatable="false">stopService</string>
+
+    <string name="welcome_to_newyork" translatable="false">Welcome to New York!</string>
+    <string name="start_bomb" translatable="false">Start Bomb</string>
 </resources>
