@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -45,6 +46,15 @@ public class CustomView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawText(i+"", getWidth()/2, getHeight()/2, mPaint);
+
+        Path path = new Path();
+        path.moveTo(0f, 0f);
+        path.lineTo(100f, 100f);
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        paint.setStrokeWidth(5f);
+        paint.setColor(Color.BLACK);
+        canvas.drawPath(path, paint);
     }
 
     public int getI() {
