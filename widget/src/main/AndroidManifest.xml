@@ -57,6 +57,10 @@
             android:label="@string/activity_refresh"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.LottieActivity"
+            android:label="@string/activity_lottie"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
