@@ -60,6 +60,11 @@ public class LottieActivity extends BaseActivity {
                 animationView.setAnimation(R.raw.firework);
                 animationView.playAnimation();
                 break;
+            case R.id.tv_common:
+                animationView.setRepeatCount(LottieDrawable.INFINITE);
+                animationView.setAnimationFromUrl("https://image.luckytimeapp.com/um_sys_pf7sYIV3.json");
+                animationView.playAnimation();
+                break;
         }
     }
 }

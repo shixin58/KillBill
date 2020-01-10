@@ -207,9 +207,11 @@
         </activity>
 
         <activity android:name=".activity.JobSchedulerActivity"
+            android:label="@string/activity_job_scheduler"
             android:launchMode="singleTop"/>
 
         <activity android:name=".module.video.activity.GLActivity"
+            android:label="@string/activity_gl"
             android:launchMode="singleTop"/>
 
         <service android:name=".service.MyService"

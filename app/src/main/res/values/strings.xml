@@ -5,8 +5,6 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_mine">Mine</string>
 
-    <string name="activity_blank" translatable="false">BlankActivity</string>
-    <string name="activity_platform" translatable="false">PlatformActivity</string>
     <string name="activity_recycler_view" translatable="false">RecyclerViewActivity</string>
     <string name="activity_touch" translatable="false">TouchActivity</string>
     <string name="activity_nested_list" translatable="false">NestedListActivity</string>
@@ -16,18 +14,24 @@
     <string name="activity_relative_layout" translatable="false">RelativeLayoutActivity</string>
     <string name="volley_activity" translatable="false">VolleyActivity</string>
     <string name="activity_rong_demo" translatable="false">RongDemoActivity</string>
-    <string name="activity_live_camera" translatable="false">LiveCameraActivity</string>
-    <string name="activity_audio_record" translatable="false">AudioRecordActivity</string>
-    <string name="activity_video_view" translatable="false">VideoViewActivity</string>
     <string name="activity_exception" translatable="false">ExceptionActivity</string>
     <string name="activity_serializable" translatable="false">SerializableActivity</string>
-    <string name="activity_login" translatable="false">LoginActivity</string>
-    <string name="activity_codec" translatable="false">CodecActivity</string>
 
     <string name="activity_standard" translatable="false">StandardActivity</string>
     <string name="activity_single_top" translatable="false">SingleTopActivity</string>
     <string name="activity_single_task" translatable="false">SingleTaskActivity</string>
     <string name="activity_single_instance" translatable="false">SingleInstanceActivity</string>
+
+    <string name="activity_blank" translatable="false">BlankActivity</string>
+    <string name="activity_platform" translatable="false">PlatformActivity</string>
+    <string name="activity_live_camera" translatable="false">LiveCameraActivity</string>
+    <string name="activity_audio_record" translatable="false">AudioRecordActivity</string>
+    <string name="activity_video_view" translatable="false">VideoViewActivity</string>
+    <string name="activity_gl" translatable="false">GLActivity</string>
+
+    <string name="activity_login" translatable="false">LoginActivity</string>
+    <string name="activity_codec" translatable="false">CodecActivity</string>
+    <string name="activity_job_scheduler" translatable="false">JobSchedulerActivity</string>
 
     <string name="tv_1" translatable="false">举头望明月，低头思故乡。</string>
     <string name="tv_2" translatable="false">举头望明月，低头思故乡。\n举头望明月，低头思故乡。</string>
