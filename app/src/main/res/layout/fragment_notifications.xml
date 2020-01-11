@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.bride.demon.fragment.NotificationsFragment">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/button_base"
         android:layout_width="0dp"
         android:layout_height="40dp"
@@ -17,7 +17,7 @@
         android:gravity="center"
         android:text="@string/test_surfaceview"/>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/button_custom_view"
         android:layout_width="0dp"
         android:layout_height="40dp"
@@ -28,7 +28,7 @@
         android:gravity="center"
         android:text="@string/test_customview"/>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/button_texture_view"
         android:layout_width="0dp"
         android:layout_height="40dp"
@@ -39,7 +39,7 @@
         android:gravity="center"
         android:text="@string/test_textureview"/>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/button_audio_record"
         android:layout_width="0dp"
         android:layout_height="40dp"
@@ -50,7 +50,7 @@
         android:gravity="center"
         android:text="@string/test_mediarecorder"/>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/btn_video"
         android:layout_width="0dp"
         android:layout_height="40dp"
@@ -61,7 +61,7 @@
         android:gravity="center"
         android:text="@string/test_videoview"/>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/btn_glsurfaceview"
         android:layout_width="0dp"
         android:layout_height="40dp"
@@ -72,7 +72,7 @@
         android:gravity="center"
         android:text="@string/test_glsurfaceview"/>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/btn_camera3d"
         android:layout_width="0dp"
         android:layout_height="40dp"
