@@ -214,6 +214,10 @@
             android:label="@string/activity_gl"
             android:launchMode="singleTop"/>
 
+        <activity android:name=".activity.Camera3DActivity"
+            android:label="@string/activity_camera_3d"
+            android:launchMode="singleTop"/>
+
         <service android:name=".service.MyService"
             android:exported="true"/>
 
