@@ -118,6 +118,7 @@ dependencies {
     api 'cn.rongcloud.sdk:im_lib:2.9.21'
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
 
     implementation project(':baselib')
     implementation project(':ui_lib')

@@ -1,4 +1,4 @@
-package com.bride.demon.activity
+package com.bride.demon.module.video.activity
 
 import android.content.Context
 import android.content.Intent
@@ -8,7 +8,7 @@ import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import com.bride.baselib.ResUtils
 import com.bride.demon.R
-import com.bride.demon.widget.Rotate3dAnimation
+import com.bride.demon.module.video.widget.Rotate3dAnimation
 import com.bride.ui_lib.BaseActivity
 
 class Camera3DActivity : BaseActivity() {

@@ -76,10 +76,21 @@
         android:id="@+id/btn_camera3d"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_glsurfaceview"
         android:onClick="onClick"
         android:gravity="center"
         android:text="@string/test_camera3d"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btn_dice"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_camera3d"
+        android:onClick="onClick"
+        android:gravity="center"
+        android:text="@string/test_dice_royale"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

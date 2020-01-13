@@ -214,8 +214,12 @@
             android:label="@string/activity_gl"
             android:launchMode="singleTop"/>
 
-        <activity android:name=".activity.Camera3DActivity"
+        <activity android:name=".module.video.activity.Camera3DActivity"
             android:label="@string/activity_camera_3d"
+            android:launchMode="singleTop"/>
+
+        <activity android:name=".module.video.activity.DiceActivity"
+            android:label="@string/activity_dice"
             android:launchMode="singleTop"/>
 
         <service android:name=".service.MyService"

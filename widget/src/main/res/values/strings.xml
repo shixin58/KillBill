@@ -106,4 +106,5 @@
     <string name="android_wave">AndroidWave</string>
     <string name="roulette">roulette</string>
     <string name="common_cap">Common</string>
+    <string name="star_cap">Star</string>
 </resources>

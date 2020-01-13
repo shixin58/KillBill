@@ -1,4 +1,4 @@
-package com.bride.demon.widget;
+package com.bride.demon.module.video.widget;
 
 import android.content.Context;
 import android.graphics.Camera;
