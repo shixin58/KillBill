@@ -6,8 +6,8 @@
 
     <com.bride.demon.module.video.widget.DiceView
         android:id="@+id/view_dice"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="360dp"
+        android:layout_height="360dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
