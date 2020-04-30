@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION as int
@@ -36,7 +36,7 @@ dependencies {
     implementation group: 'com.google.android.material', name: 'material', version: materialVersion
 
     implementation 'com.android.volley:volley:1.1.1'
-    implementation "androidx.core:core-ktx:1.1.0"
+    implementation "androidx.core:core-ktx:1.2.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 //    implementation 'com.github.bumptech.glide:volley-integration:4.9.0@aar'
 }

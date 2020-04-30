@@ -12,6 +12,7 @@ import com.bride.widget.activity.JSActivity;
 import com.bride.widget.activity.LottieActivity;
 import com.bride.widget.activity.RefreshActivity;
 import com.bride.widget.activity.ScrollingActivity;
+import com.bride.widget.activity.TypefaceActivity;
 
 /**
  * <p>Created by shixin on 2018/10/27.
@@ -50,6 +51,10 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.tv_lottie:
                 LottieActivity.openActivity(this);
+                break;
+            case R.id.tv_typeface:
+                intent = new Intent(this, TypefaceActivity.class);
+                startActivity(intent);
                 break;
         }
     }

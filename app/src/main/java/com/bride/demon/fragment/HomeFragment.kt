@@ -1,6 +1,5 @@
 package com.bride.demon.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +11,6 @@ import com.bride.demon.module.rong.activity.RongDemoActivity
 import com.bride.ui_lib.BaseFragment
 
 class HomeFragment : BaseFragment(), View.OnClickListener {
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

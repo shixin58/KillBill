@@ -30,7 +30,7 @@ public class LottieActivity extends BaseActivity {
         LottieAnimationView animationView = findViewById(R.id.lottie_animation_view);
         switch (v.getId()) {
             case R.id.tv_android_wave:
-                animationView.setImageAssetsFolder("images/");
+                animationView.setImageAssetsFolder("fonts/");
                 animationView.setRepeatCount(LottieDrawable.INFINITE);
                 animationView.setAnimation("AndroidWave.json");
                 animationView.playAnimation();

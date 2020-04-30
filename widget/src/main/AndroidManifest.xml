@@ -61,6 +61,10 @@
             android:label="@string/activity_lottie"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.TypefaceActivity"
+            android:label="@string/activity_typeface"
+            android:launchMode="singleTask"
+            android:screenOrientation="fullSensor"/>
     </application>
 
 </manifest>

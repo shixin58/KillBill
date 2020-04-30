@@ -76,7 +76,7 @@ dependencies {
 
     implementation group: 'androidx.constraintlayout', name: 'constraintlayout', version: constraintLayoutVersion
 
-    implementation group: 'androidx.lifecycle', name: 'lifecycle-extensions', version: '2.1.0'
+    implementation group: 'androidx.lifecycle', name: 'lifecycle-extensions', version: '2.2.0'
 
     debugImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-android-no-op', version: '1.6.3'
     releaseImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-android-no-op', version: '1.6.3'
