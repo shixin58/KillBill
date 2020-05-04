@@ -30,12 +30,14 @@ public class LottieActivity extends BaseActivity {
         LottieAnimationView animationView = findViewById(R.id.lottie_animation_view);
         switch (v.getId()) {
             case R.id.tv_android_wave:
-                animationView.setImageAssetsFolder("fonts/");
+                // 从assets加载json
+                animationView.setImageAssetsFolder("images/");
                 animationView.setRepeatCount(LottieDrawable.INFINITE);
                 animationView.setAnimation("AndroidWave.json");
                 animationView.playAnimation();
                 break;
             case R.id.tv_heart:
+                // 从raw加载json
                 animationView.setRepeatCount(0);
                 animationView.setAnimation(R.raw.heart);
                 animationView.playAnimation();
@@ -61,6 +63,7 @@ public class LottieActivity extends BaseActivity {
                 animationView.playAnimation();
                 break;
             case R.id.tv_common:
+                // 从network加载json
                 animationView.setRepeatCount(LottieDrawable.INFINITE);
                 animationView.setAnimationFromUrl("https://image.luckytimeapp.com/um_sys_pf7sYIV3.json");
                 animationView.playAnimation();

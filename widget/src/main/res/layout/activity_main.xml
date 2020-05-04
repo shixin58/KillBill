@@ -78,4 +78,13 @@
         app:layout_constraintTop_toBottomOf="@id/tv_lottie"
         android:text="@string/activity_typeface"
         android:onClick="onClick"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_multilingual"
+        style="@style/common_txt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_typeface"
+        android:text="@string/activity_multilingual"
+        android:onClick="onClick"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

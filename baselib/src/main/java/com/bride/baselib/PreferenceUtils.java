@@ -25,6 +25,10 @@ public class PreferenceUtils {
         return preferences.getString(key, "");
     }
 
+    public static String getString(String key, String defValue) {
+        return preferences.getString(key, defValue);
+    }
+
     public static void putString(String key, String value) {
         getEditor().putString(key, value);
     }
