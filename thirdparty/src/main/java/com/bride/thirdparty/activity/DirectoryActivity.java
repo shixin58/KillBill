@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bride.baselib.SystemStrategy;
 import com.bride.ui_lib.BaseActivity;
 import com.bride.thirdparty.R;
 
@@ -76,6 +77,9 @@ public class DirectoryActivity extends BaseActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     Toast.makeText(this, getDataDir().getPath(), Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case R.id.tv_dir12:
+                Toast.makeText(this, SystemStrategy.getAndroidId(), Toast.LENGTH_LONG).show();
                 break;
         }
     }

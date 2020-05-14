@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Process;
 import android.os.SystemClock;
+import android.provider.Settings;
 import android.system.Os;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -51,6 +52,7 @@ public class SystemStrategy {
         System.out.println("SystemClock.currentThreadTimeMillis() "+SystemClock.currentThreadTimeMillis());
     }
 
+    // SecurityException: getUniqueDeviceId: The user 10780 does not meet the requirements to access device identifiers
     public static String getDeviceId() {
         if(ContextCompat.checkSelfPermission(CONTEXT, Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -74,6 +76,10 @@ public class SystemStrategy {
         }else {
             return "Unknown";
         }
+    }
+
+    public static String getAndroidId() {
+        return Settings.Secure.getString(CONTEXT.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
     public static String getDeviceInfo() {

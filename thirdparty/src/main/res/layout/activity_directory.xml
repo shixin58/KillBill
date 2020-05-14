@@ -123,4 +123,15 @@
         android:gravity="center"
         android:onClick="onClick"
         android:text="Context#getDataDir"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_dir12"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_dir11"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:text="getDeviceId"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
