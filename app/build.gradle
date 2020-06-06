@@ -93,9 +93,9 @@ dependencies {
     implementation group: "com.google.android.material", name: 'material', version: materialVersion
     implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
 
-    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk7', version: kotlinVersion
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk7', version: kotlin_stdlib_jdk7
     implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: '1.3.0'
-    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version: kotlinVersion
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version: kotlin_reflect
 
 //    debugImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-android', version: '1.6.3'
 //    debugImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-support-fragment', version: '1.6.3'

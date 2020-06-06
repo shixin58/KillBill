@@ -36,8 +36,8 @@ dependencies {
     implementation group: 'com.google.android.material', name: 'material', version: materialVersion
 
     implementation 'com.android.volley:volley:1.1.1'
-    implementation "androidx.core:core-ktx:1.2.0"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.core:core-ktx:$core_ktx"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_stdlib_jdk7"
 //    implementation 'com.github.bumptech.glide:volley-integration:4.9.0@aar'
 }
 
