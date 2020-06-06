@@ -28,6 +28,7 @@ allprojects {
         jcenter()
         mavenCentral()
         maven {url  "https://dl.bintray.com/rongcloud/maven"}
+        maven {url 'https://jitpack.io'}
     }
 }
 
