@@ -33,6 +33,7 @@
             android:screenOrientation="portrait"
             android:launchMode="standard"/>
 
+        <!-- 测试横竖屏切换 -->
         <activity android:name=".activity.LandscapeActivity"
             android:label="@string/landscape_activity"
             android:launchMode="standard"/>
@@ -60,7 +61,9 @@
             android:label="@string/directory_activity"
             android:launchMode="singleTask"/>
 
+        <!-- 测试沉浸式状态栏 -->
         <activity android:name=".activity.RxBusActivity"
+            android:theme="@style/AppTheme.Immersive"
             android:label="@string/rx_bus_activity"
             android:launchMode="singleTask"/>
 
