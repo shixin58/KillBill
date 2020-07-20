@@ -1,0 +1,41 @@
+@startmindmap
+title Directory Summary
+caption Figure 1
+header My Super Header
+right footer My Super Footer
+legend top right
+Max
+Tue, Jul 21st, 2020
+endlegend
+
+* Directory
+** 内部存储, \nroot可见, \n卸载app不删除
+*** Environment.getRootDirectory()
+****_ /system
+*** Environment.getDataDirectory()
+****_ /data
+*** Environment.getDownloadCacheDirectory()
+****_ /cache
+
+** 外部存储, \n可见, \n卸载app不删除
+*** Environment.getExternalStorageDirectory()
+****_ /storage/emulated/0
+*** Environment.getExternalStoragePublicDirectory(\nEnvironment.DIRECTORY_MUSIC)
+****_ /storage/emulated/0/Music
+
+** 外部存储, \n可见, \n卸载app删除
+*** Context.getExternalCacheDir()
+****_ /storage/emulated/0/Android/data/package/cache
+*** Context.getExternalFilesDir(\nEnvironment.DIRECTORY_MUSIC)
+****_ /storage/emulated/0/Android/data/package/files/Music
+
+** 内部存储, \nroot可见, \n卸载app删除
+*** Context.getCacheDir()
+****_ /data/data/package/cache
+*** Context.getFilesDir()
+****_ /data/data/package/files
+*** Context.getDir("plugin")
+****_ /data/data/package/plugin
+***_ /data/data/package/databases,
+***_ /data/data/package/shared_prefs
+@endmindmap
