@@ -75,4 +75,22 @@
         app:layout_constraintTop_toBottomOf="@id/iv_transform"
         android:layout_marginTop="16dp"
         android:src="@drawable/anim_dice"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_alpha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_dice"
+        android:layout_marginTop="16dp"
+        android:src="@mipmap/ic_launcher"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_color_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_alpha"
+        android:layout_marginTop="16dp"
+        android:src="@mipmap/ic_launcher"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

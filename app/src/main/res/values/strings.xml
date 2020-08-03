@@ -62,4 +62,5 @@
 
     <string name="welcome_to_newyork" translatable="false">Welcome to New York!</string>
     <string name="start_bomb" translatable="false">Start Bomb</string>
+    <string name="no_ad" translatable="false">Video\'s not ready.\nPlease try again later.</string>
 </resources>
