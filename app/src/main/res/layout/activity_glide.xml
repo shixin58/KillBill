@@ -1,96 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.GlideActivity"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.GlideActivity">
+    android:layout_height="match_parent" >
 
-    <ImageView
-        android:id="@+id/iv_logo"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/iv_resource"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
-        android:id="@+id/tv_clear_memory_cache"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_logo"
-        android:onClick="onClick"
-        android:gravity="center"
-        android:text="clear memory cache"/>
+        <ImageView
+            android:id="@+id/iv_resource"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
-        android:id="@+id/tv_clear_disk_cache"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_clear_memory_cache"
-        android:onClick="onClick"
-        android:gravity="center"
-        android:text="clear disk cache"/>
+        <TextView
+            android:id="@+id/tv_clear_memory_cache"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_logo"
+            android:onClick="onClick"
+            android:gravity="center"
+            android:text="clear memory cache"/>
 
-    <ImageView
-        android:id="@+id/iv_transform"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/iv_circle"
-        app:layout_constraintTop_toBottomOf="@id/tv_clear_disk_cache"
-        app:layout_constraintHorizontal_chainStyle="spread"/>
+        <TextView
+            android:id="@+id/tv_clear_disk_cache"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_clear_memory_cache"
+            android:onClick="onClick"
+            android:gravity="center"
+            android:text="clear disk cache"/>
 
-    <ImageView
-        android:id="@+id/iv_circle"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:layout_constraintStart_toEndOf="@id/iv_transform"
-        app:layout_constraintEnd_toStartOf="@id/iv_filter"
-        app:layout_constraintTop_toTopOf="@id/iv_transform"/>
+        <ImageView
+            android:id="@+id/iv_transform"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/iv_circle"
+            app:layout_constraintTop_toBottomOf="@id/tv_clear_disk_cache"
+            app:layout_constraintHorizontal_chainStyle="spread"/>
 
-    <ImageView
-        android:id="@+id/iv_filter"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:layout_constraintStart_toEndOf="@id/iv_circle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/iv_transform"/>
+        <ImageView
+            android:id="@+id/iv_circle"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintStart_toEndOf="@id/iv_transform"
+            app:layout_constraintEnd_toStartOf="@id/iv_filter"
+            app:layout_constraintTop_toTopOf="@id/iv_transform"/>
 
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/iv_dice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_transform"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/anim_dice"/>
+        <ImageView
+            android:id="@+id/iv_filter"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintStart_toEndOf="@id/iv_circle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_transform"/>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_alpha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_dice"
-        android:layout_marginTop="16dp"
-        android:src="@mipmap/ic_launcher"/>
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/iv_dice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_transform"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/anim_dice"/>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_color_filter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_alpha"
-        android:layout_marginTop="16dp"
-        android:src="@mipmap/ic_launcher"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_alpha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_dice"
+            android:layout_marginTop="16dp"
+            android:src="@mipmap/ic_launcher"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_color_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_alpha"
+            android:layout_marginTop="16dp"
+            android:src="@mipmap/ic_launcher"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_blended"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_color_filter"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:minLines="2"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_multicolor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_blended"
+            android:textSize="16sp"
+            android:minLines="2"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_multicolor2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_multicolor"
+            android:textSize="16sp"
+            android:minLines="2"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
