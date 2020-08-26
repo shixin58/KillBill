@@ -80,6 +80,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
+    ndkVersion ndk_version
 }
 
 dependencies {
