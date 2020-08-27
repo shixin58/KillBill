@@ -4,7 +4,7 @@
 
 - app: Kotlin, LeakCanary, BlockCanary, Glide, 序列化, binder
 
-- client: Java8, java反射, 注解, LRU算法, 线程池，Observable，synchronized
+- client: Java8, java反射, 注解, LRU算法, 线程池，Observable，synchronized, ClassLoader和插件化
 
 - thirdparty: OkHttp3, Retrofit, Volley, RxJava, RxBus, EventBus
 
