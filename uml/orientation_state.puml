@@ -1,0 +1,68 @@
+@startuml
+
+class BaseActivity
+
+class FullscreenActivity {
+    OrientationUtils mOrientationUtils
+    onCreate(Bundle savedInstanceState)
+    onResume()
+    onPause()
+    onConfigurationChanged(Configuration newConfig)
+}
+
+class OrientationUtils {
+    Activity mActivity
+    boolean mOrientationEventListenerSwitch = true
+    boolean mIsLandscape
+    OrientationEventListener mOrientationEventListener
+    OrientationUtils(Activity activity, ChangePageOrientationCallback callback)
+    init()
+    onConfigurationChanged(int orientation)
+    start()
+    end()
+    setPortraitDefault()
+    setLandscapeDefault()
+}
+
+abstract class OrientationEventListener {
+    SensorManager mSensorManager
+    Sensor mSensor
+    SensorEventListener mSensorEventListener
+    OrientationListener mOldListener
+    enable()
+    disable()
+}
+
+abstract class SensorManager {
+    SparseArray<List<Sensor>> mSensorListByType = new SparseArray<>()
+    Sensor getDefaultSensor(int type)
+    boolean registerListener(SensorEventListener listener, Sensor sensor, int samplingPeriodUs)
+    unregisterListener(SensorEventListener listener)
+}
+
+class Sensor
+
+interface SensorEventListener {
+    onSensorChanged(SensorEvent event)
+    onAccuracyChanged(Sensor sensor, int accuracy)
+}
+
+abstract OrientationListener {
+    onOrientationChanged(int orientation)
+}
+
+interface SensorListener {
+    onSensorChanged(int sensor, float[] values)
+    onAccuracyChanged(int sensor, int accuracy)
+}
+
+BaseActivity <|- FullscreenActivity
+FullscreenActivity *-- OrientationUtils
+OrientationUtils *-- OrientationEventListener
+OrientationEventListener *-- Sensor
+OrientationEventListener *--- SensorManager
+OrientationEventListener *- SensorEventListener
+OrientationEventListener *--- OrientationListener
+SensorListener <|-- OrientationListener
+
+@enduml

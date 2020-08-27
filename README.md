@@ -9,3 +9,5 @@
 - thirdparty: OkHttp3, Retrofit, Volley, RxJava, RxBus, EventBus
 
 - widget: JUnit, JS, MVVM, CoordinatorLayout
+
+- build_src: 自定义插件，[参考](https://juejin.im/post/5cce895f51882541e27b0cae)

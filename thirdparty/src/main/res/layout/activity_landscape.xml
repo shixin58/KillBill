@@ -5,21 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_height"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:lineSpacingExtra="0dp"
         android:lineSpacingMultiplier="1"
         android:includeFontPadding="true"
         android:textSize="14sp"
         tools:text="@string/get_height"/>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_recreate"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
@@ -30,15 +30,7 @@
         android:gravity="center"
         android:text="recreate"/>
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1px"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/tv_recreate"
-        android:background="@android:color/black"/>
-
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_eventbus"
         android:layout_width="0dp"
         android:layout_height="40dp"

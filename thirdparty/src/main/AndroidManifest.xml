@@ -33,10 +33,12 @@
             android:screenOrientation="portrait"
             android:launchMode="standard"/>
 
+        <!-- 测试横竖屏切换 -->
         <activity android:name=".activity.LandscapeActivity"
             android:label="@string/landscape_activity"
             android:launchMode="standard"/>
 
+        <!-- 模拟视频横竖屏切换 -->
         <activity android:name=".activity.FullscreenActivity"
             android:theme="@style/AppTheme.FullScreen"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
@@ -45,8 +47,10 @@
             android:screenOrientation="portrait"/>
 
         <activity android:name=".activity.PushActivity"
+            android:theme="@style/AppTheme.FullScreen"
             android:label="@string/push_activity"
-            android:launchMode="standard"/>
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".activity.RetrofitActivity"
             android:label="@string/retrofit_activity"
@@ -60,7 +64,9 @@
             android:label="@string/directory_activity"
             android:launchMode="singleTask"/>
 
+        <!-- 测试沉浸式状态栏 -->
         <activity android:name=".activity.RxBusActivity"
+            android:theme="@style/AppTheme.Immersive"
             android:label="@string/rx_bus_activity"
             android:launchMode="singleTask"/>
 

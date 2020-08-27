@@ -12,7 +12,10 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * <p>Created by shixin on 2018/4/1.
@@ -103,5 +106,31 @@ public class ResUtils {
             e.printStackTrace();
         }
         return apiKey;
+    }
+
+    // ISO 639-1, alpha-2
+    public static Map<String, Locale> getLocaleMap() {
+        Map<String, Locale> map = new HashMap<>();
+        map.put("zh", Locale.CHINESE);
+        map.put("en", Locale.ENGLISH);
+        map.put("fr", Locale.FRENCH);
+        map.put("de", Locale.GERMAN);
+        map.put("it", Locale.ITALIAN);
+        map.put("ja", Locale.JAPANESE);
+        map.put("ko", Locale.KOREAN);
+
+        // Turkish
+        map.put("tr", new Locale("tr"));
+        // Spanish
+        map.put("es", new Locale("es"));
+        // Ukrainian
+        map.put("uk", new Locale("uk"));
+        // Romanian
+        map.put("ro", new Locale("ro"));
+        // Hindi
+        map.put("hi", new Locale("hi"));
+        // Filipino
+        map.put("phi", new Locale("phi"));
+        return map;
     }
 }

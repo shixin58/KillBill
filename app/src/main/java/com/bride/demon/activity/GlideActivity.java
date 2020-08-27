@@ -1,11 +1,13 @@
 package com.bride.demon.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapRegionDecoder;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
@@ -18,9 +20,20 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.VectorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.ImageSpan;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -106,6 +119,11 @@ public class GlideActivity extends BaseActivity {
         ImageView ivFilter = findViewById(R.id.iv_filter);
         ivFilter.setColorFilter(colorFilter);
         ivFilter.setImageResource(android.R.drawable.stat_notify_more);
+
+        setImgAlpha();
+        setImgColorFilter();
+        setBlendedTxt();
+        setMulticolor();
     }
 
     private void initView() {
@@ -282,5 +300,72 @@ public class GlideActivity extends BaseActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void setImgAlpha() {
+        ImageView ivAlpha = findViewById(R.id.iv_alpha);
+        int alphaNormal = 255;
+        int alphaPressed = 100;// 0x64
+        ivAlpha.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    ivAlpha.setImageAlpha(alphaPressed);
+                    return true;
+                case MotionEvent.ACTION_MOVE:
+                    if (event.getX() >0 && event.getX() < ivAlpha.getWidth() && event.getY() > 0 && event.getY() < ivAlpha.getHeight()) {
+                        ivAlpha.setImageAlpha(alphaPressed);
+                    } else {
+                        ivAlpha.setImageAlpha(alphaNormal);
+                    }
+                    break;
+                case MotionEvent.ACTION_UP:
+                    ivAlpha.setImageAlpha(alphaNormal);
+//                    Toast toast = Toast.makeText(this, "setImgAlpha", Toast.LENGTH_SHORT);
+                    Toast toast = new Toast(this);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    View view = LayoutInflater.from(this).inflate(R.layout.toast_custom, null);
+                    toast.setView(view);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                    break;
+            }
+            return false;
+        });
+    }
+
+    private void setImgColorFilter() {
+        ImageView ivColorFilter = findViewById(R.id.iv_color_filter);
+        ivColorFilter.setColorFilter(0x26000000, PorterDuff.Mode.SRC_OVER);
+//        ivColorFilter.setColorFilter(0x64FFFFFF, PorterDuff.Mode.MULTIPLY);
+    }
+
+    private void setBlendedTxt() {
+        TextView textView = findViewById(R.id.tv_blended);
+        ImageSpan imageSpan1 = new ImageSpan(this, R.drawable.brave, ImageSpan.ALIGN_BOTTOM);
+        ImageSpan imageSpan2 = new ImageSpan(this, R.drawable.brave, ImageSpan.ALIGN_BOTTOM);
+        String source = "3+{p1}OR{p2}ON A \nWINLINE WILL AWARD A WIN!";
+        SpannableString spannableString = new SpannableString(source);
+        spannableString.setSpan(imageSpan1, source.indexOf("{p1}"), source.indexOf("{p1}")+"{p1}".length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(imageSpan2, source.indexOf("{p2}"), source.indexOf("{p2}")+"{p2}".length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView.setText(spannableString);
+//        textView.append("ABCD");
+    }
+
+    private void setMulticolor() {
+        // 方案1
+        TextView textView = findViewById(R.id.tv_multicolor);
+        String num = "x3";
+        String separator = " - ";
+        String value = "50K";
+        SpannableStringBuilder style = new SpannableStringBuilder()
+                .append(num).append(separator).append(value);
+        style.setSpan(new ForegroundColorSpan(Color.parseColor("#ff0000")), 0, num.length() + separator.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView.setText(style);
+
+        // 方案2
+        TextView textView2 = findViewById(R.id.tv_multicolor2);
+        String info = String.format("<font color=\"#ff0000\">%1$s - </font>%2$s", num, value);
+        textView2.setText(Html.fromHtml(info));
     }
 }

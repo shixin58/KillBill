@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".module.video.activity.Camera3DActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.bride.demon.module.video.widget.CameraTestView
+            android:id="@+id/view_camera_test"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/view_camera_rotate_test"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            android:onClick="onClick"/>
+
+        <com.bride.demon.module.video.widget.CameraRotateTestView
+            android:id="@+id/view_camera_rotate_test"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:layout_constraintStart_toEndOf="@id/view_camera_test"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.bride.demon.module.video.widget.Custom3DView
+            android:id="@+id/view_custom_3d"
+            android:layout_width="@dimen/cube_width"
+            android:layout_height="@dimen/cube_width"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_camera_test">
+
+            <ImageView
+                android:layout_width="@dimen/cube_width"
+                android:layout_height="@dimen/cube_width"
+                android:scaleType="centerCrop"
+                android:background="@drawable/cube_top"/>
+
+            <ImageView
+                android:layout_width="@dimen/cube_width"
+                android:layout_height="@dimen/cube_width"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cube_front" />
+
+            <ImageView
+                android:layout_width="@dimen/cube_width"
+                android:layout_height="@dimen/cube_width"
+                android:scaleType="centerCrop"
+                android:background="@drawable/cube_bottom"/>
+
+            <ImageView
+                android:layout_width="@dimen/cube_width"
+                android:layout_height="@dimen/cube_width"
+                android:scaleType="centerCrop"
+                android:background="@drawable/cube_behind"/>
+
+        </com.bride.demon.module.video.widget.Custom3DView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

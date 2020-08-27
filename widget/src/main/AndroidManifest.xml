@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"
             android:label="@string/app_name"
-            android:launchMode="standard">
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,15 +25,15 @@
             android:name=".activity.ScrollingActivity"
             android:label="@string/activity_scrolling"
             android:launchMode="standard"
-            android:screenOrientation="portrait"
+            android:screenOrientation="unspecified"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".activity.BossActivity"
             android:label="@string/activity_boss"
             android:launchMode="singleTop"/>
         <activity android:name=".activity.JSActivity"
             android:label="@string/activity_js"
-            android:launchMode="standard"
-            android:screenOrientation="portrait">
+            android:launchMode="singleTask"
+            android:screenOrientation="unspecified">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -48,19 +48,27 @@
         <activity android:name=".activity.BlueprintActivity"
             android:label="@string/activity_blueprint"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="unspecified"/>
         <activity android:name=".activity.CustomViewActivity"
             android:label="@string/activity_custom_view"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="unspecified"/>
         <activity android:name=".activity.RefreshActivity"
             android:label="@string/activity_refresh"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="unspecified"/>
         <activity android:name=".activity.LottieActivity"
             android:label="@string/activity_lottie"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="unspecified"/>
+        <activity android:name=".activity.TypefaceActivity"
+            android:label="@string/activity_typeface"
+            android:launchMode="singleTask"
+            android:screenOrientation="fullSensor"/>
+        <activity android:name=".activity.MultilingualActivity"
+            android:label="@string/activity_multilingual"
+            android:launchMode="singleTask"
+            android:screenOrientation="fullSensor"/>
     </application>
 
 </manifest>

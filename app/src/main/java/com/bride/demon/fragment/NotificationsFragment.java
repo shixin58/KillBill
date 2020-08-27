@@ -12,8 +12,10 @@ import androidx.annotation.Nullable;
 
 import com.bride.demon.R;
 import com.bride.demon.activity.BlankActivity;
+import com.bride.demon.module.video.activity.Camera3DActivity;
 import com.bride.demon.activity.PlatformActivity;
 import com.bride.demon.module.video.activity.AudioRecordActivity;
+import com.bride.demon.module.video.activity.DiceActivity;
 import com.bride.demon.module.video.activity.GLActivity;
 import com.bride.demon.module.video.activity.LiveCameraActivity;
 import com.bride.demon.module.video.activity.VideoViewActivity;
@@ -73,6 +75,12 @@ public class NotificationsFragment extends BaseFragment {
                 break;
             case R.id.btn_glsurfaceview:
                 GLActivity.Companion.openActivity(Objects.requireNonNull(getActivity()));
+                break;
+            case R.id.btn_camera3d:
+                Camera3DActivity.Companion.openActivity(getActivity());
+                break;
+            case R.id.btn_dice:
+                DiceActivity.Companion.openActivity(getActivity());
                 break;
         }
     }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_default"
+        style="@style/common_txt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="default typeface(TYPEFACE)"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_normal"
+        style="@style/common_txt"
+        android:typeface="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_default"
+        android:text="normal typeface(TYPEFACE)"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_serif"
+        style="@style/common_txt"
+        android:typeface="serif"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_normal"
+        android:text="serif typeface(TYPEFACE)"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_sans"
+        style="@style/common_txt"
+        android:typeface="sans"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_serif"
+        android:text="sans typeface(TYPEFACE)"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_monospace"
+        style="@style/common_txt"
+        android:typeface="monospace"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_sans"
+        android:text="monospace typeface(TYPEFACE)"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_brain"
+        style="@style/common_txt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_monospace"
+        android:text="brain typeface(TYPEFACE)"
+        android:onClick="onClick"/>
+
+    <include
+        layout="@layout/view_roulette"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

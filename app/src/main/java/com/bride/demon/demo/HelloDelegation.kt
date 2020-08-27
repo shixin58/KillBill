@@ -40,7 +40,7 @@ fun main() {
     println("name = ${map["name"]}, age = ${map["age"]}")
     val person = Person(map)
 
-    val mutableMap = mutableMapOf(
+    val mutableMap = mutableMapOf<String,Any>(
             "name" to "Max", "age" to 25
     )
     mutableMap["sex"] = "gentleman"
