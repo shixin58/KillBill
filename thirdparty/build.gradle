@@ -51,23 +51,24 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
 
-    implementation group: 'androidx.appcompat', name: 'appcompat', version: appcompatVersion
-    implementation group: 'androidx.constraintlayout', name: 'constraintlayout', version: constraintLayoutVersion
+    implementation group: 'androidx.appcompat', name: 'appcompat', version: appcompat_version
+    implementation "androidx.appcompat:appcompat-resources:$appcompat_version"
+    implementation group: 'androidx.constraintlayout', name: 'constraintlayout', version: constraintlayout_version
 
-    implementation group: 'com.google.android.material', name: 'material', version: materialVersion
+    implementation group: 'com.google.android.material', name: 'material', version: material_version
 
     debugImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-android-no-op', version: '1.6.3'
     releaseImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-android-no-op', version: '1.6.3'
 //    debugImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-support-fragment', version: '1.6.3'
 
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
 
     implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
-    implementation group: 'org.greenrobot', name: 'eventbus', version: '3.1.1'
+    implementation group: 'org.greenrobot', name: 'eventbus', version: '3.2.0'
 
     implementation 'com.facebook.stetho:stetho:1.5.1'
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
