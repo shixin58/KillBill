@@ -29,21 +29,23 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
+        val ac = activity?:return
         when (v?.id){
-            R.id.button_recycler_view -> RecyclerViewActivity.openActivity(activity)
-            R.id.button_touch -> TouchActivity.openActivity(activity, 0)
-            R.id.button_nested_list -> NestedListActivity.openActivity(activity)
-            R.id.button_upload -> UploadActivity.openActivity(activity)
-            R.id.button_webp -> WebpActivity.openActivity(activity)
+            R.id.button_recycler_view -> RecyclerViewActivity.openActivity(ac)
+            R.id.button_touch -> TouchActivity.openActivity(ac, 0)
+            R.id.button_nested_list -> NestedListActivity.openActivity(ac)
+            R.id.button_upload -> UploadActivity.openActivity(ac)
+            R.id.button_webp -> WebpActivity.openActivity(ac)
 //            R.id.button_glide -> GlideActivity.openActivity(activity)
             R.id.button_glide -> {
                 ARouter.getInstance().build("/demon/activity").navigation()
             }
-            R.id.button_relative_layout -> RelativeLayoutActivity.openActivity(activity)
-            R.id.button_volley -> VolleyActivity.openActivity(activity)
-            R.id.button_rong -> RongDemoActivity.openActivity(activity)
-            R.id.button_exception -> ExceptionActivity.openActivity(activity)
-            R.id.button_serializable -> SerializableActivity.openActivity(activity)
+            R.id.button_relative_layout -> RelativeLayoutActivity.openActivity(ac)
+            R.id.button_volley -> VolleyActivity.openActivity(ac)
+            R.id.button_rong -> RongDemoActivity.openActivity(ac)
+            R.id.button_exception -> ExceptionActivity.openActivity(ac)
+            R.id.button_serializable -> SerializableActivity.openActivity(ac)
+            R.id.button_drag -> DragActivity.openActivity(ac)
         }
     }
 

@@ -4,4 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="cube_width">250dp</dimen>
+    <dimen name="symbol_margin_outer">16dp</dimen>
+    <dimen name="symbol_margin_inner">10dp</dimen>
 </resources>

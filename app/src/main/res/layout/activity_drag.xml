@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.bride.demon.widget.DragContainerView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <View
+        android:id="@+id/space_symbols"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        android:background="@drawable/shape_symbols_bg"/>
+
+    <View
+        android:id="@+id/symbol_square_01"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/space_symbols"
+        app:layout_constraintEnd_toStartOf="@id/symbol_square_02"
+        app:layout_constraintTop_toTopOf="@id/space_symbols"
+        app:layout_constraintBottom_toTopOf="@id/symbol_square_05"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintVertical_bias="0"
+        android:layout_marginStart="@dimen/symbol_margin_outer"
+        android:layout_marginTop="@dimen/symbol_margin_outer" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/symbol_box_01"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/symbol_square_01"
+        app:layout_constraintEnd_toEndOf="@id/symbol_square_01"
+        app:layout_constraintTop_toTopOf="@id/symbol_square_01"
+        app:layout_constraintBottom_toBottomOf="@id/symbol_square_01">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_symbol_01"
+            style="@style/drag_item_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@mipmap/ic_launcher"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_level_01"
+            style="@style/drag_item_level"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="1"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/symbol_square_02"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toEndOf="@id/symbol_square_01"
+        app:layout_constraintEnd_toStartOf="@id/symbol_square_03"
+        app:layout_constraintTop_toTopOf="@id/space_symbols"
+        app:layout_constraintBottom_toTopOf="@id/symbol_square_06"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintVertical_bias="0"
+        android:layout_marginStart="@dimen/symbol_margin_inner"
+        android:layout_marginTop="@dimen/symbol_margin_outer" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/symbol_box_02"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/symbol_square_02"
+        app:layout_constraintEnd_toEndOf="@id/symbol_square_02"
+        app:layout_constraintTop_toTopOf="@id/symbol_square_02"
+        app:layout_constraintBottom_toBottomOf="@id/symbol_square_02"/>
+
+    <View
+        android:id="@+id/symbol_square_03"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toEndOf="@id/symbol_square_02"
+        app:layout_constraintEnd_toStartOf="@id/symbol_square_04"
+        app:layout_constraintTop_toTopOf="@id/space_symbols"
+        app:layout_constraintBottom_toTopOf="@id/symbol_square_07"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintVertical_bias="0"
+        android:layout_marginStart="@dimen/symbol_margin_inner"
+        android:layout_marginTop="@dimen/symbol_margin_outer" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/symbol_box_03"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/symbol_square_03"
+        app:layout_constraintEnd_toEndOf="@id/symbol_square_03"
+        app:layout_constraintTop_toTopOf="@id/symbol_square_03"
+        app:layout_constraintBottom_toBottomOf="@id/symbol_square_03"/>
+
+    <View
+        android:id="@+id/symbol_square_04"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toEndOf="@id/symbol_square_03"
+        app:layout_constraintEnd_toEndOf="@id/space_symbols"
+        app:layout_constraintTop_toTopOf="@id/space_symbols"
+        app:layout_constraintBottom_toTopOf="@id/symbol_square_08"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintVertical_bias="0"
+        android:layout_marginStart="@dimen/symbol_margin_inner"
+        android:layout_marginEnd="@dimen/symbol_margin_outer"
+        android:layout_marginTop="@dimen/symbol_margin_outer" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/symbol_box_04"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/symbol_square_04"
+        app:layout_constraintEnd_toEndOf="@id/symbol_square_04"
+        app:layout_constraintTop_toTopOf="@id/symbol_square_04"
+        app:layout_constraintBottom_toBottomOf="@id/symbol_square_04"/>
+
+    <View
+        android:id="@+id/symbol_square_05"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/space_symbols"
+        app:layout_constraintEnd_toStartOf="@id/symbol_square_06"
+        app:layout_constraintTop_toBottomOf="@id/symbol_square_01"
+        app:layout_constraintBottom_toTopOf="@id/symbol_square_09"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        android:layout_marginStart="@dimen/symbol_margin_outer"
+        android:layout_marginTop="@dimen/symbol_margin_inner" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/symbol_box_05"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/symbol_square_05"
+        app:layout_constraintEnd_toEndOf="@id/symbol_square_05"
+        app:layout_constraintTop_toTopOf="@id/symbol_square_05"
+        app:layout_constraintBottom_toBottomOf="@id/symbol_square_05"/>
+
+    <View
+        android:id="@+id/symbol_square_06"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toEndOf="@id/symbol_square_05"
+        app:layout_constraintEnd_toStartOf="@id/symbol_square_07"
+        app:layout_constraintTop_toBottomOf="@id/symbol_square_02"
+        app:layout_constraintBottom_toTopOf="@id/symbol_square_10"
+        android:layout_marginStart="@dimen/symbol_margin_inner"
+        android:layout_marginTop="@dimen/symbol_margin_inner" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/symbol_box_06"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/symbol_square_06"
+        app:layout_constraintEnd_toEndOf="@id/symbol_square_06"
+        app:layout_constraintTop_toTopOf="@id/symbol_square_06"
+        app:layout_constraintBottom_toBottomOf="@id/symbol_square_06"/>
+
+    <View
+        android:id="@+id/symbol_square_07"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toEndOf="@id/symbol_square_06"
+        app:layout_constraintEnd_toStartOf="@id/symbol_square_08"
+        app:layout_constraintTop_toBottomOf="@id/symbol_square_03"
+        app:layout_constraintBottom_toTopOf="@id/symbol_square_11"
+        android:layout_marginStart="@dimen/symbol_margin_inner"
+        android:layout_marginTop="@dimen/symbol_margin_inner" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/symbol_box_07"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/symbol_square_07"
+        app:layout_constraintEnd_toEndOf="@id/symbol_square_07"
+        app:layout_constraintTop_toTopOf="@id/symbol_square_07"
+        app:layout_constraintBottom_toBottomOf="@id/symbol_square_07"/>
+
+    <View
+        android:id="@+id/symbol_square_08"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toEndOf="@id/symbol_square_07"
+        app:layout_constraintEnd_toEndOf="@id/space_symbols"
+        app:layout_constraintTop_toBottomOf="@id/symbol_square_04"
+        app:layout_constraintBottom_toTopOf="@id/symbol_square_12"
+        android:layout_marginStart="@dimen/symbol_margin_inner"
+        android:layout_marginEnd="@dimen/symbol_margin_outer"
+        android:layout_marginTop="@dimen/symbol_margin_inner" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/symbol_box_08"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/symbol_square_08"
+        app:layout_constraintEnd_toEndOf="@id/symbol_square_08"
+        app:layout_constraintTop_toTopOf="@id/symbol_square_08"
+        app:layout_constraintBottom_toBottomOf="@id/symbol_square_08"/>
+
+    <View
+        android:id="@+id/symbol_square_09"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/space_symbols"
+        app:layout_constraintEnd_toStartOf="@id/symbol_square_10"
+        app:layout_constraintTop_toBottomOf="@id/symbol_square_05"
+        app:layout_constraintBottom_toBottomOf="@id/space_symbols"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        android:layout_marginStart="@dimen/symbol_margin_outer"
+        android:layout_marginTop="@dimen/symbol_margin_inner" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/symbol_box_09"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/symbol_square_09"
+        app:layout_constraintEnd_toEndOf="@id/symbol_square_09"
+        app:layout_constraintTop_toTopOf="@id/symbol_square_09"
+        app:layout_constraintBottom_toBottomOf="@id/symbol_square_09"/>
+
+    <View
+        android:id="@+id/symbol_square_10"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toEndOf="@id/symbol_square_09"
+        app:layout_constraintEnd_toStartOf="@id/symbol_square_11"
+        app:layout_constraintTop_toBottomOf="@id/symbol_square_06"
+        app:layout_constraintBottom_toBottomOf="@id/space_symbols"
+        android:layout_marginStart="@dimen/symbol_margin_inner"
+        android:layout_marginTop="@dimen/symbol_margin_inner" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/symbol_box_10"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/symbol_square_10"
+        app:layout_constraintEnd_toEndOf="@id/symbol_square_10"
+        app:layout_constraintTop_toTopOf="@id/symbol_square_10"
+        app:layout_constraintBottom_toBottomOf="@id/symbol_square_10"/>
+
+    <View
+        android:id="@+id/symbol_square_11"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toEndOf="@id/symbol_square_10"
+        app:layout_constraintEnd_toStartOf="@id/symbol_square_12"
+        app:layout_constraintTop_toBottomOf="@id/symbol_square_07"
+        app:layout_constraintBottom_toBottomOf="@id/space_symbols"
+        android:layout_marginStart="@dimen/symbol_margin_inner"
+        android:layout_marginTop="@dimen/symbol_margin_inner" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/symbol_box_11"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/symbol_square_11"
+        app:layout_constraintEnd_toEndOf="@id/symbol_square_11"
+        app:layout_constraintTop_toTopOf="@id/symbol_square_11"
+        app:layout_constraintBottom_toBottomOf="@id/symbol_square_11"/>
+
+    <View
+        android:id="@+id/symbol_square_12"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toEndOf="@id/symbol_square_11"
+        app:layout_constraintEnd_toEndOf="@id/space_symbols"
+        app:layout_constraintTop_toBottomOf="@id/symbol_square_08"
+        app:layout_constraintBottom_toBottomOf="@id/space_symbols"
+        android:layout_marginStart="@dimen/symbol_margin_inner"
+        android:layout_marginEnd="@dimen/symbol_margin_outer"
+        android:layout_marginTop="@dimen/symbol_margin_inner" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/symbol_box_12"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/symbol_square_12"
+        app:layout_constraintEnd_toEndOf="@id/symbol_square_12"
+        app:layout_constraintTop_toTopOf="@id/symbol_square_12"
+        app:layout_constraintBottom_toBottomOf="@id/symbol_square_12"/>
+</com.bride.demon.widget.DragContainerView>

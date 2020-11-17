@@ -166,6 +166,11 @@
             android:label="@string/activity_serializable"
             android:launchMode="singleTop"/>
 
+        <activity android:name=".activity.DragActivity"
+            android:label="@string/activity_drag"
+            android:screenOrientation="sensorPortrait"
+            android:launchMode="singleTop"/>
+
         <activity android:name=".activity.LoginActivity"
             android:label="@string/activity_login"
             android:launchMode="singleTop"/>

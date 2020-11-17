@@ -132,5 +132,16 @@
             android:gravity="center"
             android:onClick="onClick"
             android:text="test Serializable"/>
+
+        <TextView
+            android:id="@+id/button_drag"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_serializable"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="test Drag"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
