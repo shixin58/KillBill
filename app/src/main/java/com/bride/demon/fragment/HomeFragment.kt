@@ -46,6 +46,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             R.id.button_exception -> ExceptionActivity.openActivity(ac)
             R.id.button_serializable -> SerializableActivity.openActivity(ac)
             R.id.button_drag -> DragActivity.openActivity(ac)
+            R.id.button_region -> RegionActivity.openActivity(ac)
         }
     }
 
