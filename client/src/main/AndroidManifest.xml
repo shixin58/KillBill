@@ -1,10 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bride.client">
+    package="com.bride.client"
+    android:installLocation="internalOnly">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- 接收ACTION_LOCKED_BOOT_COMPLETED/ACTION_BOOT_COMPLETED需要 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!-- Permission is only granted to system apps -->
+    <uses-permission android:name="android.permission.REBOOT"/>
 
     <application
         android:name=".ClientApplication"
@@ -44,5 +49,19 @@
         <activity android:name=".activity.ClassLoaderActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"/>
+
+        <receiver android:name=".MyBootReceiver"
+            android:directBootAware="true"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.REBOOT"/>
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.USER_UNLOCKED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

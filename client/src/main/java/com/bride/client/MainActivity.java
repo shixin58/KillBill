@@ -45,6 +45,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     public static String UPLOAD_RESULT = "upload_result";
     public static final String KEY_NAME = "key_name";
+    private MyRegisteredReceiver registeredReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +65,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onDestroy() {
+        unregisterReceiver(registeredReceiver);
+        unregisterReceiver(innerBroadcastReceiver);
+        Log.i(TAG, "onDestroy "+getTaskId()+" "+hashCode());
         super.onDestroy();
-        unregisterReceiver(broadcastReceiver);
-        Log.i(TAG, "onNewIntent "+getTaskId()+" "+hashCode());
     }
 
     private void initView() {
@@ -85,9 +87,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initData() {
+        // 注册broadcast
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(UPLOAD_RESULT);
-        registerReceiver(broadcastReceiver, intentFilter);
+        registerReceiver(innerBroadcastReceiver, intentFilter);
+
+        registeredReceiver = new MyRegisteredReceiver();
+        IntentFilter registeredIntentFilter = new IntentFilter();
+        registeredIntentFilter.addAction(Intent.ACTION_USER_UNLOCKED);
+        registeredIntentFilter.addAction(Intent.ACTION_LOCKED_BOOT_COMPLETED);
+        registeredIntentFilter.addAction(Intent.ACTION_BOOT_COMPLETED);
+        registeredIntentFilter.addAction(Intent.ACTION_REBOOT);
+        registerReceiver(registeredReceiver, registeredIntentFilter);
     }
 
     public void onJumpClick(View v) {
@@ -273,7 +284,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     };
 
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver innerBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if(TextUtils.equals(UPLOAD_RESULT, intent.getAction())) {
@@ -315,4 +326,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     ExecutorService executorService = new ThreadPoolExecutor(3, 5,
             1, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>(128));
+
+    static class MyRegisteredReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (!TextUtils.isEmpty(action)) {
+                Log.d("MyRegisteredReceiver", action);
+            }
+        }
+    }
 }
