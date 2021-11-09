@@ -20,7 +20,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.VectorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Looper;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;

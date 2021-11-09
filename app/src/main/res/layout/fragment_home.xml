@@ -90,23 +90,12 @@
             android:text="test Volley"/>
 
         <TextView
-            android:id="@+id/button_rong"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_volley"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="test RongCloud"/>
-
-        <TextView
             android:id="@+id/button_relative_layout"
             android:layout_width="0dp"
             android:layout_height="40dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_rong"
+            app:layout_constraintTop_toBottomOf="@id/button_volley"
             android:gravity="center"
             android:onClick="onClick"
             android:text="test RelativeLayout"/>

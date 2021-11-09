@@ -59,7 +59,9 @@ public class ClassLoaderActivity extends BaseActivity {
                         .url("http://47.91.249.201:8080/libs/app-arm-free-debug.zip")
                         .get()
                         .build();
+
                 Call call = client.newCall(request);
+
                 call.enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {

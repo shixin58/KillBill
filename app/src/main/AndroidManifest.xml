@@ -141,11 +141,6 @@
             android:screenOrientation="portrait"
             android:launchMode="standard"/>
 
-        <activity android:name=".module.rong.activity.RongDemoActivity"
-            android:label="@string/activity_rong_demo"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop"/>
-
         <activity android:name=".module.video.activity.LiveCameraActivity"
             android:label="@string/activity_live_camera"
             android:launchMode="singleTask"/>
@@ -185,38 +180,6 @@
             android:label="@string/activity_codec"
             android:launchMode="singleTop"/>
 
-        <activity
-            android:name=".module.rong.activity.ConversationListActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data
-                    android:host="${applicationId}"
-                    android:pathPrefix="/conversationlist"
-                    android:scheme="rong" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".module.rong.activity.ConversationActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data
-                    android:host="${applicationId}"
-                    android:pathPrefix="/conversation/"
-                    android:scheme="rong" />
-            </intent-filter>
-        </activity>
-
         <activity android:name=".activity.JobSchedulerActivity"
             android:label="@string/activity_job_scheduler"
             android:launchMode="singleTop"/>
@@ -243,26 +206,6 @@
             android:permission="android.permission.BIND_JOB_SERVICE"/>
 
         <service android:name=".service.CustomForegroundService" />
-
-        <receiver
-            android:name=".module.rong.SealNotificationReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="io.rong.push.intent.MESSAGE_ARRIVED" />
-                <action android:name="io.rong.push.intent.MESSAGE_CLICKED" />
-                <action android:name="io.rong.push.intent.THIRD_PARTY_PUSH_STATE" />
-            </intent-filter>
-        </receiver>
-
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.FileProvider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/rc_file_path" />
-        </provider>
     </application>
 
 </manifest>

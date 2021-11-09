@@ -5,4 +5,5 @@ ext {
     material_version = '1.2.1'
     ndk_version = '21.3.6528147'
     glide_version = "4.11.0"
+    leakcanary_version = "2.7"
 }

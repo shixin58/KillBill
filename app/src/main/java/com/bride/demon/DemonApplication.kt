@@ -7,12 +7,9 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
 import com.bride.baselib.*
-import com.bride.baselib.net.Urls
 import com.bride.baselib.net.VolleyWrapper
 import com.bride.baselib.CustomActivityLifecycleCallbacks
 import com.github.moduth.blockcanary.BlockCanary
-import com.squareup.leakcanary.LeakCanary
-import io.rong.imkit.RongIM
 import java.util.concurrent.Executor
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -35,12 +32,6 @@ class DemonApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return
-        }
-        LeakCanary.install(this)
         if (ResUtils.isMainThread(this)) {
             BlockCanary.install(this, AppBlockContext()).start()
         }
@@ -56,7 +47,6 @@ class DemonApplication : Application() {
         ProcessLifecycleOwner.get().lifecycle.addObserver(ProcessLifecycleObserver)
 
         initRouter()
-        RongIM.init(this, Urls.RONG_APP_KEY)
     }
 
     fun getExecutor(): Executor {

@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import com.alibaba.android.arouter.launcher.ARouter
 import com.bride.demon.R
 import com.bride.demon.activity.*
-import com.bride.demon.module.rong.activity.RongDemoActivity
 import com.bride.ui_lib.BaseFragment
 
 class HomeFragment : BaseFragment(), View.OnClickListener {
@@ -42,7 +41,6 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             }
             R.id.button_relative_layout -> RelativeLayoutActivity.openActivity(ac)
             R.id.button_volley -> VolleyActivity.openActivity(ac)
-            R.id.button_rong -> RongDemoActivity.openActivity(ac)
             R.id.button_exception -> ExceptionActivity.openActivity(ac)
             R.id.button_serializable -> SerializableActivity.openActivity(ac)
             R.id.button_drag -> DragActivity.openActivity(ac)

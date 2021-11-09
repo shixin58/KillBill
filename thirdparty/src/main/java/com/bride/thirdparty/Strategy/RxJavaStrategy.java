@@ -94,7 +94,7 @@ public class RxJavaStrategy {
         // retrofit内部集成了okhttp, converter-gson内部集成了GSON
         // /storage/emulated/0/Android/data/package/cache/rxjava, 开启24MB大小的磁盘缓存
         File file = new File(ThirdPartyApplication.getInstance().getExternalCacheDir(), "rxjava");
-        Cache cache = new Cache(file, 24 * 1024 * 1024);
+        Cache cache = new Cache(file, 24 * 1024 * 1024L); // 24MB
         mOkHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new CustomInterceptor())
                 .addNetworkInterceptor(new StethoInterceptor())
@@ -106,7 +106,7 @@ public class RxJavaStrategy {
                 .writeTimeout(10, TimeUnit.SECONDS)
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .pingInterval(0, TimeUnit.SECONDS)
-                .cache(cache)/* 24MB */
+                .cache(cache)
                 .build();
     }
 
@@ -297,7 +297,9 @@ public class RxJavaStrategy {
                     .get()
                     .tag("RxJava")
                     .build();
+
             Call call = mOkHttpClient.newCall(request);
+
             try {
                 Response response = call.execute();
                 downstream.onNext(response);
@@ -348,8 +350,11 @@ public class RxJavaStrategy {
                             .get()
                             .tag("RxJava")
                             .build();
+
                     Call call = mOkHttpClient.newCall(request);
+
                     Response response = call.execute();
+
                     Log.i(TAG, "map - Function#apply "+response.cacheResponse()+" - "+response.networkResponse());
                     Thread.sleep(5000);
                     return new Gson().fromJson(response.body().string(),

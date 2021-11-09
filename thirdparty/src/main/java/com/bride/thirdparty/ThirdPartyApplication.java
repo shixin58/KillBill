@@ -12,7 +12,6 @@ import com.bride.baselib.PreferenceUtils;
 import com.bride.baselib.ResUtils;
 import com.bride.baselib.SystemStrategy;
 import com.facebook.stetho.Stetho;
-import com.squareup.leakcanary.LeakCanary;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -41,12 +40,6 @@ public class ThirdPartyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
-        LeakCanary.install(this);
 
         Stetho.initializeWithDefaults(this);
         application = this;
