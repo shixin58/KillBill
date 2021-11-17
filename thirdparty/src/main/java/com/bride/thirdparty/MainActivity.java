@@ -23,9 +23,9 @@ import com.bride.thirdparty.activity.UrlConnectionActivity;
 import com.bride.thirdparty.bean.MessageEvent;
 import com.bride.thirdparty.util.RxBus;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.subjects.Subject;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.subjects.Subject;
 
 /**
  * <p>Created by shixin on 2018/9/7.

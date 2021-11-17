@@ -32,37 +32,37 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nullable;
 
-import io.reactivex.Completable;
-import io.reactivex.CompletableEmitter;
-import io.reactivex.CompletableObserver;
-import io.reactivex.CompletableOnSubscribe;
-import io.reactivex.Flowable;
-import io.reactivex.Maybe;
-import io.reactivex.MaybeEmitter;
-import io.reactivex.MaybeObserver;
-import io.reactivex.MaybeOnSubscribe;
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.ObservableOperator;
-import io.reactivex.ObservableSource;
-import io.reactivex.Observer;
-import io.reactivex.Single;
-import io.reactivex.SingleEmitter;
-import io.reactivex.SingleObserver;
-import io.reactivex.SingleOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.BiConsumer;
-import io.reactivex.functions.BiFunction;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.CompletableEmitter;
+import io.reactivex.rxjava3.core.CompletableObserver;
+import io.reactivex.rxjava3.core.CompletableOnSubscribe;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.MaybeEmitter;
+import io.reactivex.rxjava3.core.MaybeObserver;
+import io.reactivex.rxjava3.core.MaybeOnSubscribe;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableEmitter;
+import io.reactivex.rxjava3.core.ObservableOnSubscribe;
+import io.reactivex.rxjava3.core.ObservableOperator;
+import io.reactivex.rxjava3.core.ObservableSource;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.core.SingleEmitter;
+import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.core.SingleOnSubscribe;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.functions.BiConsumer;
+import io.reactivex.rxjava3.functions.BiFunction;
+import io.reactivex.rxjava3.functions.Function;
+import io.reactivex.rxjava3.functions.Supplier;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import okhttp3.Authenticator;
 import okhttp3.Cache;
 import okhttp3.Call;
@@ -174,6 +174,7 @@ public class RxJavaStrategy {
 
     public void executeObservable() {
         Observable.create((ObservableOnSubscribe<String>) e -> {
+            Log.i(TAG, "executeObservable() - ObservableOnSubscribe#subscribe");
             e.onNext("Good");
             e.onNext("Better");
             e.onNext("Best");
@@ -183,22 +184,22 @@ public class RxJavaStrategy {
         .subscribe(new Observer<String>() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.i(TAG, "execute() - Observer#onSubscribe");
+                Log.i(TAG, "executeObservable() - Observer#onSubscribe");
             }
 
             @Override
             public void onNext(String s) {
-                Log.i(TAG, "execute() - Observer#onNext "+s);
+                Log.i(TAG, "executeObservable() - Observer#onNext "+s);
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.i(TAG, "execute() - Observer#onError "+e.getMessage());
+                Log.i(TAG, "executeObservable() - Observer#onError "+e.getMessage());
             }
 
             @Override
             public void onComplete() {
-                Log.i(TAG, "execute() - Observer#onComplete");
+                Log.i(TAG, "executeObservable() - Observer#onComplete");
             }
         });
     }
@@ -340,9 +341,19 @@ public class RxJavaStrategy {
     }
 
     public void executeMap() {
-        Observable.just(new UrlParams(Urls.JUHE_MOBILE).put("phone", "13701116418").put("key", Urls.JUHE_KEY).toString(),
-                new UrlParams(Urls.JUHE_MOBILE).put("phone", "18600166830").put("key", Urls.JUHE_KEY).toString(),
-                new UrlParams(Urls.JUHE_MOBILE).put("phone", "17319311840").put("key", Urls.JUHE_KEY).toString())
+        String url1 = new UrlParams(Urls.JUHE_MOBILE)
+                .put("phone", "13701116418")
+                .put("key", Urls.JUHE_KEY)
+                .toString();
+        String url2 = new UrlParams(Urls.JUHE_MOBILE)
+                .put("phone", "18600166830")
+                .put("key", Urls.JUHE_KEY)
+                .toString();
+        String url3 = new UrlParams(Urls.JUHE_MOBILE)
+                .put("phone", "17319311840")
+                .put("key", Urls.JUHE_KEY)
+                .toString();
+        Observable.just(url1, url2, url3)
                 .observeOn(Schedulers.computation())
                 .map((Function<String, WrapperModel<PhoneNumberModel>>) s -> {
                     Request request = new Request.Builder()
@@ -357,8 +368,8 @@ public class RxJavaStrategy {
 
                     Log.i(TAG, "map - Function#apply "+response.cacheResponse()+" - "+response.networkResponse());
                     Thread.sleep(5000);
-                    return new Gson().fromJson(response.body().string(),
-                            new TypeToken<WrapperModel<PhoneNumberModel>>(){}.getType());
+                    return new Gson()
+                            .fromJson(response.body().string(), new TypeToken<WrapperModel<PhoneNumberModel>>(){}.getType());
                 })
                 .observeOn(Schedulers.computation())
                 .map(new Function<WrapperModel<PhoneNumberModel>, String>() {
@@ -426,19 +437,23 @@ public class RxJavaStrategy {
 
     private Map<String, List<String>> getListMap() {
         Map<String, List<String>> map = new TreeMap<>();
+
         List<String> listA = new ArrayList<>();
         listA.add("Apple");
         listA.add("Arm");
         map.put("A", listA);
+
         List<String> listB = new ArrayList<>();
         listB.add("Banana");
         listB.add("Bag");
         map.put("B", listB);
+
         List<String> listC = new ArrayList<>();
         listC.add("Cat");
         listC.add("Call");
         listC.add("Candle");
         map.put("C", listC);
+
         return map;
     }
 
@@ -832,9 +847,9 @@ public class RxJavaStrategy {
     // 将被观察者发送的数据收集到一个集合里
     public void executeCollect() {
         Observable.fromArray(1, 2, 3, 4, 5, 6)
-                .collect(new Callable<ArrayList<Integer>>() {
+                .collect(new Supplier<ArrayList<Integer>>() {
                     @Override
-                    public ArrayList<Integer> call() throws Exception {
+                    public ArrayList<Integer> get() throws Exception {
                         return new ArrayList<>();
                     }
                 }, new BiConsumer<ArrayList<Integer>, Integer>() {
@@ -886,7 +901,6 @@ public class RxJavaStrategy {
     // 追加事件
     public void executeStartWith() {
         Observable.just(4, 5, 6)
-                .startWith(0)
                 .startWithArray(1, 2, 3)
                 .observeOn(Schedulers.computation())
                 .subscribe(new Observer<Integer>() {

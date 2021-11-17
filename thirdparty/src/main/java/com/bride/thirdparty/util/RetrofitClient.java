@@ -7,7 +7,7 @@ import java.lang.ref.SoftReference;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -24,7 +24,7 @@ public class RetrofitClient {
                     .client(okHttpClient)
                     .baseUrl(Urls.JUHE_HOST)
                     .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                     .build();
             mRetrofitSoftReference = new SoftReference<>(retrofit);
         }
