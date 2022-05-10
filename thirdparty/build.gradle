@@ -73,6 +73,7 @@ dependencies {
     implementation "com.facebook.stetho:stetho:$stetho_version"
     implementation "com.facebook.stetho:stetho-okhttp3:$stetho_version"
     implementation "com.facebook.stetho:stetho-urlconnection:$stetho_version"
+    // enable a JavaScript console
     implementation "com.facebook.stetho:stetho-js-rhino:$stetho_version"
 
     implementation "com.google.dagger:dagger:$dagger_version"

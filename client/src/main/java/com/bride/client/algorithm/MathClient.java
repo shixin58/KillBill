@@ -25,11 +25,13 @@ public class MathClient {
         // [0, 100)
         System.out.println("int: "+random.nextInt(100));
 
+        // byte[-128, 127]
         byte[] buf = new byte[16];
         random.nextBytes(buf);
         System.out.println("byte[]: "+Arrays.toString(buf));
     }
 
+    // 对比ceil(double)/floor(double)/round(double)
     public static void testMath() {
         float origin = -3.1415f;
         int result = (int) Math.floor(origin+0.5f);
@@ -39,11 +41,12 @@ public class MathClient {
     }
 
     public static void mathContext() {
-        MathContext mc = new MathContext(7);
+        MathContext mc = new MathContext(8);
         BigDecimal bd = new BigDecimal(1.1, mc);
-        // the Unit in the Last Place
+        // the Unit in the Last Place, 1E-7=1*10^-7
         System.out.println(bd + " " + bd.ulp());
 
+        // prime质数/素数, certainty确定性
         BigInteger bi = BigInteger.valueOf(17L);
         System.out.println(bi.nextProbablePrime());
         System.out.println(bi.isProbablePrime(5));

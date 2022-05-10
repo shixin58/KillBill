@@ -119,9 +119,7 @@ public class EventBusActivity extends BaseActivity {
         EventBus.getDefault().removeStickyEvent(event);
     }
 
-    static class Beauty {
-
-    }
+    static class Beauty {}
 
     class CustomWeakReference<T> extends WeakReference<T> {
         final int key;

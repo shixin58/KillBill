@@ -89,7 +89,8 @@ public class GlideActivity extends BaseActivity {
 //        setImage(this, imageView, R.mipmap.ic_launcher_round);
         setBitmapByRegionDecoder(this, R.mipmap.actress, imageView, ImageView.ScaleType.CENTER_CROP);
 
-        Glide.with(this).load(R.mipmap.actress)
+        Glide.with(this)
+                .load(R.mipmap.actress)
 //                .apply(RequestOptions.circleCropTransform())
 //                .apply(RequestOptions.bitmapTransform(new BlurTransformation()))
                 .apply(RequestOptions.bitmapTransform(new MultiTransformation<>(

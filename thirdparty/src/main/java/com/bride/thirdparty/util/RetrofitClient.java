@@ -23,8 +23,8 @@ public class RetrofitClient {
             Retrofit retrofit = new Retrofit.Builder()
                     .client(okHttpClient)
                     .baseUrl(Urls.JUHE_HOST)
-                    .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
                     .build();
             mRetrofitSoftReference = new SoftReference<>(retrofit);
         }

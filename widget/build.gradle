@@ -30,8 +30,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding {
-        enabled = true
+    // dataBinding
+    buildFeatures {
+        dataBinding true
+        viewBinding true
     }
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8

@@ -87,7 +87,7 @@ public class RxJavaStrategy {
     private OkHttpClient mOkHttpClient;
 
     private static class InstanceWrapper {
-        static RxJavaStrategy INSTANCE = new RxJavaStrategy();
+        private static final RxJavaStrategy INSTANCE = new RxJavaStrategy();
     }
 
     private RxJavaStrategy() {
@@ -147,6 +147,7 @@ public class RxJavaStrategy {
     }
 
     public void executeJust() {
+        // Flowable.fromArray()
         Flowable.just("Try again!", "Hello World!", "May I ask you out?")
                 .subscribe(new Subscriber<String>() {
                     @Override
@@ -173,6 +174,7 @@ public class RxJavaStrategy {
     }
 
     public void executeObservable() {
+        // Java8 Lambda表达式
         Observable.create((ObservableOnSubscribe<String>) e -> {
             Log.i(TAG, "executeObservable() - ObservableOnSubscribe#subscribe");
             e.onNext("Good");
