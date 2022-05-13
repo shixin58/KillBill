@@ -22,7 +22,8 @@ public class QueueClient {
         simulateArrayDeque();
     }
 
-    private static void testPriorityQueue() {
+    // PriorityQueue#offer()/poll()默认实现小顶堆，利用Comparator实现大顶堆
+    public static void testPriorityQueue() {
         System.out.println("=== PriorityQueue ===");
         // ClassCastException: com.bride.client.reflect.Human cannot be cast to java.lang.Comparable
         /*PriorityQueue<Human> humanPriorityQueue = new PriorityQueue<>();
@@ -30,7 +31,6 @@ public class QueueClient {
         humanPriorityQueue.offer(new Human("Victor", 30, 20000));
         System.out.print("humanPriorityQueue.poll() "+humanPriorityQueue.poll().getName());*/
 
-        // 默认小顶堆，利用Comparator实现大顶堆
         PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(10, new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {
@@ -44,8 +44,8 @@ public class QueueClient {
         System.out.println("priorityQueue.poll() "+priorityQueue.poll());
     }
 
-    // 双向链式队列
-    private static void testLinkedList() {
+    // LinkedList实现双向链式队列
+    public static void testLinkedList() {
         System.out.println("=== LinkedList ===");
         Deque<Integer> linkedList = new LinkedList<>();
         linkedList.addLast(1);
@@ -66,9 +66,9 @@ public class QueueClient {
     }
 
     // 双向顺序队列，内部Object数组默认容量16，若判定容量已满，双倍扩容。
-    // head指向第一个元素位置，tail指向最后元素下一个位置。
+    // head(peekFirst)指向第一个元素位置，tail(peekLast)指向最后元素下一个位置。
     // 插入null会抛出NullPointer；not thread-safe, 用作栈比Stack更快，用作链表比LinkedList更快
-    private static void testArrayDeque() {
+    public static void testArrayDeque() {
         System.out.println("=== ArrayDeque ===");
         Deque<Integer> arrayDeque = new ArrayDeque<>(100);
         arrayDeque.addLast(1);
@@ -87,6 +87,7 @@ public class QueueClient {
         System.out.println();
     }
 
+    // 模拟ArrayDeque#addFirst(E)/addLast(E)实现
     static void simulateArrayDeque() {
         int pointer = 0;
         String[] values = {"copper", "iron", "gold", "silver"};

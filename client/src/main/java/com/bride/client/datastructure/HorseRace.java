@@ -12,16 +12,20 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 练习CyclicBarrier用法
  * <p>Created by shixin on 2019-05-13.
  */
 public class HorseRace {
     static final int FINISH_LINE = 75;
-    private List<Horse> horses = new ArrayList<>();
-    private ExecutorService exec = Executors.newCachedThreadPool();
-    public HorseRace(int horseNum, int pause) {
+    private final List<Horse> horses = new ArrayList<>();
+    private final ExecutorService exec = Executors.newCachedThreadPool();
+
+    public HorseRace(final int horseNum, final long pauseMillis) {
+        // 同步辅助类。cyclic循环的，周期的；trip绊倒，catch your foot on sth and fall
         CyclicBarrier cyclicBarrier = new CyclicBarrier(horseNum, new Runnable() {
             @Override
             public void run() {
+                System.out.println("execute barrierAction");
                 for (Horse h : horses) {
                     if (h.getStrides() >= FINISH_LINE) {
                         System.out.println(h+" won!");
@@ -30,12 +34,14 @@ public class HorseRace {
                     }
                 }
                 try {
-                    TimeUnit.MILLISECONDS.sleep(pause);
+                    // 等价于Thread.sleep(pauseMillis, 0);
+                    TimeUnit.MILLISECONDS.sleep(pauseMillis);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         });
+
         for (int i=0; i<horseNum; i++) {
             Horse h = new Horse(cyclicBarrier);
             horses.add(h);
@@ -45,18 +51,19 @@ public class HorseRace {
 
     public static void main(String[] args) {
         int horseNum = 7;
-        int pause = 200;
-        new HorseRace(horseNum, pause);
+        long pauseMillis = 200L;
+        new HorseRace(horseNum, pauseMillis);
     }
 }
 
 class Horse implements Runnable {
-
     private static int counter = 0;
     private final int id = counter++;
+
+    // stride一大步，one long step
     private int strides = 0;
-    private static Random ran = new Random(31);
-    private CyclicBarrier cyclicBarrier;
+    private static final Random ran = new Random(31);
+    private final CyclicBarrier cyclicBarrier;
 
     public synchronized int getStrides() {
         return strides;
@@ -71,12 +78,12 @@ class Horse implements Runnable {
         try {
             while (!Thread.interrupted()) {
                 synchronized (this) {
-                    strides += ran.nextInt(3);
+                    strides += ran.nextInt(3)+1;
                 }
+                System.out.println(this+" await, strides="+strides);
                 this.cyclicBarrier.await();
             }
         } catch (InterruptedException e) {
-
         } catch (BrokenBarrierException e) {
             throw new RuntimeException(e);
         }

@@ -30,7 +30,7 @@ public class MapClient {
     // put通过key计算hash值，将其映射到对象引用
     // get通过key计算hash值，通过其找到对象引用
     // 由数组、链表共同完成。数组内存地址连续，length固定，查询时间复杂度O(1)；链表不连续，查询时间复杂度O(n), 插入、删除快
-    private static void testHashMap() {
+    public static void testHashMap() {
         System.out.println("\n*** HashMap ***");
         Map<String, String> map = new HashMap<>();
         map.put("cat", "猫");
@@ -40,11 +40,11 @@ public class MapClient {
         map.put(null, "Empty!");
         map.put("plant", null);
         System.out.println(map);
-        HashMap<String, String> submap = new LinkedHashMap<>();
-        submap.put("plant", "rose");
-        submap.put("wolf", "smart");
-        submap.put("mouse", "鼠标");
-        map.putAll(submap);
+        Map<String, String> subMap = new LinkedHashMap<>();
+        subMap.put("plant", "rose");
+        subMap.put("wolf", "smart");
+        subMap.put("mouse", "鼠标");
+        map.putAll(subMap);
         System.out.println(map);
 
         System.out.println(map.containsKey(null) +" "+ map.containsKey("plant"));
@@ -71,7 +71,7 @@ public class MapClient {
 
     // 多线程访问，通过synchronized加锁保证线程安全
     // 不允许null key和null value
-    private static void testHashtable() {
+    public static void testHashtable() {
         System.out.println("\n*** Hashtable ***");
         Map<String, String> map = new Hashtable<>();
         map.put("cat", "猫");
@@ -85,7 +85,7 @@ public class MapClient {
         System.out.println();
     }
 
-    private static void testLinkedHashMap() {
+    public static void testLinkedHashMap() {
         System.out.println("\n*** LinkedHashMap ***");
         MyLruCache lruCache = new MyLruCache(5);
         lruCache.put("A", "Apple");
@@ -136,7 +136,7 @@ public class MapClient {
         }
     }
 
-    private static void testTreeMap() {
+    public static void testTreeMap() {
         System.out.println("\n*** TreeMap ***");
         NavigableMap<Integer, String> map = new TreeMap<>();
         map.put(2, "rabbit");

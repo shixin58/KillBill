@@ -4,6 +4,7 @@ import java.util.Stack;
 import java.util.Vector;
 
 /**
+ * 演示栈Stack用法
  * <p>Created by shixin on 2019/3/18.
  */
 public class StackClient {
@@ -16,12 +17,12 @@ public class StackClient {
     private static void testStack() {
         System.out.println("=== Stack ===");
         Stack<String> stack = new Stack<>();
-        stack.push("cloud");
+        stack.push("cloud");// Vector#addElement(E)
         stack.push("java");
         stack.push("algorithm");
         while (!stack.empty()) {
-            System.out.println(stack.peek());
-            stack.pop();
+            System.out.println(stack.peek());// Vector#elementAt(int)
+            stack.pop();// peek() + Vector#removeElementAt(int)
         }
     }
 

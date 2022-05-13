@@ -2,7 +2,6 @@ package com.bride.client.datastructure;
 
 import androidx.annotation.NonNull;
 
-
 import java.lang.ref.PhantomReference;
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
@@ -11,10 +10,11 @@ import java.lang.ref.WeakReference;
 import java.util.LinkedList;
 
 /**
+ * 练习软引用、弱引用、虚引用
  * <p>Created by shixin on 2019-06-18.
  */
 public class References {
-    private static ReferenceQueue<VeryBig> rq = new ReferenceQueue<>();
+    private static final ReferenceQueue<VeryBig> rq = new ReferenceQueue<>();
 
     public static void checkQueue() {
         Reference<? extends VeryBig> inq = rq.poll();
@@ -24,16 +24,22 @@ public class References {
     }
 
     public static void main(String[] args) {
-        int size = 10;
+        final int size = 10;
+
+        // SoftReference Array
         LinkedList<SoftReference<VeryBig>> sa = new LinkedList<>();
         for (int i=0; i<size; i++) {
             sa.add(new SoftReference<>(new VeryBig("Soft " + i), rq));
-            System.out.println("Just created "+sa.getLast());
+            System.out.println("Just created SoftReference "+sa.getLast().get());
             checkQueue();
         }
+
+        // WeakReference Array
         LinkedList<CustomWeakReference<VeryBig>> wa = new LinkedList<>();
         for (int i=0; i<size; i++) {
-            wa.add(new CustomWeakReference<>(new VeryBig("Weak " + i), rq));
+            // 将弱引用注册到引用队列rq
+            VeryBig referent = new VeryBig("Weak " + i);
+            wa.add(new CustomWeakReference<>(referent, rq));
             System.out.println("Just created "+wa.getLast());
             checkQueue();
         }
@@ -41,10 +47,12 @@ public class References {
         SoftReference<VeryBig> sr = new SoftReference<>(new VeryBig("Soft"));
         CustomWeakReference<VeryBig> wr = new CustomWeakReference<>(new VeryBig("Weak "+size));
         System.gc();
+
+        // PhantomReference Array
         LinkedList<PhantomReference<VeryBig>> pa = new LinkedList<>();
         for (int i=0; i<size; i++) {
             pa.add(new PhantomReference<>(new VeryBig("Phantom "+i), rq));
-            System.out.println("Just created "+pa.getLast());
+            System.out.println("Just created PhantomReference "+pa.getLast().get());
             checkQueue();
         }
     }
@@ -52,22 +60,23 @@ public class References {
 
 class VeryBig {
     private static final int SIZE = 10000;
-    private long[] la = new long[SIZE];
-    private String ident;
+    // long array
+    private final long[] la = new long[SIZE];
+    private final String identity;
 
     public VeryBig(String id) {
-        ident = id;
+        identity = id;
     }
 
     @NonNull
     @Override
     public String toString() {
-        return ident;
+        return identity;
     }
 
     @Override
     protected void finalize() throws Throwable {
-        System.out.println("Finalizing "+ident);
+        System.out.println("Finalizing "+ identity);
     }
 }
 

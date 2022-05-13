@@ -12,6 +12,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 模拟CopyOnWriteArrayList、ThreadLocal、DelayQueue原理
  * <p>Created by shixin on 2019-04-23.
  */
 public class ConcurrentClient {
@@ -28,7 +29,9 @@ public class ConcurrentClient {
         arrayList.set(0, "Banana");
         CopyOnWriteArrayList<String> sublist = new CopyOnWriteArrayList<>();
         sublist.add("Candy");
+        // Arrays#copyOf(Object[], int)
         sublist.toArray();
+        // Iterable#iterator()
         sublist.iterator();
         arrayList.addAll(sublist);
         arrayList.indexOf("Banana", 1);
@@ -56,19 +59,18 @@ public class ConcurrentClient {
         DelayQueue<DelayedTask> queue = new DelayQueue<>();
         for (int i=0; i<20; i++)
             queue.put(new DelayedTask(random.nextInt(5000)));
-        queue.add(new EndSentinel(5000, exec));
+        queue.add(new EndSentinel(5000L, exec));
         exec.execute(new DelayedTaskConsumer(queue));
     }
 
     static class DelayedTask implements Delayed, Runnable {
-
         private static int counter = 0;
         private final int id = counter++;
 
-        int delta;
-        long trigger;
+        final long delta;
+        final long trigger;
 
-        DelayedTask(int delayInMilliseconds) {
+        DelayedTask(long delayInMilliseconds) {
             this.delta = delayInMilliseconds;
             this.trigger = System.nanoTime() + TimeUnit.NANOSECONDS.convert(delta, TimeUnit.MILLISECONDS);
         }
@@ -100,10 +102,11 @@ public class ConcurrentClient {
         }
     }
 
+    // sentinel哨兵
     static class EndSentinel extends DelayedTask {
-        private ExecutorService exec;
-        EndSentinel(int delay, ExecutorService exec) {
-            super(delay);
+        private final ExecutorService exec;
+        EndSentinel(long delayInMilliseconds, ExecutorService exec) {
+            super(delayInMilliseconds);
             this.exec = exec;
         }
 
@@ -115,7 +118,7 @@ public class ConcurrentClient {
     }
 
     static class DelayedTaskConsumer implements Runnable {
-        private DelayQueue<DelayedTask> delayQueue;
+        private final DelayQueue<DelayedTask> delayQueue;
         DelayedTaskConsumer(DelayQueue<DelayedTask> q) {
             delayQueue = q;
         }

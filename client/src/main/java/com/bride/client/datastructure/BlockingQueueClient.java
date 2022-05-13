@@ -8,6 +8,7 @@ import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 模拟BlockingQueue三个子类用法
  * <p>Created by shixin on 2019/3/18.
  */
 public class BlockingQueueClient {
@@ -18,16 +19,17 @@ public class BlockingQueueClient {
         testSynchronousQueue();
     }
 
-    private static void testArrayBlockingQueue() {
+    public static void testArrayBlockingQueue() {
         System.out.println("=== ArrayBlockingDeque ===");
         final ArrayBlockingQueue<Double> queue = new ArrayBlockingQueue<>(100);
+        // 消费线程BlockingQueue#take()
         Thread thread = new Thread() {
             @Override
             public void run() {
                 super.run();
                 try {
                     while(true) {
-                        System.out.println("take "+queue.take());
+                        System.out.println("take " + queue.take());
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -35,17 +37,19 @@ public class BlockingQueueClient {
             }
         };
         thread.start();
+        // 生产线程BlockingQueue#offer(E, long, TimeUnit)
         new Thread() {
             @Override
             public void run() {
                 super.run();
                 int count = 10;
+                // 迭代10次
                 while (count-- > 0){
                     try {
                         Thread.sleep(1000L);
-                        double d = 8.9+count;
-                        System.out.println("offer "+d);
-                        queue.offer(d, 2, TimeUnit.SECONDS);
+                        double d = 8.9 + count;
+                        System.out.println("offer " + d);
+                        queue.offer(d, 2L, TimeUnit.SECONDS);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -55,12 +59,13 @@ public class BlockingQueueClient {
         }.start();
     }
 
+    // 求最小值, 且多线程同步。PriorityBlockingQueue#offer(E)/poll(long, TimeUnit)
     public static void testPriorityBlockingQueue() {
-        // 求最小值, 多线程同步
         PriorityBlockingQueue<Integer> priorityBlockingQueue = new PriorityBlockingQueue<>(11);
         priorityBlockingQueue.add(4);
         priorityBlockingQueue.add(2);
         priorityBlockingQueue.add(6);
+
         new Thread() {
             @Override
             public void run() {
@@ -76,6 +81,7 @@ public class BlockingQueueClient {
                 }
             }
         }.start();
+
         try {
             while (true) {
                 Integer integer = priorityBlockingQueue.poll(5, TimeUnit.SECONDS);
@@ -88,6 +94,7 @@ public class BlockingQueueClient {
         }
     }
 
+    // 生产/消费线程，BlockingQueue#put(E)/take()
     public static void testSynchronousQueue() {
         ExecutorService executorService = Executors.newCachedThreadPool();
         SynchronousQueue<String> synchronousQueue = new SynchronousQueue<>();
