@@ -7,12 +7,11 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * 1、可重入互斥锁 ReentrantLock和Condition。默认非公平锁(not FIFO)。
  * 2、Condition#await()/signal()类似于Object#wait()/notify()。
- * <p>2、join和interrupt
  * <p>Created by shixin on 2018/9/27.
  */
 public class ReentrantLockClient {
-    private ReentrantLock lock = new ReentrantLock();
-    private Condition condition = lock.newCondition();
+    private final ReentrantLock lock = new ReentrantLock();
+    private final Condition condition = lock.newCondition();
 
     public static void main(String[] args) {
         final ReentrantLockClient client = new ReentrantLockClient();
@@ -44,7 +43,7 @@ public class ReentrantLockClient {
     }
 
     public void awaitMethod() {
-        Thread thread1 = new Thread(new Runnable() {
+        Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 lock.lock();
@@ -59,7 +58,7 @@ public class ReentrantLockClient {
                 }
             }
         });
-        thread1.start();
+        thread.start();
     }
 
     public void signalMethod() {
@@ -85,7 +84,7 @@ public class ReentrantLockClient {
             public void run() {
                 try {
                     System.out.println("before tryLock");
-                    boolean acquired = lock.tryLock(2, TimeUnit.SECONDS);
+                    boolean acquired = lock.tryLock(2L, TimeUnit.SECONDS);
                     System.out.println("after tryLock "+acquired);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -108,8 +107,9 @@ public class ReentrantLockClient {
             }
         });
         thread.start();
+
         try {
-            Thread.sleep(100);
+            Thread.sleep(100L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

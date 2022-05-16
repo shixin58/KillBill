@@ -5,7 +5,7 @@ import java.util.concurrent.locks.LockSupport;
 
 /**
  * LockSupport阻塞线程前不需要获取同步锁，不可重入，中断阻塞不抛异常。
- * park/unpark类似于suspend/resume, 但不会遇到死锁问题。
+ * <p>park/unpark类似于suspend/resume, 但不会遇到死锁问题。
  * <p>Created by shixin on 2019-04-26.
  */
 public class LockSupportClient {
@@ -32,6 +32,7 @@ public class LockSupportClient {
             }
         };
         thread.start();
+
         try {
             Thread.sleep(5000L);
         } catch (InterruptedException e) {
@@ -51,8 +52,9 @@ public class LockSupportClient {
             }
         };
         thread.start();
+
         try {
-            TimeUnit.NANOSECONDS.sleep(2_000_000_000);
+            TimeUnit.NANOSECONDS.sleep(2_000_000_000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

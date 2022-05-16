@@ -5,6 +5,7 @@ import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * join和interrupt
  * <p>Created by shixin on 2019/3/21.
  */
 public class ThreadClient {
@@ -31,12 +32,15 @@ public class ThreadClient {
 
     public static void joinMethod2() {
         List<Thread> list = new Vector<>();
+
         Thread thread = new MyThread();
         thread.start();
         list.add(thread);
+
         Thread thread1 = new MyThread();
         thread1.start();
         list.add(thread1);
+
         for(Thread t:list) {
             try {
                 t.join();
@@ -51,7 +55,7 @@ public class ThreadClient {
         public void run() {
             super.run();
             try {
-                Thread.sleep(3*1000);
+                Thread.sleep(3 * 1000L);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -64,7 +68,7 @@ public class ThreadClient {
             public void run() {
                 try {
                     System.out.println("before sleep");
-                    Thread.sleep(10*1000L);
+                    Thread.sleep(10 * 1000L);
                     System.out.println("after sleep");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -72,8 +76,9 @@ public class ThreadClient {
             }
         }, "Thread-sleep");
         thread.start();
+
         try {
-            Thread.sleep(2*1000);
+            Thread.sleep(2 * 1000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -84,9 +89,10 @@ public class ThreadClient {
         Thread thread1 = new Thread(new Runnable() {
             int count = Integer.MAX_VALUE;
             int i = 0;
+
             void f() {
                 System.out.println("start f()");
-                long start = System.nanoTime();
+                final long start = System.nanoTime();
                 while (count-- > 0 && !Thread.interrupted()) {
                     i = count % 100;
                 }
@@ -100,8 +106,9 @@ public class ThreadClient {
             }
         }, "Thread-yield");
         thread1.start();
+
         try {
-            Thread.sleep(1000);
+            Thread.sleep(1000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -113,12 +120,13 @@ public class ThreadClient {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                System.out.println(Thread.currentThread().getName()+": "+Thread.currentThread().getPriority()
-                        +" - "+Thread.currentThread().isDaemon());
-//                Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+                Thread curThread = Thread.currentThread();
+                System.out.println(curThread.getName()+": "+curThread.getPriority()
+                        +" - "+curThread.isDaemon());
+//                curThread.setPriority(Thread.MAX_PRIORITY);
                 try {
                     TimeUnit.MILLISECONDS.sleep(1000L);
-                    System.err.println(Thread.currentThread().getName()+" wake up.");
+                    System.err.println(curThread.getName()+" wake up.");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

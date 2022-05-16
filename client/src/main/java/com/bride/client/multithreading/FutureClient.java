@@ -13,12 +13,15 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 /**
+ * 演练Future用法
  * <p>Created by shixin on 2019/3/21.
  */
 public class FutureClient {
 
     public static void main(String[] args) {
         testFuture();
+
+        testSingleThreadExecutor();
     }
 
     public static void testFuture() {
@@ -34,28 +37,31 @@ public class FutureClient {
             }
         });
         final Vector<Future> vector = new Vector<>();
+
         Future<?> future = executorService.submit(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(3000L);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         });
         vector.add(future);
+
         Future<?> future2 = executorService.submit(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(6000);
+                    Thread.sleep(6000L);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         });
         vector.add(future2);
+
         executorService.execute(new Runnable() {
             @Override
             public void run() {
@@ -64,10 +70,9 @@ public class FutureClient {
                         f.get();
                     } catch (ExecutionException | InterruptedException e) {
                         e.printStackTrace();
-                    } finally {
-                        executorService.shutdown();
                     }
                 }
+                executorService.shutdown();
                 System.out.println("所有工作线程执行完毕，切换主线程");
             }
         });
@@ -77,6 +82,7 @@ public class FutureClient {
         // 2、核心线程数和最大线程数均为1, 超时0，LinkedBlockingQueue
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         ArrayList<Future<?>> list = new ArrayList<>();
+
         // Future
         Future<String> future = executorService.submit(new Callable<String>() {
             @Override
@@ -86,20 +92,21 @@ public class FutureClient {
             }
         });
         list.add(future);
+
         Future<String> future1 = executorService.submit(new Runnable() {
             @Override
             public void run() {
-
             }
         }, "OK");
         list.add(future1);
+
         Future<?> future2 = executorService.submit(new Runnable() {
             @Override
             public void run() {
-
             }
         });
         list.add(future2);
+
         FutureTask<Integer> futureTask = new FutureTask<>(new Callable<Integer>() {
             @Override
             public Integer call() throws Exception {
@@ -108,18 +115,14 @@ public class FutureClient {
         });
         executorService.submit(futureTask);
         list.add(futureTask);
+
         for (Future<?> f : list) {
             try {
-                f.get(10, TimeUnit.SECONDS);
-            } catch (ExecutionException e) {
+                f.get(10L, TimeUnit.SECONDS);
+            } catch (ExecutionException | InterruptedException | TimeoutException e) {
                 e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (TimeoutException e) {
-                e.printStackTrace();
-            } finally {
-                executorService.shutdown();
             }
         }
+        executorService.shutdown();
     }
 }
