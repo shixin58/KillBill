@@ -58,17 +58,9 @@ dependencies {
 
     implementation group: 'com.google.android.material', name: 'material', version: material_version
 
-    debugImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-android', version: leakcanary_version
-
-    // Retrofit v2.9.0绑定OkHttp v3.14.9
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofit_version"
-
-    implementation "io.reactivex.rxjava3:rxjava:$rxjava_version"
-    implementation "io.reactivex.rxjava3:rxandroid:$rxandroid_version"
-
-    implementation group: 'org.greenrobot', name: 'eventbus', version: eventbus_version
 
     implementation "com.facebook.stetho:stetho:$stetho_version"
     implementation "com.facebook.stetho:stetho-okhttp3:$stetho_version"
@@ -76,12 +68,15 @@ dependencies {
     // enable a JavaScript console
     implementation "com.facebook.stetho:stetho-js-rhino:$stetho_version"
 
+    debugImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-android', version: leakcanary_version
+
+    implementation group: 'org.greenrobot', name: 'eventbus', version: eventbus_version
+
+    implementation "io.reactivex.rxjava3:rxjava:$rxjava_version"
+    implementation "io.reactivex.rxjava3:rxandroid:$rxandroid_version"
+
     implementation "com.google.dagger:dagger:$dagger_version"
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
-
-    implementation group: 'com.github.bumptech.glide', name: 'glide', version: glide_version
-    annotationProcessor group: 'com.github.bumptech.glide', name: 'compiler', version: glide_version
-    implementation "com.github.bumptech.glide:okhttp3-integration:$glide_version"
 
     implementation project(':baselib')
     implementation project(':ui_lib')

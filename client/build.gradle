@@ -51,10 +51,10 @@ dependencies {
 
     debugImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-android', version: leakcanary_version
 
-    implementation "com.squareup.okhttp3:okhttp:4.9.0"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
 
-    implementation 'com.alibaba:arouter-api:1.5.0'
-    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
+    implementation "com.alibaba:arouter-api:$arouter_api_version"
+    annotationProcessor "com.alibaba:arouter-compiler:$arouter_compiler_version"
 
     implementation project(':baselib')
     implementation project(':ui_lib')
