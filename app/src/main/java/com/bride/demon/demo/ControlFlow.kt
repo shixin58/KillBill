@@ -1,7 +1,5 @@
 package com.bride.demon.demo
 
-import com.bride.demon.demo.Customer
-
 import kotlin.io.println
 import kotlin.io.print
 import kotlin.arrayOf

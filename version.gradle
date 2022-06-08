@@ -1,9 +1,12 @@
 ext {
-    core_ktx = '1.3.2'
+    core_version = '1.8.0'
     constraintlayout_version = '2.1.3'
     appcompat_version = '1.4.1'
     material_version = '1.5.0'
     ndk_version = '24.0.8215888'
+
+    // 源码参考https://github.com/Kotlin/kotlinx.coroutines
+    kotlinx_coroutines_version = "1.4.1"
 
     // Retrofit-v2.9.0引用Gson-v2.8.5
     gson_version = "2.8.5"
@@ -12,25 +15,33 @@ ext {
     okio_version = "1.17.2"
 
     // 慕课网引用OkHttp-v3.9.0
+    // 源码参考https://github.com/square/okhttp
     // Retrofit-v2.9.0、glide-v4.11.0、Stetho-v1.5.1均引用OkHttp-v3.14.9
     okhttp_version = "3.14.9"
 
+    // 慕课网引用retrofit-2.0.2
+    // 源码参考https://github.com/square/retrofit
+    // Quick Start参考https://square.github.io/retrofit
     retrofit_version = "2.9.0"
 
     // 慕课网引用glide-v3.7.0
+    // 源码参考https://github.com/bumptech/glide
     glide_version = "4.11.0"
 
     stetho_version = "1.5.1"
 
     // 慕课网引用leakcanary-v1.5.4
+    // 源码参考https://github.com/square/leakcanary
     leakcanary_version = "2.7"
     blockcanary_version = "1.5.0"
 
     // 慕课网引用eventbus-v3.0.0
+    // 源码参考https://github.com/greenrobot/EventBus
     eventbus_version = "3.2.0"
 
-    // 慕课网引用rxjava-v1.1.3
-    // Retrofit-v2.9.0引用rxjava-v3.1.2
+    // 慕课网引用rxjava-v1.1.3、rxandroid-v1.1.0
+    // 源码参考https://github.com/ReactiveX/RxJava, https://github.com/ReactiveX/RxAndroid
+    // Retrofit-v2.9.0引用rxjava-v3.1.2、rxandroid-3.0.0
     rxjava_version = "3.1.2"
     rxandroid_version = "3.0.0"
 

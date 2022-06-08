@@ -4,8 +4,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.bride.baselib.net.Urls;
-import com.bride.thirdparty.bean.PhoneNumberModel;
-import com.bride.thirdparty.bean.WrapperModel;
+import com.bride.baselib.bean.PhoneNumberModel;
+import com.bride.baselib.bean.WrapperModel;
 import com.bride.thirdparty.protocal.IService;
 import com.bride.thirdparty.util.RetrofitClient;
 
@@ -35,7 +35,7 @@ public class RetrofitStrategy {
     }
 
     public void execute() {
-        // InvocationHandler#invoke
+        // InvocationHandler#invoke()
         Call<WrapperModel<PhoneNumberModel>> call = mService.getPhoneInfo("13701116418", Urls.JUHE_KEY);
         call.enqueue(new Callback<WrapperModel<PhoneNumberModel>>() {
             @Override

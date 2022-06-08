@@ -9,7 +9,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.customview.widget.ViewDragHelper
 import com.bride.demon.R
-import kotlinx.android.synthetic.main.activity_drag.view.*
 
 /**
  * <p>Created by shixin on 11/17/20.

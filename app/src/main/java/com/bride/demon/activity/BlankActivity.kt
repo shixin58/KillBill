@@ -8,10 +8,9 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.bride.ui_lib.BaseActivity
-import com.bride.demon.R
+import com.bride.demon.databinding.ActivityBlankBinding
 import com.bride.demon.model.City
 import com.bride.demon.model.Person
-import kotlinx.android.synthetic.main.activity_blank.*
 
 /**
  * test lifecycle, ViewHierarchy, Serializable
@@ -19,23 +18,26 @@ import kotlinx.android.synthetic.main.activity_blank.*
  */
 class BlankActivity : BaseActivity() {
 
+    private lateinit var mBinding: ActivityBlankBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_blank)
-        printViewHierarchy(tv_title, this)
+        mBinding = ActivityBlankBinding.inflate(layoutInflater)
+        setContentView(mBinding.root)
+        printViewHierarchy(mBinding.tvTitle, this)
         Log.i("lifecycleB", "onCreate")
     }
 
     private fun statistics() {
-        var index = intent.getIntExtra("index", 0)
+        val index = intent.getIntExtra("index", 0)
         if (index == 1) {
-            var city = intent.getParcelableExtra<City>("city")
-            Log.i(TAG, "耗时："+(SystemClock.elapsedRealtime()-city.createTime)+"ms")
+            val city = intent.getParcelableExtra<City>("city")
+            Log.i(TAG, "耗时："+(SystemClock.elapsedRealtime()-city!!.createTime)+"ms")
             Toast.makeText(this.applicationContext, city.toString(), Toast.LENGTH_SHORT).show()
-            var cities = intent.getParcelableArrayExtra("cityList")
-            Log.i(TAG, "getParcelableArrayExtra - "+cities[0]+" | "+cities[1])
+            val cities = intent.getParcelableArrayExtra("cityList")
+            Log.i(TAG, "getParcelableArrayExtra - "+ cities!![0]+" | "+cities[1])
         } else if(index == 2) {
-            var person = intent.getSerializableExtra("person") as Person
+            val person = intent.getSerializableExtra("person") as Person
             Log.i(TAG, "耗时："+(SystemClock.elapsedRealtime()-person.createTime)+"ms")
             Toast.makeText(this.applicationContext, person.toString(), Toast.LENGTH_SHORT).show()
         }

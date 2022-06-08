@@ -1,7 +1,7 @@
 package com.bride.thirdparty.protocal;
 
-import com.bride.thirdparty.bean.PhoneNumberModel;
-import com.bride.thirdparty.bean.WrapperModel;
+import com.bride.baselib.bean.PhoneNumberModel;
+import com.bride.baselib.bean.WrapperModel;
 
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;

@@ -11,6 +11,7 @@ public class ObservableCook extends Observable {
 
     public void setData(int data) {
         this.data = data;
+        // setChanged()/hasChanged()/clearChanged()
         this.setChanged();
         this.notifyObservers("OK");
     }
@@ -22,6 +23,8 @@ public class ObservableCook extends Observable {
     public static void main(String[] args) {
         ObservableCook observableCook = new ObservableCook();
         ObserverA observerA = new ObserverA();
+        // Vector<Observer>#addElement()
+        // deleteObserver() -> removeElement()
         observableCook.addObserver(observerA);
         ObserverB observerB = new ObserverB();
         observableCook.addObserver(observerB);

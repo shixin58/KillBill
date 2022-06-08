@@ -300,16 +300,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //              View#postInvalidate();
 //              Activity#runOnUiThread(Runnable);
 //              Handler#post(Runnable);
-        // Message一直持有Handler，直到Message.recycle
+        // Message.target一直持有Handler，直到执行Message.recycle()
         Message message = Message.obtain(mHandler, runnable);
         message.what = 1;
-        mHandler.sendMessageAtTime(message, SystemClock.uptimeMillis()+10*1000);
+        mHandler.sendMessageAtTime(message, SystemClock.uptimeMillis() + 10 * 1000);
     }
 
     private Handler mHandler = new Handler(Looper.getMainLooper()){
         @Override
         public void dispatchMessage(Message msg) {
-            // 1、Message.callback; 2、Handler.callback; 3、Handler.handleMessage
+            // 执行Message.callback; or Handler.mCallback; or Handler.handleMessage
             super.dispatchMessage(msg);
         }
 
@@ -325,7 +325,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     ExecutorService executorService = new ThreadPoolExecutor(3, 5,
-            1, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>(128));
+            1L, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>(128));
 
     static class MyRegisteredReceiver extends BroadcastReceiver {
         @Override

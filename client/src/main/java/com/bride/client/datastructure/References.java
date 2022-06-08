@@ -18,7 +18,8 @@ public class References {
 
     public static void checkQueue() {
         Reference<? extends VeryBig> inq = rq.poll();
-        if (inq != null) {
+        if (inq != null) {// 若非空，其引用对象已被回收
+            // Reference#get()
             System.out.println("In queue: "+inq+"|"+inq.get());
         }
     }
@@ -29,7 +30,10 @@ public class References {
         // SoftReference Array
         LinkedList<SoftReference<VeryBig>> sa = new LinkedList<>();
         for (int i=0; i<size; i++) {
+            // 创建弱引用，将其关联到引用队列，将其添加到双链表队尾
             sa.add(new SoftReference<>(new VeryBig("Soft " + i), rq));
+            // SoftReference#get()
+            // 取出双链表队尾弱引用，检索其引用对象。
             System.out.println("Just created SoftReference "+sa.getLast().get());
             checkQueue();
         }

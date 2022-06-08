@@ -1,14 +1,8 @@
 package com.bride.demon.demo
 
-import android.content.ContentProvider
-import android.content.ContentValues
 import android.content.Context
-import android.database.Cursor
-import android.net.Uri
 import android.util.AttributeSet
 import android.view.View
-
-import kotlin.also
 
 /**
  * <p>Created by shixin on 2019-05-07.

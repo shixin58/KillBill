@@ -1,4 +1,4 @@
-package com.bride.thirdparty.bean;
+package com.bride.baselib.bean;
 
 /**
  * <p>Created by shixin on 2018/9/20.

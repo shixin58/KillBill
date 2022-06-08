@@ -15,6 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RetrofitClient {
     private static SoftReference<Retrofit> mRetrofitSoftReference;
+
     public static Retrofit getRetrofit() {
         if (mRetrofitSoftReference == null || mRetrofitSoftReference.get() == null) {
             OkHttpClient okHttpClient = new OkHttpClient.Builder()

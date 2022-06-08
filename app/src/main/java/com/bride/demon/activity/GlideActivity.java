@@ -100,7 +100,8 @@ public class GlideActivity extends BaseActivity {
 
         Bitmap bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        Paint paint = new Paint();paint.setStyle(Paint.Style.FILL);
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.FILL);
         canvas.drawCircle(50, 50, 50, paint);
         Paint paint1 = new Paint();
         // 图像组合

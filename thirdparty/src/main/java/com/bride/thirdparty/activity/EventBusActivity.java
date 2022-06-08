@@ -21,7 +21,7 @@ import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
 
 /**
- * EventBus为双检查单例模式。
+ * EventBus为双检查单例模式。Double Checked Locking Singleton Pattern, lazy initialization。
  * stickyEvents采用ConcurrentHashMap, subscriptionsByEventType采用Map<Class, CopyOnWriteArrayList<Subscription>>。
  * <p>Created by shixin on 2018/9/21.
  */

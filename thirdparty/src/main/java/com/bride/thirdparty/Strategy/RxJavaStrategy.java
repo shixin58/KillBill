@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import com.bride.baselib.net.UrlParams;
 import com.bride.baselib.net.Urls;
 import com.bride.thirdparty.ThirdPartyApplication;
-import com.bride.thirdparty.bean.PhoneNumberModel;
-import com.bride.thirdparty.bean.WrapperModel;
+import com.bride.baselib.bean.PhoneNumberModel;
+import com.bride.baselib.bean.WrapperModel;
 import com.bride.thirdparty.util.CustomInterceptor;
 import com.bride.thirdparty.util.CustomNetworkInterceptor;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
@@ -84,7 +84,7 @@ import okhttp3.Route;
 public class RxJavaStrategy {
     private static final String TAG = RxJavaStrategy.class.getSimpleName();
 
-    private OkHttpClient mOkHttpClient;
+    private final OkHttpClient mOkHttpClient;
 
     private static class InstanceWrapper {
         private static final RxJavaStrategy INSTANCE = new RxJavaStrategy();
@@ -147,7 +147,7 @@ public class RxJavaStrategy {
     }
 
     public void executeJust() {
-        // Flowable.fromArray()
+        // Flowable#fromArray(变长参数varargs) -> FlowableFromArray
         Flowable.just("Try again!", "Hello World!", "May I ask you out?")
                 .subscribe(new Subscriber<String>() {
                     @Override
@@ -175,6 +175,7 @@ public class RxJavaStrategy {
 
     public void executeObservable() {
         // Java8 Lambda表达式
+        // Observable#create() -> ObservableCreate
         Observable.create((ObservableOnSubscribe<String>) e -> {
             Log.i(TAG, "executeObservable() - ObservableOnSubscribe#subscribe");
             e.onNext("Good");
@@ -207,6 +208,7 @@ public class RxJavaStrategy {
     }
 
     public void executeTake() {
+        // Observable#fromArray() -> ObservableFromArray
         Observable.just(1, 2, 3, 4, 5, 6)
                 .take(5)
                 .subscribe(new Observer<Integer>() {
@@ -355,9 +357,9 @@ public class RxJavaStrategy {
                 .put("phone", "17319311840")
                 .put("key", Urls.JUHE_KEY)
                 .toString();
-        Observable.just(url1, url2, url3)
-                .observeOn(Schedulers.computation())
-                .map((Function<String, WrapperModel<PhoneNumberModel>>) s -> {
+        Observable.just(url1, url2, url3)// ObservableFromArray
+                .observeOn(Schedulers.computation())// ObservableObserveOn
+                .map((Function<String, WrapperModel<PhoneNumberModel>>) s -> {// ObservableMap
                     Request request = new Request.Builder()
                             .url(s)
                             .get()
@@ -369,7 +371,7 @@ public class RxJavaStrategy {
                     Response response = call.execute();
 
                     Log.i(TAG, "map - Function#apply "+response.cacheResponse()+" - "+response.networkResponse());
-                    Thread.sleep(5000);
+                    Thread.sleep(5000L);
                     return new Gson()
                             .fromJson(response.body().string(), new TypeToken<WrapperModel<PhoneNumberModel>>(){}.getType());
                 })
