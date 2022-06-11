@@ -26,7 +26,7 @@ ext {
 
     // 慕课网引用glide-v3.7.0
     // 源码参考https://github.com/bumptech/glide
-    glide_version = "4.11.0"
+    glide_version = "4.13.0"
 
     stetho_version = "1.5.1"
 
@@ -49,6 +49,5 @@ ext {
 
     lottie_version = "3.4.4"
 
-    arouter_api_version = "1.5.0"
-    arouter_compiler_version = "1.2.2"
+    arouter_version = "1.5.2"
 }

@@ -5,10 +5,7 @@ buildscript {
     ext.kotlin_version = '1.6.21'
     repositories {
         google()
-//        maven { url 'https://maven.google.com/'}
 //        google { url 'https://maven.aliyun.com/repository/google' }
-        jcenter()
-//        jcenter { url 'https://maven.aliyun.com/repository/jcenter' }
         mavenCentral()
 //        mavenCentral { url 'https://maven.aliyun.com/repository/central' }
         maven {
@@ -22,18 +19,13 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         classpath "com.bride.plugin:MyPlugin:1.0.0"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
     }
 }
 
 allprojects {
     repositories {
         google()
-        jcenter()
         mavenCentral()
-        maven {url  "https://dl.bintray.com/rongcloud/maven"}
         maven {url 'https://jitpack.io'}
     }
 }

@@ -14,13 +14,13 @@ fun main() {
 
 class Simple {
     var x: Int
-    // secondary constructor
-    constructor(x: Int) {
+    // 副构造器secondary constructor
+    constructor(x: Int): super() {
         this.x = x
     }
 }
 
-// primary constructor
+// 主构造器primary constructor
 class Simple1 constructor(x: Int) {
     var x: Int = x
 }
@@ -54,6 +54,7 @@ interface ISimple {
     fun life()
 }
 
+// 抽象类默认空参构造
 abstract class AbsSimple {
     abstract fun survive()
     open fun work() {

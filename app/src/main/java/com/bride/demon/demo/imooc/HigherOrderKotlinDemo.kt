@@ -26,10 +26,23 @@ fun main() {
     }
 
     // 高阶函数use自动关闭资源
+    // FileInputStream(File) -> InputStreamReader(InputStream) -> BufferedReader(Reader)
     File("app/build.gradle").inputStream().reader().buffered()
         .use {
             println(it.readLine())
         }
+
+    File("build.gradle")
+        .readText()
+        .toCharArray()
+        .filterNot(Char::isWhitespace)// List<Char>
+        .groupBy { it }// Map<Char, List<Char>>
+        .map { it.key to it.value.size }// List<Pair<Char, Int>>
+        .let { println(it) }
+
+    // DSL, Domain Specific Language领域特定语言
+    // https://github.com/Kotlin/kotlinx.html
+    // https://kotlinlang.org/docs/gradle.html
 }
 
 fun fibonacci(): () -> Long {

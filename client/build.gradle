@@ -54,8 +54,8 @@ dependencies {
 
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
 
-    implementation "com.alibaba:arouter-api:$arouter_api_version"
-    annotationProcessor "com.alibaba:arouter-compiler:$arouter_compiler_version"
+    implementation "com.alibaba:arouter-api:$arouter_version"
+    annotationProcessor "com.alibaba:arouter-compiler:$arouter_version"
 
     implementation project(':baselib')
     implementation project(':ui_lib')

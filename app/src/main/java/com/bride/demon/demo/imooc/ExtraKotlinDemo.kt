@@ -35,10 +35,18 @@ fun main() {
 
     // 运算符重载Operator Overloading
     // https://kotlinlang.org/docs/operator-overloading.html
+    "Good"{
+        println(this)
+    }
 }
 
 interface IAnimal
 
 class Animal: IAnimal {
     fun eat() {}
+}
+
+operator fun String.invoke(block: String.() -> Unit) {
+//    block.invoke(this)
+    this.block()
 }
