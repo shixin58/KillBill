@@ -8,9 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.Observable;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.bride.baselib.CustomLifecycleObserver;
 import com.bride.ui_lib.BaseFragment;
@@ -24,7 +23,7 @@ import com.bride.widget.model.Boss;
 public class BossFragment extends BaseFragment {
 
     private BossViewModel mViewModel;
-    private FragmentBossBinding mFragmentBossBinding;
+    private FragmentBossBinding mViewDataBinding;
 
     public static BossFragment newInstance() {
         return new BossFragment();
@@ -34,42 +33,26 @@ public class BossFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getLifecycle().addObserver(CustomLifecycleObserver.INSTANCE);
+        mViewModel = new ViewModelProvider(this).get(BossViewModel.class);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mFragmentBossBinding = DataBindingUtil.inflate(inflater,
+        mViewDataBinding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_boss, container, false);
-        return mFragmentBossBinding.getRoot();
+        return mViewDataBinding.getRoot();
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(BossViewModel.class);
-        mViewModel.bossLiveData.observe(this, new Observer<Boss>() {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mViewDataBinding.setViewModel(mViewModel);
+
+        mViewModel.bossLiveData.observe(getViewLifecycleOwner(), new Observer<Boss>() {
             @Override
             public void onChanged(Boss boss) {
-                mFragmentBossBinding.setBoss(boss);
-            }
-        });
-        getActivity().findViewById(R.id.tv_action).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewModel.doAction();
-            }
-        });
-        mViewModel.resultImageUrl.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                mFragmentBossBinding.setViewModel(mViewModel);
-            }
-        });
-        getActivity().findViewById(R.id.tv_load_image).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewModel.updateScenery();
+                mViewDataBinding.setBoss(boss);
             }
         });
     }

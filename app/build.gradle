@@ -140,7 +140,7 @@ dependencies {
     implementation 'jp.wasabeef:glide-transformations:4.3.0'
 
     implementation "com.alibaba:arouter-api:$arouter_version"
-    annotationProcessor "com.alibaba:arouter-compiler:$arouter_version"
+    kapt "com.alibaba:arouter-compiler:$arouter_version"
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'

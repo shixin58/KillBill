@@ -50,6 +50,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_scenery"
             android:gravity="center"
+            android:onClick="@{viewModel.doAction}"
             android:text="doAction"/>
 
         <TextView
@@ -60,7 +61,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_action"
             android:gravity="center"
+            android:onClick="@{viewModel.updateScenery}"
             android:text="load image"/>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

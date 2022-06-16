@@ -1,147 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+        <variable
+            name="fragment"
+            type="com.bride.demon.fragment.HomeFragment" />
+        <import type="com.bride.demon.model.DailyJob"/>
+        <variable
+            name="dailyJob"
+            type="DailyJob" />
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/button_recycler_view"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="?android:attr/selectableItemBackground"
-            android:onClick="onClick"
-            android:gravity="center"
-            android:text="test RecyclerView"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/button_touch"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_recycler_view"
-            android:onClick="onClick"
-            android:gravity="center"
-            android:text="test touch"/>
+            <TextView
+                android:id="@+id/button_recycler_view"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="?android:attr/selectableItemBackground"
+                android:onClick="@{fragment.onClick}"
+                android:gravity="center"
+                android:text="test RecyclerView" />
 
-        <TextView
-            android:id="@+id/button_nested_list"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_touch"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:onClick="onClick"
-            android:gravity="center"
-            android:text="test nested list"/>
+            <TextView
+                android:id="@+id/button_touch"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/button_recycler_view"
+                android:onClick="@{fragment.onClick}"
+                android:gravity="center"
+                android:text="test touch" />
 
-        <TextView
-            android:id="@+id/button_upload"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_nested_list"
-            android:onClick="onClick"
-            android:gravity="center"
-            android:text="test upload"/>
+            <TextView
+                android:id="@+id/button_nested_list"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/button_touch"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:onClick="@{fragment.onClick}"
+                android:gravity="center"
+                android:text="test nested list" />
 
-        <TextView
-            android:id="@+id/button_webp"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_upload"
-            android:background="@drawable/ripple_practice"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="test webp"/>
+            <TextView
+                android:id="@+id/button_upload"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/button_nested_list"
+                android:onClick="@{fragment.onClick}"
+                android:gravity="center"
+                android:text="test upload" />
 
-        <TextView
-            android:id="@+id/button_glide"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_webp"
-            android:background="@drawable/ripple_mask_practice"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="test Glide"/>
+            <TextView
+                android:id="@+id/button_webp"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/button_upload"
+                android:background="@drawable/ripple_practice"
+                android:gravity="center"
+                android:onClick="@{fragment.onClick}"
+                android:text="test webp" />
 
-        <TextView
-            android:id="@+id/button_volley"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_glide"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="test Volley"/>
+            <TextView
+                android:id="@+id/button_glide"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/button_webp"
+                android:background="@drawable/ripple_mask_practice"
+                android:gravity="center"
+                android:onClick="@{fragment.onClick}"
+                android:text="test Glide" />
 
-        <TextView
-            android:id="@+id/button_relative_layout"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_volley"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="test RelativeLayout"/>
+            <TextView
+                android:id="@+id/button_volley"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/button_glide"
+                android:gravity="center"
+                android:onClick="@{fragment.onClick}"
+                android:text="test Volley" />
 
-        <TextView
-            android:id="@+id/button_exception"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_relative_layout"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="test Exception"/>
+            <TextView
+                android:id="@+id/button_relative_layout"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/button_volley"
+                android:gravity="center"
+                android:onClick="@{fragment.onClick}"
+                android:text="test RelativeLayout" />
 
-        <TextView
-            android:id="@+id/button_serializable"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_exception"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="test Serializable"/>
+            <TextView
+                android:id="@+id/button_exception"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/button_relative_layout"
+                android:gravity="center"
+                android:onClick="@{fragment.onClick}"
+                android:text="test Exception" />
 
-        <TextView
-            android:id="@+id/button_drag"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_serializable"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="test Drag"/>
+            <TextView
+                android:id="@+id/button_serializable"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/button_exception"
+                android:gravity="center"
+                android:onClick="@{fragment.onClick}"
+                android:text="test Serializable" />
 
-        <TextView
-            android:id="@+id/button_region"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_drag"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="test Region"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+            <TextView
+                android:id="@+id/button_drag"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/button_serializable"
+                android:gravity="center"
+                android:onClick="@{fragment.onClick}"
+                android:text="test Drag" />
+
+            <TextView
+                android:id="@+id/button_region"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/button_drag"
+                android:gravity="center"
+                android:onClick="@{fragment.onClick}"
+                android:text="test Region" />
+
+            <TextView
+                android:id="@+id/button_data_binding"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/button_region"
+                android:gravity="center"
+                android:onClick="@{fragment.onClick}"
+                android:text="@{dailyJob.name+'('+dailyJob.priority+')',default=test_DataBinding}" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

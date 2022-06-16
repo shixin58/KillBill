@@ -22,7 +22,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.bride.baselib.module.ActivityNameFinals;
 import com.bride.baselib.module.ActivitySchemas;
 import com.bride.ui_lib.BaseActivity;
@@ -138,9 +137,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     // java.lang.SecurityException: Permission Denial: starting Intent { cmp=com.bride.demon.debug/com.bride.demon.activity.GlideActivity } from ProcessRecord{dabbcc9 10979:com.bride.client.debug/u0a241} (pid=10979, uid=10241) not exported from uid 10248
                     e.printStackTrace();
                 }
-                break;
-            case R.id.tv_glide:
-                ARouter.getInstance().build("/demon/activity").navigation();
                 break;
         }
     }

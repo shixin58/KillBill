@@ -22,6 +22,7 @@ class BlankActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // 返回的ViewBinding实现类是final
         mBinding = ActivityBlankBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         printViewHierarchy(mBinding.tvTitle, this)

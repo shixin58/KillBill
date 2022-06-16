@@ -86,9 +86,14 @@ dependencies {
     implementation group: 'com.github.bumptech.glide', name: 'glide', version: glide_version
     annotationProcessor group: 'com.github.bumptech.glide', name: 'compiler', version: glide_version
 
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-15'
-    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-andx-15'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "io.github.scwang90:refresh-layout-kernel:$smart_refresh_layout_version" // 核心必须依赖
+    implementation "io.github.scwang90:refresh-header-classics:$smart_refresh_layout_version" // 经典刷新头
+    implementation "io.github.scwang90:refresh-header-radar:$smart_refresh_layout_version" // 雷达刷新头
+    implementation "io.github.scwang90:refresh-header-falsify:$smart_refresh_layout_version" // 虚拟刷新头
+    implementation "io.github.scwang90:refresh-header-material:$smart_refresh_layout_version" // 谷歌刷新头
+    implementation "io.github.scwang90:refresh-header-two-level:$smart_refresh_layout_version" // 二级刷新头
+    implementation "io.github.scwang90:refresh-footer-ball:$smart_refresh_layout_version" // 球脉冲加载
+    implementation "io.github.scwang90:refresh-footer-classics:$smart_refresh_layout_version" // 经典加载
 
     implementation "com.airbnb.android:lottie:$lottie_version"
 

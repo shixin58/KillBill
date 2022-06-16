@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bride.ui_lib.BaseActivity;
 import com.bride.widget.R;
 import com.bride.widget.adapter.RefreshAdapter;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smart.refresh.footer.ClassicsFooter;
+import com.scwang.smart.refresh.header.ClassicsHeader;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,6 +43,8 @@ public class RefreshActivity extends BaseActivity {
 
     private void initView() {
         RefreshLayout refreshLayout = findViewById(R.id.refresh_layout);
+        refreshLayout.setRefreshHeader(new ClassicsHeader(this));
+        refreshLayout.setRefreshFooter(new ClassicsFooter(this));
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {

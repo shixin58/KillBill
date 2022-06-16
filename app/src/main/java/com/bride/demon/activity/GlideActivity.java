@@ -69,7 +69,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
  * 内存缓存LruArrayPool, BitmapPool, LruResourceCache。
  * <p>Created by shixin on 2019/3/5.
  */
-@Route(path = "/demon/activity")
+@Route(path = "/demon/glide")
 public class GlideActivity extends BaseActivity {
     private static final String TAG = GlideActivity.class.getSimpleName();
 

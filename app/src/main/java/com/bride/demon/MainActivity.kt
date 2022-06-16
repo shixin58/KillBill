@@ -137,16 +137,13 @@ class MainActivity : BaseActivity() {
 
     fun onClick(v: View) {
         if (fragments[mIndex] is DashboardFragment
-                && fragments[mIndex]!!.view!!.findViewById<View>(v.id) != null) {
+                && fragments[mIndex]!!.requireView().findViewById<View>(v.id) != null) {
             (fragments[mIndex] as DashboardFragment).onClick(v)
         } else if (fragments[mIndex] is NotificationsFragment
-                && fragments[mIndex]!!.view!!.findViewById<View>(v.id) != null) {
+                && fragments[mIndex]!!.requireView().findViewById<View>(v.id) != null) {
             (fragments[mIndex] as NotificationsFragment).onClick(v)
-        } else if (fragments[mIndex] is HomeFragment
-                && fragments[mIndex]!!.view!!.findViewById<View>(v.id) != null) {
-            (fragments[mIndex] as HomeFragment).onClick(v)
         } else if (fragments[mIndex] is MineFragment
-                && fragments[mIndex]!!.view!!.findViewById<View>(v.id) != null) {
+                && fragments[mIndex]!!.requireView().findViewById<View>(v.id) != null) {
             (fragments[mIndex] as MineFragment).onClick(v)
         }
     }

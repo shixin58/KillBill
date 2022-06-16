@@ -32,6 +32,7 @@ fun main() {
             println(it.readLine())
         }
 
+    // readText()扩展很便利
     File("build.gradle")
         .readText()
         .toCharArray()
