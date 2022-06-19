@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -20,6 +19,10 @@ public class CustomViewGroup extends ViewGroup {
 
     public CustomViewGroup(Context context, AttributeSet attrs) {
         super(context, attrs);
+    }
+
+    public CustomViewGroup(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
     }
 
     @Override
@@ -57,62 +60,23 @@ public class CustomViewGroup extends ViewGroup {
     }
 
     @Override
-    public void draw(Canvas canvas) {
+    public void draw(Canvas canvas) {// 1
         super.draw(canvas);
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(Canvas canvas) {// 2
         super.onDraw(canvas);
     }
 
     @Override
-    protected void dispatchDraw(Canvas canvas) {
+    protected void dispatchDraw(Canvas canvas) {// 3
         super.dispatchDraw(canvas);
     }
 
     @Override
-    protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
+    protected boolean drawChild(Canvas canvas, View child, long drawingTime) {// 4
         return super.drawChild(canvas, child, drawingTime);
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        Log.i(TAG, "dispatchTouchEvent "+ev.getAction());
-        return super.dispatchTouchEvent(ev);
-    }
-
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        // true直接onTouchEvent; false子类dispatchTouchEvent
-        return super.onInterceptTouchEvent(ev);
-    }
-
-    @Override
-    public void requestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-        super.requestDisallowInterceptTouchEvent(disallowIntercept);
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        Log.i(TAG, "onTouchEvent "+event.getAction());
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                break;
-            case MotionEvent.ACTION_MOVE:
-                break;
-            case MotionEvent.ACTION_UP:
-                break;
-            case MotionEvent.ACTION_CANCEL:
-                break;
-        }
-        boolean consumed = super.onTouchEvent(event);
-        return consumed;
-    }
-
-    @Override
-    public boolean performClick() {
-        return super.performClick();
     }
 
     public static class LayoutParams extends ViewGroup.MarginLayoutParams {
@@ -127,7 +91,7 @@ public class CustomViewGroup extends ViewGroup {
     }
 
     @Override
-    public LayoutParams generateLayoutParams(AttributeSet attrs) {
+    public ViewGroup.LayoutParams generateLayoutParams(AttributeSet attrs) {
         return new LayoutParams(getContext(), attrs);
     }
 

@@ -1,36 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.bride.demon.widget.DispatchConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.bride.demon.widget.DispatchConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+    <com.bride.demon.widget.MyTextView
+        android:id="@+id/tv_direction"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:background="@android:color/holo_purple"
+        android:text="左上角"/>
+</com.bride.demon.widget.DispatchConstraintLayout>
 
-        <com.bride.demon.widget.CustomViewGroup
-            android:id="@+id/my_view_group"
-            android:layout_width="0dp"
+<!-- 测试cancel事件 -->
+<!--<com.bride.demon.widget.MyScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.bride.demon.widget.MyButton
+            android:id="@+id/tv_direction"
+            android:layout_width="100dp"
             android:layout_height="200dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp">
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:background="@android:color/holo_purple"
+            android:text="左上角"/>
 
-            <TextView
-                android:id="@+id/tv_direction"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:background="@android:color/holo_purple"
-                android:text="左上角"/>
-        </com.bride.demon.widget.CustomViewGroup>
-    </com.bride.demon.widget.DispatchConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:layout_width="10dp"
+            android:layout_height="1000dp"/>
+    </LinearLayout>
+</com.bride.demon.widget.MyScrollView>-->

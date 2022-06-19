@@ -2,23 +2,21 @@ package com.bride.demon.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
 
 import com.bride.ui_lib.BaseActivity;
 import com.bride.demon.R;
-import com.bride.demon.widget.CustomViewGroup;
 
 /**
+ * ViewGroup#dispatchTouchEvent()利用touch坐标查找合适的child, 然后调用ViewGroup#dispatchTransformedTouchEvent。
+ * <p>若有，执行child#dispatchTouchEvent(); 否则执行super#dispatchTouchEvent()。
+ * <p>ViewGroup#dispatchTouchEvent()调用onTouch()和onTouchEvent()，onTouchEvent()调用performClick()。
  * <p>Created by shixin on 2018/9/13.
  */
 public class TouchActivity extends BaseActivity {
     private static final String TAG = TouchActivity.class.getSimpleName();
-
-    int type;
 
     public static void openActivity(Context context, int type) {
         Intent intent = new Intent(context, TouchActivity.class);
@@ -35,52 +33,11 @@ public class TouchActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_touch);
         initView();
-        Log.i(TAG, "onCreate "+getTaskId()+" "+hashCode());
     }
 
     private void initView() {
-        this.type = getIntent().getIntExtra("type", 0);
-        CustomViewGroup viewGroup = type == 1 ? new CustomViewGroup(this) : findViewById(R.id.my_view_group);
-
-        // ViewGroup#dispatchTouchEvent利用touch坐标查找合适的child, 然后调用ViewGroup#dispatchTransformedTouchEvent。
-        // 若有，执行child#dispatchTouchEvent; 否则执行super#dispatchTouchEvent。
-        // ViewGroup#dispatchTouchEvent调用onTouch和onTouchEvent，onTouchEvent调用performClick。
-        viewGroup.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Log.i(TAG, "onTouch "+event.getAction());
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        break;
-                    case MotionEvent.ACTION_CANCEL:
-                        break;
-                }
-                return false;
-            }
-        });
-        viewGroup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(TAG, "onClick");
-                viewGroup.setBackgroundColor(Color.BLUE);
-            }
-        });
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        Log.i(TAG, "onNewIntent "+getTaskId()+" "+hashCode());
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.i(TAG, "onDestroy "+getTaskId()+" "+hashCode());
+        // 标记View实现方式，从外部传入。默认0从布局文件获取，1采取硬编码
+        int type = getIntent().getIntExtra("type", 0);
     }
 
     @Override

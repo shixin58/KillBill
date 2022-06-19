@@ -17,7 +17,7 @@ public class OneNumClient {
         try {
             System.out.println("divide: " + divide(Integer.MIN_VALUE, 1));
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -69,12 +69,12 @@ public class OneNumClient {
      * @param divisor 除数
      * @return 商。结果可能溢出，所以使用BigInteger
      */
-    public static BigInteger divide(int dividend, int divisor) throws Exception {
+    public static BigInteger divide(final int dividend, final int divisor) throws ArithmeticException {
         // 除数不为0
-        if (divisor == 0) throw new Exception();
+        if (divisor == 0) throw new ArithmeticException("/ by zero");
+        if (dividend == 0) return BigInteger.ZERO;
 
-        int quotient = 0;
-        // 处理除数为MIN_VALUE的情况
+        // 1）处理除数为MIN_VALUE的情况
         if (divisor == Integer.MIN_VALUE) {
             if (dividend == Integer.MIN_VALUE) {
                 return BigInteger.ONE;
@@ -83,64 +83,67 @@ public class OneNumClient {
             }
         }
 
-        // 处理被除数为MIN_VALUE的情况
+        // 2）处理被除数为MIN_VALUE的情况，取绝对值前将其适当截断
+        int quotient = 0;
+        int tmpDividend = dividend;
         if (dividend == Integer.MIN_VALUE) {
             if (divisor == -1) {
-                return BigInteger.valueOf(1L+Integer.MAX_VALUE);
+                // int溢出
+                return BigInteger.valueOf(1L + Integer.MAX_VALUE);
             } else if(divisor > 0){
-                dividend += divisor;
+                tmpDividend += divisor;
                 quotient--;
             } else {
-                dividend -= divisor;
+                tmpDividend -= divisor;
                 quotient++;
             }
         }
 
-        // 处理被除数或除数为负的情况。被除数和除数都取正数，用positive标记结果的正负
+        // 3）处理被除数或除数为负的情况。被除数和除数都取绝对值，用positive标记结果的正负
         boolean positive = true;
-        if (dividend < 0 && divisor < 0) {
-            dividend = Math.abs(dividend);
-            divisor = Math.abs(divisor);
-        } else if (dividend < 0) {
-            dividend = Math.abs(dividend);
+        int absDividend = tmpDividend, absDivisor = divisor;
+        if (tmpDividend < 0 && divisor < 0) {
+            absDividend = Math.abs(tmpDividend);
+            absDivisor = Math.abs(divisor);
+        } else if (tmpDividend < 0) {
+            absDividend = Math.abs(tmpDividend);
             positive = false;
         } else if (divisor < 0) {
-            divisor = Math.abs(divisor);
+            absDivisor = Math.abs(divisor);
             positive = false;
         }
-
-        System.out.println("dividend = "+dividend+"; divisor = "+divisor);
-        if (dividend < divisor) {
+        System.out.println("absDividend = "+absDividend+"; absDivisor = "+absDivisor);
+        if (absDividend < absDivisor) {
             return BigInteger.valueOf(quotient);
         }
 
-        // 求出被除数和除数最高位1所在位置
-        int divisorHighestPos = 0;
+        // 4）求出被除数和除数二进制形式最高位1所在位置。迭代执行二进制右移运算
         int dividendHighestPos = 0;
-        int tmpOperand = divisor;
-        while (tmpOperand > 0) {
-            divisorHighestPos++;
-            tmpOperand = tmpOperand >> 1;
-        }
-        tmpOperand = dividend;
+        int divisorHighestPos = 0;
+        int tmpOperand = absDividend;
         while (tmpOperand > 0) {
             dividendHighestPos++;
             tmpOperand = tmpOperand >> 1;
         }
+        tmpOperand = absDivisor;
+        while (tmpOperand > 0) {
+            divisorHighestPos++;
+            tmpOperand = tmpOperand >> 1;
+        }
         System.out.println("dividendHighestPos = "+dividendHighestPos+"; divisorHighestPos = "+divisorHighestPos);
 
-        // 核心算法
-        int tmpQuotient = 0;
-        int interval = dividendHighestPos - divisorHighestPos;
-        while (dividend >= divisor) {
-            if (dividend >= (divisor << interval)) {
-                dividend -= (divisor << interval);
-                tmpQuotient += (1 << interval);
+        // 5）核心算法。利用二进制左移运算模拟除法
+        int absQuotient = 0;
+        int highestInterval = dividendHighestPos - divisorHighestPos;
+        while (absDividend >= absDivisor) {
+            if (absDividend >= (absDivisor << highestInterval)) {
+                absDividend -= (absDivisor << highestInterval);
+                absQuotient += (1 << highestInterval);
             }
-            interval--;
+            highestInterval--;
         }
 
-        quotient += positive?tmpQuotient:-tmpQuotient;
+        quotient += positive?absQuotient:-absQuotient;
         return BigInteger.valueOf(quotient);
     }
 }

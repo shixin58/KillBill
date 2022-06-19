@@ -4,24 +4,20 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.widget.ScrollView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
+public class MyScrollView extends ScrollView {
+    private static final String TAG = MyScrollView.class.getSimpleName();
 
-/**
- * <p>Created by shixin on 2018/9/26.
- */
-public class DispatchConstraintLayout extends ConstraintLayout {
-    private static final String TAG = DispatchConstraintLayout.class.getSimpleName();
-
-    public DispatchConstraintLayout(Context context) {
+    public MyScrollView(Context context) {
         super(context);
     }
 
-    public DispatchConstraintLayout(Context context, AttributeSet attrs) {
+    public MyScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public DispatchConstraintLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MyScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -33,15 +29,14 @@ public class DispatchConstraintLayout extends ConstraintLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        Log.i(TAG, "onInterceptTouchEvent "+ev.getAction());
-        super.onInterceptTouchEvent(ev);
-        return true;
+        boolean intercept = super.onInterceptTouchEvent(ev);
+        Log.i(TAG, "onInterceptTouchEvent "+ev.getAction()+" "+intercept);
+        return intercept;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.i(TAG, "onTouchEvent "+event.getAction());
-        super.onTouchEvent(event);
-        return true;
+        return super.onTouchEvent(event);
     }
 }
