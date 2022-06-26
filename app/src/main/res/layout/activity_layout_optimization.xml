@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:text="@string/tv_1"/>
 
+        <!-- layout_weight导致measure多次，即重复绘制 -->
         <TextView
             android:id="@+id/tv_2"
             android:layout_width="0dp"

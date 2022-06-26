@@ -56,7 +56,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
                     .build("/demon/glide")
                     .navigation()
             }
-            R.id.button_relative_layout -> RelativeLayoutActivity.openActivity(ac)
+            R.id.button_relative_layout -> LayoutOptimizationActivity.openActivity(ac)
             R.id.button_volley -> VolleyActivity.openActivity(ac)
             R.id.button_exception -> ExceptionActivity.openActivity(ac)
             R.id.button_serializable -> SerializableActivity.openActivity(ac)

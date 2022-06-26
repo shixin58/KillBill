@@ -6,8 +6,11 @@ import java.util.concurrent.Executors;
 
 /**
  * 每个对象有且仅有1个同步锁，不同线程对同步锁的访问是互斥的。
- * 1、synchronized同步锁，可重入锁，保证原子性
- * <p>2、wait/notify等待唤醒
+ * <p>1、synchronized同步锁为可重入锁(递归锁)，避免死锁，提升封装性。
+ * <p>2、wait/notify等待/唤醒，Object锁。
+ * <p>3、进入同步代码块获得锁，退出同步代码块或抛异常后释放锁。
+ * <p>4、synchronized不可中断，即等待锁时不可中断，Thread.interrupt()无效。ReentrantLock#lockInterruptibly()可中断
+ * <p>5、synchronized可见性(Java内存模型)。一个线程退出同步代码块，保证其执行结果在另一个线程进入同步代码块时可见。
  * <p>Created by shixin on 2019/3/20.
  */
 public class SynchronizedClient {
@@ -16,12 +19,11 @@ public class SynchronizedClient {
     private static boolean condition = false;
 
     public static void main(String[] args) {
-
-//        testSynchronized();
-
-        testWaitNotify();
+        testSynchronized();
+//        testWaitNotify();
     }
 
+    // A、B为对象锁，锁住SynchronizedClient；C、D为类锁，锁住SynchronizedClient.class
     public static void testSynchronized() {
         final SynchronizedClient synchronizedClient = new SynchronizedClient();
         Executor executor = Executors.newFixedThreadPool(4);
@@ -34,13 +36,13 @@ public class SynchronizedClient {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                SynchronizedClient.printC();
+                synchronizedClient.printB();
             }
         });
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                synchronizedClient.printB();
+                SynchronizedClient.printC();
             }
         });
         executor.execute(new Runnable() {
@@ -52,43 +54,47 @@ public class SynchronizedClient {
     }
 
     public synchronized void printA() {
-        System.out.println("A start "+Thread.currentThread().getName());
+        Thread t = Thread.currentThread();
+        System.out.println("A start in "+t.getName()+" "+t.getId()+" at "+System.currentTimeMillis());
         try {
-            Thread.sleep(3000);
+            Thread.sleep(3000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("A end "+Thread.currentThread().getName());
+        System.out.println("A end in "+t.getName()+" "+t.getId()+" at "+System.currentTimeMillis());
     }
 
     public synchronized void printB() {
-        System.out.println("B start "+Thread.currentThread().getName());
+        Thread t = Thread.currentThread();
+        System.out.println("B start in "+t.getName()+" "+t.getId()+" at "+System.currentTimeMillis());
         try {
-            Thread.sleep(3000);
+            Thread.sleep(3000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("B end "+Thread.currentThread().getName());
+        System.out.println("B end in "+t.getName()+" "+t.getId()+" at "+System.currentTimeMillis());
     }
 
     public synchronized static void printC() {
-        System.out.println("C start "+Thread.currentThread().getName());
+        Thread t = Thread.currentThread();
+        System.out.println("C start in "+t.getName()+" "+t.getId()+" at "+System.currentTimeMillis());
         try {
-            Thread.sleep(3000);
+            Thread.sleep(3000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("C end "+Thread.currentThread().getName());
+        System.out.println("C end in "+t.getName()+" "+t.getId()+" at "+System.currentTimeMillis());
     }
 
     public synchronized static void printD() {
-        System.out.println("D start "+Thread.currentThread().getName());
+        Thread t = Thread.currentThread();
+        System.out.println("D start in "+t.getName()+" "+t.getId()+" at "+System.currentTimeMillis());
         try {
-            Thread.sleep(3000);
+            Thread.sleep(3000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("D end "+Thread.currentThread().getName());
+        System.out.println("D end in "+t.getName()+" "+t.getId()+" at "+System.currentTimeMillis());
     }
 
     public static void testWaitNotify() {
@@ -108,11 +114,12 @@ public class SynchronizedClient {
     }
 
     private static void runThread1() {
-        System.out.println("start "+Thread.currentThread().getName());
+        System.out.println("start T1 "+Thread.currentThread().getName());
         synchronized (object) {
             while (!condition) {
                 try {
                     // 阻塞线程, 释放对象锁
+                    System.out.println("T1 wait");
                     object.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -123,20 +130,21 @@ public class SynchronizedClient {
     }
 
     private static void doSomething() {
-        System.out.println("continue thread1");
+        System.out.println("continue T1");
     }
 
     private static void runThread2() {
-        System.out.println("start "+Thread.currentThread().getName());
+        System.out.println("start T2 "+Thread.currentThread().getName());
         synchronized (object) {
             try {
-                // 阻塞线程, 持有对象锁
-                Thread.sleep(1000*10);
+                // 持有对象锁，阻塞当前线程10秒
+                Thread.sleep(1000L * 10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             condition = true;
-            // 唤醒thread1，待退出同步块，thread1获得锁继续执行
+            // 唤醒T1，待T2退出同步块，T1获得锁继续执行
+            System.out.println("T2 notify");
             object.notify();
         }
     }

@@ -3,6 +3,7 @@ package com.bride.client.datastructure;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -16,7 +17,10 @@ public class CollectionClient {
     public static void main(String[] args) {
         collections();
         anonymous();
+
         testBitSet();
+
+        testHashSet();
     }
 
     public static void collections() {
@@ -42,6 +46,7 @@ public class CollectionClient {
         System.out.println();
     }
 
+    // anonymous匿名的/不具名的
     public static void anonymous() {
         List<String> unmodifiableList = Collections.unmodifiableList(Arrays.asList("Victor", "Simon", "Max", "Jacob"));
         for (String s: unmodifiableList) {
@@ -82,5 +87,34 @@ public class CollectionClient {
         bigBitSet.set(255);
         bigBitSet.set(256, false);// true才会扩大数组、增加length
         System.out.println(bigBitSet+", size(): "+bigBitSet.size()+", length: "+bigBitSet.length());
+    }
+
+    public static void testHashSet() {
+        HashSet<Val<Integer>> set = new HashSet<>();
+        set.add(new Val<>(1));
+        set.add(new Val<>(2));
+        set.add(new Val<>(3));
+        set.add(new Val<>(4));
+        int sum = set.stream()
+            .map(Val::getValue)// method reference，代替x -> x.getValue()
+            .reduce(Integer::sum)// (a, x) -> a + x
+            .get();
+        System.out.println("testHashSet "+sum);
+    }
+
+    public static class Val<T> {
+        private T value;
+
+        public Val(T value) {
+            this.value = value;
+        }
+
+        public T getValue() {
+            return value;
+        }
+
+        public void setValue(T value) {
+            this.value = value;
+        }
     }
 }

@@ -26,7 +26,7 @@ public class StackClient {
         }
     }
 
-    // 实现List，使用synchronized
+    // Vector实现了List接口，使用了synchronized达成线程安全
     private static void testVector() {
         System.out.println("\n=== Stack ===");
         Vector<String> vector = new Vector<>(5);

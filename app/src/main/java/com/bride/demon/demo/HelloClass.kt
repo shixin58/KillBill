@@ -169,7 +169,7 @@ internal interface Capable {
 }
 
 // 实现单父类、多个接口的匿名内部类
-// TypeScript(JS平台)支持交叉类型、联合类型
+// TypeScript(JS平台)支持交叉类型&、联合类型|
 private fun func() = object : Edible, Capable {
     override fun eat() {
     }

@@ -135,7 +135,7 @@
             android:launchMode="singleTask"
             android:exported="true"/>
 
-        <activity android:name=".activity.RelativeLayoutActivity"
+        <activity android:name=".activity.LayoutOptimizationActivity"
             android:label="@string/activity_relative_layout"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>

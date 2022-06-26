@@ -19,19 +19,19 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * <p>Created by shixin on 2019/4/14.
  */
-public class RelativeLayoutActivity extends BaseActivity {
+public class LayoutOptimizationActivity extends BaseActivity {
     private RecyclerView mRecyclerView;
     private View mViewDetail;
 
     public static void openActivity(Context context) {
-        Intent intent = new Intent(context, RelativeLayoutActivity.class);
+        Intent intent = new Intent(context, LayoutOptimizationActivity.class);
         context.startActivity(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_relativelayout);
+        setContentView(R.layout.activity_layout_optimization);
         initView();
     }
 
@@ -50,15 +50,15 @@ public class RelativeLayoutActivity extends BaseActivity {
     }
 
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_stub:
-                if (mViewDetail == null)
-                    mViewDetail = ((ViewStub)findViewById(R.id.stub_import)).inflate();
-                else if (mViewDetail.getVisibility() == View.VISIBLE)
-                    mViewDetail.setVisibility(View.GONE);
-                else
-                    mViewDetail.setVisibility(View.VISIBLE);
-                break;
+        if (v.getId() == R.id.tv_stub) {
+            if (mViewDetail == null) {
+                mViewDetail = ((ViewStub) findViewById(R.id.stub_import))
+                        .inflate();
+            } else if (mViewDetail.getVisibility() == View.VISIBLE) {
+                mViewDetail.setVisibility(View.GONE);
+            } else {
+                mViewDetail.setVisibility(View.VISIBLE);
+            }
         }
     }
 }

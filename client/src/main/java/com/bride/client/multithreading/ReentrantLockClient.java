@@ -6,7 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 1、可重入互斥锁 ReentrantLock和Condition。默认非公平锁(not FIFO)。
- * 2、Condition#await()/signal()类似于Object#wait()/notify()。
+ * <p>2、ReentrantLock#lock()/unlock()搭配Condition#await()/signal()，类似于synchronized块搭配Object#wait()/notify()。
  * <p>Created by shixin on 2018/9/27.
  */
 public class ReentrantLockClient {
@@ -17,10 +17,12 @@ public class ReentrantLockClient {
         final ReentrantLockClient client = new ReentrantLockClient();
 //        client.method();
 
-//        client.awaitMethod();
-//        client.signalMethod();
+        client.awaitMethod();
+        client.signalMethod();
+
 //        client.tryLock();
-        client.lockInterruptibly();
+
+//        client.lockInterruptibly();
     }
 
     public void method() {
@@ -28,7 +30,7 @@ public class ReentrantLockClient {
         try {
             System.out.println("method "+lock.getHoldCount());
             method2();
-        } finally {
+        } finally {// 保证抛异常也会释放锁
             lock.unlock();
         }
     }
@@ -47,13 +49,16 @@ public class ReentrantLockClient {
             @Override
             public void run() {
                 lock.lock();
+                System.out.println("awaitMethod获得同步锁");
                 try {
-                    System.out.println("before wait");
-                    condition.await();
-                    System.out.println("after wait");
+                    Thread.sleep(3000L);// 模拟执行任务3秒
+                    System.out.println("awaitMethod call await() "+lock.getHoldCount());
+                    condition.await();// 释放锁
+                    Thread.sleep(3000L);// 模拟执行任务3秒
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
+                    System.out.println("awaitMethod call unlock()");
                     lock.unlock();
                 }
             }
@@ -66,11 +71,15 @@ public class ReentrantLockClient {
             @Override
             public void run() {
                 lock.lock();
+                System.out.println("signalMethod获得同步锁");
                 try {
-                    System.out.println("before signal");
+                    Thread.sleep(3000L);// 模拟执行任务3秒
+                    System.out.println("signalMethod call signal() "+lock.getHoldCount());
                     condition.signal();
-                    System.out.println("after signal");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 } finally {
+                    System.out.println("signalMethod call unlock()");
                     lock.unlock();
                 }
             }
@@ -78,7 +87,7 @@ public class ReentrantLockClient {
     }
 
     public void tryLock() {
-        lock.tryLock();
+        boolean acquired = lock.tryLock();// 非阻塞，拿不到锁也立即返回
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -95,10 +104,10 @@ public class ReentrantLockClient {
 
     public void lockInterruptibly() {
         lock.lock();
+        System.out.println(Thread.currentThread().getName()+" 获得锁");
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-//                lock.lock();
                 try {
                     lock.lockInterruptibly();
                 } catch (InterruptedException e) {
@@ -109,10 +118,11 @@ public class ReentrantLockClient {
         thread.start();
 
         try {
-            Thread.sleep(100L);
+            Thread.sleep(1000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        // lock()不可中断，lockInterruptibly()可中断
         thread.interrupt();
     }
 }

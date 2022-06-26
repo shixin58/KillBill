@@ -11,7 +11,7 @@
     <string name="activity_upload" translatable="false">UploadActivity</string>
     <string name="activity_webp" translatable="false">WebpActivity</string>
     <string name="activity_glide" translatable="false">GlideActivity</string>
-    <string name="activity_relative_layout" translatable="false">RelativeLayoutActivity</string>
+    <string name="activity_relative_layout" translatable="false">LayoutOptimizationActivity</string>
     <string name="volley_activity" translatable="false">VolleyActivity</string>
     <string name="activity_rong_demo" translatable="false">RongDemoActivity</string>
     <string name="activity_exception" translatable="false">ExceptionActivity</string>
