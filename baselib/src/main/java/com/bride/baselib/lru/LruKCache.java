@@ -1,4 +1,4 @@
-package com.bride.baselib;
+package com.bride.baselib.lru;
 
 import java.util.HashMap;
 
@@ -15,8 +15,8 @@ public class LruKCache<K, V> {
     private final HashMap<K, HistoryNode<K>> mHistoryMap = new HashMap<>();
     private HistoryNode<K> mHistoryHead, mHistoryTail;
 
-    private int mMaxSize;
-    private int mMaxHistorySize;
+    private final int mMaxSize;
+    private final int mMaxHistorySize;
 
     public LruKCache(int size, int historySize) {
         mMaxSize = size;

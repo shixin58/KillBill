@@ -31,6 +31,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,14 +65,16 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
  * Glide为双检查单例模式。
- * 磁盘缓存目录为Context#getCacheDir()(/data/data/package/cache/image_manager_disk_cache), InternalCacheDiskCacheFactory, 250MB。
- * 或者Context#getExternalCacheDir()(/storage/emulated/0/Android/data/package/cache), ExternalPreferredCacheDiskCacheFactory, 250MB。
- * 内存缓存LruArrayPool, BitmapPool, LruResourceCache。
+ * <p>磁盘缓存目录为Context#getCacheDir()(/data/data/package/cache/image_manager_disk_cache), InternalCacheDiskCacheFactory, 250MB。
+ * <p>或者Context#getExternalCacheDir()(/storage/emulated/0/Android/data/package/cache), ExternalPreferredCacheDiskCacheFactory, 250MB。
+ * <p>内存缓存LruArrayPool, BitmapPool, LruResourceCache。
  * <p>Created by shixin on 2019/3/5.
  */
 @Route(path = "/demon/glide")
 public class GlideActivity extends BaseActivity {
     private static final String TAG = GlideActivity.class.getSimpleName();
+
+    private Bitmap mCurBitmap;
 
     public static void openActivity(Context context) {
         Intent intent = new Intent(context, GlideActivity.class);
@@ -85,10 +88,30 @@ public class GlideActivity extends BaseActivity {
         Log.i(TAG, "onCreate "+this.hashCode()+" - "+savedInstanceState);
         setContentView(R.layout.activity_glide);
         initView();
-        ImageView imageView = findViewById(R.id.iv_resource);
-//        setImage(this, imageView, R.mipmap.ic_launcher_round);
-        setBitmapByRegionDecoder(this, R.mipmap.actress, imageView, ImageView.ScaleType.CENTER_CROP);
+    }
 
+    private void initView() {
+        testGlide1();
+        testGlide2();
+
+        testXfermode();
+
+        testVector();
+
+        ImageView imageView = findViewById(R.id.iv_decoder);
+        setBitmapByRegionDecoder(this, R.mipmap.actress, imageView);
+
+        setImgAlpha();
+
+        setImgColorFilter();
+        testColorFilter();
+
+        setBlendedTxt();
+
+        setMulticolor();
+    }
+
+    private void testGlide1() {
         Glide.with(this)
                 .load(R.mipmap.actress)
 //                .apply(RequestOptions.circleCropTransform())
@@ -97,37 +120,9 @@ public class GlideActivity extends BaseActivity {
                         new CropCircleTransformation(), new BlurTransformation(25, 1),
                         new ColorFilterTransformation(0x7FFF0000))))
                 .into((ImageView) findViewById(R.id.iv_transform));
-
-        Bitmap bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        Paint paint = new Paint();
-        paint.setStyle(Paint.Style.FILL);
-        canvas.drawCircle(50, 50, 50, paint);
-        Paint paint1 = new Paint();
-        // 图像组合
-        paint1.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        // 颜色滤镜
-        paint1.setColorFilter(new PorterDuffColorFilter(0x7F000000, PorterDuff.Mode.SRC_ATOP));
-        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.actress), null, new Rect(0, 0, 100, 100), paint1);
-        canvas.setBitmap(null);
-        ImageView ivCircle = findViewById(R.id.iv_circle);
-        ivCircle.setImageBitmap(bitmap);
-
-        ColorFilter colorFilter = new ColorMatrixColorFilter(new float[]{0, 0, 0, 0, 0,
-                0, 0, 0, 0, 255,
-                0, 0, 0, 0, 0,
-                0, 0, 0, 1, 0});
-        ImageView ivFilter = findViewById(R.id.iv_filter);
-        ivFilter.setColorFilter(colorFilter);
-        ivFilter.setImageResource(android.R.drawable.stat_notify_more);
-
-        setImgAlpha();
-        setImgColorFilter();
-        setBlendedTxt();
-        setMulticolor();
     }
 
-    private void initView() {
+    private void testGlide2() {
         ImageView imageView = findViewById(R.id.iv_logo);
         CustomViewTarget<ImageView, Bitmap> target = new CustomViewTarget<ImageView, Bitmap>(imageView) {
             @Override
@@ -190,6 +185,33 @@ public class GlideActivity extends BaseActivity {
                 .into(target);
     }
 
+    private void testXfermode() {
+        Bitmap bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawCircle(50, 50, 50, paint);
+        Paint paint1 = new Paint();
+        // 图像组合
+        paint1.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        // 颜色滤镜
+        paint1.setColorFilter(new PorterDuffColorFilter(0x7F000000, PorterDuff.Mode.SRC_ATOP));
+        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.actress), null, new Rect(0, 0, 100, 100), paint1);
+        canvas.setBitmap(null);
+        ImageView ivCircle = findViewById(R.id.iv_circle);
+        ivCircle.setImageBitmap(bitmap);
+    }
+
+    private void testVector() {
+        // 测试矢量图(res/mipmap/*.xml)
+        ImageView imageView = findViewById(R.id.iv_resource);
+//        setImage(this, imageView, R.mipmap.ic_launcher_round);
+        Bitmap bitmap = getBitmapByFactory(this, R.drawable.city);
+        mCurBitmap = bitmap;
+        imageView.setImageBitmap(bitmap);
+        testInBitmap();
+    }
+
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_clear_memory_cache:
@@ -231,6 +253,12 @@ public class GlideActivity extends BaseActivity {
 //        bitmap.recycle();
     }
 
+    /**
+     * 通过id加载Drawable，再转化为Bitmap。
+     * @param context
+     * @param id 兼容矢量图资源
+     * @return Bitmap
+     */
     public static Bitmap getBitmap(Context context, int id) {
         Drawable drawable = ContextCompat.getDrawable(context, id);
         if (drawable instanceof BitmapDrawable) {
@@ -261,42 +289,80 @@ public class GlideActivity extends BaseActivity {
         return bitmap;
     }
 
+    /**
+     * 用BitmapFactory加载图片资源。用drawable/mipmap目录下的jpg
+     * @param context
+     * @param id
+     * @return
+     */
     public static Bitmap getBitmapByFactory(Context context, int id) {
         BitmapFactory.Options options = new BitmapFactory.Options();
+        // 不加载图片进内存，获得图片宽高。辅助获得合适的宽高比
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeResource(context.getResources(), id, options);
-        Log.i(TAG, "only bitmap info: "+options.outMimeType+", "+", "+options.outWidth+" * "+options.outHeight);
+        int rawWidth = options.outWidth;
+        Log.i(TAG, "only bitmap info: "+options.outMimeType+", "+", "+rawWidth+" * "+options.outHeight);
 
-        options.inSampleSize = 1;
+        // 1）尺寸压缩，>=2降低图片采样率，减少图片内存占用
+        options.inSampleSize = rawWidth / 200;// 压缩到宽200像素
+
+        // 2）质量压缩，即解码率压缩，降低1个像素占用内存的大小。用RGB565替代ARGB_8888可降低图片内存占用。
         // 对JPG管用，对PNG无用
-        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        options.inPreferredConfig = Bitmap.Config.RGB_565;// 1个像素占用两字节
+
+        options.inMutable = true;// true表示该Bitmap缓存区可以被修改
+
         // Bitmap实现Parcelable接口，可以通过Bundle跨页面、Parcel跨进程传输。
         // BUGFIX: BitmapFactory#decodeResource解析vector图片失败
+        // 解码文件用BitmapFactory#decodeFile(pathName, opts)，解码输入流用BitmapFactory.decodeStream(InputStream, Rect, opts)
+        options.inJustDecodeBounds = false;
         return BitmapFactory.decodeResource(context.getResources(), id, options);
     }
 
-    public static void setBitmapByRegionDecoder(Context context, int id, ImageView imageView, ImageView.ScaleType scaleType) {
-//        FileDescriptor fileDescriptor = context.getResources().openRawResourceFd(id).getFileDescriptor();
-        int needWidth = imageView.getLayoutParams().width, needHeight = imageView.getLayoutParams().height;
-        int rawWidth = 0, rawHeight = 0;
-        InputStream inputStream = context.getResources().openRawResource(id);
-        try {
-            BitmapRegionDecoder regionDecoder = BitmapRegionDecoder.newInstance(inputStream, false);
-            rawWidth = regionDecoder.getWidth();
-            rawHeight = regionDecoder.getHeight();
-            Log.i(TAG, "needSize: "+needWidth+"*"+needHeight+"; rawSize: "+rawWidth+"*"+rawHeight);
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inSampleSize = 4;
-            Rect rect;
-            if (scaleType == ImageView.ScaleType.CENTER_CROP) {
-                rect = new Rect(360, 0, 1560, 1200);
-            } else {
-                rect = new Rect(0, 0, rawWidth, rawHeight);
-            }
+    public void testInBitmap() {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(getResources(), R.drawable.city, options);
+        int rawWidth = options.outWidth;
 
-            Bitmap bitmap = regionDecoder.decodeRegion(rect, options);
-            Log.i(TAG, "bitmap info: "+bitmap.getConfig()+" - "+bitmap.getWidth()
-                    +" - "+bitmap.getHeight()+" - "+bitmap.getAllocationByteCount());
+        // Android3.0之前，像素数据保存在本地内存，Bitmap本身保存在Dalvik堆。释放像素数据需调用Bitmap#recycle()
+        // Android3.0开始，像素数据和Bitmap本身均保存在Dalvik堆，GC自动回收。
+        // 3）内存重用。Android3.0开始支持inBitmap属性，重用该Bitmap缓存区。
+        options.inBitmap = mCurBitmap;
+        options.inSampleSize = rawWidth / 200;// 600/200
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        // IllegalArgumentException: Problem decoding into existing bitmap
+        options.inJustDecodeBounds = false;
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.city, options);
+        ImageView imageView = findViewById(R.id.iv_in_bitmap);
+        imageView.setImageBitmap(bitmap);
+    }
+
+    public static void setBitmapByRegionDecoder(Context context, int id, ImageView imageView) {
+        try {
+            // 通过InputStream创建BitmapRegionDecoder
+            InputStream inputStream = context.getResources().openRawResource(id);
+            BitmapRegionDecoder decoder = BitmapRegionDecoder.newInstance(inputStream, false);
+
+            // 获得图片原始大小
+            int rawWidth = decoder.getWidth();
+            int rawHeight = decoder.getHeight();
+
+            // 获取ImageView大小
+            ViewGroup.LayoutParams lp = imageView.getLayoutParams();
+            int needWidth = lp.width, needHeight = lp.height;// 80dp*80dp
+
+            // 根据ScaleType计算解码区域
+            ImageView.ScaleType scaleType = imageView.getScaleType();
+            Rect rect = scaleType == ImageView.ScaleType.CENTER_CROP ? new Rect(360, 0, 1560, 1200)
+                    :new Rect(0, 0, rawWidth, rawHeight);
+
+            // 设置尺寸压缩
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = rawHeight/needHeight;
+
+            // 生成Bitmap。先裁剪，后等比缩放
+            Bitmap bitmap = decoder.decodeRegion(rect, options);
             imageView.setImageBitmap(bitmap);
         } catch (IOException e) {
             e.printStackTrace();
@@ -339,6 +405,16 @@ public class GlideActivity extends BaseActivity {
         ImageView ivColorFilter = findViewById(R.id.iv_color_filter);
         ivColorFilter.setColorFilter(0x26000000, PorterDuff.Mode.SRC_OVER);
 //        ivColorFilter.setColorFilter(0x64FFFFFF, PorterDuff.Mode.MULTIPLY);
+    }
+
+    private void testColorFilter() {
+        ColorFilter colorFilter = new ColorMatrixColorFilter(new float[]{0, 0, 0, 0, 0,
+                0, 0, 0, 0, 255,
+                0, 0, 0, 0, 0,
+                0, 0, 0, 1, 0});
+        ImageView ivFilter = findViewById(R.id.iv_filter);
+        ivFilter.setColorFilter(colorFilter);
+        ivFilter.setImageResource(android.R.drawable.stat_notify_more);
     }
 
     private void setBlendedTxt() {

@@ -20,7 +20,7 @@ public class MultiTypeAdapter extends BaseAdapter {
     public static final int TYPE_TEXT = 0;
     public static final int TYPE_GRID = 1;
 
-    private List<Type> mList = new ArrayList<>();
+    private final List<Type> mList = new ArrayList<>();
 
     public MultiTypeAdapter(List<Type> list) {
         mList.addAll(list);
@@ -32,7 +32,7 @@ public class MultiTypeAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Type getItem(int position) {
         return mList.get(position);
     }
 
@@ -53,28 +53,40 @@ public class MultiTypeAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        TextViewHolder textViewHolder = null;
+        GridViewHolder gridViewHolder = null;
+        int itemViewType = mList.get(position).getType();
         if (convertView == null) {
-            if (mList.get(position).getType() == TYPE_GRID) {
+            if (itemViewType == TYPE_GRID) {
                 convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_custom_grid, parent, false);
+                gridViewHolder = new GridViewHolder();
+                gridViewHolder.gridView = convertView.findViewById(R.id.gridView);
+                convertView.setTag(gridViewHolder);
             } else {
                 convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list, parent, false);
+                textViewHolder = new TextViewHolder();
+                textViewHolder.tvTitle = convertView.findViewById(R.id.tv_title);
+                convertView.setTag(textViewHolder);
+            }
+        } else {
+            if (itemViewType == TYPE_GRID) {
+                gridViewHolder = (GridViewHolder) convertView.getTag();
+            } else {
+                textViewHolder = (TextViewHolder) convertView.getTag();
             }
         }
-        if (mList.get(position).getType() == TYPE_GRID) {
+        if (itemViewType == TYPE_GRID) {
             GridItem gridItem = (GridItem) mList.get(position);
-            GridView gridView = convertView.findViewById(R.id.gridView);
-            CustomGridViewAdapter adapter = (CustomGridViewAdapter) gridView.getAdapter();
+            CustomGridViewAdapter adapter = (CustomGridViewAdapter) gridViewHolder.gridView.getAdapter();
             if (adapter == null) {
                 adapter = new CustomGridViewAdapter(gridItem.titles);
-            } else {
-                // notifyDataSetChanged后GridView不刷新，重新setAdapter
+            } else {// notifyDataSetChanged后GridView不刷新，重新setAdapter
                 adapter.setList(gridItem.titles);
             }
-            gridView.setAdapter(adapter);
+            gridViewHolder.gridView.setAdapter(adapter);
         } else {
             TextItem textItem = (TextItem) mList.get(position);
-            TextView tvTitle = convertView.findViewById(R.id.tv_title);
-            tvTitle.setText(textItem.title);
+            textViewHolder.tvTitle.setText(textItem.title);
         }
         return convertView;
     }
@@ -109,5 +121,13 @@ public class MultiTypeAdapter extends BaseAdapter {
         public int getType() {
             return TYPE_GRID;
         }
+    }
+
+    static class TextViewHolder {
+        TextView tvTitle;
+    }
+
+    static class GridViewHolder {
+        GridView gridView;
     }
 }

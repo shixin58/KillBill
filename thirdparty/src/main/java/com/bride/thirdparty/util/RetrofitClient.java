@@ -11,13 +11,14 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
+ * 弱引用保存Retrofit单例
  * <p>Created by shixin on 2019/4/8.
  */
 public class RetrofitClient {
-    private static SoftReference<Retrofit> mRetrofitSoftReference;
+    private static SoftReference<Retrofit> mRetrofitSR;
 
     public static Retrofit getRetrofit() {
-        if (mRetrofitSoftReference == null || mRetrofitSoftReference.get() == null) {
+        if (mRetrofitSR == null || mRetrofitSR.get() == null) {
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .addNetworkInterceptor(new StethoInterceptor())
                     .build();
@@ -27,8 +28,8 @@ public class RetrofitClient {
                     .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
-            mRetrofitSoftReference = new SoftReference<>(retrofit);
+            mRetrofitSR = new SoftReference<>(retrofit);
         }
-        return mRetrofitSoftReference.get();
+        return mRetrofitSR.get();
     }
 }

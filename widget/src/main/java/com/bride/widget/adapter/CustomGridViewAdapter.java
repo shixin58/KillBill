@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class CustomGridViewAdapter extends BaseAdapter {
 
-    private List<String> mList = new ArrayList<>();
+    private final List<String> mList = new ArrayList<>();
 
     public CustomGridViewAdapter(List<String> list) {
         mList.addAll(list);
@@ -45,11 +45,21 @@ public class CustomGridViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder viewHolder;
         if(convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_grid, parent, false);
+            viewHolder = new ViewHolder();
+            viewHolder.tvTitle = convertView.findViewById(R.id.tv_title);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
-        TextView tvTitle = convertView.findViewById(R.id.tv_title);
-        tvTitle.setText(mList.get(position));
+
+        viewHolder.tvTitle.setText(mList.get(position));
         return convertView;
+    }
+
+    static class ViewHolder {
+        TextView tvTitle;
     }
 }

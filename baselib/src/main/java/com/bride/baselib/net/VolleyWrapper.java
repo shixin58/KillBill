@@ -20,7 +20,7 @@ import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.bride.baselib.BitmapCache;
+import com.bride.baselib.lru.BitmapCache;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +29,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 /**
- * Volley可设置app全局单例
+ * VolleyWrapper可设置app全局单例，使用了内部类单例。
  * 网络请求入队出队使用 PriorityBlockingQueue<Request>#add/take。
  * 网络请求默认UrlConnection, 可自定义。
  * 磁盘缓存目录为Context#getCacheDir()(/data/data/package/cache/volley)，默认5MB。

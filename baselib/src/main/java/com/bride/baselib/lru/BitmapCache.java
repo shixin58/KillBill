@@ -1,4 +1,4 @@
-package com.bride.baselib;
+package com.bride.baselib.lru;
 
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -8,19 +8,21 @@ import com.android.volley.toolbox.ImageLoader;
 import com.bride.baselib.ui.ImageUtils;
 
 /**
- * 自定义Volley 图片请求内存缓存
+ * 自定义Volley图片请求内存缓存。
+ * <p>使用双检锁单例。内部用LruCache实现。
  * <p>Created by shixin on 2018/9/16.
  */
 public class BitmapCache implements ImageLoader.ImageCache {
-    private LruCache<String, Bitmap> mLruCache;
+    private final LruCache<String, Bitmap> mLruCache;
 
     private static volatile BitmapCache mBitmapCache;
 
     private BitmapCache() {
+        // 获取app最大可用内存
         long maxMemory = Runtime.getRuntime().maxMemory();
-        Log.i("maxMemory", maxMemory/(1024*1024f)+"MB");
+        Log.i("maxMemory", maxMemory / (1024 * 1024f)+"MB");
 
-        mLruCache = new LruCache<String, Bitmap>(64*1024*1024) {// 64MB
+        mLruCache = new LruCache<String, Bitmap>(64 * 1024 * 1024) {// 64MB
             @Override
             protected int sizeOf(String key, Bitmap value) {
                 return ImageUtils.getBitmapSize(value);
@@ -41,8 +43,7 @@ public class BitmapCache implements ImageLoader.ImageCache {
 
     @Override
     public Bitmap getBitmap(String s) {
-        Bitmap bitmap = mLruCache.get(s);
-        return bitmap;
+        return mLruCache.get(s);
     }
 
     @Override

@@ -10,66 +10,78 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/iv_logo"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <ImageView
+        <!-- 测试矢量图和BitmapFactory -->
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_resource"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_in_bitmap"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintStart_toEndOf="@id/iv_resource"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="20dp"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_decoder"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintStart_toEndOf="@id/iv_in_bitmap"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="20dp"
+            android:scaleType="centerCrop"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_clear_memory_cache"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_resource"
             android:onClick="onClick"
             android:gravity="center"
             android:text="clear memory cache"/>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_clear_disk_cache"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_clear_memory_cache"
             android:onClick="onClick"
             android:gravity="center"
             android:text="clear disk cache"/>
 
-        <ImageView
-            android:id="@+id/iv_transform"
+        <!-- 测试Glide CustomViewTarget -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_logo"
             android:layout_width="80dp"
             android:layout_height="80dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/iv_circle"
-            app:layout_constraintTop_toBottomOf="@id/tv_clear_disk_cache"
-            app:layout_constraintHorizontal_chainStyle="spread"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_clear_disk_cache"/>
 
-        <ImageView
+        <!-- 测试Glide Transformation -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_transform"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintStart_toEndOf="@id/iv_logo"
+            app:layout_constraintTop_toTopOf="@id/iv_logo"
+            android:layout_marginStart="20dp"/>
+
+        <!-- 测试图像组合Xfermode和颜色滤镜ColorFilter -->
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_circle"
             android:layout_width="80dp"
             android:layout_height="80dp"
             app:layout_constraintStart_toEndOf="@id/iv_transform"
-            app:layout_constraintEnd_toStartOf="@id/iv_filter"
-            app:layout_constraintTop_toTopOf="@id/iv_transform"/>
-
-        <ImageView
-            android:id="@+id/iv_filter"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:layout_constraintStart_toEndOf="@id/iv_circle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_transform"/>
+            app:layout_constraintTop_toTopOf="@id/iv_logo"
+            android:layout_marginStart="20dp"/>
 
         <pl.droidsonroids.gif.GifImageView
             android:id="@+id/iv_dice"
@@ -98,6 +110,15 @@
             android:layout_marginTop="16dp"
             android:src="@mipmap/ic_launcher"/>
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_filter"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintStart_toEndOf="@id/iv_color_filter"
+            app:layout_constraintTop_toTopOf="@id/iv_color_filter"
+            android:layout_marginStart="20dp"/>
+
+        <!-- 测试图文混合 -->
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_blended"
             android:layout_width="0dp"
