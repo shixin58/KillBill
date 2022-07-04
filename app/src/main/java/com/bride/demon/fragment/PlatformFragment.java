@@ -1,7 +1,6 @@
 package com.bride.demon.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
+ * 自定义View展示1个倒计时countdown。
  * A placeholder fragment containing a simple view.
  */
 public class PlatformFragment extends BaseFragment {
@@ -28,28 +28,29 @@ public class PlatformFragment extends BaseFragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initView();
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initView(view);
     }
 
-    private void initView() {
-        final CustomView customView = getView().findViewById(R.id.my_view);
-        customView.setI(CustomView.COUNT);
+    private void initView(View rootView) {
+        final CustomView customView = rootView.findViewById(R.id.my_view);
+        // 主线程刷新
+        customView.setCnt(CustomView.MAX_COUNT);
         customView.invalidate();
         final Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                int i = customView.getI();
-                Log.i("TimerTask", i+"");
-                if(i>0) {
-                    customView.setI(--i);
+                int cnt = customView.getCnt();
+                if(cnt > 0) {
+                    // 工作线程刷新
+                    customView.setCnt(--cnt);
                     customView.postInvalidate();
                 }else {
                     timer.cancel();
                 }
             }
-        }, 1000, 1000);
+        }, 1000L, 1000L);
     }
 }

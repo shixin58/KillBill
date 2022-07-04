@@ -1,39 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/btn_login"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="onClick"
-        android:gravity="center"
-        android:text="@string/mine_btn_login"/>
+    <data>
+        <variable
+            name="fragment"
+            type="com.bride.demon.fragment.MineFragment" />
+    </data>
 
-    <TextView
-        android:id="@+id/btn_codec"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_login"
-        android:onClick="onClick"
-        android:gravity="center"
-        android:text="@string/mine_btn_codec"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/btn_job_scheduler"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_codec"
-        android:onClick="onClick"
-        android:gravity="center"
-        android:text="@string/mine_btn_job_scheduler"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btn_login"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{fragment.onClick}"
+            android:gravity="center"
+            android:text="@string/mine_btn_login" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btn_codec"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_login"
+            android:onClick="@{fragment.onClick}"
+            android:gravity="center"
+            android:text="@string/mine_btn_codec" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btn_job_scheduler"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_codec"
+            android:onClick="@{fragment.onClick}"
+            android:gravity="center"
+            android:text="@string/mine_btn_job_scheduler" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/btn_job_scheduler"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@android:color/black" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_switch"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_job_scheduler"
+            android:onClick="@{fragment.onServiceClick}"
+            android:gravity="center"
+            android:text="启动remote服务" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_use_service"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_switch"
+            android:onClick="@{fragment.onServiceClick}"
+            android:gravity="center"
+            android:text="use子进程服务" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/tv_use_service"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@android:color/black" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_connect_remote"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_use_service"
+            android:onClick="@{fragment.onConnectClick}"
+            android:gravity="center"
+            android:text="connect remote" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_is_connected"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_connect_remote"
+            android:onClick="@{fragment.onConnectClick}"
+            android:gravity="center"
+            android:text="isConnected" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_disconnect_remote"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_is_connected"
+            android:onClick="@{fragment.onConnectClick}"
+            android:gravity="center"
+            android:text="disconnect remote" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/tv_disconnect_remote"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@android:color/black" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_send_msg"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_disconnect_remote"
+            android:onClick="@{fragment.onMessageClick}"
+            android:gravity="center"
+            android:text="send msg" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_register"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_send_msg"
+            android:onClick="@{fragment.onMessageClick}"
+            android:gravity="center"
+            android:text="register" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_unregister"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_register"
+            android:onClick="@{fragment.onMessageClick}"
+            android:gravity="center"
+            android:text="unregister" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/tv_unregister"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@android:color/black" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_messenger"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_unregister"
+            android:onClick="@{fragment.onMessengerClick}"
+            android:gravity="center"
+            android:text="sendByMessenger" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

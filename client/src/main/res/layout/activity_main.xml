@@ -53,43 +53,13 @@
             android:onClick="onJumpClick"
             android:text="包名+类名启动activity"/>
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1px"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/tv_component"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@android:color/black"/>
-
-        <TextView
-            android:id="@+id/tv_switch"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_component"
-            android:gravity="center"
-            android:text="bind外部服务"/>
-
-        <TextView
-            android:id="@+id/tv_use_service"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_switch"
-            android:gravity="center"
-            android:text="use外部服务"/>
-
         <TextView
             android:id="@+id/tv_start_service"
             android:layout_width="0dp"
             android:layout_height="40dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_use_service"
+            app:layout_constraintTop_toBottomOf="@id/tv_component"
             android:gravity="center"
             android:text="start外部服务"/>
 

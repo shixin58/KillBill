@@ -175,7 +175,6 @@
             android:screenOrientation="sensorPortrait"
             android:launchMode="singleTop"/>
 
-
         <activity android:name=".activity.LoginActivity"
             android:label="@string/activity_login"
             android:launchMode="singleTop"/>
@@ -201,7 +200,8 @@
             android:launchMode="singleTop"/>
 
         <service android:name=".service.MyService"
-            android:exported="true"/>
+            android:exported="true"
+            android:process=":remote"/>
 
         <service android:name=".service.UploadService"
             android:exported="true"/>

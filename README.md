@@ -5,21 +5,27 @@
     2. LRU实现(BitmapCache/LruKCache/MyLruCache)
     3. volley封装(VolleyWrapper)
 
-3. app模块
+2. app模块
     1. Kotlin(demo、demo.imooc包)
     2. 图片优化(Glide，GlideActivity/RegionActivity/WebpActivity/Camera3DActivity) 
     3. LeakCanary, BlockCanary
     4. Android事件分发机制(TouchActivity)
-    5. 序列化, binder
+    5. binder(IMyService.aidl, MyService, MineFragment, BinderActivity)
+    6. 序列化(SerializableActivity)
 
-4. client模块
+3. client模块
     1. 常见算法(algorithm包)
     2. 常用数据结构(datastructure包)
-    3. java反射, 注解, ClassLoader和插件化
-    4. Java8, 线程池, synchronized, Observable
+    3. Java并发(multithreading包)
+    4. java反射, 注解
+    5. ClassLoader和插件化(ClassLoaderActivity)
+    6. Java8, Observable
 
-5. thirdparty: OkHttp3, Retrofit, Volley, RxJava, RxBus, EventBus
+4. thirdparty: OkHttp3, Retrofit, Volley, RxJava, RxBus, EventBus
 
-6. widget: JUnit, JS, MVVM, CoordinatorLayout
+5. widget: 
+    1. JS, CoordinatorLayout
+    2. RecyclerView+SmartRefreshLayout(RefreshActivity)
+    3. MVVM(BossFragment)
 
-7. build_src: Gradle自定义插件，[参考](https://juejin.im/post/5cce895f51882541e27b0cae)
+6. build_src: Gradle自定义插件，[参考](https://juejin.im/post/5cce895f51882541e27b0cae)

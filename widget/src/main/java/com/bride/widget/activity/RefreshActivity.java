@@ -21,12 +21,13 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * 展示RecyclerView列表搭配SmartRefreshLayout实现下拉刷新、上拉加载下一页
  * <p>Created by shixin on 2019-08-06.
  */
 public class RefreshActivity extends BaseActivity {
 
     private RecyclerView mRecyclerView;
-    RefreshAdapter mAdapter;
+    private RefreshAdapter mAdapter;
 
     public static void openActivity(Context context) {
         Intent intent = new Intent(context, RefreshActivity.class);
@@ -48,6 +49,7 @@ public class RefreshActivity extends BaseActivity {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                // 下拉刷新逻辑
                 List<String> list = Arrays.asList(getResources().getStringArray(R.array.colors));
                 refreshLayout.finishRefresh();
                 mAdapter.setList(list);
@@ -57,13 +59,16 @@ public class RefreshActivity extends BaseActivity {
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                // 上拉加载下一页逻辑
                 List<String> list = Arrays.asList(getResources().getStringArray(R.array.countries));
                 refreshLayout.finishLoadMore();
                 mAdapter.addMore(list);
                 refreshLayout.setEnableLoadMore(false);
             }
         });
+
         mRecyclerView = findViewById(R.id.recyclerView);
+        // 给RecyclerView设置垂直线性布局
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         mAdapter = new RefreshAdapter();
         mRecyclerView.setAdapter(mAdapter);

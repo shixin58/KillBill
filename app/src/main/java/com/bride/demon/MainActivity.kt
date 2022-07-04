@@ -142,9 +142,6 @@ class MainActivity : BaseActivity() {
         } else if (fragments[mIndex] is NotificationsFragment
                 && fragments[mIndex]!!.requireView().findViewById<View>(v.id) != null) {
             (fragments[mIndex] as NotificationsFragment).onClick(v)
-        } else if (fragments[mIndex] is MineFragment
-                && fragments[mIndex]!!.requireView().findViewById<View>(v.id) != null) {
-            (fragments[mIndex] as MineFragment).onClick(v)
         }
     }
 

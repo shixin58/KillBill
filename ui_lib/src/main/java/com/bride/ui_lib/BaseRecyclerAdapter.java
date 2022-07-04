@@ -3,6 +3,7 @@ package com.bride.ui_lib;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.ref.WeakReference;
@@ -11,15 +12,17 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * 扩展了RecyclerView.Adapter。实现了添加header、footer，添加item点击事件，添加数据泛型约束。
  * <p>Created by shixin on 2018/4/19.
  */
-public abstract class BaseRecyclerAdapter<V extends RecyclerView.ViewHolder, T> extends RecyclerView.Adapter<V> implements View.OnClickListener {
+public abstract class BaseRecyclerAdapter<V extends RecyclerView.ViewHolder, T>
+        extends RecyclerView.Adapter<V> implements View.OnClickListener {
     protected OnItemClickListener mOnItemClickListener;
     protected WeakReference<RecyclerView> mRecyclerView;
     protected List<T> mList = new ArrayList<>();
 
-    private List<View> mHeaderViews = new LinkedList<>();
-    private List<View> mFooterViews = new LinkedList<>();
+    private final List<View> mHeaderViews = new LinkedList<>();
+    private final List<View> mFooterViews = new LinkedList<>();
 
     public void setList(List<T> list) {
         if (list != null && !list.isEmpty()) {
@@ -35,6 +38,7 @@ public abstract class BaseRecyclerAdapter<V extends RecyclerView.ViewHolder, T> 
             notifyDataSetChanged();
         }
     }
+
     public void addHeaderView(View view) {
         mHeaderViews.add(view);
     }
@@ -52,7 +56,7 @@ public abstract class BaseRecyclerAdapter<V extends RecyclerView.ViewHolder, T> 
     }
 
     public View getHeaderOrFooter(int viewType) {
-        if(viewType>=0) return null;
+        if(viewType >= 0) return null;
         if(mHeaderViews.size()>0 && -viewType<=mHeaderViews.size()) {
             return mHeaderViews.get(-viewType-1);
         }else {
@@ -98,15 +102,15 @@ public abstract class BaseRecyclerAdapter<V extends RecyclerView.ViewHolder, T> 
     public abstract V onCreateVH(ViewGroup parent, int viewType);
 
     @Override
-    public void onBindViewHolder(V holder, int position) {
-        if(mOnItemClickListener!=null) {
+    public void onBindViewHolder(@NonNull V holder, int position) {
+        if(mOnItemClickListener != null) {
             holder.itemView.setOnClickListener(this);
         }
         onBindVH(holder, position);
     }
 
     @Override
-    public V onCreateViewHolder(ViewGroup parent, int viewType) {
+    public V onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (mRecyclerView == null)
             mRecyclerView = new WeakReference<>((RecyclerView) parent);
         return onCreateVH(parent, viewType);

@@ -15,25 +15,24 @@ public class ScheduledExecutorServiceClient {
     }
 
     public static void testScheduledThreadPool() {
-        // 4、定时执行任务。核心线程数指定，最大线程MAX_VALUE, 超时10毫秒，DelayedWorkQueue
-//        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(3);
-        ScheduledThreadPoolExecutor scheduler = new ScheduledThreadPoolExecutor(10);
+        // 定时执行任务。核心线程数指定，最大线程MAX_VALUE, 超时10毫秒，DelayedWorkQueue
+        ScheduledThreadPoolExecutor scheduler = new ScheduledThreadPoolExecutor(3);
 
         // delay后执行一次
-        scheduler.schedule(new MyRunnable(), 2, TimeUnit.SECONDS);
+//        scheduler.schedule(new MyRunnable(), 2000L, TimeUnit.MILLISECONDS);
 
-        // delay后执行第一个任务，一个任务执行完且period到了，再执行下一个
+        // delay后执行第一个任务。一个任务执行完且period到了，执行下一个。
         System.out.println(Thread.currentThread().getName()+" "+System.currentTimeMillis());
-        scheduler.scheduleAtFixedRate(new MyRunnable(), 2, 3, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(new MyRunnable(), 2000L, 3000L, TimeUnit.MILLISECONDS);
 
-        // delay后执行下一个任务，执行完，再delay，再执行下一个
-        scheduler.scheduleWithFixedDelay(new MyRunnable(), 2, 3, TimeUnit.SECONDS);
+        // initialDelay后执行首个任务。再delay后，执行下一个。
+//        scheduler.scheduleWithFixedDelay(new MyRunnable(), 2000L, 3000L, TimeUnit.MILLISECONDS);
     }
 
     public static void testSingleThreadScheduledExecutor() {
         // DelegatedScheduledExecutorService, 核心线程数1, 最大线程MAX_VALUE, 超时10毫秒，DelayedWorkQueue
-        ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-        scheduledExecutorService.scheduleWithFixedDelay(new MyRunnable(), 2, 3, TimeUnit.SECONDS);
+        ScheduledExecutorService singleThreadScheduledExecutor = Executors.newSingleThreadScheduledExecutor();
+        singleThreadScheduledExecutor.scheduleWithFixedDelay(new MyRunnable(), 2, 3, TimeUnit.SECONDS);
     }
 
     private static class MyRunnable implements Runnable {

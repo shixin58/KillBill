@@ -10,6 +10,13 @@ fun main() {
     val product: Product<Flower> = WhiteFlowerProduct()
 
     // Comparable是逆变的例子，Function是协变+逆变的例子
+    val numbers: Map<String,Number> = mapOf("a" to 0)
+    // 声明为协变的类出现逆变点
+    val num = numbers.getOrDefault("b", 0.1)
+    println(num)
+
+    // 星投影Star Projection
+    val hashMap: HashMap<*,*> = HashMap<String, Int>()
 }
 
 // 泛型约束
@@ -52,8 +59,14 @@ class DryWaste: Waste()
 
 // 声明逆变泛型形参T
 class Dustbin<in T: Waste> {
+    // 声明为逆变的类出现协变点
+    private val list = mutableListOf<@UnsafeVariance T>()
+
     // 消费者，逆变点
-    fun put(t: T) {}
+    fun put(t: T) {
+        list += t
+        // contains协变出现在逆变的位置，保证只读不写就行
+    }
 }
 
 fun contravariant() {

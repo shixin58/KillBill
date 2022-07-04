@@ -16,13 +16,17 @@ import androidx.annotation.Nullable;
 import com.bride.baselib.ResUtils;
 
 /**
+ * 测试Path用法
  * <p>Created by shixin on 2018/10/30.
  */
 public class CustomView extends View {
-    public static final int COUNT = 10;
+    public static final int MAX_COUNT = 10;
 
-    private int i = COUNT;
-    private Paint mPaint;
+    private int mCnt = MAX_COUNT;
+    private Paint mTimePaint;
+
+    private Path mPath;
+    private Paint mPathPaint;
 
     private int reopened;
 
@@ -37,32 +41,38 @@ public class CustomView extends View {
     }
 
     private void init() {
-        mPaint = new Paint();
-        mPaint.setColor(Color.RED);
-        mPaint.setTextSize(ResUtils.sp2px(20));
+        // Avoid object allocations during draw/layout operations (preallocate and reuse instead)
+        mTimePaint = new Paint();
+        mTimePaint.setColor(Color.RED);
+        mTimePaint.setTextSize(ResUtils.sp2px(20f));
+
+        mPath = new Path();
+        mPath.moveTo(0f, 0f);
+        mPath.lineTo(ResUtils.dp2px(80f), ResUtils.dp2px(80f));
+        mPath.lineTo(ResUtils.dp2px(80f), 0f);
+        mPath.lineTo(0f, 0f);
+        mPath.lineTo(0f, ResUtils.dp2px(80f));
+        mPath.lineTo(ResUtils.dp2px(80f), ResUtils.dp2px(80f));
+
+        mPathPaint = new Paint();
+        mPathPaint.setStyle(Paint.Style.STROKE);
+        mPathPaint.setStrokeWidth(5f);
+        mPathPaint.setColor(Color.BLACK);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawText(i+"", getWidth()/2, getHeight()/2, mPaint);
-
-        Path path = new Path();
-        path.moveTo(0f, 0f);
-        path.lineTo(100f, 100f);
-        Paint paint = new Paint();
-        paint.setStyle(Paint.Style.FILL_AND_STROKE);
-        paint.setStrokeWidth(5f);
-        paint.setColor(Color.BLACK);
-        canvas.drawPath(path, paint);
+        canvas.drawText(mCnt +"", getWidth()/2f, getHeight()/2f, mTimePaint);
+        canvas.drawPath(mPath, mPathPaint);
     }
 
-    public int getI() {
-        return i;
+    public int getCnt() {
+        return mCnt;
     }
 
-    public void setI(int i) {
-        this.i = i;
+    public void setCnt(int cnt) {
+        this.mCnt = cnt;
     }
 
     @Nullable
@@ -118,30 +128,10 @@ public class CustomView extends View {
     }
 
     @Override
-    public void dispatchWindowSystemUiVisiblityChanged(int visible) {
-        super.dispatchWindowSystemUiVisiblityChanged(visible);
-    }
-
-    @Override
-    public void dispatchSystemUiVisibilityChanged(int visibility) {
-        super.dispatchSystemUiVisibilityChanged(visibility);
-    }
-
-    @Override
-    public void onWindowSystemUiVisibilityChanged(int visible) {
-        super.onWindowSystemUiVisibilityChanged(visible);
-    }
-
-    @Override
     protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
         super.onVisibilityChanged(changedView, visibility);
         if (visibility == View.VISIBLE) {
             reopened ++;
         }
-    }
-
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
     }
 }

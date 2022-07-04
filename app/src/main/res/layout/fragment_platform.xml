@@ -5,19 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="com.bride.demon.fragment.PlatformFragment"
+    tools:context=".fragment.PlatformFragment"
     tools:showIn="@layout/activity_platform">
 
-    <TextView
+    <!-- 展示stateListAnimator用法 -->
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_greetings"
-        android:layout_width="wrap_content"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="@string/welcome_to_newyork"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="10dp"
+        android:text="@string/welcome_to_newyork"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:gravity="center"
         android:background="@android:color/black"
         android:clickable="true"
         android:focusable="true"
@@ -28,16 +32,16 @@
         android:id="@+id/underline"
         android:layout_width="0dp"
         android:layout_height="1px"
-        android:background="@android:color/black"
-        app:layout_constraintLeft_toLeftOf="@id/tv_greetings"
-        app:layout_constraintRight_toRightOf="@id/tv_greetings"
-        app:layout_constraintTop_toBottomOf="@id/tv_greetings" />
+        app:layout_constraintStart_toStartOf="@id/tv_greetings"
+        app:layout_constraintEnd_toEndOf="@id/tv_greetings"
+        app:layout_constraintTop_toBottomOf="@id/tv_greetings"
+        android:background="@android:color/white" />
 
     <com.bride.demon.module.video.widget.CustomView
         android:id="@+id/my_view"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/underline"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

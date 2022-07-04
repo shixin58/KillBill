@@ -1,36 +1,30 @@
 package com.bride.client;
 
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
-import android.os.RemoteException;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bride.baselib.PermissionUtils;
 import com.bride.baselib.module.ActivityNameFinals;
 import com.bride.baselib.module.ActivitySchemas;
-import com.bride.ui_lib.BaseActivity;
 import com.bride.baselib.module.PackageNameFinals;
-import com.bride.baselib.PermissionUtils;
 import com.bride.client.activity.BinderActivity;
 import com.bride.client.activity.ClassLoaderActivity;
-import com.bride.demon.Form;
-import com.bride.demon.IMyService;
+import com.bride.ui_lib.BaseActivity;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -72,8 +66,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void initView() {
 
-        findViewById(R.id.tv_switch).setOnClickListener(this);
-        findViewById(R.id.tv_use_service).setOnClickListener(this);
         findViewById(R.id.tv_start_service).setOnClickListener(this);
         findViewById(R.id.tv_open_music).setOnClickListener(this);
         findViewById(R.id.tv_send_broadcast).setOnClickListener(this);
@@ -145,37 +137,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
-            case R.id.tv_switch:
-                /*if(mService == null) {*/
-                    try {
-                        // 启动服务并拿到服务代理。服务所在进程必须运行
-                        intent = new Intent();
-                        intent.setClassName("com.bride.demon" + (BuildConfig.DEBUG ? ".debug":""),
-                                "com.bride.demon.service.MyService");
-                        bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
-                    } catch (Exception e) {
-                        // java.lang.SecurityException: Not allowed to bind to service Intent { cmp=com.bride.demon.debug/com.bride.demon.service.MyService }
-                        e.printStackTrace();
-                    }
-                /*}else {
-                    // IllegalArgumentException: Service not registered: com.bride.client.MainActivity$3@dc78e3b
-                    unbindService(mServiceConnection);
-                    mService = null;
-                }*/
-                break;
-            case R.id.tv_use_service:
-                if(mService != null) {
-                    try {
-                        mService.basicTypes(1, 10L, true, 2.3f, 9.99, "Jacob");
-                        Log.i("IMyService", mService.getUser().toString());
-                        Log.i("IMyService", "add "+mService.add(1, 2));
-                        Log.i("IMyService", mService.getValue());
-                        mService.sendForm(new Form("洛杉矶", "1988"));
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                }
-                break;
             case R.id.tv_start_service:
                 try {
                     intent = new Intent();
@@ -262,24 +223,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         return packageInfo != null;
     }
 
-    private IMyService mService;
-
-    private ServiceConnection mServiceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            // BinderProxy(IBinder) -> Proxy(IMyService)
-            mService = IMyService.Stub.asInterface(service);
-            Toast.makeText(MainActivity.this, "服务已连接", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            // 服务所在进程被杀死
-            mService = null;
-            Toast.makeText(MainActivity.this, "服务已断开", Toast.LENGTH_SHORT).show();
-        }
-    };
-
     private final BroadcastReceiver innerBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -302,7 +245,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mHandler.sendMessageAtTime(message, SystemClock.uptimeMillis() + 10 * 1000);
     }
 
-    private Handler mHandler = new Handler(Looper.getMainLooper()){
+    private final Handler mHandler = new Handler(Looper.getMainLooper()){
         @Override
         public void dispatchMessage(Message msg) {
             // 执行Message.callback; or Handler.mCallback; or Handler.handleMessage

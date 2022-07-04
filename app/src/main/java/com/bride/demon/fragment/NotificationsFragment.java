@@ -21,8 +21,6 @@ import com.bride.demon.module.video.activity.LiveCameraActivity;
 import com.bride.demon.module.video.activity.VideoViewActivity;
 import com.bride.ui_lib.BaseFragment;
 
-import java.util.Objects;
-
 /**
  * Serializable, Parcelable, Gson PK
  * <p>Created by shixin on 2019/4/10.
@@ -74,7 +72,7 @@ public class NotificationsFragment extends BaseFragment {
                 VideoViewActivity.openActivity(getActivity());
                 break;
             case R.id.btn_glsurfaceview:
-                GLActivity.Companion.openActivity(Objects.requireNonNull(getActivity()));
+                GLActivity.Companion.openActivity(requireActivity());
                 break;
             case R.id.btn_camera3d:
                 Camera3DActivity.Companion.openActivity(getActivity());
