@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.bride.ui_lib.BaseActivity;
 import com.bride.thirdparty.R;
-import com.bride.thirdparty.Strategy.URLConnectionStrategy;
+import com.bride.thirdparty.strategy.URLConnectionStrategy;
 
 /**
  * <p>Created by shixin on 2019-04-21.

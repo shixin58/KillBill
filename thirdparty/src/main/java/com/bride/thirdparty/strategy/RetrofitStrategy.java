@@ -1,4 +1,4 @@
-package com.bride.thirdparty.Strategy;
+package com.bride.thirdparty.strategy;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -26,7 +26,7 @@ import retrofit2.Response;
 public class RetrofitStrategy {
     private static final String TAG = RetrofitStrategy.class.getSimpleName();
 
-    private IService mService;
+    private final IService mService;
     private CustomAsyncTask mAsyncTask;
 
     public RetrofitStrategy() {

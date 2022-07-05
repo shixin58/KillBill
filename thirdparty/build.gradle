@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-parcelize'
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion COMPILE_SDK_VERSION as int
     buildToolsVersion BUILD_TOOLS_VERSION
@@ -10,6 +14,13 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    // dataBinding
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
+
     signingConfigs {
         release {
             keyAlias 'max'
@@ -58,6 +69,11 @@ dependencies {
 
     implementation group: 'com.google.android.material', name: 'material', version: material_version
 
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version: kotlin_version
+    // 引入Kotlin协程
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: kotlinx_coroutines_version
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-android', version: kotlinx_coroutines_version
+
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofit_version"
@@ -74,9 +90,6 @@ dependencies {
 
     implementation "io.reactivex.rxjava3:rxjava:$rxjava_version"
     implementation "io.reactivex.rxjava3:rxandroid:$rxandroid_version"
-
-    implementation "com.google.dagger:dagger:$dagger_version"
-    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
 
     implementation project(':baselib')
     implementation project(':ui_lib')

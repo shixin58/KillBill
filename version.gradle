@@ -45,8 +45,6 @@ ext {
     rxjava_version = "3.1.2"
     rxandroid_version = "3.0.0"
 
-    dagger_version = "2.40.1"
-
     lottie_version = "3.4.4"
 
     arouter_version = "1.5.2"

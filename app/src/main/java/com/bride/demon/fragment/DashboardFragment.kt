@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bride.ui_lib.BaseFragment
-import com.bride.demon.R
+import com.bride.demon.databinding.FragmentDashboardBinding
 import com.bride.demon.module.framework.activity.SingleInstanceActivity
 import com.bride.demon.module.framework.activity.SingleTaskActivity
 import com.bride.demon.module.framework.activity.SingleTopActivity
@@ -17,17 +17,25 @@ import com.bride.demon.module.framework.activity.StandardActivity
  */
 class DashboardFragment : BaseFragment() {
 
-    fun onClick(v: View?) {
-        when {
-            v?.id==R.id.tv_standard -> StandardActivity.openActivity(activity)
-            v?.id==R.id.tv_single_top -> SingleTopActivity.openActivity(activity)
-            v?.id==R.id.tv_single_task -> SingleTaskActivity.openActivity(activity)
-            v?.id==R.id.tv_single_instance -> SingleInstanceActivity.openActivity(activity)
-        }
+    private lateinit var mBinding: FragmentDashboardBinding
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        mBinding = FragmentDashboardBinding.inflate(inflater, container, false)
+        return mBinding.root
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_dashboard, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mBinding.fragment = this
+    }
+
+    fun onClick(v: View?) {
+        when(v) {
+            mBinding.tvStandard -> StandardActivity.openActivity(activity)
+            mBinding.tvSingleTop -> SingleTopActivity.openActivity(activity)
+            mBinding.tvSingleTask -> SingleTaskActivity.openActivity(activity)
+            mBinding.tvSingleInstance -> SingleInstanceActivity.openActivity(activity)
+        }
     }
 
     companion object {

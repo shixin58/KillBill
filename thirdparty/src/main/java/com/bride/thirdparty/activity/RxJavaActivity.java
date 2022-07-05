@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.bride.ui_lib.BaseActivity;
 import com.bride.thirdparty.R;
-import com.bride.thirdparty.Strategy.RxJavaStrategy;
+import com.bride.thirdparty.strategy.RxJavaStrategy;
 
 /**
  * <p>Created by shixin on 2019/1/16.

@@ -1,4 +1,4 @@
-package com.bride.thirdparty.Strategy;
+package com.bride.thirdparty.strategy;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.bride.demon.R;
 import com.bride.demon.activity.BlankActivity;
+import com.bride.demon.databinding.FragmentNotificationsBinding;
 import com.bride.demon.module.video.activity.Camera3DActivity;
 import com.bride.demon.activity.PlatformActivity;
 import com.bride.demon.module.video.activity.AudioRecordActivity;
@@ -27,6 +27,7 @@ import com.bride.ui_lib.BaseFragment;
  */
 public class NotificationsFragment extends BaseFragment {
 
+    private FragmentNotificationsBinding mBinding;
     private boolean blankClicked = false;
 
     public static NotificationsFragment newInstance() {
@@ -36,15 +37,8 @@ public class NotificationsFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_notifications, container, false);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if (savedInstanceState != null) {
-            blankClicked = savedInstanceState.getBoolean("blankClicked");
-        }
+        mBinding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        return mBinding.getRoot();
     }
 
     @Override
@@ -53,33 +47,33 @@ public class NotificationsFragment extends BaseFragment {
         outState.putBoolean("blankClicked", blankClicked);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (savedInstanceState != null) {
+            blankClicked = savedInstanceState.getBoolean("blankClicked");
+        }
+        mBinding.setFragment(this);
+    }
+
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.button_base:
-                BlankActivity.Companion.openActivity(getActivity());
-                blankClicked = true;
-                break;
-            case R.id.button_custom_view:
-                PlatformActivity.Companion.openActivityForResult(this, 1);
-                break;
-            case R.id.button_texture_view:
-                LiveCameraActivity.openActivity(getActivity());
-                break;
-            case R.id.button_audio_record:
-                AudioRecordActivity.openActivity(getActivity());
-                break;
-            case R.id.btn_video:
-                VideoViewActivity.openActivity(getActivity());
-                break;
-            case R.id.btn_glsurfaceview:
-                GLActivity.Companion.openActivity(requireActivity());
-                break;
-            case R.id.btn_camera3d:
-                Camera3DActivity.Companion.openActivity(getActivity());
-                break;
-            case R.id.btn_dice:
-                DiceActivity.Companion.openActivity(getActivity());
-                break;
+        if (v==mBinding.buttonBase) {
+            BlankActivity.Companion.openActivity(getActivity());
+            blankClicked = true;
+        } else if (v==mBinding.buttonCustomView) {
+            PlatformActivity.Companion.openActivityForResult(this, 1);
+        } else if (v==mBinding.buttonTextureView) {
+            LiveCameraActivity.openActivity(getActivity());
+        } else if (v==mBinding.buttonAudioRecord) {
+            AudioRecordActivity.openActivity(getActivity());
+        } else if (v==mBinding.btnVideo) {
+            VideoViewActivity.openActivity(getActivity());
+        } else if (v==mBinding.btnGlsurfaceview) {
+            GLActivity.Companion.openActivity(requireActivity());
+        } else if (v==mBinding.btnCamera3d) {
+            Camera3DActivity.Companion.openActivity(requireActivity());
+        } else if (v==mBinding.btnDice) {
+            DiceActivity.Companion.openActivity(requireActivity());
         }
     }
 

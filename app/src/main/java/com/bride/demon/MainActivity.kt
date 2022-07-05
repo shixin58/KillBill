@@ -3,7 +3,6 @@ package com.bride.demon
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.bride.ui_lib.BaseActivity
@@ -133,16 +132,6 @@ class MainActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-    }
-
-    fun onClick(v: View) {
-        if (fragments[mIndex] is DashboardFragment
-                && fragments[mIndex]!!.requireView().findViewById<View>(v.id) != null) {
-            (fragments[mIndex] as DashboardFragment).onClick(v)
-        } else if (fragments[mIndex] is NotificationsFragment
-                && fragments[mIndex]!!.requireView().findViewById<View>(v.id) != null) {
-            (fragments[mIndex] as NotificationsFragment).onClick(v)
-        }
     }
 
     override fun onStop() {

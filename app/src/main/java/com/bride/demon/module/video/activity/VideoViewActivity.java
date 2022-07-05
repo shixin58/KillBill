@@ -11,19 +11,21 @@ import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-import android.widget.VideoView;
 
 import com.bride.demon.R;
+import com.bride.demon.databinding.ActivityVideoViewBinding;
 import com.bride.ui_lib.BaseActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 /**
+ * 展示用系统VideoView播放资源文件(res/raw/*.mp4)
  * <p>Created by shixin on 2019-08-20.
  */
 public class VideoViewActivity extends BaseActivity {
-    private VideoView mVideoView;
+    private ActivityVideoViewBinding mBinding;
+
     private SeekBar mSeekBar;
     private ToggleButton mToggleButton;
     private ProgressBar mLoading;
@@ -31,7 +33,7 @@ public class VideoViewActivity extends BaseActivity {
     private TextView mTvRemained;
     private TextView mTvCountdown;
 
-    private Timer mTimer = new Timer();
+    private final Timer mTimer = new Timer();
     private TimerTask mTimerTask;
 
     private CustomCountDownTimer mCountDownTimer;
@@ -44,7 +46,7 @@ public class VideoViewActivity extends BaseActivity {
             mSeekBar.post(new Runnable() {
                 @Override
                 public void run() {
-                    mSeekBar.setProgress(mVideoView.getCurrentPosition());
+                    mSeekBar.setProgress(mBinding.videoView.getCurrentPosition());
                 }
             });
         }
@@ -58,13 +60,14 @@ public class VideoViewActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video_view);
+        mBinding = ActivityVideoViewBinding.inflate(getLayoutInflater());
+        setContentView(mBinding.getRoot());
+        mBinding.setActivity(this);
 
         initView();
     }
 
     private void initView() {
-        mVideoView = findViewById(R.id.videoView);
         mSeekBar = findViewById(R.id.seekBar);
         mToggleButton = findViewById(R.id.btn_start);
         mLoading = findViewById(R.id.loading);
@@ -72,7 +75,7 @@ public class VideoViewActivity extends BaseActivity {
         mTvRemained = findViewById(R.id.tv_remained);
         mTvCountdown = findViewById(R.id.tv_countdown);
 
-        mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+        mBinding.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
                 mSeekBar.setMax(mp.getDuration());
@@ -85,27 +88,27 @@ public class VideoViewActivity extends BaseActivity {
                     public void onSeekComplete(MediaPlayer mp) {
                         if (mPlayingBeforeDragging) {
                             mPlayingBeforeDragging = false;
-                            mVideoView.start();
+                            mBinding.videoView.start();
                         }
                     }
                 });
             }
         });
-        mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        mBinding.videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                mSeekBar.setProgress(mVideoView.getCurrentPosition());
+                mSeekBar.setProgress(mBinding.videoView.getCurrentPosition());
                 mTimerTask.cancel();
                 mToggleButton.setChecked(false);
             }
         });
-        mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+        mBinding.videoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
             @Override
             public boolean onError(MediaPlayer mp, int what, int extra) {
                 return false;
             }
         });
-        mVideoView.setOnInfoListener(new MediaPlayer.OnInfoListener() {
+        mBinding.videoView.setOnInfoListener(new MediaPlayer.OnInfoListener() {
             @Override
             public boolean onInfo(MediaPlayer mp, int what, int extra) {
                 switch (what) {
@@ -119,7 +122,8 @@ public class VideoViewActivity extends BaseActivity {
                 return false;
             }
         });
-        mVideoView.setVideoPath("android.resource://" + getPackageName() + "/raw/egg_shell");
+        // 网络源用mBinding.videoView.setVideoURI(Uri.parse(""));
+        mBinding.videoView.setVideoPath("android.resource://" + getPackageName() + "/raw/egg_shell");
 
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -131,43 +135,40 @@ public class VideoViewActivity extends BaseActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                mPlayingBeforeDragging = mVideoView.isPlaying();
-                mVideoView.pause();
+                mPlayingBeforeDragging = mBinding.videoView.isPlaying();
+                mBinding.videoView.pause();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                mVideoView.seekTo(seekBar.getProgress());
+                mBinding.videoView.seekTo(seekBar.getProgress());
             }
         });
 
+        // 使用MediaController控制视频播放
         MediaController mediaController = new MediaController(this, true);
-        mediaController.setPrevNextListeners(null, null);
-        mediaController.setAnchorView(mVideoView);
-        mVideoView.setMediaController(mediaController);
+        mBinding.videoView.setMediaController(mediaController);
     }
 
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_start:
-                if (mToggleButton.isChecked()) {
-                    mVideoView.start();
-                    mTimer.schedule(mTimerTask = new ProgressTimerTask(), 1000L, 1000L);
-                } else {
-                    mVideoView.pause();
-                    mTimerTask.cancel();
-                }
-                break;
-            case R.id.tv_countdown:
-                if (mCountDownTimer == null) {
-                    mCountDownTimer = new CustomCountDownTimer(60_000, 1000);
-                    mCountDownTimer.start();
-                } else {
-                    mCountDownTimer.cancel();
-                    mCountDownTimer = null;
-                    mTvCountdown.setText(String.valueOf(60));
-                }
-                break;
+        int id = v.getId();
+        if (id==R.id.btn_start) {
+            if (mToggleButton.isChecked()) {
+                mBinding.videoView.start();
+                mTimer.schedule(mTimerTask = new ProgressTimerTask(), 1000L, 1000L);
+            } else {
+                mBinding.videoView.pause();
+                mTimerTask.cancel();
+            }
+        } else if (id==R.id.tv_countdown) {
+            if (mCountDownTimer == null) {
+                mCountDownTimer = new CustomCountDownTimer(60_000, 1000);
+                mCountDownTimer.start();
+            } else {
+                mCountDownTimer.cancel();
+                mCountDownTimer = null;
+                mTvCountdown.setText(String.valueOf(60));
+            }
         }
     }
 

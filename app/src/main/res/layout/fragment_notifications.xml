@@ -1,96 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.bride.demon.fragment.NotificationsFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/button_base"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="onClick"
-        android:gravity="center"
-        android:text="@string/test_surfaceview"/>
+    <data>
+        <variable
+            name="fragment"
+            type="com.bride.demon.fragment.NotificationsFragment" />
+    </data>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/button_custom_view"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_base"
-        android:onClick="onClick"
-        android:gravity="center"
-        android:text="@string/test_customview"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragment.NotificationsFragment">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/button_texture_view"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_custom_view"
-        android:onClick="onClick"
-        android:gravity="center"
-        android:text="@string/test_textureview"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/button_base"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{fragment.onClick}"
+            android:gravity="center"
+            android:text="@string/test_surfaceview" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/button_audio_record"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_texture_view"
-        android:onClick="onClick"
-        android:gravity="center"
-        android:text="@string/test_mediarecorder"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/button_custom_view"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_base"
+            android:onClick="@{fragment.onClick}"
+            android:gravity="center"
+            android:text="@string/test_customview" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/btn_video"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_audio_record"
-        android:onClick="onClick"
-        android:gravity="center"
-        android:text="@string/test_videoview"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/button_texture_view"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_custom_view"
+            android:onClick="@{fragment.onClick}"
+            android:gravity="center"
+            android:text="@string/test_textureview" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/btn_glsurfaceview"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_video"
-        android:onClick="onClick"
-        android:gravity="center"
-        android:text="@string/test_glsurfaceview"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/button_audio_record"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_texture_view"
+            android:onClick="@{fragment.onClick}"
+            android:gravity="center"
+            android:text="@string/test_mediarecorder" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/btn_camera3d"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_glsurfaceview"
-        android:onClick="onClick"
-        android:gravity="center"
-        android:text="@string/test_camera3d"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btn_video"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_audio_record"
+            android:onClick="@{fragment.onClick}"
+            android:gravity="center"
+            android:text="@string/test_videoview" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/btn_dice"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_camera3d"
-        android:onClick="onClick"
-        android:gravity="center"
-        android:text="@string/test_dice_royale"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btn_glsurfaceview"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_video"
+            android:onClick="@{fragment.onClick}"
+            android:gravity="center"
+            android:text="@string/test_glsurfaceview" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btn_camera3d"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_glsurfaceview"
+            android:onClick="@{fragment.onClick}"
+            android:gravity="center"
+            android:text="@string/test_camera3d" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btn_dice"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_camera3d"
+            android:onClick="@{fragment.onClick}"
+            android:gravity="center"
+            android:text="@string/test_dice_royale" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
