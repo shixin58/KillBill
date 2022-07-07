@@ -68,5 +68,27 @@
             android:gravity="center"
             android:text="request by suspend2"
             android:onClick="@{activity.onClick}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_suspend3"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_suspend2"
+            android:gravity="center"
+            android:text="request by startCoroutine"
+            android:onClick="@{activity.onClick}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_suspend4"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_suspend3"
+            android:gravity="center"
+            android:text="request by suspendCoroutine"
+            android:onClick="@{activity.onClick}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

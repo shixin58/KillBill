@@ -44,6 +44,10 @@ public class RetrofitActivity extends BaseActivity {
             RetrofitKtStrategy.INSTANCE.getPhoneInfo();
         } else if (view==mBinding.tvSuspend2) {
             RetrofitKtStrategy.INSTANCE.getPhoneInfo2();
+        } else if (view==mBinding.tvSuspend3) {
+            RetrofitKtStrategy.INSTANCE.testSuspend();
+        } else if (view==mBinding.tvSuspend4) {
+            RetrofitKtStrategy.INSTANCE.testSuspend2();
         }
     }
 

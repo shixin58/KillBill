@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
@@ -410,12 +411,12 @@ public class RxJavaStrategy {
     public void executeFlatMap() {
         Map<String, List<String>> listMap = getListMap();
         Observable.fromIterable(listMap.keySet())
-                .observeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .flatMap((Function<String, ObservableSource<String>>) s -> {
                     Log.i(TAG, "flatMap - apply "+s);
-                    Thread.sleep(5000);
-                    return Observable.fromIterable(listMap.get(s));
-                }).observeOn(AndroidSchedulers.mainThread())
+                    Thread.sleep(5000L);
+                    return Observable.fromIterable(Objects.requireNonNull(listMap.get(s)));
+                }).observeOn(Schedulers.io())
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(Disposable d) {

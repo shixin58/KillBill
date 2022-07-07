@@ -24,8 +24,9 @@ interface IService {
         @Query("key") key: String
     ): Observable<WrapperModel<PhoneNumberModel>>
 
+    // 编译后追加参数Continuation<WrapperModel<PhoneNumberModel>>
     @GET("mobile/get")
-    suspend fun getPhoneInfo3(
+    suspend fun getPhoneInfoSuspend(
         @Query("phone") phone: String,
         @Query("key") key: String
     ): WrapperModel<PhoneNumberModel>
