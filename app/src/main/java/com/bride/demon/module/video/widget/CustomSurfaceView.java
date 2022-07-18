@@ -23,8 +23,8 @@ public class CustomSurfaceView extends SurfaceView implements SurfaceHolder.Call
     private static final String TAG = CustomSurfaceView.class.getSimpleName();
 
     private SurfaceHolder mHolder;
-    private Paint mBgPaint = new Paint();
-    private Paint mContentPaint = new Paint();
+    private final Paint mBgPaint = new Paint();
+    private final Paint mContentPaint = new Paint();
     private ExecutorService mExecutorService;
 
     public CustomSurfaceView(Context context) {

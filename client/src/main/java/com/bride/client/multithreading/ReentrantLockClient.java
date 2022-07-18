@@ -5,14 +5,18 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * 1、可重入互斥锁 ReentrantLock和Condition。默认非公平锁(not FIFO)。
- * <p>2、ReentrantLock#lock()/unlock()搭配Condition#await()/signal()，类似于synchronized块搭配Object#wait()/notify()。
+ * 1、可重入互斥锁 ReentrantLock和Condition，默认非公平锁(not FIFO/NonfairSync)；
+ * <p>ReentrantLock#lock()/unlock()搭配Condition#await()/signal()，类似于synchronized块搭配Object#wait()/notify()。
+ * <p>2、LinkedBlockingQueue持有两个ReentrantLock，takeLock&notEmpty和putLock&notFull；
+ * <p>take/poll但链表为空，则调用notEmpty.await()阻塞；put/offer后，调用notEmpty.signal()唤醒；
+ * <p>put/offer但链表已满，则调用notFull.await()阻塞；take/poll后，调用notFull.signal()唤醒；
  * <p>Created by shixin on 2018/9/27.
  */
 public class ReentrantLockClient {
-    private final ReentrantLock lock = new ReentrantLock();
+    private final ReentrantLock lock = new ReentrantLock(false);
     private final Condition condition = lock.newCondition();
 
+    // ReentrantLock实际应用：CopyOnWriteArrayList#add()/remove()
     public static void main(String[] args) {
         final ReentrantLockClient client = new ReentrantLockClient();
 //        client.method();
@@ -25,6 +29,7 @@ public class ReentrantLockClient {
 //        client.lockInterruptibly();
     }
 
+    // 案例1：测试getHoldCount()
     public void method() {
         lock.lock();
         try {
@@ -44,6 +49,7 @@ public class ReentrantLockClient {
         }
     }
 
+    // 案例2：测试await()/signal()
     public void awaitMethod() {
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -86,6 +92,7 @@ public class ReentrantLockClient {
         }).start();
     }
 
+    // 案例3：测试tryLock()非阻塞性质
     public void tryLock() {
         boolean acquired = lock.tryLock();// 非阻塞，拿不到锁也立即返回
         new Thread(new Runnable() {
@@ -102,6 +109,7 @@ public class ReentrantLockClient {
         }).start();
     }
 
+    // 案例4：测试lockInterruptibly()可中断性质
     public void lockInterruptibly() {
         lock.lock();
         System.out.println(Thread.currentThread().getName()+" 获得锁");

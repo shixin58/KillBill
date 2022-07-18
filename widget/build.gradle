@@ -10,6 +10,13 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    // dataBinding
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
+
     signingConfigs {
         release {
             keyAlias 'max'
@@ -99,6 +106,8 @@ dependencies {
 
     implementation group: 'org.greenrobot', name: 'eventbus', version: eventbus_version
     implementation 'com.github.1993hzw:Androids:1.3'
+
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
 
     implementation project(':baselib')
     implementation project(':ui_lib')

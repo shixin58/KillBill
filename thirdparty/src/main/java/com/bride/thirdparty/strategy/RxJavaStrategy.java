@@ -128,14 +128,17 @@ public class RxJavaStrategy {
     }
 
     public static class CustomCookieJar implements CookieJar {
-        ConcurrentHashMap<String, List<Cookie>> cookieStore = new ConcurrentHashMap<>();
+        // ConcurrentHashMap只在必要的代码块synchronized加锁，使用锁分段技术Segment[]。
+        // 实际应用：EventBus#stickyEvents
+        final ConcurrentHashMap<String, List<Cookie>> cookieStore = new ConcurrentHashMap<>();
         @Override
-        public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-            if (cookies != null && !cookies.isEmpty()) {
+        public void saveFromResponse(@NonNull HttpUrl url, List<Cookie> cookies) {
+            if (!cookies.isEmpty()) {
                 cookieStore.put(url.host(), cookies);
             }
         }
 
+        @NonNull
         @Override
         public List<Cookie> loadForRequest(HttpUrl url) {
             List<Cookie> cookies = cookieStore.get(url.host());

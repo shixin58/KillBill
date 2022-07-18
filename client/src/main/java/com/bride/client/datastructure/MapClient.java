@@ -65,8 +65,7 @@ public class MapClient {
         System.out.println();
     }
 
-    // 多线程访问，通过synchronized加锁保证线程安全
-    // 不允许null key和null value
+    // Hashtable对put()/get()方法synchronized加锁，且全表锁，效率低；不允许null key和null value。
     public static void testHashtable() {
         System.out.println("\n*** Hashtable ***");
         Map<String, String> map = new Hashtable<>();

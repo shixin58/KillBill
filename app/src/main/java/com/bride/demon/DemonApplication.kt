@@ -15,7 +15,7 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 /**
- *
+ * 在ContextWrapper#attachBaseContext()设置UncaughtExceptionHandler
  * Created by shixin on 2017/12/15.
  */
 class DemonApplication : Application() {
@@ -71,8 +71,8 @@ class DemonApplication : Application() {
     }
 
     class CustomUncaughtExceptionHandler : Thread.UncaughtExceptionHandler {
-        override fun uncaughtException(t: Thread?, e: Throwable?) {
-            Log.e("UncaughtException", t?.name, e)
+        override fun uncaughtException(t: Thread, e: Throwable) {
+            Log.e("UncaughtException", "${t.name} uncaughtException()", e)
         }
     }
 }

@@ -18,7 +18,10 @@ import androidx.core.content.ContextCompat;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * <p>Created by shixin on 2018/10/7.
@@ -32,14 +35,6 @@ public class SystemStrategy {
     }
 
     public void execute() {
-        // UTC时间，依赖系统时钟，设置当前日期、时间用
-        // Timer#schedule(TimerTask, long)
-        System.out.println("System.currentTimeMillis() "+System.currentTimeMillis());
-
-        // 设备启动时间，不包含deep sleep，计算间隔时间用；
-        // 纳秒nano，one billionth of a second, 10^-9, micro-benchmark具有更好的分辨率
-        System.out.println("System.nanoTime() "+System.nanoTime());
-
         // 设备启动时间，不包含deep sleep
         // Handler#sendMessageDelayed
         System.out.println("SystemClock.uptimeMillis() "+SystemClock.uptimeMillis());
@@ -123,11 +118,30 @@ public class SystemStrategy {
     }
 
     public static void main(String[] args) {
-        inputStream();
+//        inputStream();
+
         /*try {
             int result = System.in.read();
         } catch (IOException e) {
             e.printStackTrace();
         }*/
+
+        printTime();
+    }
+
+    private static void printTime() {
+        // System.currentTimeMillis()保存当前时刻距1970年1月1日0点时刻的毫秒数，不随时区变化。
+        // UTC时间，依赖系统时钟。设置当前日期、时间时，取系统默认时区，也可手动设置时区。
+        // Date()、Timer#schedule(TimerTask, long, long)依赖System.currentTimeMillis()。
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
+        sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+        System.out.println("北京时间: "+sdf.format(date));
+        sdf.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
+        System.out.println("洛杉矶时间："+sdf.format(date));
+
+        // 设备启动时间，不包含deep sleep，计算间隔时间用；
+        // 纳秒nano，one billionth of a second, 10^-9, micro-benchmark具有更好的分辨率
+        System.out.println("System.nanoTime() "+System.nanoTime());
     }
 }

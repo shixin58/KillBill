@@ -5,7 +5,8 @@
         <title>Victor_Shi</title>
         <script>
             function callAlert(param) {
-                alert(param);
+                var result = alert(param);
+                return result;
             }
 
             function callConfirm() {
@@ -36,7 +37,7 @@
         <button type="button" id="button3" onclick="callPrompt()">点击按钮则调用callPrompt函数</button>
         <p/><p>1. 打开热播频道 ThirdInvokeActivtiy -> VideoActivity</p>
         <!-- 浏览器链接打开默认用android.intent.action.VIEW和android.intent.category.BROWSABLE -->
-        <!-- Intent#parseUri用链接后参数action、category -->
+        <!-- Intent#parseUri()用链接后参数action、category -->
         <a href="bdvideo://invoke?#Intent;action=com.baidu.video.channel;end">open app with Uri Scheme</a>
         <p/><p>2. 播放视频 ThirdInvokeActivtiy ThirdBaiduSearchVideoFrame</p>
         <a href="bdvideo://invoke?#Intent;action=com.baidu.search.video;S.action=special;S.title=aaa;S.refer=rbbhwdc;S.tomain=0;end">open app with Uri Scheme2</a>

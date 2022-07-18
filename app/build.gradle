@@ -24,7 +24,7 @@ android {
             }
         }
 
-        flavorDimensions "abi"
+        /*flavorDimensions "abi"
         productFlavors {
             armeabi_v7a {
                 dimension 'abi'
@@ -50,7 +50,7 @@ android {
                     abiFilters "x86_64"
                 }
             }
-        }
+        }*/
     }
 
     // dataBinding

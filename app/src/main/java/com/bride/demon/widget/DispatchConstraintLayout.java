@@ -34,14 +34,24 @@ public class DispatchConstraintLayout extends ConstraintLayout {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         Log.i(TAG, "onInterceptTouchEvent "+ev.getAction());
-        super.onInterceptTouchEvent(ev);
-        return true;
+        return super.onInterceptTouchEvent(ev);
+        // 手指滑出View边界，会不执行performClick()
+        // ACTION_MOVE或ACTION_UP返回true的话，会发给子View1个ACTION_CANCEL
+        /*switch (ev.getAction()) {
+            case MotionEvent.ACTION_MOVE:
+                return true;
+            default:
+                return super.onInterceptTouchEvent(ev);
+        }*/
+        // 若返回true，onInterceptTouchEvent()拦截ACTION_DOWN事件，当前及之后的事件序列均由DispatchConstraintLayout消费、不再向下分发，之后的事件不再调用onInterceptTouchEvent()
+//        return true;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.i(TAG, "onTouchEvent "+event.getAction());
-        super.onTouchEvent(event);
-        return true;
+        return super.onTouchEvent(event);
+        // 若返回true，子View能收到ACTION_DOWN事件，但后续事件不再向下分发
+//        return true;
     }
 }

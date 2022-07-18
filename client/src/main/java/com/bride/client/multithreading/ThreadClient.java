@@ -11,25 +11,36 @@ import java.util.concurrent.TimeUnit;
 public class ThreadClient {
 
     public static void main(String[] args) {
-//        joinMethod();
+        joinMethod();
 //        joinMethod2();
 
-        interruptMethod();
+//        interruptMethod();
 //        daemonThread();
     }
 
+    // 案例1 - Thread#Join()
     public static void joinMethod() {
         Thread thread = new MyThread();
+        // start()方法标记synchronized、仅能执行1次，started阈标记，否则IllegalThreadStateException
+        // isAlive()/getState()标记线程状态
+        // Thread-0 13 NEW
+        System.out.println("线程start前 "+thread.getName()+" "+thread.getId()+" "+thread.getState());
         thread.start();
-        System.out.println("线程开始执行 "+thread.getName()+" "+thread.getId());
+        // Thread-0 13 TIMED_WAITING/RUNNABLE
+        System.out.println("线程开始执行 "+thread.getName()+" "+thread.getId()+" "+thread.getState());
         try {
             thread.join();
+            // started = true, false TERMINATED
+            System.out.println("线程执行完 "+thread.isAlive()+" "+thread.getState());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("执行后续指令 "+Thread.currentThread().getName()+" "+Thread.currentThread().getId());
+        Thread curT = Thread.currentThread();
+        // main 1 RUNNABLE
+        System.out.println("执行后续指令 "+curT.getName()+" "+curT.getId()+" "+curT.getState());
     }
 
+    // 案例2 - Thread#Join()
     public static void joinMethod2() {
         List<Thread> list = new Vector<>();
 
@@ -62,6 +73,7 @@ public class ThreadClient {
         }
     }
 
+    // 案例3 - Thread#interrupt()
     public static void interruptMethod() {
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -116,6 +128,7 @@ public class ThreadClient {
         thread1.interrupt();
     }
 
+    // 案例4 - Thread#setDaemon()
     public static void daemonThread() {
         Thread thread = new Thread(new Runnable() {
             @Override

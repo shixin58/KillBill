@@ -33,6 +33,8 @@ public class MyTextView extends AppCompatTextView {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.i(TAG, "onTouchEvent "+event.getAction());
-        return super.onTouchEvent(event);
+//        return super.onTouchEvent(event);
+        // 若返回true，即使手指滑出MyTextView边界，后续ACTION_MOVE和ACTION_UP事件依然由MyTextView消费
+        return true;
     }
 }

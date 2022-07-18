@@ -10,6 +10,13 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    // dataBinding
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
+
     signingConfigs {
         release {
             keyAlias 'max'

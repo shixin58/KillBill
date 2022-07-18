@@ -1,9 +1,11 @@
 package com.bride.demon.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import com.bride.ui_lib.BaseFragment;
 import com.bride.demon.R;
@@ -52,5 +54,13 @@ public class PlatformFragment extends BaseFragment {
                 }
             }
         }, 1000L, 1000L);
+
+        customView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                customView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                Log.i("PlatformFragment", "onGlobalLayout() "+customView.getWidth()+" "+customView.getHeight());
+            }
+        });
     }
 }

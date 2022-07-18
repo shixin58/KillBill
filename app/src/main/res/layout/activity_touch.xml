@@ -1,23 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.bride.demon.widget.DispatchConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.bride.demon.widget.MyTextView
-        android:id="@+id/tv_direction"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:background="@android:color/holo_purple"
-        android:text="左上角"/>
-</com.bride.demon.widget.DispatchConstraintLayout>
+    <data>
+        <variable
+            name="activity"
+            type="com.bride.demon.activity.TouchActivity" />
+    </data>
+
+    <com.bride.demon.widget.DispatchConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.TouchActivity">
+
+        <!--<com.bride.demon.widget.MyTextView
+            android:id="@+id/tv_direction"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:background="@android:color/holo_purple"
+            android:text="左上角"/>-->
+
+        <com.bride.demon.widget.MyButton
+            android:id="@+id/tv_direction"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:onClick="@{activity.onClick}"
+            android:gravity="center"
+            android:text="左上角" />
+    </com.bride.demon.widget.DispatchConstraintLayout>
+</layout>
 
 <!-- 测试cancel事件 -->
+<!-- 点击MyButton，事件分发到MyButton后被MyButton消费，只有MyButton执行onTouchEvent() -->
+<!-- 按住MyButton向上滑动，ACTION_MOVE被MyScrollView拦截，MyButton收到ACTION_CANCEL事件，之后的ACTION_MOVE和ACTION_UP事件MyButton就收不到了。 -->
 <!--<com.bride.demon.widget.MyScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">

@@ -8,6 +8,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
+ * 演示StrictMode用法发现异常
  * <p>Created by shixin on 2019/4/2.
  */
 public class CompatUtils {
@@ -15,6 +16,7 @@ public class CompatUtils {
 
     public static void detectVm() {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+
         builder.detectActivityLeaks()
                 .detectFileUriExposure()
                 .detectLeakedClosableObjects()
@@ -33,17 +35,18 @@ public class CompatUtils {
             builder.penaltyListener(executorService, new StrictMode.OnVmViolationListener(){
                 @Override
                 public void onVmViolation(Violation v) {
-
                 }
             });
         }
         builder.penaltyLog();
+
         StrictMode.VmPolicy vmPolicy = builder.build();
         StrictMode.setVmPolicy(vmPolicy);
     }
 
     public static void detectThread() {
         StrictMode.ThreadPolicy.Builder builder = new StrictMode.ThreadPolicy.Builder();
+
         builder.detectDiskReads()
                 .detectDiskWrites()
                 .detectNetwork()
@@ -59,11 +62,11 @@ public class CompatUtils {
             builder.penaltyListener(executorService, new StrictMode.OnThreadViolationListener() {
                 @Override
                 public void onThreadViolation(Violation v) {
-
                 }
             });
         }
         builder.penaltyLog();
+
         StrictMode.ThreadPolicy threadPolicy = builder.build();
         StrictMode.setThreadPolicy(threadPolicy);
     }

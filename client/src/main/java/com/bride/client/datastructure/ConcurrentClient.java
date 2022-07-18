@@ -12,17 +12,20 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 模拟CopyOnWriteArrayList、ThreadLocal、DelayQueue原理
+ * 模拟CopyOnWriteArrayList、DelayQueue原理
  * <p>Created by shixin on 2019-04-23.
  */
 public class ConcurrentClient {
 
     public static void main(String[] args) {
 //        reviewCopyOnWriteArrayList();
-//        reviewArrayList();
         reviewDelayQueue();
     }
 
+    // 案例1 - CopyOnWriteArrayList
+    // 原理：add()/remove()用synchronized上锁，get()直接读取底层数组。
+    // 优缺点：用于读多写少的场景，如白名单、黑名单。但占用内存多、不能保证数据实时一致性。
+    // 实际应用：EventBus#subscriptionsByEventType。
     public static void reviewCopyOnWriteArrayList() {
         CopyOnWriteArrayList<String> arrayList = new CopyOnWriteArrayList<>();
         arrayList.add("Apple");
@@ -42,17 +45,7 @@ public class ConcurrentClient {
         arraySet.contains("Day");
     }
 
-    public static void reviewThreadLocal() {
-        // 1、ThreadLocal#set(Looper):
-        // Thread#currentThread()#threadLocals
-        // ThreadLocalMap#set(ThreadLocal, Looper)
-
-        // 2、ThreadLocal#get()
-        // Thread.currentThread()#threadLocals
-        // ThreadLocalMap#getEntry(ThreadLocal)#value
-    }
-
-    // 无界；item到期才能取走；均未到期poll返回null；到期时间最长为队头
+    // 案例2 - DelayQueue：无界；item到期才能取走；均未到期poll返回null；到期时间最长为队头
     public static void reviewDelayQueue() {
         Random random = new Random(31);
         ExecutorService exec = Executors.newCachedThreadPool();

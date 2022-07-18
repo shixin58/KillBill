@@ -1,62 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.JSActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <WebView
-        android:id="@+id/web_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintDimensionRatio="3:2"/>
+    <data>
+        <variable
+            name="activity"
+            type="com.bride.widget.activity.JSActivity" />
+    </data>
 
-    <TextView
-        android:id="@+id/tv_js"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/web_view"
-        android:gravity="center"
-        android:text="调用alert"
-        android:onClick="onClick"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.JSActivity">
 
-    <TextView
-        android:id="@+id/tv_confirm"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_js"
-        android:gravity="center"
-        android:text="调用confirm"
-        android:onClick="onClick"/>
+        <WebView
+            android:id="@+id/web_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="3:2" />
 
-    <TextView
-        android:id="@+id/tv_prompt"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_confirm"
-        android:gravity="center"
-        android:text="调用prompt"
-        android:onClick="onClick"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_js"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/web_view"
+            android:gravity="center"
+            android:text="调用alert()"
+            android:onClick="@{activity.onClick}" />
 
-    <TextView
-        android:id="@+id/tv_log"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_prompt"
-        android:gravity="center"
-        android:text="调用console.log"
-        android:onClick="onClick"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_confirm"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_js"
+            android:gravity="center"
+            android:text="调用confirm()"
+            android:onClick="@{activity.onClick}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_prompt"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_confirm"
+            android:gravity="center"
+            android:text="调用prompt()"
+            android:onClick="@{activity.onClick}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_log"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_prompt"
+            android:gravity="center"
+            android:text="调用console.log()"
+            android:onClick="@{activity.onClick}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

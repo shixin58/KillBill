@@ -5,9 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 
+import com.bride.demon.databinding.ActivityTouchBinding;
 import com.bride.ui_lib.BaseActivity;
-import com.bride.demon.R;
 
 /**
  * ViewGroup#dispatchTouchEvent()利用touch坐标查找合适的child, 然后调用ViewGroup#dispatchTransformedTouchEvent。
@@ -17,6 +18,8 @@ import com.bride.demon.R;
  */
 public class TouchActivity extends BaseActivity {
     private static final String TAG = TouchActivity.class.getSimpleName();
+
+    private ActivityTouchBinding mBinding;
 
     public static void openActivity(Context context, int type) {
         Intent intent = new Intent(context, TouchActivity.class);
@@ -31,7 +34,9 @@ public class TouchActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_touch);
+        mBinding = ActivityTouchBinding.inflate(getLayoutInflater());
+        setContentView(mBinding.getRoot());
+        mBinding.setActivity(this);
         initView();
     }
 
@@ -49,6 +54,13 @@ public class TouchActivity extends BaseActivity {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.i(TAG, "onTouchEvent "+event.getAction());
+        // 若ACTION_DOWN事件所有View均未消费，后续事件不再向下分发
         return super.onTouchEvent(event);
+    }
+
+    public void onClick(View view) {
+        if (view==mBinding.tvDirection) {
+            Log.i("TouchActivity", "onClick tvDirection");
+        }
     }
 }
