@@ -1,156 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <data>
+        <variable
+            name="activity"
+            type="com.bride.client.MainActivity" />
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
-        <TextView
-            android:id="@+id/tv_action_view"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:gravity="center"
-            android:textStyle="normal"
-            android:onClick="onJumpClick"
-            android:text="scheme启动activity"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_implicit"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_action_view"
-            android:gravity="center"
-            android:textStyle="italic"
-            android:onClick="onJumpClick"
-            android:text="action+category启动activity"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_action_view"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:gravity="center"
+                android:textStyle="normal"
+                android:onClick="@{activity.onJumpClick}"
+                android:text="scheme启动activity" />
 
-        <TextView
-            android:id="@+id/tv_app"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_implicit"
-            android:gravity="center"
-            android:onClick="onJumpClick"
-            android:text="包名启动app"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_implicit"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_action_view"
+                android:gravity="center"
+                android:textStyle="italic"
+                android:onClick="@{activity.onJumpClick}"
+                android:text="action+category启动activity" />
 
-        <TextView
-            android:id="@+id/tv_component"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_app"
-            android:gravity="center"
-            android:onClick="onJumpClick"
-            android:text="包名+类名启动activity"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_app"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_implicit"
+                android:gravity="center"
+                android:onClick="@{activity.onJumpClick}"
+                android:text="包名启动app" />
 
-        <TextView
-            android:id="@+id/tv_start_service"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_component"
-            android:gravity="center"
-            android:text="start外部服务"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_component"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_app"
+                android:gravity="center"
+                android:onClick="@{activity.onJumpClick}"
+                android:text="包名+类名启动activity" />
 
-        <TextView
-            android:id="@+id/tv_open_music"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_start_service"
-            android:gravity="center"
-            android:text="open music"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_start_service"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_component"
+                android:gravity="center"
+                android:onClick="@{activity.onClick}"
+                android:text="start外部服务" />
 
-        <TextView
-            android:id="@+id/tv_send_broadcast"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_open_music"
-            android:gravity="center"
-            android:text="send broadcast"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_open_music"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_start_service"
+                android:gravity="center"
+                android:onClick="@{activity.onClick}"
+                android:text="open music" />
 
-        <TextView
-            android:id="@+id/tv_send_broadcast2"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_send_broadcast"
-            android:gravity="center"
-            android:text="send broadcast2"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_send_broadcast"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_open_music"
+                android:gravity="center"
+                android:onClick="@{activity.onClick}"
+                android:text="send broadcast" />
 
-        <TextView
-            android:id="@+id/tv_open_binder"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_send_broadcast2"
-            android:gravity="center"
-            android:text="open BinderActivity"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_send_broadcast2"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_send_broadcast"
+                android:gravity="center"
+                android:onClick="@{activity.onClick}"
+                android:text="send broadcast2" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1px"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/tv_open_binder"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@android:color/black"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_open_binder"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_send_broadcast2"
+                android:gravity="center"
+                android:onClick="@{activity.onClick}"
+                android:text="open BinderActivity" />
 
-        <TextView
-            android:id="@+id/tv_changeThread"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_open_binder"
-            android:gravity="center"
-            android:text="线程切换"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1px"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/tv_open_binder"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@android:color/black" />
 
-        <TextView
-            android:id="@+id/tv_execute_task"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_changeThread"
-            android:gravity="center"
-            android:text="执行task"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_changeThread"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_open_binder"
+                android:gravity="center"
+                android:onClick="@{activity.onOtherClick}"
+                android:text="线程切换" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1px"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/tv_execute_task"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@android:color/black"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_execute_task"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_changeThread"
+                android:gravity="center"
+                android:onClick="@{activity.onOtherClick}"
+                android:text="执行task" />
 
-        <TextView
-            android:id="@+id/tv_plugin"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_execute_task"
-            android:gravity="center"
-            android:text="插件化"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1px"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/tv_execute_task"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@android:color/black" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_plugin"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_execute_task"
+                android:gravity="center"
+                android:onClick="@{activity.onOtherClick}"
+                android:text="插件化" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

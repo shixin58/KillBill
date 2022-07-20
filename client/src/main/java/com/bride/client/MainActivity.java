@@ -8,8 +8,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 import android.os.SystemClock;
@@ -24,6 +22,7 @@ import com.bride.baselib.module.ActivitySchemas;
 import com.bride.baselib.module.PackageNameFinals;
 import com.bride.client.activity.BinderActivity;
 import com.bride.client.activity.ClassLoaderActivity;
+import com.bride.client.databinding.ActivityMainBinding;
 import com.bride.ui_lib.BaseActivity;
 
 import java.util.concurrent.ExecutorService;
@@ -40,10 +39,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public static final String KEY_NAME = "key_name";
     private MyRegisteredReceiver registeredReceiver;
 
+    private ActivityMainBinding mBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        mBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(mBinding.getRoot());
+        mBinding.setActivity(this);
         initView();
         initData();
         PermissionUtils.requestAllPermissions(this, 1);
@@ -65,16 +68,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initView() {
-
-        findViewById(R.id.tv_start_service).setOnClickListener(this);
-        findViewById(R.id.tv_open_music).setOnClickListener(this);
-        findViewById(R.id.tv_send_broadcast).setOnClickListener(this);
-        findViewById(R.id.tv_send_broadcast2).setOnClickListener(this);
-        findViewById(R.id.tv_open_binder).setOnClickListener(this);
-
-        findViewById(R.id.tv_changeThread).setOnClickListener(this);
-        findViewById(R.id.tv_execute_task).setOnClickListener(this);
-        findViewById(R.id.tv_plugin).setOnClickListener(this);
     }
 
     private void initData() {
@@ -94,122 +87,106 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     public void onJumpClick(View v) {
         Intent intent;
-        switch (v.getId()) {
-            case R.id.tv_action_view:
-                intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                String urlString = new ActivitySchemas(ActivitySchemas.TOUCH_SCHEMA).setParam("type", 0).getUriString();
-                intent.setData(Uri.parse(urlString));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+        if (v==mBinding.tvActionView) {
+            intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            String urlString = new ActivitySchemas(ActivitySchemas.TOUCH_SCHEMA).setParam("type", 0).getUriString();
+            intent.setData(Uri.parse(urlString));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(intent);
+        } else if (v==mBinding.tvImplicit) {
+            intent = new Intent();
+            intent.setAction(ActivityNameFinals.App.PLATFORM);
+            intent.addCategory("android.intent.category.DEFAULT");
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+            startActivity(intent);
+        } else if (v==mBinding.tvApp) {
+            String name = PackageNameFinals.APP + ("debug".equals(BuildConfig.BUILD_TYPE)?".debug":"");
+            if(checkPackageInfo(name)) {
+                intent = getPackageManager().getLaunchIntentForPackage(name);
                 startActivity(intent);
-                break;
-            case R.id.tv_implicit:
+            } else {
+                Toast.makeText(this, "未安装 - "+name, Toast.LENGTH_SHORT).show();
+            }
+        } else if (v==mBinding.tvComponent) {
+            try {
                 intent = new Intent();
-                intent.setAction(ActivityNameFinals.App.PLATFORM);
-                intent.addCategory("android.intent.category.DEFAULT");
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                String packageName = PackageNameFinals.APP + ("debug".equals(BuildConfig.BUILD_TYPE)?".debug":"");
+                intent.setClassName(packageName, ActivityNameFinals.App.GLIDE);
                 startActivity(intent);
-                break;
-            case R.id.tv_app:
-                String name = PackageNameFinals.APP + ("debug".equals(BuildConfig.BUILD_TYPE)?".debug":"");
-                if(checkPackageInfo(name)) {
-                    intent = getPackageManager().getLaunchIntentForPackage(name);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(this, "未安装 - "+name, Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.tv_component:
-                try {
-                    intent = new Intent();
-                    String packageName = PackageNameFinals.APP + ("debug".equals(BuildConfig.BUILD_TYPE)?".debug":"");
-                    intent.setClassName(packageName, ActivityNameFinals.App.GLIDE);
-                    startActivity(intent);
-                } catch (Exception e) {
-                    // java.lang.SecurityException: Permission Denial: starting Intent { cmp=com.bride.demon.debug/com.bride.demon.activity.GlideActivity } from ProcessRecord{dabbcc9 10979:com.bride.client.debug/u0a241} (pid=10979, uid=10241) not exported from uid 10248
-                    e.printStackTrace();
-                }
-                break;
+            } catch (Exception e) {
+                // java.lang.SecurityException: Permission Denial: starting Intent { cmp=com.bride.demon.debug/com.bride.demon.activity.GlideActivity } from ProcessRecord{dabbcc9 10979:com.bride.client.debug/u0a241} (pid=10979, uid=10241) not exported from uid 10248
+                e.printStackTrace();
+            }
         }
     }
 
     @Override
     public void onClick(View v) {
         Intent intent;
-        switch (v.getId()) {
-            case R.id.tv_start_service:
-                try {
-                    intent = new Intent();
-                    intent.setClassName("com.bride.demon" + (BuildConfig.DEBUG ? ".debug":""),
-                            "com.bride.demon.service.UploadService");
-                    intent.setAction("action_upload");
-                    intent.putExtra(KEY_NAME, "Beauty");
-                    startService(intent);
-                } catch (Exception e) {
-                    // java.lang.SecurityException: Not allowed to start service Intent { act=action_upload cmp=com.bride.demon.debug/com.bride.demon.service.UploadService (has extras) } without permission not exported from uid 10248
-                    e.printStackTrace();
-                }
-                break;
-            case R.id.tv_open_music:
-                intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse("max://devil/music?from="+getPackageName()));
-                startActivity(intent);
-                break;
-            case R.id.tv_send_broadcast:
-                // Broadcast所在进程必须运行
+        if (v==mBinding.tvStartService) {
+            try {
                 intent = new Intent();
-                intent.setAction("com.roy.devil.action.MUSIC");
-                // 若不设置包名，提示"BroadcastQueue: Background execution not allowed: receiving Intent"
-                intent.setPackage("com.roy.devil"+(BuildConfig.DEBUG?".debug":""));
-                sendBroadcast(intent);
-                break;
-            case R.id.tv_send_broadcast2:
-                // Broadcast所在进程必须运行
-                intent = new Intent();
-                intent.setAction("com.roy.devil.action.LOCAL");
-                // 若不设置包名，提示"BroadcastQueue: Background execution not allowed: receiving Intent"
-                intent.setPackage("com.roy.devil"+(BuildConfig.DEBUG?".debug":""));
-                sendBroadcast(intent);
-                break;
-            case R.id.tv_open_binder:
-                BinderActivity.openActivity(this);
-                break;
-            case R.id.tv_changeThread:
-                transferWorkThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(10000);
-                            transferMainThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.i("UIThread", "更新UI");
-                                }
-                            });
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                break;
-            case R.id.tv_execute_task:
-                // 小于核心线程数，直接创建新线程
-                executorService.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        final String msg = "pid = "+Process.myPid()+"; tid = "+Process.myTid();
-                        mHandler.post(new Runnable() {
+                intent.setClassName("com.bride.demon" + (BuildConfig.DEBUG ? ".debug":""),
+                        "com.bride.demon.service.UploadService");
+                intent.setAction("action_upload");
+                intent.putExtra(KEY_NAME, "Beauty");
+                startService(intent);
+            } catch (Exception e) {
+                // java.lang.SecurityException: Not allowed to start service Intent { act=action_upload cmp=com.bride.demon.debug/com.bride.demon.service.UploadService (has extras) } without permission not exported from uid 10248
+                e.printStackTrace();
+            }
+        } else if (v==mBinding.tvOpenMusic) {
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("max://devil/music?from="+getPackageName()));
+            startActivity(intent);
+        } else if (v==mBinding.tvSendBroadcast) {
+            // Broadcast所在进程必须运行
+            intent = new Intent();
+            intent.setAction("com.roy.devil.action.MUSIC");
+            // 若不设置包名，提示"BroadcastQueue: Background execution not allowed: receiving Intent"
+            intent.setPackage("com.roy.devil"+(BuildConfig.DEBUG?".debug":""));
+            sendBroadcast(intent);
+        } else if (v==mBinding.tvSendBroadcast2) {
+            // Broadcast所在进程必须运行
+            intent = new Intent();
+            intent.setAction("com.roy.devil.action.LOCAL");
+            // 若不设置包名，提示"BroadcastQueue: Background execution not allowed: receiving Intent"
+            intent.setPackage("com.roy.devil"+(BuildConfig.DEBUG?".debug":""));
+            sendBroadcast(intent);
+        } else if (v==mBinding.tvOpenBinder) {
+            BinderActivity.openActivity(this);
+        }
+    }
+
+    public void onOtherClick(View v) {
+        if (v==mBinding.tvChangeThread) {
+            transferWorkThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(10000);
+                        transferMainThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                                Log.i("UIThread", "更新UI");
                             }
                         });
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                });
-                break;
-            case R.id.tv_plugin:
-                ClassLoaderActivity.openActivity(this);
-                break;
+                }
+            });
+        } else if (v==mBinding.tvExecuteTask) {
+            // 小于核心线程数，直接创建新线程
+            executorService.execute(()->{
+                final String msg = "pid = "+Process.myPid()+"; tid = "+Process.myTid();
+                getHandler().post(()->
+                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show()
+                );
+            });
+        } else if (v==mBinding.tvPlugin) {
+            ClassLoaderActivity.openActivity(this);
         }
     }
 
@@ -240,23 +217,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //              Activity#runOnUiThread(Runnable);
 //              Handler#post(Runnable);
         // Message.target一直持有Handler，直到执行Message.recycle()
-        Message message = Message.obtain(mHandler, runnable);
+        Message message = Message.obtain(getHandler(), runnable);
         message.what = 1;
-        mHandler.sendMessageAtTime(message, SystemClock.uptimeMillis() + 10 * 1000);
+        getHandler().sendMessageAtTime(message, SystemClock.uptimeMillis() + 10 * 1000);
     }
-
-    private final Handler mHandler = new Handler(Looper.getMainLooper()){
-        @Override
-        public void dispatchMessage(Message msg) {
-            // 执行Message.callback; or Handler.mCallback; or Handler.handleMessage
-            super.dispatchMessage(msg);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-        }
-    };
 
     // 切换工作线程
     private void transferWorkThread(Runnable runnable) {

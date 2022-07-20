@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
  */
 public class BaseFragment extends Fragment {
     protected static String TAG;
-    private Handler mHandler = new Handler(Looper.getMainLooper());
+    private final Handler mHandler = new Handler(Looper.getMainLooper());
 
     {
         TAG = getClass().getSimpleName();

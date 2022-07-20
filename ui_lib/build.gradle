@@ -31,7 +31,8 @@ dependencies {
     implementation group: 'androidx.appcompat', name: 'appcompat', version: appcompat_version
     implementation "androidx.appcompat:appcompat-resources:$appcompat_version"
 
+    api "com.alibaba:arouter-api:$arouter_version"
+
     implementation group: 'com.google.android.material', name: 'material', version: material_version
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation project(':baselib')
 }

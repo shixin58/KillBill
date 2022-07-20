@@ -12,5 +12,3 @@ include ':baselib'
 project(':baselib').projectDir = new File(rootDir, 'baselib')
 
 include ':ui_lib'
-
-include ':build_src'

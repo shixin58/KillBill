@@ -13,6 +13,7 @@
     5. binder(IMyService.aidl, MyService, MineFragment, BinderActivity)
     6. 视频(module.video包，VideoViewActivity)
     7. 序列化(SerializableActivity)
+    8. ARouter：组件化页面跳转
 
 3. client模块
     1. 常见算法(algorithm包)
@@ -30,5 +31,3 @@
     1. JS, CoordinatorLayout
     2. RecyclerView+SmartRefreshLayout(RefreshActivity)
     3. MVVM(BossFragment)
-
-6. build_src: Gradle自定义插件，[参考](https://juejin.im/post/5cce895f51882541e27b0cae)

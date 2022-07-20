@@ -25,7 +25,6 @@ import com.bride.demon.IServiceManager;
 import com.bride.demon.MessageReceiveListener;
 import com.bride.demon.model.Form;
 import com.bride.demon.IMyService;
-import com.bride.demon.R;
 import com.bride.demon.activity.CodecActivity;
 import com.bride.demon.activity.JobSchedulerActivity;
 import com.bride.demon.activity.LoginActivity;
@@ -38,26 +37,23 @@ import com.bride.ui_lib.BaseFragment;
  * <p>Created by shixin on 2019-08-19.
  */
 public class MineFragment extends BaseFragment {
-
     private IServiceManager mServiceManagerProxy;
     private IMyService mMyServiceProxy;
     private IMessageService mMessageServiceProxy;
     private Messenger mMessengerProxy;
 
+    // 执行Message.callback; or Handler.mCallback; or Handler.handleMessage
     private final Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(@NonNull android.os.Message msg) {
             super.handleMessage(msg);
             Bundle bundle = msg.getData();
             bundle.setClassLoader(Message.class.getClassLoader());
-           final Message message = bundle.getParcelable("message");
-            postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    final Activity ac = getActivity();
-                    if (ac == null) return;
-                    Toast.makeText(ac, message.getContent(), Toast.LENGTH_SHORT).show();
-                }
+            final Message message = bundle.getParcelable("message");
+            postDelayed(() -> {
+                final Activity ac = getActivity();
+                if (ac == null) return;
+                Toast.makeText(ac, message.getContent(), Toast.LENGTH_SHORT).show();
             }, 3000L);
         }
     };
@@ -66,13 +62,10 @@ public class MineFragment extends BaseFragment {
     private final MessageReceiveListener messageReceiveListener = new MessageReceiveListener.Stub() {
         @Override
         public void onReceiveMessage(Message msg) throws RemoteException {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    final Activity ac = getActivity();
-                    if (ac == null) return;
-                    Toast.makeText(ac, msg.getContent(), Toast.LENGTH_SHORT).show();
-                }
+            getHandler().post(() -> {
+                final Activity ac = getActivity();
+                if (ac == null) return;
+                Toast.makeText(ac, msg.getContent(), Toast.LENGTH_SHORT).show();
             });
         }
     };
@@ -97,21 +90,19 @@ public class MineFragment extends BaseFragment {
     }
 
     public void onClick(View v) {
-        final int id = v.getId();
         final Activity ac = getActivity();
         if (ac == null) return;
-        if (id==R.id.btn_login) {
+        if (v==mBinding.btnLogin) {
             LoginActivity.openActivity(ac);
-        } else if (id==R.id.btn_codec) {
+        } else if (v==mBinding.btnCodec) {
             CodecActivity.openActivity(ac);
-        } else if (id==R.id.btn_job_scheduler) {
+        } else if (v==mBinding.btnJobScheduler) {
             JobSchedulerActivity.Companion.openActivity(ac);
         }
     }
 
     public void onServiceClick(View v) {
-        final int id = v.getId();
-        if (id==R.id.tv_switch) {
+        if (v==mBinding.tvSwitch) {
             final Activity ac = getActivity();
             if (ac == null) return;
             try {// 启动服务并拿到服务代理。服务所在进程必须运行
@@ -120,7 +111,7 @@ public class MineFragment extends BaseFragment {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if (id==R.id.tv_use_service) {
+        } else if (v==mBinding.tvUseService) {
             if(mMyServiceProxy == null) return;
             try {
                 // oneway非阻塞，只能返回void
@@ -137,21 +128,20 @@ public class MineFragment extends BaseFragment {
     }
 
     public void onConnectClick(View v) {
-        final int id = v.getId();
         if(mMyServiceProxy == null) return;
-        if (id==R.id.tv_connect_remote) {
+        if (v==mBinding.tvConnectRemote) {
             try {
                 mMyServiceProxy.connect();
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
-        } else if (id==R.id.tv_disconnect_remote) {
+        } else if (v==mBinding.tvDisconnectRemote) {
             try {
                 mMyServiceProxy.disconnect();
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
-        } else if (id==R.id.tv_is_connected) {
+        } else if (v==mBinding.tvIsConnected) {
             try {
                 final Activity ac = getActivity();
                 if (ac == null) return;
@@ -163,9 +153,8 @@ public class MineFragment extends BaseFragment {
     }
 
     public void onMessageClick(View v) {
-        final int id = v.getId();
         if(mMessageServiceProxy == null) return;
-        if (id==R.id.tv_send_msg) {
+        if (v==mBinding.tvSendMsg) {
             try {
                 Message msg = new Message();
                 msg.setContent("Message sent from main");
@@ -174,13 +163,13 @@ public class MineFragment extends BaseFragment {
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
-        } else if (id==R.id.tv_register) {
+        } else if (v==mBinding.tvRegister) {
             try {
                 mMessageServiceProxy.registerMessageReceiveListener(messageReceiveListener);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
-        } else if (id==R.id.tv_unregister) {
+        } else if (v==mBinding.tvUnregister) {
             try {
                 mMessageServiceProxy.unregisterMessageReceiveListener(messageReceiveListener);
             } catch (RemoteException e) {
@@ -190,9 +179,8 @@ public class MineFragment extends BaseFragment {
     }
 
     public void onMessengerClick(View v) {
-        final int id = v.getId();
         if (mMessengerProxy == null) return;
-        if (id==R.id.tv_messenger) {
+        if (v==mBinding.tvMessenger) {
             try {
                 final Message message = new Message();
                 message.setContent("Message sent from main by Messenger");

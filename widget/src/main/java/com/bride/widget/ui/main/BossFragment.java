@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.bride.baselib.CustomLifecycleObserver;
 import com.bride.ui_lib.BaseFragment;
 import com.bride.widget.R;
 import com.bride.widget.databinding.FragmentBossBinding;
@@ -32,7 +31,6 @@ public class BossFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getLifecycle().addObserver(CustomLifecycleObserver.INSTANCE);
         mViewModel = new ViewModelProvider(this).get(BossViewModel.class);
     }
 
@@ -55,11 +53,5 @@ public class BossFragment extends BaseFragment {
                 mViewDataBinding.setBoss(boss);
             }
         });
-    }
-
-    @Override
-    public void onDestroy() {
-        getLifecycle().removeObserver(CustomLifecycleObserver.INSTANCE);
-        super.onDestroy();
     }
 }

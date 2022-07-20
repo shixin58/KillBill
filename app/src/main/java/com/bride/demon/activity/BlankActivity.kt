@@ -3,19 +3,21 @@ package com.bride.demon.activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.SystemClock
-import androidx.fragment.app.FragmentActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.bride.ui_lib.BaseActivity
+import androidx.fragment.app.FragmentActivity
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.bride.demon.databinding.ActivityBlankBinding
 import com.bride.demon.model.City
 import com.bride.demon.model.Person
+import com.bride.ui_lib.BaseActivity
 
 /**
  * test lifecycle, ViewHierarchy, Serializable
  * Created by shixin on 2018/4/26.
  */
+@Route(path = "/demon/blank")
 class BlankActivity : BaseActivity() {
 
     private lateinit var mBinding: ActivityBlankBinding

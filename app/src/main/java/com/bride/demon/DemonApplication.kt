@@ -3,8 +3,6 @@ package com.bride.demon
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.ProcessLifecycleOwner
-import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
 import com.bride.baselib.*
 import com.bride.baselib.net.VolleyWrapper
@@ -24,7 +22,6 @@ class DemonApplication : Application() {
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
-        MultiDex.install(base)
         CompatUtils.detectThread()
         CompatUtils.detectVm()
         Thread.setDefaultUncaughtExceptionHandler(CustomUncaughtExceptionHandler())
@@ -44,7 +41,6 @@ class DemonApplication : Application() {
         VolleyWrapper.init(this)
 
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
-        ProcessLifecycleOwner.get().lifecycle.addObserver(ProcessLifecycleObserver)
 
         initRouter()
     }

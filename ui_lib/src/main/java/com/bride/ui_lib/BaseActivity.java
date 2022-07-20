@@ -18,7 +18,7 @@ import java.util.Locale;
  * <p>Created by shixin on 2019/3/22.
  */
 public class BaseActivity extends AppCompatActivity {
-    private Handler mHandler = new Handler(Looper.getMainLooper());
+    private final Handler mHandler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
