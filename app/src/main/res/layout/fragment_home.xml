@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
             name="fragment"
             type="com.bride.demon.fragment.HomeFragment" />
-        <import type="com.bride.demon.model.DailyJob"/>
         <variable
             name="dailyJob"
-            type="DailyJob" />
+            type="com.bride.demon.model.DailyJob" />
     </data>
 
     <ScrollView
@@ -24,11 +24,11 @@
                 android:id="@+id/button_recycler_view"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:background="?android:attr/selectableItemBackground"
-                android:onClick="@{fragment.onClick}"
+                android:onClick="@{fragment::onClick}"
                 android:gravity="center"
                 android:text="test RecyclerView" />
 
@@ -36,10 +36,10 @@
                 android:id="@+id/button_touch"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/button_recycler_view"
-                android:onClick="@{fragment.onClick}"
+                android:onClick="@{fragment::onClick}"
                 android:gravity="center"
                 android:text="test touch" />
 
@@ -47,11 +47,11 @@
                 android:id="@+id/button_nested_list"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/button_touch"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:onClick="@{fragment.onClick}"
+                android:onClick="@{fragment::onClick}"
                 android:gravity="center"
                 android:text="test nested list" />
 
@@ -59,10 +59,10 @@
                 android:id="@+id/button_upload"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/button_nested_list"
-                android:onClick="@{fragment.onClick}"
+                android:onClick="@{fragment::onClick}"
                 android:gravity="center"
                 android:text="test upload" />
 
@@ -70,102 +70,123 @@
                 android:id="@+id/button_webp"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/button_upload"
                 android:background="@drawable/ripple_practice"
                 android:gravity="center"
-                android:onClick="@{fragment.onClick}"
+                android:onClick="@{fragment::onClick}"
                 android:text="test webp" />
 
             <TextView
                 android:id="@+id/button_glide"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/button_webp"
                 android:background="@drawable/ripple_mask_practice"
                 android:gravity="center"
-                android:onClick="@{fragment.onClick}"
+                android:onClick="@{fragment::onClick}"
                 android:text="test Glide" />
 
             <TextView
                 android:id="@+id/button_volley"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/button_glide"
                 android:gravity="center"
-                android:onClick="@{fragment.onClick}"
+                android:onClick="@{fragment::onClick}"
                 android:text="test Volley" />
 
             <TextView
                 android:id="@+id/button_relative_layout"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/button_volley"
                 android:gravity="center"
-                android:onClick="@{fragment.onClick}"
+                android:onClick="@{fragment::onClick}"
                 android:text="test RelativeLayout" />
 
             <TextView
                 android:id="@+id/button_exception"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/button_relative_layout"
                 android:gravity="center"
-                android:onClick="@{fragment.onClick}"
+                android:onClick="@{fragment::onClick}"
                 android:text="test Exception" />
 
             <TextView
                 android:id="@+id/button_serializable"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/button_exception"
                 android:gravity="center"
-                android:onClick="@{fragment.onClick}"
+                android:onClick="@{fragment::onClick}"
                 android:text="test Serializable" />
 
             <TextView
                 android:id="@+id/button_drag"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/button_serializable"
                 android:gravity="center"
-                android:onClick="@{fragment.onClick}"
+                android:onClick="@{fragment::onClick}"
                 android:text="test Drag" />
 
             <TextView
                 android:id="@+id/button_region"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/button_drag"
                 android:gravity="center"
-                android:onClick="@{fragment.onClick}"
+                android:onClick="@{fragment::onClick}"
                 android:text="test Region" />
 
             <TextView
                 android:id="@+id/button_data_binding"
-                android:layout_width="0dp"
+                android:layout_width="120dp"
                 android:layout_height="40dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/button_region"
                 android:gravity="center"
-                android:onClick="@{fragment.onClick}"
-                android:text="@{dailyJob.name+'('+dailyJob.priority+')',default=test_DataBinding}" />
+                android:onClick="@{fragment::onClick}"
+                android:text="DataBinding正向" />
+
+            <TextView
+                android:id="@+id/button_data_binding_reverse"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                app:layout_constraintStart_toEndOf="@id/button_data_binding"
+                app:layout_constraintTop_toTopOf="@id/button_data_binding"
+                android:gravity="center"
+                android:onClick="@{fragment::onClick}"
+                android:text="DataBinding逆向" />
+
+            <TextView
+                android:id="@+id/info"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                app:layout_constraintStart_toEndOf="@id/button_data_binding_reverse"
+                app:layout_constraintTop_toTopOf="@id/button_data_binding_reverse"
+                app:layout_constraintBottom_toBottomOf="@id/button_data_binding_reverse"
+                android:layout_marginStart="20dp"
+                android:gravity="center_vertical"
+                android:text="@={dailyJob.name}"
+                tools:text="Work-0"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

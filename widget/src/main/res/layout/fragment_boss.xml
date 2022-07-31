@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data >
-        <import type="com.bride.widget.model.Boss" />
-        <import type="com.bride.widget.ui.main.BossViewModel" />
         <variable
-            name="boss" type="Boss" />
+            name="boss" type="com.bride.widget.model.Boss" />
         <variable
-            name="viewModel" type="BossViewModel" />
+            name="viewModel" type="com.bride.widget.ui.main.BossViewModel" />
+        <variable
+            name="fragment"
+            type="com.bride.widget.ui.main.BossFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,12 +17,23 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tv_message"
+            android:id="@+id/tv_action"
             android:layout_width="0dp"
             android:layout_height="40dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center"
+            android:onClick="@{viewModel::doAction}"
+            android:text="doAction"/>
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_action"
             android:gravity="center"
             android:text="@{boss.name}"/>
 
@@ -34,34 +46,53 @@
             android:src="@drawable/avatar_pure"
             app:imageUrl="@{boss.avatar}"/>
 
-        <ImageView
-            android:id="@+id/iv_scenery"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_avatar"
-            app:imageUrl="@{viewModel.resultImageUrl}"/>
-
-        <TextView
-            android:id="@+id/tv_action"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_scenery"
-            android:gravity="center"
-            android:onClick="@{viewModel.doAction}"
-            android:text="doAction"/>
-
         <TextView
             android:id="@+id/tv_load_image"
             android:layout_width="0dp"
             android:layout_height="40dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_action"
+            app:layout_constraintTop_toBottomOf="@id/iv_avatar"
             android:gravity="center"
-            android:onClick="@{viewModel.updateScenery}"
+            android:onClick="@{viewModel::updateScenery}"
             android:text="load image"/>
+
+        <ImageView
+            android:id="@+id/iv_scenery"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_load_image"
+            app:imageUrl="@{viewModel.resultImageUrl}"/>
+
+        <TextView
+            android:id="@+id/btn_binding"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_scenery"
+            android:gravity="center"
+            android:onClick="@{fragment::titleBinding}"
+            android:text="bind data"/>
+
+        <TextView
+            android:id="@+id/btn_binding_reverse"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toEndOf="@id/btn_binding"
+            app:layout_constraintTop_toBottomOf="@id/iv_scenery"
+            android:gravity="center"
+            android:onClick="@{fragment::titleBindingReverse}"
+            android:text="bind data reverse"/>
+
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toEndOf="@id/btn_binding_reverse"
+            app:layout_constraintTop_toTopOf="@id/btn_binding_reverse"
+            app:layout_constraintBottom_toBottomOf="@id/btn_binding_reverse"
+            android:gravity="center"
+            android:text="@={viewModel.titleField}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

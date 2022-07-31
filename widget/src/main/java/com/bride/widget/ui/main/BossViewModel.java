@@ -16,6 +16,7 @@ public class BossViewModel extends ViewModel {
     // View和ViewModel之间通过LiveData、ObservableField通信
     public final MutableLiveData<Boss> bossLiveData = new MutableLiveData<>();
     public final ObservableField<String> resultImageUrl = new ObservableField<>();
+    public final ObservableField<String> titleField = new ObservableField<>();
 
     public BossViewModel() {
     }
@@ -28,6 +29,10 @@ public class BossViewModel extends ViewModel {
     }
 
     public void updateScenery(View v) {
-        resultImageUrl.set(Urls.Images.LADY);
+        if (Urls.Images.LADY.equals(resultImageUrl.get())) {
+            resultImageUrl.set(Urls.Images.BEAUTY);
+        } else {
+            resultImageUrl.set(Urls.Images.LADY);
+        }
     }
 }

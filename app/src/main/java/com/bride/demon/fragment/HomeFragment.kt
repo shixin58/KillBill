@@ -4,76 +4,63 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.alibaba.android.arouter.launcher.ARouter
-import com.bride.demon.R
 import com.bride.demon.activity.*
 import com.bride.demon.databinding.FragmentHomeBinding
 import com.bride.demon.model.DailyJob
 import com.bride.ui_lib.BaseFragment
+import kotlin.random.Random
 
 class HomeFragment : BaseFragment(), View.OnClickListener {
 
-    private lateinit var mViewDataBinding: FragmentHomeBinding
+    private lateinit var mBinding: FragmentHomeBinding
 
+    private val random = Random(7)
     private val dailyJob = DailyJob().also {
         it.name = "Work"
         it.priority = 1
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        mViewDataBinding = FragmentHomeBinding.inflate(inflater, container, false)
-        return mViewDataBinding.root
+        mBinding = FragmentHomeBinding.inflate(inflater, container, false)
+        return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mViewDataBinding.fragment = this
-        mViewDataBinding.dailyJob = dailyJob
-    }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
+        mBinding.fragment = this
+        mBinding.dailyJob = dailyJob
     }
 
     override fun onClick(v: View?) {
         val ac = activity?:return
-        when (v?.id){
-            R.id.button_recycler_view -> RecyclerViewActivity.openActivity(ac)
-            R.id.button_touch -> TouchActivity.openActivity(ac, 0)
-            R.id.button_nested_list -> NestedListActivity.openActivity(ac)
-            R.id.button_upload -> UploadActivity.openActivity(ac)
-            R.id.button_webp -> WebpActivity.openActivity(ac)
-            R.id.button_glide -> {
+        when(v) {
+            mBinding.buttonRecyclerView -> RecyclerViewActivity.openActivity(ac)
+            mBinding.buttonTouch -> TouchActivity.openActivity(ac, 0)
+            mBinding.buttonNestedList -> NestedListActivity.openActivity(ac)
+            mBinding.buttonUpload -> UploadActivity.openActivity(ac)
+            mBinding.buttonWebp -> WebpActivity.openActivity(ac)
+            mBinding.buttonGlide -> {
                 ARouter.getInstance()
                     .build("/demon/glide")
                     .navigation()
             }
-            R.id.button_relative_layout -> LayoutOptimizationActivity.openActivity(ac)
-            R.id.button_volley -> VolleyActivity.openActivity(ac)
-            R.id.button_exception -> ExceptionActivity.openActivity(ac)
-            R.id.button_serializable -> SerializableActivity.openActivity(ac)
-            R.id.button_drag -> DragActivity.openActivity(ac)
-            R.id.button_region -> RegionActivity.openActivity(ac)
-            R.id.button_data_binding -> {
-                dailyJob.priority++
+            mBinding.buttonRelativeLayout -> LayoutOptimizationActivity.openActivity(ac)
+            mBinding.buttonVolley -> VolleyActivity.openActivity(ac)
+            mBinding.buttonException -> ExceptionActivity.openActivity(ac)
+            mBinding.buttonSerializable -> SerializableActivity.openActivity(ac)
+            mBinding.buttonDrag -> DragActivity.openActivity(ac)
+            mBinding.buttonRegion -> RegionActivity.openActivity(ac)
+            mBinding.buttonDataBinding -> {
+                dailyJob.name = "Work-${random.nextInt(1000)}"
+            }
+            mBinding.buttonDataBindingReverse -> {
+                val name = "Work-${random.nextInt(1000)}"
+                mBinding.info.text = name
+                Toast.makeText(ac, "dailyJob.name: ${dailyJob.name}", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-    }
-
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
     }
 
     companion object {

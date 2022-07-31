@@ -54,12 +54,12 @@ public class ReentrantLockClient {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                lock.lock();
+                lock.lock();// 若获取锁失败，将当前线程构建Node、加入同步等待队列
                 System.out.println("awaitMethod获得同步锁");
                 try {
                     Thread.sleep(3000L);// 模拟执行任务3秒
                     System.out.println("awaitMethod call await() "+lock.getHoldCount());
-                    condition.await();// 释放锁
+                    condition.await();// 阻塞当前线程，将当前线程构建Node、加入条件等待队列，释放锁
                     Thread.sleep(3000L);// 模拟执行任务3秒
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -81,7 +81,7 @@ public class ReentrantLockClient {
                 try {
                     Thread.sleep(3000L);// 模拟执行任务3秒
                     System.out.println("signalMethod call signal() "+lock.getHoldCount());
-                    condition.signal();
+                    condition.signal();// 将条件等待队列中的节点转移到同步等待队列
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {

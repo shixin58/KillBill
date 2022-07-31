@@ -5,14 +5,14 @@ import java.util.concurrent.locks.LockSupport;
 
 /**
  * LockSupport阻塞线程前不需要获取同步锁，不可重入，中断阻塞不抛异常。
- * <p>park/unpark类似于suspend/resume, 但不会遇到死锁问题。
+ * <p>park()/unpark()类似于Thread#suspend()/resume(), 但不会遇到死锁问题。
  * <p>Created by shixin on 2019-04-26.
  */
 public class LockSupportClient {
 
     public static void main(String[] args) {
-//        func1();
-        func2();
+        func1();
+//        func2();
     }
 
     private static void func1() {
@@ -20,21 +20,24 @@ public class LockSupportClient {
             @Override
             public void run() {
                 super.run();
-                System.out.println("LockSupport#unpark");
+                System.out.println("LockSupport#unpark()");
+                // 调用Unsafe#unpark()
                 LockSupport.unpark(this);
-                System.out.println("LockSupport#park");
+                System.out.println("LockSupport#park()");
+                // 调用Unsafe#park()
                 LockSupport.park();
 
                 // 阻塞10秒，不会抛异常
-                System.out.println("LockSupport#parkNanos");
+                System.out.println("LockSupport#parkNanos()");
                 LockSupport.parkNanos(10_000_000_000L);
-                System.out.println("It's over");
+                System.out.println("Thread over");
             }
         };
         thread.start();
 
         try {
-            Thread.sleep(5000L);
+            Thread.sleep(5_000L);
+            System.out.println("sleep over, and then interrupt");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

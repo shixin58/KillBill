@@ -4,7 +4,6 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.bride.ui_lib.BaseActivity
 import com.bride.baselib.PermissionUtils
 import com.bride.demon.callback.MyFragmentLifecycleCallbacks
@@ -13,74 +12,63 @@ import com.bride.demon.fragment.HomeFragment
 import com.bride.demon.fragment.MineFragment
 import com.bride.demon.fragment.NotificationsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 
 class MainActivity : BaseActivity() {
-
     private val fragments = arrayOfNulls<Fragment>(4)
     private var mIndex: Int = 0
     private val fragmentLifecycleCallbacks = MyFragmentLifecycleCallbacks()
 
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        var transaction: FragmentTransaction?
+    private val mOnNavigationItemSelectedListener = NavigationBarView.OnItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-                transaction = supportFragmentManager.beginTransaction()
-                if (fragments[0] == null) {
-                    fragments[0] = HomeFragment.newInstance()
-                    fragments[0]?.let { transaction!!.add(R.id.container_fragment, it, HomeFragment::class.simpleName) }
-                }
-                fragments[0]?.let { transaction!!.show(it) }
-                if (mIndex != 0) {
-                    fragments[mIndex]?.let { transaction!!.hide(it) }
-                    mIndex = 0
-                }
-                transaction.commitAllowingStateLoss()
-                return@OnNavigationItemSelectedListener true
+                setTabFragment(0)
+                return@OnItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                transaction = supportFragmentManager.beginTransaction()
-                if (fragments[1] == null) {
-                    fragments[1] = DashboardFragment.newInstance()
-                    fragments[1]?.let { transaction!!.add(R.id.container_fragment, it, DashboardFragment::class.simpleName) }
-                }
-                fragments[1]?.let { transaction!!.show(it) }
-                if (mIndex != 1) {
-                    fragments[mIndex]?.let{ transaction!!.hide(it) }
-                    mIndex = 1
-                }
-                transaction.commitAllowingStateLoss()
-                return@OnNavigationItemSelectedListener true
+                setTabFragment(1)
+                return@OnItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-                transaction = supportFragmentManager.beginTransaction()
-                if (fragments[2] == null) {
-                    fragments[2] = NotificationsFragment.newInstance()
-                    fragments[2]?.let { transaction!!.add(R.id.container_fragment, it, NotificationsFragment::class.simpleName) }
-                }
-                fragments[2]?.let { transaction!!.show(it) }
-                if (mIndex != 2) {
-                    fragments[mIndex]?.let { transaction!!.hide(it) }
-                    mIndex = 2
-                }
-                transaction.commitAllowingStateLoss()
-                return@OnNavigationItemSelectedListener true
+                setTabFragment(2)
+                return@OnItemSelectedListener true
             }
             R.id.navigation_mine -> {
-                transaction = supportFragmentManager.beginTransaction()
-                if (fragments[3] == null) {
-                    fragments[3] = MineFragment.newInstance()
-                    fragments[3]?.let { transaction!!.add(R.id.container_fragment, it, MineFragment::class.simpleName) }
+                setTabFragment(3)
+                return@OnItemSelectedListener true
+            }
+            else -> return@OnItemSelectedListener false
+        }
+    }
+
+    private fun setTabFragment(idx: Int) {
+        val transaction = supportFragmentManager.beginTransaction()
+        if (fragments[idx] == null) {
+            when(idx) {
+                0 -> {
+                    fragments[idx] = HomeFragment.newInstance()
+                    fragments[idx]?.let { transaction.add(R.id.container_fragment, it, HomeFragment::class.simpleName) }
                 }
-                fragments[3]?.let { transaction!!.show(it) }
-                if (mIndex != 3) {
-                    fragments[mIndex]?.let { transaction!!.hide(it) }
-                    mIndex = 3
+                1 -> {
+                    fragments[idx] = DashboardFragment.newInstance()
+                    fragments[idx]?.let { transaction.add(R.id.container_fragment, it, DashboardFragment::class.simpleName) }
                 }
-                transaction.commitAllowingStateLoss()
-                return@OnNavigationItemSelectedListener true
+                2 -> {
+                    fragments[idx] = NotificationsFragment.newInstance()
+                    fragments[idx]?.let { transaction.add(R.id.container_fragment, it, NotificationsFragment::class.simpleName) }
+                }
+                3 -> {
+                    fragments[idx] = MineFragment.newInstance()
+                    fragments[idx]?.let { transaction.add(R.id.container_fragment, it, MineFragment::class.simpleName) }
+                }
             }
         }
-        false
+        fragments[idx]?.let { transaction.show(it) }
+        if (mIndex != idx) {
+            fragments[mIndex]?.let { transaction.hide(it) }
+            mIndex = idx
+        }
+        transaction.commitAllowingStateLoss()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,16 +85,21 @@ class MainActivity : BaseActivity() {
         }
 
         val navigation = findViewById<BottomNavigationView>(R.id.navigation)
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        navigation.setOnItemSelectedListener(mOnNavigationItemSelectedListener)
         if (savedInstanceState == null) {
-            if (mIndex == 1) {
-                navigation.selectedItemId = R.id.navigation_dashboard
-            }else if (mIndex == 2) {
-                navigation.selectedItemId = R.id.navigation_notifications
-            } else if (mIndex == 3){
-                navigation.selectedItemId = R.id.navigation_mine
-            } else {
-                navigation.selectedItemId = R.id.navigation_home
+            when (mIndex) {
+                1 -> {
+                    navigation.selectedItemId = R.id.navigation_dashboard
+                }
+                2 -> {
+                    navigation.selectedItemId = R.id.navigation_notifications
+                }
+                3 -> {
+                    navigation.selectedItemId = R.id.navigation_mine
+                }
+                else -> {
+                    navigation.selectedItemId = R.id.navigation_home
+                }
             }
         }
 
@@ -120,22 +113,10 @@ class MainActivity : BaseActivity() {
         Log.i(TAG, "recreate")
     }
 
-    override fun onStart() {
-        super.onStart()
-    }
-
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         Log.i(TAG, "onRestoreInstanceState")
         mIndex = savedInstanceState.getInt("Index")
-    }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onStop() {
-        super.onStop()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

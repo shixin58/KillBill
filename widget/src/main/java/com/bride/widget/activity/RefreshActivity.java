@@ -11,8 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bride.ui_lib.BaseActivity;
 import com.bride.widget.R;
 import com.bride.widget.adapter.RefreshAdapter;
-import com.scwang.smart.refresh.footer.ClassicsFooter;
-import com.scwang.smart.refresh.header.ClassicsHeader;
+import com.bride.widget.databinding.ActivityRefreshBinding;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
@@ -25,6 +24,7 @@ import java.util.List;
  * <p>Created by shixin on 2019-08-06.
  */
 public class RefreshActivity extends BaseActivity {
+    private ActivityRefreshBinding mBinding;
 
     private RecyclerView mRecyclerView;
     private RefreshAdapter mAdapter;
@@ -37,15 +37,16 @@ public class RefreshActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_refresh);
+        mBinding = ActivityRefreshBinding.inflate(getLayoutInflater());
+        setContentView(mBinding.getRoot());
 
         initView();
     }
 
     private void initView() {
-        RefreshLayout refreshLayout = findViewById(R.id.refresh_layout);
-        refreshLayout.setRefreshHeader(new ClassicsHeader(this));
-        refreshLayout.setRefreshFooter(new ClassicsFooter(this));
+        RefreshLayout refreshLayout = mBinding.refreshLayout;
+//        refreshLayout.setRefreshHeader(new ClassicsHeader(this));
+//        refreshLayout.setRefreshFooter(new ClassicsFooter(this));
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
@@ -67,7 +68,7 @@ public class RefreshActivity extends BaseActivity {
             }
         });
 
-        mRecyclerView = findViewById(R.id.recyclerView);
+        mRecyclerView = mBinding.recyclerView;
         // 给RecyclerView设置垂直线性布局
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         mAdapter = new RefreshAdapter();
