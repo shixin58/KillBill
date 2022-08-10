@@ -33,8 +33,6 @@ import java.util.concurrent.TimeUnit;
  * <p>Created by shixin on 2018/9/8.
  */
 public class MyService extends Service {
-    private static final String TAG = MyService.class.getSimpleName();
-
     private boolean isConnected = false;
 
     // 方法跑在binder线程池中，用handler切换主线程
@@ -74,13 +72,8 @@ public class MyService extends Service {
     private final IMyService myService = new IMyService.Stub() {
         @Override
         public void basicTypes(int anInt, long aLong, boolean aBoolean, float aFloat, double aDouble, String aString) throws RemoteException {
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    Log.i("MyServiceImpl", Thread.currentThread().getName()
-                            +" basicTypes() "+anInt+"_"+aLong+"_"+aBoolean+"_"+aFloat+"_"+aDouble+"_"+aString);
-                }
-            });
+            handler.post(() -> Log.i("MyServiceImpl", Thread.currentThread().getName()
+                    +" basicTypes() "+anInt+"_"+aLong+"_"+aBoolean+"_"+aFloat+"_"+aDouble+"_"+aString));
         }
 
         @Override
@@ -151,7 +144,7 @@ public class MyService extends Service {
         }
 
         @Override
-        public boolean isConnected() throws RemoteException {
+        public boolean isConnected() {
             return isConnected;
         }
     };
@@ -159,12 +152,7 @@ public class MyService extends Service {
     private final IMessageService messageService = new IMessageService.Stub() {
         @Override
         public void sendMessage(Message msg) throws RemoteException {
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(MyService.this, msg.getContent(), Toast.LENGTH_SHORT).show();
-                }
-            });
+            handler.post(() -> Toast.makeText(MyService.this, msg.getContent(), Toast.LENGTH_SHORT).show());
             msg.setSendSuccess(isConnected);
         }
 
@@ -185,7 +173,7 @@ public class MyService extends Service {
 
     private final IServiceManager serviceManager = new IServiceManager.Stub() {
         @Override
-        public IBinder getService(String srvName) throws RemoteException {
+        public IBinder getService(String srvName) {
             if (IMyService.class.getSimpleName().equals(srvName))
                 return myService.asBinder();
             if (IMessageService.class.getSimpleName().equals(srvName))
@@ -196,16 +184,15 @@ public class MyService extends Service {
         }
     };
 
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        Log.i(TAG, "onBind()");
-        return serviceManager.asBinder();
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
         scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(1);
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return serviceManager.asBinder();
     }
 }

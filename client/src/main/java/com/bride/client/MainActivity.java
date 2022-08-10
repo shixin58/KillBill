@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.os.Process;
@@ -35,8 +36,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
-    public static String UPLOAD_RESULT = "upload_result";
+    public static final String UPLOAD_RESULT = "upload_result";
     public static final String KEY_NAME = "key_name";
+
     private MyRegisteredReceiver registeredReceiver;
 
     private ActivityMainBinding mBinding;
@@ -54,12 +56,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        Log.i(TAG, "onNewIntent "+getTaskId()+" "+hashCode());
-    }
-
-    @Override
     protected void onDestroy() {
         unregisterReceiver(registeredReceiver);
         unregisterReceiver(innerBroadcastReceiver);
@@ -71,15 +67,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initData() {
-        // 注册broadcast
+        // 动态注册broadcast
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(UPLOAD_RESULT);
         registerReceiver(innerBroadcastReceiver, intentFilter);
 
         registeredReceiver = new MyRegisteredReceiver();
         IntentFilter registeredIntentFilter = new IntentFilter();
-        registeredIntentFilter.addAction(Intent.ACTION_USER_UNLOCKED);
-        registeredIntentFilter.addAction(Intent.ACTION_LOCKED_BOOT_COMPLETED);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            registeredIntentFilter.addAction(Intent.ACTION_USER_UNLOCKED);
+            registeredIntentFilter.addAction(Intent.ACTION_LOCKED_BOOT_COMPLETED);
+        }
         registeredIntentFilter.addAction(Intent.ACTION_BOOT_COMPLETED);
         registeredIntentFilter.addAction(Intent.ACTION_REBOOT);
         registerReceiver(registeredReceiver, registeredIntentFilter);
@@ -141,16 +139,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             intent.setData(Uri.parse("max://devil/music?from="+getPackageName()));
             startActivity(intent);
         } else if (v==mBinding.tvSendBroadcast) {
-            // Broadcast所在进程必须运行
+            // 静态广播+跨进程发广播
+            // Broadcast所在进程com.roy.devil.debug必须运行
             intent = new Intent();
             intent.setAction("com.roy.devil.action.MUSIC");
-            // 若不设置包名，提示"BroadcastQueue: Background execution not allowed: receiving Intent"
-            intent.setPackage("com.roy.devil"+(BuildConfig.DEBUG?".debug":""));
-            sendBroadcast(intent);
-        } else if (v==mBinding.tvSendBroadcast2) {
-            // Broadcast所在进程必须运行
-            intent = new Intent();
-            intent.setAction("com.roy.devil.action.LOCAL");
             // 若不设置包名，提示"BroadcastQueue: Background execution not allowed: receiving Intent"
             intent.setPackage("com.roy.devil"+(BuildConfig.DEBUG?".debug":""));
             sendBroadcast(intent);
@@ -165,7 +157,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 @Override
                 public void run() {
                     try {
-                        Thread.sleep(10000);
+                        Thread.sleep(10_000L);
                         transferMainThread(new Runnable() {
                             @Override
                             public void run() {

@@ -105,7 +105,10 @@ public class MineFragment extends BaseFragment {
         if (v==mBinding.tvSwitch) {
             final Activity ac = getActivity();
             if (ac == null) return;
-            try {// 启动服务并拿到服务代理。服务所在进程必须运行
+            try {// 启动服务并拿到服务代理。
+                // 1）客户进程发起bindService请求，AMS发socket消息给Zygote、启动服务所在服务进程
+                // 2）启动Application、启动服务，
+                // 3）将binder对象发布到AMS，AMS将binder返给客户进程
                 Intent intent = new Intent(ac, MyService.class);
                 ac.bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
             } catch (Exception e) {

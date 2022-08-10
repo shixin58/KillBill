@@ -16,6 +16,7 @@ public class DailyJob extends BaseObservable {
 
     @Bindable
     public String getName() {
+        // @Bindable跟variable标签一样，会将name加到BR
         return name;
     }
 

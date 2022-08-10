@@ -1,14 +1,12 @@
 package com.bride.thirdparty;
 
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.core.app.ActivityCompat;
+import androidx.annotation.NonNull;
 
+import com.bride.thirdparty.databinding.ActivityMainBinding;
 import com.bride.ui_lib.BaseActivity;
 import com.bride.baselib.PermissionUtils;
 import com.bride.thirdparty.activity.DirectoryActivity;
@@ -30,9 +28,8 @@ import io.reactivex.rxjava3.subjects.Subject;
 /**
  * <p>Created by shixin on 2018/9/7.
  */
-public class MainActivity extends BaseActivity implements View.OnClickListener,
-        ActivityCompat.OnRequestPermissionsResultCallback {
-    private static final String TAG = MainActivity.class.getSimpleName();
+public class MainActivity extends BaseActivity implements View.OnClickListener {
+    private ActivityMainBinding mBinding;
 
     private Subject<MessageEvent> mSubject;
     private Disposable mDisposable;
@@ -40,22 +37,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG, "onCreate "+getTaskId()+" "+hashCode());
-        setContentView(R.layout.activity_main);
+        mBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(mBinding.getRoot());
         initView();
         initData();
     }
 
     private void initView() {
-        findViewById(R.id.tv_eventbus).setOnClickListener(this);
-        findViewById(R.id.tv_landscape).setOnClickListener(this);
-        findViewById(R.id.tv_fullscreen).setOnClickListener(this);
-        findViewById(R.id.tv_push).setOnClickListener(this);
-        findViewById(R.id.tv_retrofit).setOnClickListener(this);
-        findViewById(R.id.tv_rxjava).setOnClickListener(this);
-        findViewById(R.id.tv_directory).setOnClickListener(this);
-        findViewById(R.id.tv_rx_bus).setOnClickListener(this);
-        findViewById(R.id.tv_url_connection).setOnClickListener(this);
+        mBinding.tvEventbus.setOnClickListener(this);
+        mBinding.tvLandscape.setOnClickListener(this);
+        mBinding.tvFullscreen.setOnClickListener(this);
+        mBinding.tvPush.setOnClickListener(this);
+        mBinding.tvRetrofit.setOnClickListener(this);
+        mBinding.tvRxjava.setOnClickListener(this);
+        mBinding.tvDirectory.setOnClickListener(this);
+        mBinding.tvRxBus.setOnClickListener(this);
+        mBinding.tvUrlConnection.setOnClickListener(this);
     }
 
     private void initData() {
@@ -71,107 +68,38 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        Log.i(TAG, "onNewIntent "+getTaskId()+" "+hashCode());
-    }
-
-    @Override
-    public void recreate() {
-        super.recreate();
-        Log.i(TAG, "recreate");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.i(TAG, "onRestart");
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.i(TAG, "onStart");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.i(TAG, "onResume");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.i(TAG, "onPause");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.i(TAG, "onStop");
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i(TAG, "onDestroy "+getTaskId()+" "+hashCode());
         mDisposable.dispose();
         RxBus.getInstance().unregister(MessageEvent.class, mSubject);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_eventbus:
-                EventBusActivity.openActivity(getApplication());
-                break;
-            case R.id.tv_landscape:
-                LandscapeActivity.openActivity(this);
-                break;
-            case R.id.tv_fullscreen:
-                FullscreenActivity.openActivity(this);
-                break;
-            case R.id.tv_push:
-                PushActivity.openActivity(this);
-                break;
-            case R.id.tv_retrofit:
-                RetrofitActivity.openActivity(this);
-                break;
-            case R.id.tv_rxjava:
-                RxJavaActivity.openActivity(this);
-                break;
-            case R.id.tv_directory:
-                DirectoryActivity.openActivity(this);
-                break;
-            case R.id.tv_rx_bus:
-                RxBusActivity.openActivity(this);
-                break;
-            case R.id.tv_url_connection:
-                UrlConnectionActivity.openActivity(this);
-                break;
-            default:
-                break;
+        if (v==mBinding.tvEventbus) {
+            EventBusActivity.openActivity(getApplication());
+        } else if (v==mBinding.tvLandscape) {
+            LandscapeActivity.openActivity(this);
+        } else if (v==mBinding.tvFullscreen) {
+            FullscreenActivity.openActivity(this);
+        } else if (v==mBinding.tvPush) {
+            PushActivity.openActivity(this);
+        } else if (v==mBinding.tvRetrofit) {
+            RetrofitActivity.openActivity(this);
+        } else if (v==mBinding.tvRxjava) {
+            RxJavaActivity.openActivity(this);
+        } else if (v==mBinding.tvDirectory) {
+            DirectoryActivity.openActivity(this);
+        } else if (v==mBinding.tvRxBus) {
+            RxBusActivity.openActivity(this);
+        } else if (v==mBinding.tvUrlConnection) {
+            UrlConnectionActivity.openActivity(this);
         }
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case 1:
-            case 2:
-                if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.i(TAG, "onRequestPermissionsResult "+permissions[0]);
-                }
-                break;
-            case 3:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.i(TAG, "onRequestPermissionsResult "+permissions[0]);
-                }
-                if (grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                    Log.i(TAG, "onRequestPermissionsResult "+permissions[1]);
-                }
-        }
+        if (requestCode == 3) {}
     }
 }

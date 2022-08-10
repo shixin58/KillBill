@@ -27,7 +27,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:gravity="center"
                 android:textStyle="normal"
-                android:onClick="@{activity.onJumpClick}"
+                android:onClick="@{activity::onJumpClick}"
                 android:text="scheme启动activity" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -39,7 +39,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_action_view"
                 android:gravity="center"
                 android:textStyle="italic"
-                android:onClick="@{activity.onJumpClick}"
+                android:onClick="@{activity::onJumpClick}"
                 android:text="action+category启动activity" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -50,7 +50,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_implicit"
                 android:gravity="center"
-                android:onClick="@{activity.onJumpClick}"
+                android:onClick="@{activity::onJumpClick}"
                 android:text="包名启动app" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -61,7 +61,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_app"
                 android:gravity="center"
-                android:onClick="@{activity.onJumpClick}"
+                android:onClick="@{activity::onJumpClick}"
                 android:text="包名+类名启动activity" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -72,7 +72,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_component"
                 android:gravity="center"
-                android:onClick="@{activity.onClick}"
+                android:onClick="@{activity::onClick}"
                 android:text="start外部服务" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -83,7 +83,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_start_service"
                 android:gravity="center"
-                android:onClick="@{activity.onClick}"
+                android:onClick="@{activity::onClick}"
                 android:text="open music" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -94,19 +94,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_open_music"
                 android:gravity="center"
-                android:onClick="@{activity.onClick}"
+                android:onClick="@{activity::onClick}"
                 android:text="send broadcast" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_send_broadcast2"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_send_broadcast"
-                android:gravity="center"
-                android:onClick="@{activity.onClick}"
-                android:text="send broadcast2" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_open_binder"
@@ -114,9 +103,9 @@
                 android:layout_height="40dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_send_broadcast2"
+                app:layout_constraintTop_toBottomOf="@id/tv_send_broadcast"
                 android:gravity="center"
-                android:onClick="@{activity.onClick}"
+                android:onClick="@{activity::onClick}"
                 android:text="open BinderActivity" />
 
             <View
@@ -137,7 +126,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_open_binder"
                 android:gravity="center"
-                android:onClick="@{activity.onOtherClick}"
+                android:onClick="@{activity::onOtherClick}"
                 android:text="线程切换" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -148,7 +137,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_changeThread"
                 android:gravity="center"
-                android:onClick="@{activity.onOtherClick}"
+                android:onClick="@{activity::onOtherClick}"
                 android:text="执行task" />
 
             <View
@@ -169,7 +158,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_execute_task"
                 android:gravity="center"
-                android:onClick="@{activity.onOtherClick}"
+                android:onClick="@{activity::onOtherClick}"
                 android:text="插件化" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
