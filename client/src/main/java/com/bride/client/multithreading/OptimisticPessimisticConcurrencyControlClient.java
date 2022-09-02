@@ -13,7 +13,7 @@ public class OptimisticPessimisticConcurrencyControlClient {
         // 乐观锁：读数据时直接读；写数据时判断别人有没更新数据，若有则不执行任何操作。
         int oldValue = atomicInteger.get();
         int newValue = oldValue+1;
-        // value用volatile修饰，getAndSet、compareAndSet采用Unsafe实现。
+        // AtomicInteger#value用volatile修饰，getAndSet、compareAndSet采用Unsafe实现。
         if (!atomicInteger.compareAndSet(oldValue, newValue)) {
             System.out.println("写失败，expect值不等于内存值");
         } else {
