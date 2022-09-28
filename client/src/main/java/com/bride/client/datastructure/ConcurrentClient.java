@@ -50,9 +50,13 @@ public class ConcurrentClient {
         Random random = new Random(31);
         ExecutorService exec = Executors.newCachedThreadPool();
         DelayQueue<DelayedTask> queue = new DelayQueue<>();
-        for (int i=0; i<20; i++)
+        // 插入延迟队列20个延迟任务，延迟时间在区间[0, 5000)随机取值
+        // add()/put()直接调用offer()，内部调用PriorityQueue#offer()
+        for (int i=0; i<20; i++) {
             queue.put(new DelayedTask(random.nextInt(5000)));
+        }
         queue.add(new EndSentinel(5000L, exec));
+        // 在单个线程执行整个队列所有任务
         exec.execute(new DelayedTaskConsumer(queue));
     }
 
@@ -60,25 +64,25 @@ public class ConcurrentClient {
         private static int counter = 0;
         private final int id = counter++;
 
-        final long delta;
-        final long trigger;
+        final long deltaMillis;
+        final long triggerNs;
 
-        DelayedTask(long delayInMilliseconds) {
-            this.delta = delayInMilliseconds;
-            this.trigger = System.nanoTime() + TimeUnit.NANOSECONDS.convert(delta, TimeUnit.MILLISECONDS);
+        DelayedTask(long delayInMillis) {
+            this.deltaMillis = delayInMillis;
+            this.triggerNs = System.nanoTime() + TimeUnit.NANOSECONDS.convert(deltaMillis, TimeUnit.MILLISECONDS);
         }
 
         @Override
         public long getDelay(TimeUnit unit) {
-            return unit.convert(trigger - System.nanoTime(), TimeUnit.NANOSECONDS);
+            return unit.convert(triggerNs - System.nanoTime(), TimeUnit.NANOSECONDS);
         }
 
         @Override
         public int compareTo(Delayed o) {
             DelayedTask delayedTask = (DelayedTask) o;
-            if (trigger < delayedTask.trigger)
+            if (triggerNs < delayedTask.triggerNs)
                 return -1;
-            if (trigger > delayedTask.trigger)
+            if (triggerNs > delayedTask.triggerNs)
                 return 1;
             return 0;
         }
@@ -91,15 +95,15 @@ public class ConcurrentClient {
         @NonNull
         @Override
         public String toString() {
-            return getClass().getSimpleName()+"["+id+", "+delta+"]";
+            return getClass().getSimpleName()+"["+id+", "+ deltaMillis +"]";
         }
     }
 
     // sentinel哨兵
     static class EndSentinel extends DelayedTask {
         private final ExecutorService exec;
-        EndSentinel(long delayInMilliseconds, ExecutorService exec) {
-            super(delayInMilliseconds);
+        EndSentinel(long delayInMillis, ExecutorService exec) {
+            super(delayInMillis);
             this.exec = exec;
         }
 
@@ -113,14 +117,15 @@ public class ConcurrentClient {
     static class DelayedTaskConsumer implements Runnable {
         private final DelayQueue<DelayedTask> delayQueue;
         DelayedTaskConsumer(DelayQueue<DelayedTask> q) {
-            delayQueue = q;
+            this.delayQueue = q;
         }
 
         @Override
         public void run() {
             try {
                 while (!Thread.interrupted()) {
-                    delayQueue.take().run();
+                    // 若队列为空，Condition#await(); 若小顶堆堆顶元素delay未到，Condition#awaitNanos()
+                    this.delayQueue.take().run();
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
