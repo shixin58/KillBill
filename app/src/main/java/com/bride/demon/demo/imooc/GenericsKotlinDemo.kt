@@ -1,5 +1,8 @@
 package com.bride.demon.demo.imooc
 
+import java.lang.reflect.ParameterizedType
+import kotlin.reflect.full.declaredFunctions
+
 fun main() {
     println(maxOf("a", "b"))
 
@@ -17,6 +20,19 @@ fun main() {
 
     // 星投影Star Projection
     val hashMap: HashMap<*,*> = HashMap<String, Int>()
+
+    // 打印泛型参数类型
+    IWaste::class.declaredFunctions.first { it.name == "getWastes" }
+        .returnType.arguments
+        .forEach { println(it) }
+    IWaste::class.java.getDeclaredMethod("getWastes")
+        .genericReturnType.safeAs<ParameterizedType>()?.actualTypeArguments
+        ?.forEach { println(it) }
+
+    // 通过signature拿到泛型实参，混淆时记得keep signature。
+    val subType = SubType()
+    subType.typeParameter.let(::println)
+    subType.typeParameterJava.let(::println)
 }
 
 // 泛型约束
@@ -81,3 +97,25 @@ fun contravariant() {
 
     dryWasteDustbin.put(dryWaste)
 }
+
+interface IWaste {
+    fun getWastes(): Map<Int,Waste>
+}
+
+fun <T> Any.safeAs(): T? {
+    return this as? T
+}
+
+abstract class SuperType<T> {
+    // 属性代理
+    val typeParameter by lazy {
+        this::class.supertypes.first().arguments.last().type!!
+    }
+
+    val typeParameterJava by lazy {
+        this.javaClass.genericSuperclass!!.safeAs<ParameterizedType>()!!
+            .actualTypeArguments.last()!!
+    }
+}
+
+class SubType: SuperType<String>()
