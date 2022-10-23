@@ -33,12 +33,14 @@ public class PermissionUtils {
     }
 
     public static void requestStoragePermission(Activity activity, int requestCode) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
             return;
-        if(ContextCompat.checkSelfPermission(CONTEXT, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            if(ActivityCompat.shouldShowRequestPermissionRationale(activity, READ_EXTERNAL_STORAGE)) {
+        if (ContextCompat.checkSelfPermission(CONTEXT, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(CONTEXT, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(activity, READ_EXTERNAL_STORAGE)
+                    || ActivityCompat.shouldShowRequestPermissionRationale(activity, WRITE_EXTERNAL_STORAGE)) {
                 Toast.makeText(activity, "您需要到系统设置里打开存储权限", Toast.LENGTH_SHORT).show();
-            }else {
+            } else {
                 ActivityCompat.requestPermissions(activity, new String[]{READ_EXTERNAL_STORAGE,
                         WRITE_EXTERNAL_STORAGE}, requestCode);
             }
@@ -67,12 +69,23 @@ public class PermissionUtils {
     public static void requestCameraPermission(Activity activity, int requestCode) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
             return;
-        if(ContextCompat.checkSelfPermission(CONTEXT, CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            if(ActivityCompat.shouldShowRequestPermissionRationale(activity, CAMERA)) {
-                Toast.makeText(activity, "您需要到系统设置里打开Camera权限", Toast.LENGTH_SHORT).show();
-            } else {
-                ActivityCompat.requestPermissions(activity, new String[]{CAMERA,
-                        WRITE_EXTERNAL_STORAGE}, requestCode);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if(ContextCompat.checkSelfPermission(CONTEXT, CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                if(ActivityCompat.shouldShowRequestPermissionRationale(activity, CAMERA)) {
+                    Toast.makeText(activity, "您需要到系统设置里打开Camera权限", Toast.LENGTH_SHORT).show();
+                } else {
+                    ActivityCompat.requestPermissions(activity, new String[]{CAMERA}, requestCode);
+                }
+            }
+        } else {
+            if(ContextCompat.checkSelfPermission(CONTEXT, CAMERA) != PackageManager.PERMISSION_GRANTED
+                    || ContextCompat.checkSelfPermission(CONTEXT, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                if(ActivityCompat.shouldShowRequestPermissionRationale(activity, CAMERA)
+                        || ActivityCompat.shouldShowRequestPermissionRationale(activity, WRITE_EXTERNAL_STORAGE)) {
+                    Toast.makeText(activity, "您需要到系统设置里打开Camera权限", Toast.LENGTH_SHORT).show();
+                } else {
+                    ActivityCompat.requestPermissions(activity, new String[]{CAMERA, WRITE_EXTERNAL_STORAGE}, requestCode);
+                }
             }
         }
     }
@@ -80,12 +93,23 @@ public class PermissionUtils {
     public static void requestRecordAudioPermission(Activity activity, int requestCode) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
             return;
-        if(ContextCompat.checkSelfPermission(CONTEXT, RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            if(ActivityCompat.shouldShowRequestPermissionRationale(activity, RECORD_AUDIO)) {
-                Toast.makeText(activity, "您需要到系统设置里打开录音权限", Toast.LENGTH_SHORT).show();
-            } else {
-                ActivityCompat.requestPermissions(activity, new String[]{RECORD_AUDIO,
-                        WRITE_EXTERNAL_STORAGE}, requestCode);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if(ContextCompat.checkSelfPermission(CONTEXT, RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                if(ActivityCompat.shouldShowRequestPermissionRationale(activity, RECORD_AUDIO)) {
+                    Toast.makeText(activity, "您需要到系统设置里打开录音权限", Toast.LENGTH_SHORT).show();
+                } else {
+                    ActivityCompat.requestPermissions(activity, new String[]{RECORD_AUDIO}, requestCode);
+                }
+            }
+        } else {
+            if(ContextCompat.checkSelfPermission(CONTEXT, RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED
+                    || ContextCompat.checkSelfPermission(CONTEXT, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                if(ActivityCompat.shouldShowRequestPermissionRationale(activity, RECORD_AUDIO)
+                        || ActivityCompat.shouldShowRequestPermissionRationale(activity, WRITE_EXTERNAL_STORAGE)) {
+                    Toast.makeText(activity, "您需要到系统设置里打开录音权限", Toast.LENGTH_SHORT).show();
+                } else {
+                    ActivityCompat.requestPermissions(activity, new String[]{RECORD_AUDIO, WRITE_EXTERNAL_STORAGE}, requestCode);
+                }
             }
         }
     }
@@ -94,12 +118,16 @@ public class PermissionUtils {
     public static void requestAllPermissions(Activity activity, int requestCode) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
             return;
+
         LinkedList<String> permissions = new LinkedList<>();
-        permissions.add(READ_EXTERNAL_STORAGE);
-        permissions.add(WRITE_EXTERNAL_STORAGE);
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+            permissions.add(READ_EXTERNAL_STORAGE);
+            permissions.add(WRITE_EXTERNAL_STORAGE);
+        }
         permissions.add(READ_PHONE_STATE);
         permissions.add(CAMERA);
         permissions.add(RECORD_AUDIO);
+
         Iterator<String> iterator = permissions.iterator();
         while (iterator.hasNext()) {
             String permission = iterator.next();
