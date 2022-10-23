@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bride.demon.R
 import com.bride.demon.databinding.FragmentBombBinding
 import com.bride.ui_lib.BaseFragment
 
@@ -26,7 +25,7 @@ class BombFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<View>(R.id.tv_start_bomb)?.setOnClickListener {
+        mBinding.tvStartBomb.setOnClickListener {
             mBinding.viewBomb.startBomb()
         }
     }

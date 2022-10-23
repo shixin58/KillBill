@@ -2,6 +2,7 @@
 <!-- 用tools:context猜测Activity的主题(在AndroidManifest设置) -->
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:viewBindingIgnore="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.PlatformActivity">
