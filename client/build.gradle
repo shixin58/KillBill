@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-parcelize'
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion COMPILE_SDK_VERSION as int
     buildToolsVersion BUILD_TOOLS_VERSION
@@ -19,10 +23,10 @@ android {
 
     signingConfigs {
         release {
-            keyAlias 'max'
-            keyPassword '123456'
-            storeFile file('../sign/jacob.keystore')
+            storeFile file('../sign/client.keystore')
             storePassword '123456'
+            keyAlias 'snow'
+            keyPassword '123456'
         }
     }
     buildTypes {
@@ -44,14 +48,18 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.appcompat:appcompat-resources:$appcompat_version"
 
-    implementation "com.google.android.material:material:$material_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+    implementation "com.google.android.material:material:$material_version"
 
-    debugImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-android', version: leakcanary_version
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version: kotlin_version
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: kotlinx_coroutines_version
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-android', version: kotlinx_coroutines_version
+
+//    debugImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-android', version: leakcanary_version
 
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
 
