@@ -55,11 +55,19 @@ fun <T : Any> T.deepCopy(): T {
     }
 }
 
+/**
+ * VO(业务展示Model)
+ */
 data class UserBrief(val id: Int, val name: String)
+
+/**
+ * DTO(网络请求Model)
+ */
 data class UserDetail(val id: Int, val name: String, val gender: String, val age: Int)
 
-// Model映射：网络请求Model和业务展示Model
-// reified泛型特化来拿到KClass
+/**
+ * Model映射：网络请求Model到业务展示Model。内联泛型特化(inline+reified)来拿到KClass。
+ */
 inline fun <reified From : Any,reified To : Any> From.mapAs(): To {
     return From::class.memberProperties.associate { it.name to it.get(this) }.mapAs()
 }
