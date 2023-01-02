@@ -1,6 +1,10 @@
 package com.bride.demon.demo.imooc
 
 import java.lang.reflect.ParameterizedType
+import java.util.Locale
+import java.util.concurrent.ConcurrentHashMap
+import kotlin.collections.HashMap
+import kotlin.reflect.KProperty
 import kotlin.reflect.full.declaredFunctions
 
 fun main() {
@@ -41,6 +45,14 @@ fun main() {
         .onConfirm { println("onConfirm") }
         .onCancel { println("onCancel") }
         .build().onConfirm()
+
+    // 基于泛型实现Model实例注入
+    initModels()
+    val mainViewModel = MainViewModel()
+    mainViewModel.databaseModel.query("select * from mysql.user").let(::println)
+    mainViewModel.networkModel.get("https://www.imooc.com").let(::println)
+    mainViewModel.spModel.hello()
+    mainViewModel.spModel2.hello()
 }
 
 // 泛型约束
@@ -183,4 +195,62 @@ class ConfirmNotificationBuilder: NotificationBuilder<ConfirmNotificationBuilder
     override fun build(): ConfirmNotification {
         return ConfirmNotification(title, content, onConfirm, onCancel)
     }
+}
+
+abstract class AbsModel(name: String? = null) {
+    val name: String = name?.takeIf { it.isNotBlank() }?:this.javaClass.simpleName
+
+    init {
+        Models.run { this@AbsModel.register(this@AbsModel.name) }
+    }
+}
+
+class DatabaseModel: AbsModel() {
+    fun query(sql: String): Int = 0
+}
+
+class NetworkModel: AbsModel() {
+    fun get(url: String): String = """{"code": 0}"""
+}
+
+class SpModel(name: String? = null): AbsModel(name) {
+    fun hello() {
+        println("HelloWorld, ${this.name}")
+    }
+}
+
+object Models {
+    private val modelMap = ConcurrentHashMap<String,AbsModel>()
+
+    fun AbsModel.register(name: String = this.javaClass.simpleName) {
+        modelMap[name] = this
+    }
+
+    fun <T: AbsModel> String.get(): T {
+        return modelMap[this] as T
+    }
+}
+
+fun initModels() {
+    DatabaseModel()
+    NetworkModel()
+    SpModel()
+    SpModel("SpModel2")
+}
+
+// 定义属性代理
+object ModelDelegate {
+    operator fun <T: AbsModel> getValue(thisRef: Any, property: KProperty<*>): T {
+        return Models.run {
+            property.name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+                .get()
+        }
+    }
+}
+
+class MainViewModel {
+    val databaseModel: DatabaseModel by ModelDelegate
+    val networkModel: NetworkModel by ModelDelegate
+    val spModel: SpModel by ModelDelegate
+    val spModel2: SpModel by ModelDelegate
 }
