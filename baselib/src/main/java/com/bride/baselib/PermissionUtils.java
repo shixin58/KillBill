@@ -1,5 +1,6 @@
 package com.bride.baselib;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -27,13 +28,14 @@ import java.util.LinkedList;
  * <p>Created by shixin on 2018/12/8.
  */
 public class PermissionUtils {
+    @SuppressLint("StaticFieldLeak")
     private static Context CONTEXT;
     public static void setContext(Context context) {
         CONTEXT = context.getApplicationContext();
     }
 
     public static void requestStoragePermission(Activity activity, int requestCode) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
             return;
         if (ContextCompat.checkSelfPermission(CONTEXT, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(CONTEXT, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {

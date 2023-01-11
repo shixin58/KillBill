@@ -36,7 +36,7 @@ fun main() {
     integers.asSequence()
         .flatMap {
             (0..it).asSequence()
-    }.joinToString()
+        }.joinToString()
         .let(::println)
 
     integers.zip('a'..'d') {
