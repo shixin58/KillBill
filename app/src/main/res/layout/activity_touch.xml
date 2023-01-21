@@ -34,7 +34,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:onClick="@{activity.onClick}"
+            android:onClick="@{activity::onClick}"
             android:gravity="center"
             android:text="左上角" />
     </com.bride.demon.widget.DispatchConstraintLayout>

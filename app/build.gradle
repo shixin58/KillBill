@@ -71,6 +71,7 @@ android {
         targetCompatibility JavaVersion.VERSION_11
         sourceCompatibility JavaVersion.VERSION_11
     }
+    kotlinOptions { jvmTarget = JavaVersion.VERSION_11 }
     ndkVersion ndk_version
 }
 
@@ -98,7 +99,7 @@ dependencies {
     implementation group: 'com.github.markzhai', name: 'blockcanary-no-op', version: blockcanary_version
 
     implementation group: 'com.github.bumptech.glide', name: 'glide', version: glide_version
-    annotationProcessor group: 'com.github.bumptech.glide', name: 'compiler', version: glide_version
+    kapt group: 'com.github.bumptech.glide', name: 'compiler', version: glide_version
     // 默认HttpUrlConnection，添加OkHttp或Volley依赖自动替换
     implementation "com.github.bumptech.glide:okhttp3-integration:$glide_version"
 //    implementation "com.github.bumptech.glide:volley-integration:$glide_version"

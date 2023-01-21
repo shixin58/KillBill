@@ -49,7 +49,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_marquee"
-            android:onClick="@{fragment.onClick}"
+            android:onClick="@{fragment::onClick}"
             android:gravity="center"
             android:text="跳转到StandardActivity" />
 
@@ -60,7 +60,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_standard"
-            android:onClick="@{fragment.onClick}"
+            android:onClick="@{fragment::onClick}"
             android:gravity="center"
             android:text="跳转到SingleTopActivity" />
 
@@ -71,7 +71,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_single_top"
-            android:onClick="@{fragment.onClick}"
+            android:onClick="@{fragment::onClick}"
             android:gravity="center"
             android:text="跳转到SingleTaskActivity" />
 
@@ -82,7 +82,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_single_task"
-            android:onClick="@{fragment.onClick}"
+            android:onClick="@{fragment::onClick}"
             android:gravity="center"
             android:text="跳转到SingleInstanceActivity" />
     </androidx.constraintlayout.widget.ConstraintLayout>

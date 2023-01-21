@@ -21,7 +21,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{fragment.onClick}"
+            android:onClick="@{fragment::onClick}"
             android:gravity="center"
             android:text="@string/test_surfaceview" />
 
@@ -32,7 +32,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_base"
-            android:onClick="@{fragment.onClick}"
+            android:onClick="@{fragment::onClick}"
             android:gravity="center"
             android:text="@string/test_customview" />
 
@@ -43,7 +43,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_custom_view"
-            android:onClick="@{fragment.onClick}"
+            android:onClick="@{fragment::onClick}"
             android:gravity="center"
             android:text="@string/test_textureview" />
 
@@ -54,7 +54,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_texture_view"
-            android:onClick="@{fragment.onClick}"
+            android:onClick="@{fragment::onClick}"
             android:gravity="center"
             android:text="@string/test_mediarecorder" />
 
@@ -65,7 +65,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_audio_record"
-            android:onClick="@{fragment.onClick}"
+            android:onClick="@{fragment::onClick}"
             android:gravity="center"
             android:text="@string/test_videoview" />
 
@@ -76,7 +76,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_video"
-            android:onClick="@{fragment.onClick}"
+            android:onClick="@{fragment::onClick}"
             android:gravity="center"
             android:text="@string/test_glsurfaceview" />
 
@@ -87,7 +87,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_glsurfaceview"
-            android:onClick="@{fragment.onClick}"
+            android:onClick="@{fragment::onClick}"
             android:gravity="center"
             android:text="@string/test_camera3d" />
 
@@ -98,7 +98,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_camera3d"
-            android:onClick="@{fragment.onClick}"
+            android:onClick="@{fragment::onClick}"
             android:gravity="center"
             android:text="@string/test_dice_royale" />
     </androidx.constraintlayout.widget.ConstraintLayout>

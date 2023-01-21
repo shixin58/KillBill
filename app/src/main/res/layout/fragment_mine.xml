@@ -19,7 +19,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{fragment.onClick}"
+            android:onClick="@{fragment::onClick}"
             android:gravity="center"
             android:text="@string/mine_btn_login" />
 
@@ -30,7 +30,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_login"
-            android:onClick="@{fragment.onClick}"
+            android:onClick="@{fragment::onClick}"
             android:gravity="center"
             android:text="@string/mine_btn_codec" />
 
@@ -41,7 +41,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_codec"
-            android:onClick="@{fragment.onClick}"
+            android:onClick="@{fragment::onClick}"
             android:gravity="center"
             android:text="@string/mine_btn_job_scheduler" />
 
@@ -62,7 +62,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_job_scheduler"
-            android:onClick="@{fragment.onServiceClick}"
+            android:onClick="@{fragment::onServiceClick}"
             android:gravity="center"
             android:text="启动remote服务" />
 
@@ -73,7 +73,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_switch"
-            android:onClick="@{fragment.onServiceClick}"
+            android:onClick="@{fragment::onServiceClick}"
             android:gravity="center"
             android:text="use子进程服务" />
 
@@ -94,7 +94,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_use_service"
-            android:onClick="@{fragment.onConnectClick}"
+            android:onClick="@{fragment::onConnectClick}"
             android:gravity="center"
             android:text="connect remote" />
 
@@ -105,7 +105,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_connect_remote"
-            android:onClick="@{fragment.onConnectClick}"
+            android:onClick="@{fragment::onConnectClick}"
             android:gravity="center"
             android:text="isConnected" />
 
@@ -116,7 +116,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_is_connected"
-            android:onClick="@{fragment.onConnectClick}"
+            android:onClick="@{fragment::onConnectClick}"
             android:gravity="center"
             android:text="disconnect remote" />
 
@@ -137,7 +137,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_disconnect_remote"
-            android:onClick="@{fragment.onMessageClick}"
+            android:onClick="@{fragment::onMessageClick}"
             android:gravity="center"
             android:text="send msg" />
 
@@ -148,7 +148,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_send_msg"
-            android:onClick="@{fragment.onMessageClick}"
+            android:onClick="@{fragment::onMessageClick}"
             android:gravity="center"
             android:text="register" />
 
@@ -159,7 +159,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_register"
-            android:onClick="@{fragment.onMessageClick}"
+            android:onClick="@{fragment::onMessageClick}"
             android:gravity="center"
             android:text="unregister" />
 
@@ -180,7 +180,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_unregister"
-            android:onClick="@{fragment.onMessengerClick}"
+            android:onClick="@{fragment::onMessengerClick}"
             android:gravity="center"
             android:text="sendByMessenger" />
     </androidx.constraintlayout.widget.ConstraintLayout>

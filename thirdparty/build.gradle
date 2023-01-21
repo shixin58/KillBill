@@ -57,6 +57,8 @@ android {
         targetCompatibility JavaVersion.VERSION_11
         sourceCompatibility JavaVersion.VERSION_11
     }
+    kotlinOptions { jvmTarget = JavaVersion.VERSION_11 }
+    ndkVersion ndk_version
 }
 
 dependencies {

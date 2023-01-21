@@ -50,6 +50,8 @@ android {
         targetCompatibility JavaVersion.VERSION_11
         sourceCompatibility JavaVersion.VERSION_11
     }
+    kotlinOptions { jvmTarget = JavaVersion.VERSION_11 }
+    ndkVersion ndk_version
 
     /*flavorDimensions "abi"
     productFlavors {
@@ -95,7 +97,7 @@ dependencies {
 //    debugImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-android', version: leakcanary_version
 
     implementation group: 'com.github.bumptech.glide', name: 'glide', version: glide_version
-    annotationProcessor group: 'com.github.bumptech.glide', name: 'compiler', version: glide_version
+    kapt group: 'com.github.bumptech.glide', name: 'compiler', version: glide_version
 
     implementation "io.github.scwang90:refresh-layout-kernel:$smart_refresh_layout_version" // 核心必须依赖
     implementation "io.github.scwang90:refresh-header-classics:$smart_refresh_layout_version" // 经典刷新头

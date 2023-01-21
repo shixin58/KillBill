@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:gravity="center"
             android:text="network request"
-            android:onClick="@{activity.onClick}" />
+            android:onClick="@{activity::onClick}" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_rxjava"
@@ -34,7 +34,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_network"
             android:gravity="center"
             android:text="request by rxjava"
-            android:onClick="@{activity.onClick}" />
+            android:onClick="@{activity::onClick}" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_asynctask"
@@ -45,7 +45,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_rxjava"
             android:gravity="center"
             android:text="request by asynctask"
-            android:onClick="@{activity.onClick}" />
+            android:onClick="@{activity::onClick}" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_suspend"
@@ -56,7 +56,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_asynctask"
             android:gravity="center"
             android:text="request by suspend"
-            android:onClick="@{activity.onClick}" />
+            android:onClick="@{activity::onClick}" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_suspend2"
@@ -67,7 +67,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_suspend"
             android:gravity="center"
             android:text="request by suspend2"
-            android:onClick="@{activity.onClick}" />
+            android:onClick="@{activity::onClick}" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_suspend3"
@@ -78,7 +78,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_suspend2"
             android:gravity="center"
             android:text="request by startCoroutine"
-            android:onClick="@{activity.onClick}" />
+            android:onClick="@{activity::onClick}" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_suspend4"
@@ -89,6 +89,6 @@
             app:layout_constraintTop_toBottomOf="@id/tv_suspend3"
             android:gravity="center"
             android:text="request by suspendCoroutine"
-            android:onClick="@{activity.onClick}" />
+            android:onClick="@{activity::onClick}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

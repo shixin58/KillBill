@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/videoView"
-            android:onClick="@{activity.onClick}"
+            android:onClick="@{activity::onClick}"
             android:textOff="paused"
             android:textOn="started" />
 
@@ -80,7 +80,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/btn_start"
             app:layout_constraintBottom_toBottomOf="@id/btn_start"
-            android:onClick="@{activity.onClick}"
+            android:onClick="@{activity::onClick}"
             android:gravity="center"
             android:text="60" />
     </androidx.constraintlayout.widget.ConstraintLayout>

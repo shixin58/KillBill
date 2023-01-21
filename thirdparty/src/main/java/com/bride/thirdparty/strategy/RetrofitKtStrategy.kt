@@ -37,7 +37,7 @@ object RetrofitKtStrategy {
             // 2）suspend fun返回，恢复主调用流程，但未回到调用前的协程(主线程)
             Log.i("RetrofitKtStrategy", "testSuspend ${wrapperModel.result}")
             wrapperModel
-        }.startCoroutine(object : Continuation<WrapperModel<PhoneNumberModel>>{
+        }.startCoroutine(object : Continuation<WrapperModel<PhoneNumberModel>> {
             override val context: CoroutineContext
                 get() = EmptyCoroutineContext
 
@@ -49,7 +49,7 @@ object RetrofitKtStrategy {
     }
 
     fun testSuspend2() {
-        suspend {
+        suspend {// suspend () -> Unit
             // 2）调用suspend fun(挂起点)，主调用流程挂起
             // SafeContinuation#delegate包装SuspendLambda
             Log.i("RetrofitKtStrategy", "testSuspend2 开始执行协程逻辑")
@@ -57,7 +57,7 @@ object RetrofitKtStrategy {
             // 4）suspend fun返回，恢复主调用流程
             Log.i("RetrofitKtStrategy", "testSuspend2 $result")
             result
-        }.createCoroutine(object : Continuation<String>{
+        }.createCoroutine(object : Continuation<String> {
             override val context: CoroutineContext
                 get() = EmptyCoroutineContext
 
@@ -69,7 +69,7 @@ object RetrofitKtStrategy {
     }
 
     // 编译后的class字节码反编译会追加Continuation参数，通过suspendCoroutine拿到SafeContinuation
-    private suspend fun getNameSuspend(id: Int) = suspendCoroutine<String> {continuation ->
+    private suspend fun getNameSuspend(id: Int) = suspendCoroutine<String> { continuation ->
         // 模拟线程切换。真正的挂起指切换到其他线程再resume(返回正常结果) or resumeWithException(返回异常)，返回COROUTINE_SUSPENDED。
         thread {
             // 3）执行resume后，外围suspend函数恢复
