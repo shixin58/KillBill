@@ -1,6 +1,8 @@
 package com.bride.demon.demo.imooc
 
 import kotlinx.coroutines.delay
+import java.util.Date
+import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicReference
 import kotlin.coroutines.*
@@ -43,19 +45,19 @@ suspend fun main() {
         println(i)
     }
 
-    // 3）仿Lua协程实现非对程协程(挂起恢复后，调度权还给挂起点线程)
+    // 3）仿Lua协程实现非对称协程(挂起恢复后，调度权还给挂起点线程)
     val producer = Coroutine.create<Unit,Int>(Dispatcher()) {
         for (i in 0..3) {
-            println("send $i")
+            log("send $i")
             yield(i)
         }
         200
     }
     val consumer = Coroutine.create<Int,Unit>(Dispatcher()) { param ->
-        println("start $param")
+        log("start $param")
         for (i in 0..3) {
             val value = yield(Unit)
-            println("receive $value")
+            log("receive $value")
         }
     }
     while (producer.isActive && consumer.isActive) {
@@ -65,7 +67,12 @@ suspend fun main() {
         consumer.resume(result)
     }
 
-    // 4）基于非对程协程实现对称协程
+    // 4）基于非对称协程实现对称协程
+    SymCoroutine.main {
+        println("main 0")
+        val result = transfer(SymCoroutines.coroutine2, 3)
+        println("main end $result")
+    }
 }
 
 interface Generator<T> {
@@ -232,25 +239,125 @@ class Coroutine<P,R>(
             else -> {}
         }
     }
+
+    suspend fun <SymT> SymCoroutine<SymT>.yield(result: R): P {
+        return body.yield(result)
+    }
 }
 
 /** 拦截Continuation */
 class Dispatcher : ContinuationInterceptor {
     override val key = ContinuationInterceptor
 
+    // 创建出来的线程不是幽灵线程，会一直在后台运行
+    private val executor = Executors.newSingleThreadExecutor()
+
     override fun <T> interceptContinuation(continuation: Continuation<T>): Continuation<T> {
-        return DispatcherContinuation(continuation)
+        return DispatcherContinuation(continuation, executor)
     }
 }
 
 /** 线程切换，使用Executor */
-class DispatcherContinuation<T>(val continuation: Continuation<T>) : Continuation<T> by continuation {
-    // 创建出来的线程不是幽灵线程，会一直在后台运行
-    private val executor = Executors.newSingleThreadExecutor()
+class DispatcherContinuation<T>(val continuation: Continuation<T>, val executor: Executor) : Continuation<T> by continuation {
 
     override fun resumeWith(result: Result<T>) {
-        executor.submit {
+        // 不关注结果，所以不需要submit()
+        executor.execute {
             continuation.resumeWith(result)
         }
     }
+}
+
+class SymCoroutine<T>(
+    override val context: CoroutineContext = EmptyCoroutineContext,
+    private val block: suspend SymCoroutine<T>.SymCoroutineBody.(T) -> Unit
+) : Continuation<T> {
+    companion object {
+        lateinit var main: SymCoroutine<Any?>
+
+        suspend fun main(block: suspend SymCoroutine<Any?>.SymCoroutineBody.() -> Unit) {
+            // 启动调度中心协程Main
+            SymCoroutine<Any?>{ block() }.also { main = it }.start(Unit)
+        }
+
+        fun <T> create(context: CoroutineContext = EmptyCoroutineContext,
+                       block: suspend SymCoroutine<T>.SymCoroutineBody.(T) -> Unit): SymCoroutine<T> {
+            return SymCoroutine(context, block)
+        }
+    }
+
+    inner class SymCoroutineBody {
+        private tailrec suspend fun <P> transferInner(symCoroutine: SymCoroutine<P>, value: Any?): T {// 尾递归优化
+            // 先把自己挂起。先判断自己是不是调度中心，即Main。
+            if (this@SymCoroutine.isMain) {
+                return if (symCoroutine.isMain) {
+                    value as T
+                } else {
+                    val parameter = symCoroutine.coroutine.resume(value as P)
+                    transferInner(parameter.coroutine, parameter.value)
+                }
+            } else {
+                this@SymCoroutine.coroutine.run {
+                    return yield(Parameter(symCoroutine, value as P))
+                }
+            }
+        }
+
+        suspend fun <P> transfer(symCoroutine: SymCoroutine<P>, value: P): T {
+            // Kotlin强类型，所以Any
+            return transferInner(symCoroutine, value)
+        }
+    }
+
+    class Parameter<T>(val coroutine: SymCoroutine<T>, val value: T)
+
+    val isMain: Boolean
+        get() = this == main
+
+    private val body = SymCoroutineBody()
+
+    private val coroutine = Coroutine<T,Parameter<*>>(context) {
+        Parameter(this@SymCoroutine, suspend {
+            block(body, it)
+            // 对称协程不能执行完，除非Main
+            if (this@SymCoroutine.isMain) Unit else throw IllegalStateException("SymCoroutine cannot be dead!")
+        }() as T)
+    }
+
+    override fun resumeWith(result: Result<T>) {
+        throw IllegalStateException("SymCoroutine cannot be dead!")
+    }
+
+    suspend fun start(value: T) {
+        coroutine.resume(value)
+    }
+}
+
+/** 定义了三个对等的协程 */
+object SymCoroutines {
+    val coroutine0: SymCoroutine<Int> = SymCoroutine.create { param ->
+        println("coroutine-0 $param")
+        var result = transfer(coroutine2, 0)
+        println("coroutine-0 1 $result")
+        result = transfer(SymCoroutine.main, Unit)
+        println("coroutine-0 2 $result")
+    }
+
+    val coroutine1: SymCoroutine<Int> = SymCoroutine.create { param ->
+        println("coroutine-1 $param")
+        val result = transfer(coroutine0, 1)
+        println("coroutine-1 1 $result")
+    }
+
+    val coroutine2: SymCoroutine<Int> = SymCoroutine.create { param ->
+        println("coroutine-2 $param")
+        var result = transfer(coroutine1, 2)
+        println("coroutine-2 1 $result")
+        result = transfer(coroutine0, 2)
+        println("coroutine-2 2 $result")
+    }
+}
+
+fun log(msg: Any) {
+    println("${Date()} ${Thread.currentThread().name} $msg")
 }
