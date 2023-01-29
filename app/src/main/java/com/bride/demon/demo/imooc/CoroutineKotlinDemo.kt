@@ -73,6 +73,23 @@ suspend fun main() {
         val result = transfer(SymCoroutines.coroutine2, 3)
         println("main end $result")
     }
+
+    // 5）仿Go-Channel实现协程通信
+    val channel = SimpleChannel<Int>()
+
+    go("producer") {
+        for (i in 0..6) {
+            log("send $i")
+            channel.send(i)
+        }
+    }
+    go("consumer", channel::close) {
+        for (i in 0..5) {
+            log("receive")
+            val got = channel.receive()
+            log("got $got")
+        }
+    }
 }
 
 interface Generator<T> {
@@ -358,6 +375,85 @@ object SymCoroutines {
     }
 }
 
+/**
+ * 用不了android Log API。因此封装了println，便于查看时间和线程
+ */
 fun log(msg: Any) {
     println("${Date()} ${Thread.currentThread().name} $msg")
+}
+
+interface Channel<T> {
+    suspend fun send(value: T)
+
+    suspend fun receive(): T
+
+    fun close()
+}
+
+class ClosedException(msg: String) : Exception(msg)
+
+class SimpleChannel<T> : Channel<T> {
+    sealed class Element {
+        override fun toString(): String {
+            // Object#getClass()
+            return this.javaClass.simpleName
+        }
+
+        object None : Element()// 没发送没接收的状态
+        class Producer<T>(val value: T, val continuation: Continuation<Unit>) : Element()
+        class Consumer<T>(val continuation: Continuation<T>) : Element()
+        object Closed : Element()
+    }
+
+    private val state = AtomicReference<Element>(Element.None)
+
+    override suspend fun send(value: T) = suspendCoroutine<Unit> { continuation ->
+        // 状态机状态流转
+        val pre = state.getAndUpdate {
+            when(it) {
+                Element.Closed -> throw IllegalStateException("Can't send after closed.")
+                is Element.Consumer<*> -> Element.None
+                Element.None -> Element.Producer(value, continuation)
+                is Element.Producer<*> -> throw IllegalStateException("Can't send new element while previous element isn't consumed.")
+            }
+        }
+
+        (pre as? Element.Consumer<T>)?.continuation?.resume(value)?.let { continuation.resume(Unit)/*发送完恢复自己*/ }
+    }
+
+    override suspend fun receive(): T = suspendCoroutine<T> { continuation ->
+        val pre = state.getAndUpdate {
+            when(it) {
+                Element.Closed -> throw IllegalStateException("Can't receive after closed.")
+                is Element.Consumer<*> -> throw IllegalStateException("Can't receive new element while previous element isn't provided.")
+                Element.None -> Element.Consumer(continuation)
+                is Element.Producer<*> -> Element.None
+            }
+        }
+
+        (pre as? Element.Producer<T>)?.let {
+            it.continuation.resume(Unit)
+            continuation.resume(it.value)// 收快递的把东西拿走
+        }
+    }
+
+    override fun close() {
+        val prev = state.getAndUpdate { Element.Closed }
+        if (prev is Element.Consumer<*>) {// 有人在等待接收
+            prev.continuation.resumeWithException(ClosedException("Channel is closed."))
+        } else if (prev is Element.Producer<*>) {// 有人在发送
+            prev.continuation.resumeWithException(ClosedException("Channel is closed."))
+        }
+    }
+}
+
+fun go(name: String = "", completion: () -> Unit = {}, block: suspend () -> Unit) {
+    block.startCoroutine(object : Continuation<Any> {
+        override val context = DispatcherContext()
+
+        override fun resumeWith(result: Result<Any>) {
+            log("end $name $result")
+            completion()
+        }
+    })
 }
