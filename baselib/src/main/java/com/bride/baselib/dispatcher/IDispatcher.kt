@@ -1,4 +1,4 @@
-package com.bride.demon.demo.imooc
+package com.bride.baselib.dispatcher
 
 import kotlin.coroutines.AbstractCoroutineContextElement
 import kotlin.coroutines.Continuation

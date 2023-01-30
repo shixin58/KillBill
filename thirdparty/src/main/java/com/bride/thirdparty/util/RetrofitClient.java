@@ -1,7 +1,6 @@
 package com.bride.thirdparty.util;
 
 import com.bride.baselib.net.Urls;
-import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import java.lang.ref.SoftReference;
 
@@ -20,7 +19,7 @@ public class RetrofitClient {
     public static Retrofit getRetrofit() {
         if (mRetrofitSR == null || mRetrofitSR.get() == null) {
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                    .addNetworkInterceptor(new StethoInterceptor())
+//                    .addNetworkInterceptor(new StethoInterceptor())
                     .build();
             Retrofit retrofit = new Retrofit.Builder()
                     .client(okHttpClient)

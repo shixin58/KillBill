@@ -13,7 +13,7 @@ import kotlin.concurrent.thread
 import kotlin.coroutines.*
 
 object RetrofitKtStrategy {
-    private var mService: IService = RetrofitClient.getRetrofit().create(IService::class.java)
+    val mService: IService = RetrofitClient.getRetrofit().create(IService::class.java)
 
     fun getPhoneInfo() {
         MainScope().launch {
