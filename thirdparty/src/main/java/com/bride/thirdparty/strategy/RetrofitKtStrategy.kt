@@ -6,6 +6,7 @@ import com.bride.baselib.bean.WrapperModel
 import com.bride.baselib.net.Urls
 import com.bride.thirdparty.protocal.IService
 import com.bride.thirdparty.util.RetrofitClient
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -23,7 +24,8 @@ object RetrofitKtStrategy {
     }
 
     fun getPhoneInfo2() {
-        GlobalScope.launch {
+        // 设置线程调度器，即恢复执行所在线程
+        GlobalScope.launch(Dispatchers.IO) {
             val wrapperModel = mService.getPhoneInfoSuspend("13701116418", Urls.JUHE_KEY)
             Log.i("RetrofitKtStrategy", "getPhoneInfo2 ${wrapperModel.result}")
         }

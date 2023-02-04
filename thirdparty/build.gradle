@@ -82,7 +82,6 @@ dependencies {
     implementation "com.facebook.stetho:stetho-urlconnection:$stetho_version"
     // enable a JavaScript console
     implementation "com.facebook.stetho:stetho-js-rhino:$stetho_version"
-    implementation "com.bennyhuo:portable-android-handler:1.0"
 
 //    debugImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-android', version: leakcanary_version
 
