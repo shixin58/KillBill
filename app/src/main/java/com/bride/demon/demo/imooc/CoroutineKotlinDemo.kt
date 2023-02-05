@@ -1,8 +1,8 @@
 package com.bride.demon.demo.imooc
 
 import com.bride.baselib.dispatcher.DispatcherContext
+import com.bride.baselib.log
 import kotlinx.coroutines.delay
-import java.util.Date
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicReference
@@ -374,13 +374,6 @@ object SymCoroutines {
         result = transfer(coroutine0, 2)
         println("coroutine-2 2 $result")
     }
-}
-
-/**
- * 用不了android Log API。因此封装了println，便于查看时间和线程
- */
-fun log(msg: Any) {
-    println("${Date()} ${Thread.currentThread().name} $msg")
 }
 
 interface Channel<T> {

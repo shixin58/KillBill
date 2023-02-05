@@ -4,6 +4,7 @@ import com.bride.baselib.dispatcher.DispatcherContext
 import com.bride.baselib.dispatcher.Dispatchers
 import com.bride.demon.demo.imooc.core.BlockingCoroutine
 import com.bride.demon.demo.imooc.core.BlockingQueueDispatcher
+import com.bride.demon.demo.imooc.core.DeferredCoroutine
 import com.bride.demon.demo.imooc.core.StandardCoroutine
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.coroutines.ContinuationInterceptor
@@ -16,6 +17,12 @@ private val coroutineIndex = AtomicInteger(0)
 fun launch(context: CoroutineContext = EmptyCoroutineContext, block: suspend () -> Unit): Job {
     // 将线程调度器设置给Completion的context
     val completion = StandardCoroutine(newCoroutineContext(context))
+    block.startCoroutine(completion)
+    return completion
+}
+
+fun <T> async(context: CoroutineContext = EmptyCoroutineContext, block: suspend () -> T): Deferred<T> {
+    val completion = DeferredCoroutine<T>(newCoroutineContext(context))
     block.startCoroutine(completion)
     return completion
 }

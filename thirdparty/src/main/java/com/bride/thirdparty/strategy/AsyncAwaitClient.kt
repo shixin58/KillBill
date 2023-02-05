@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import com.bride.baselib.dispatcher.DispatcherContext
 import com.bride.baselib.dispatcher.IDispatcher
+import com.bride.baselib.log
 import com.bride.baselib.net.Urls
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,7 +23,7 @@ fun main() {
     })
     async(handlerDispatcher) {
         val wrapperModel = await { RetrofitKtStrategy.mService.getPhoneInfo("13701116418", Urls.JUHE_KEY) }
-        println("${Thread.currentThread().name} ${wrapperModel.result}")
+        log("${Thread.currentThread().name} ${wrapperModel.result}")
     }
     Looper.loop()
 }

@@ -1,8 +1,8 @@
 package com.bride.demon.demo.imooc.sample
 
+import com.bride.baselib.log
 import com.bride.demon.demo.imooc.delay
 import com.bride.demon.demo.imooc.launch
-import com.bride.demon.demo.imooc.log
 import com.bride.demon.demo.imooc.runBlocking
 
 fun main() = runBlocking {

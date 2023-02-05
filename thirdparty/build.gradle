@@ -90,6 +90,9 @@ dependencies {
     implementation "io.reactivex.rxjava3:rxjava:$rxjava_version"
     implementation "io.reactivex.rxjava3:rxandroid:$rxandroid_version"
 
+    // compileOnly 'com.google.android:android:4.1.1.4'
+    implementation "com.bennyhuo:portable-android-handler:1.0"
+
     implementation project(':baselib')
     implementation project(':ui_lib')
 }
