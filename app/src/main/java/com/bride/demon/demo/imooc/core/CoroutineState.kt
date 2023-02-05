@@ -26,10 +26,17 @@ sealed class CoroutineState {
         }
     }
 
+    fun notifyCancellation() {
+        this.disposableList.loopOn<CancellationHandlerDisposable> {
+            it.onCancel()
+        }
+    }
+
     fun clear() {
         this.disposableList = DisposableList.Nil
     }
 
     class InComplete : CoroutineState()
+    class Cancelling : CoroutineState()
     class Complete<T>(val value: T? = null, val exception: Throwable? = null) : CoroutineState()
 }

@@ -13,6 +13,9 @@ interface Job : CoroutineContext.Element {
     override val key: CoroutineContext.Key<*>
         get() = Job
 
+    /**
+     * 类似Thread#isAlive()
+     */
     val isActive: Boolean
 
     val isCompleted: Boolean
@@ -23,7 +26,13 @@ interface Job : CoroutineContext.Element {
 
     fun remove(disposable: Disposable)
 
+    /**
+     * 类似Thread#join()
+     */
     suspend fun join()
 
+    /**
+     * 类似Thread#interrupt()
+     */
     fun cancel()
 }

@@ -9,8 +9,10 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-abstract class AbstractCoroutine<T>(override val context: CoroutineContext) : Job, Continuation<T> {
+abstract class AbstractCoroutine<T>(context: CoroutineContext) : Job, Continuation<T> {
     protected val state = AtomicReference<CoroutineState>()
+
+    override val context: CoroutineContext = context + this
 
     init {
         state.set(CoroutineState.InComplete())
@@ -19,6 +21,7 @@ abstract class AbstractCoroutine<T>(override val context: CoroutineContext) : Jo
     override fun resumeWith(result: Result<T>) {
         val newState = state.updateAndGet { prevState ->
             when(prevState) {
+                is CoroutineState.Cancelling,
                 is CoroutineState.InComplete -> {
                     CoroutineState.Complete(result.getOrNull(), result.exceptionOrNull()).from(prevState)
                 }
@@ -44,24 +47,41 @@ abstract class AbstractCoroutine<T>(override val context: CoroutineContext) : Jo
     }
 
     override fun invokeOnCancel(onCancel: OnCancel): Disposable {
-        TODO("Not yet implemented")
+        val disposable = CancellationHandlerDisposable(this, onCancel)
+        val newState = state.updateAndGet { prevState ->
+            when(prevState) {
+                is CoroutineState.Cancelling,
+                is CoroutineState.Complete<*> -> prevState
+                is CoroutineState.InComplete -> {
+                    CoroutineState.InComplete().from(prevState).with(disposable)
+                }
+            }
+        }
+        (newState as? CoroutineState.Cancelling)?.let {
+            onCancel()
+        }
+        return disposable
     }
 
     override fun remove(disposable: Disposable) {
         state.updateAndGet { prevState ->
             when(prevState) {
-                is CoroutineState.Complete<*> -> prevState
                 is CoroutineState.InComplete -> {
                     CoroutineState.InComplete().from(prevState).without(disposable)
                 }
+                is CoroutineState.Cancelling -> {
+                    CoroutineState.Cancelling().from(prevState).without(disposable)
+                }
+                is CoroutineState.Complete<*> -> prevState
             }
         }
     }
 
     override suspend fun join() {
         when(state.get()) {
-            is CoroutineState.Complete<*> -> return
+            is CoroutineState.Cancelling,
             is CoroutineState.InComplete -> joinSuspend()
+            is CoroutineState.Complete<*> -> return
         }
     }
 
@@ -76,9 +96,10 @@ abstract class AbstractCoroutine<T>(override val context: CoroutineContext) : Jo
         val newState = state.updateAndGet { prevState ->
             when(prevState) {
                 is CoroutineState.InComplete -> {
-                    CoroutineState.InComplete()
-                        .from(prevState)
-                        .with(disposable)
+                    CoroutineState.InComplete().from(prevState).with(disposable)
+                }
+                is CoroutineState.Cancelling -> {
+                    CoroutineState.Cancelling().from(prevState).with(disposable)
                 }
                 is CoroutineState.Complete<*> -> {
                     // 已经结束，什么都不干
@@ -99,6 +120,17 @@ abstract class AbstractCoroutine<T>(override val context: CoroutineContext) : Jo
     }
 
     override fun cancel() {
-        TODO("Not yet implemented")
+        val newState = state.updateAndGet { prevState ->
+            when(prevState) {
+                is CoroutineState.Cancelling,
+                is CoroutineState.Complete<*> -> prevState
+                is CoroutineState.InComplete -> {
+                    CoroutineState.Cancelling().from(prevState)
+                }
+            }
+        }
+        if (newState is CoroutineState.Cancelling) {
+            newState.notifyCancellation()
+        }
     }
 }

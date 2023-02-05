@@ -7,8 +7,9 @@ import kotlin.coroutines.suspendCoroutine
 class DeferredCoroutine<T>(context: CoroutineContext) : AbstractCoroutine<T>(context), Deferred<T> {
     override suspend fun await(): T {
         return when(val currentState = state.get()) {
-            is CoroutineState.Complete<*> -> (currentState.value as? T)?:throw currentState.exception!!
+            is CoroutineState.Cancelling,
             is CoroutineState.InComplete -> awaitSuspend()
+            is CoroutineState.Complete<*> -> (currentState.value as? T)?:throw currentState.exception!!
         }
     }
 

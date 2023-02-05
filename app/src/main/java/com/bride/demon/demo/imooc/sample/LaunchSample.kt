@@ -15,10 +15,12 @@ suspend fun main() {
         // 未设置调度器，所以未进行线程切换。在哪resume，返回后在哪个线程执行。
         log("2 $result")
         // 仿官方框架实现delay
+        // delay响应cancel事件
         delay(1000L)
         log("3")
     }
     log(job.isActive)
+    job.cancel()
     job.join()
 }
 
