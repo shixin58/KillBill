@@ -1,8 +1,6 @@
 package com.bride.demon.demo.imooc.core
 
-import com.bride.demon.demo.imooc.Job
-import com.bride.demon.demo.imooc.OnCancel
-import com.bride.demon.demo.imooc.OnComplete
+import com.bride.demon.demo.imooc.*
 import java.util.concurrent.atomic.AtomicReference
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.CoroutineContext
@@ -30,8 +28,25 @@ abstract class AbstractCoroutine<T>(context: CoroutineContext) : Job, Continuati
                 }
             }
         }
+
+        (newState as CoroutineState.Complete<T>).exception?.let(::tryHandleException)
+
         newState.notifyCompletion(result)
         newState.clear()
+    }
+
+    private fun tryHandleException(e: Throwable): Boolean {
+        return when(e) {
+            is CancellationException -> false// 有协程被取消，并且有挂起函数响应了
+            else -> {
+                handleJobException(e)
+            }
+        }
+    }
+
+    protected open fun handleJobException(e: Throwable): Boolean {
+        // 此处不处理，需要子类来覆写
+        return false
     }
 
     override val isActive: Boolean
@@ -132,5 +147,9 @@ abstract class AbstractCoroutine<T>(context: CoroutineContext) : Job, Continuati
         if (newState is CoroutineState.Cancelling) {
             newState.notifyCancellation()
         }
+    }
+
+    override fun toString(): String {
+        return "${context[CoroutineName]?.name}"
     }
 }

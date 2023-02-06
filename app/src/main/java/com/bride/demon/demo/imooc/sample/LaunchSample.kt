@@ -1,6 +1,8 @@
 package com.bride.demon.demo.imooc.sample
 
 import com.bride.baselib.log
+import com.bride.demon.demo.imooc.Job
+import com.bride.demon.demo.imooc.core.CoroutineExceptionHandler
 import com.bride.demon.demo.imooc.delay
 import com.bride.demon.demo.imooc.launch
 import kotlin.concurrent.thread
@@ -8,8 +10,12 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 suspend fun main() {
+    val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+        log("${coroutineContext[Job]} $throwable")
+    }
+
     // 仿官方框架实现launch
-    val job = launch {
+    val job = launch(exceptionHandler) {
         log("1")
         val result = helloWorld()
         // 未设置调度器，所以未进行线程切换。在哪resume，返回后在哪个线程执行。
@@ -18,9 +24,9 @@ suspend fun main() {
         // delay响应cancel事件
         delay(1000L)
         log("3")
+        throw ArithmeticException("Divided by zero")
     }
     log(job.isActive)
-    job.cancel()
     job.join()
 }
 
