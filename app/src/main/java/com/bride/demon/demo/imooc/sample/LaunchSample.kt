@@ -5,6 +5,8 @@ import com.bride.demon.demo.imooc.Job
 import com.bride.demon.demo.imooc.core.CoroutineExceptionHandler
 import com.bride.demon.demo.imooc.delay
 import com.bride.demon.demo.imooc.launch
+import com.bride.demon.demo.imooc.scope.GlobalScope
+import com.bride.demon.demo.imooc.scope.supervisorScope
 import kotlin.concurrent.thread
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -15,16 +17,18 @@ suspend fun main() {
     }
 
     // 仿官方框架实现launch
-    val job = launch(exceptionHandler) {
+    val job = GlobalScope.launch(exceptionHandler) {
         log("1")
-        val result = helloWorld()
-        // 未设置调度器，所以未进行线程切换。在哪resume，返回后在哪个线程执行。
-        log("2 $result")
-        // 仿官方框架实现delay
-        // delay响应cancel事件
         delay(1000L)
-        log("3")
-        throw ArithmeticException("Divided by zero")
+        supervisorScope {
+            log("2")
+            val job2 = launch {
+                throw ArithmeticException("Divided by zero")
+            }
+            log(3)
+            job2.join()
+            log(4)
+        }
     }
     log(job.isActive)
     job.join()

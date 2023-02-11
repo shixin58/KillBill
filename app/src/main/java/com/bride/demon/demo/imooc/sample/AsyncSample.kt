@@ -3,10 +3,11 @@ package com.bride.demon.demo.imooc.sample
 import com.bride.baselib.log
 import com.bride.demon.demo.imooc.async
 import com.bride.demon.demo.imooc.delay
+import com.bride.demon.demo.imooc.scope.GlobalScope
 
 suspend fun main() {
     log(1)
-    val deferred = async<Int> {
+    val deferred = GlobalScope.async<Int> {
         log(2)
         delay(1000L)
         log(3)

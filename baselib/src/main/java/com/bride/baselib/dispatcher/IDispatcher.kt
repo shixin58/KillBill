@@ -9,7 +9,7 @@ interface IDispatcher {
 }
 
 /**
- * 仿CoroutineDispatcher
+ * 仿CoroutineDispatcher。拦截器由上下文携带。
  */
 open class DispatcherContext(private val dispatcher: IDispatcher = DefaultDispatcher)
     : AbstractCoroutineContextElement(ContinuationInterceptor), ContinuationInterceptor {

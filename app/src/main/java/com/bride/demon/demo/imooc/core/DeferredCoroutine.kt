@@ -1,7 +1,10 @@
 package com.bride.demon.demo.imooc.core
 
+import com.bride.demon.demo.imooc.CancellationException
 import com.bride.demon.demo.imooc.Deferred
+import com.bride.demon.demo.imooc.Job
 import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.coroutineContext
 import kotlin.coroutines.suspendCoroutine
 
 class DeferredCoroutine<T>(context: CoroutineContext) : AbstractCoroutine<T>(context), Deferred<T> {
@@ -9,7 +12,13 @@ class DeferredCoroutine<T>(context: CoroutineContext) : AbstractCoroutine<T>(con
         return when(val currentState = state.get()) {
             is CoroutineState.Cancelling,
             is CoroutineState.InComplete -> awaitSuspend()
-            is CoroutineState.Complete<*> -> (currentState.value as? T)?:throw currentState.exception!!
+            is CoroutineState.Complete<*> -> {
+                coroutineContext[Job]?.isActive?.takeIf { !it }?.let {
+                    // CoroutineState.Cancelling
+                    throw CancellationException("Coroutine is cancelled.")
+                }
+                (currentState.value as? T)?:throw currentState.exception!!
+            }
         }
     }
 

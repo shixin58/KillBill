@@ -4,10 +4,11 @@ import com.bride.baselib.log
 import com.bride.demon.demo.imooc.delay
 import com.bride.demon.demo.imooc.launch
 import com.bride.demon.demo.imooc.runBlocking
+import com.bride.demon.demo.imooc.scope.GlobalScope
 
 fun main() = runBlocking {
     log(1)
-    val job = launch {
+    val job = GlobalScope.launch {
         log(2)
         delay(100L)
         log(3)
