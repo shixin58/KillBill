@@ -10,6 +10,9 @@ private val executor = Executors.newScheduledThreadPool(1) { runnable ->
     Thread(runnable, "Delay-Scheduler").apply { isDaemon = true }
 }
 
+/**
+ * 参考Call#await()
+ */
 suspend fun delay(time: Long, unit: TimeUnit = TimeUnit.MILLISECONDS) = suspendCancellableCoroutine<Unit> { continuation ->
     val future = executor.schedule({ continuation.resume(Unit) }, time, unit)
     continuation.invokeOnCancel { future.cancel(true) }

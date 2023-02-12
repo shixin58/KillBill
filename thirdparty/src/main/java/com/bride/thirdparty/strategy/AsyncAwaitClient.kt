@@ -23,7 +23,7 @@ fun main() {
     })
     async(handlerDispatcher) {
         val wrapperModel = await { RetrofitKtStrategy.mService.getPhoneInfo("13701116418", Urls.JUHE_KEY) }
-        log("${Thread.currentThread().name} ${wrapperModel.result}")
+        log(wrapperModel.result)
     }
     Looper.loop()
 }

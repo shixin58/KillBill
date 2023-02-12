@@ -72,6 +72,7 @@ dependencies {
     implementation group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version: kotlin_version
     implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: coroutine_version
     implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-android', version: coroutine_version
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-jdk8', version: coroutine_version
 
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
