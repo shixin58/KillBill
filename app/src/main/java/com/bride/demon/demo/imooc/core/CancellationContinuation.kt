@@ -84,6 +84,9 @@ class CancellationContinuation<T>(private val continuation: Continuation<T>) : C
     }
 }
 
+/**
+ * suspendCancellableCoroutine函数实现参考了suspendCoroutine内部实现。suspendCoroutine用来拿到suspend fun的Continuation。
+ */
 suspend inline fun <T> suspendCancellableCoroutine(
     crossinline block: (CancellationContinuation<T>) -> Unit
 ): T = suspendCoroutineUninterceptedOrReturn { c: Continuation<T> ->

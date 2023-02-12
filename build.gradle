@@ -3,7 +3,7 @@ apply from: 'version.gradle'
 apply plugin: 'com.alibaba.arouter'
 
 buildscript {
-    ext.kotlin_version = '1.7.21'
+    ext.kotlin_version = '1.8.0'
     repositories {
         google()
 //        google { url 'https://maven.aliyun.com/repository/google' }

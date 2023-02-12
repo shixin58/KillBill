@@ -58,8 +58,8 @@ dependencies {
     implementation "com.google.android.material:material:$material_version"
 
     implementation group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version: kotlin_version
-    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: kotlinx_coroutines_version
-    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-android', version: kotlinx_coroutines_version
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: coroutine_version
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-android', version: coroutine_version
 
 //    debugImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-android', version: leakcanary_version
 
