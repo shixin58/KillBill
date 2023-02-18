@@ -102,7 +102,7 @@ public class RetrofitStrategy {
             try {
                 publishProgress(1, 2, 3);
                 Response<WrapperModel<PhoneNumberModel>> response = mCall.execute();
-                if(response!=null&&response.body()!=null&&response.body().result!=null)
+                if(response.body() != null && response.body().result != null)
                     return response.body().result.toString();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -137,7 +137,7 @@ public class RetrofitStrategy {
                 super.run();
                 Runtime.getRuntime().gc();
                 try {
-                    Thread.sleep(99, 1000000);
+                    Thread.sleep(99L, 1000000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
