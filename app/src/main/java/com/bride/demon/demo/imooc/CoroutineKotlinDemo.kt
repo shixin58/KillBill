@@ -10,6 +10,7 @@ import kotlin.coroutines.*
 
 suspend fun main() {
     // 1）标准库序列生成器Sequence
+    // sequence不能调用其他挂起函数，不能使用调度器。仅能在单线程使用。
     val seq = sequence {
         // yield后，懒序列挂起
         yield(1)
@@ -19,7 +20,7 @@ suspend fun main() {
     }
 
     // for-each loop，Java需要实现Iterable接口，Kotlin仅需定义operator fun iterator()。
-    // hasNext()触发resume()
+    // SequenceBuilderIterator#hasNext()触发Continuation#resume() -> yield()，类似flow中collect触发emit。
     for (x in seq) {
         println(x)
     }
