@@ -94,10 +94,10 @@ dependencies {
     implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: coroutine_version
     implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-android', version: coroutine_version
 
-//    debugImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-android', version: leakcanary_version
+//    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
 
-    implementation group: 'com.github.bumptech.glide', name: 'glide', version: glide_version
-    kapt group: 'com.github.bumptech.glide', name: 'compiler', version: glide_version
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
 
     implementation "io.github.scwang90:refresh-layout-kernel:$smart_refresh_layout_version" // 核心必须依赖
     implementation "io.github.scwang90:refresh-header-classics:$smart_refresh_layout_version" // 经典刷新头
@@ -110,8 +110,7 @@ dependencies {
 
     implementation "com.airbnb.android:lottie:$lottie_version"
 
-    implementation group: 'org.greenrobot', name: 'eventbus', version: eventbus_version
-    implementation 'com.github.1993hzw:Androids:1.3'
+    implementation "org.greenrobot:eventbus:$eventbus_version"
 
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
 

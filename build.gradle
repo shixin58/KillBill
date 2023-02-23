@@ -11,7 +11,7 @@ buildscript {
 //        mavenCentral { url 'https://maven.aliyun.com/repository/central' }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:7.3.1"
+        classpath "com.android.tools.build:gradle:7.4.1"
         // 添加Kotlin编译器插件
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.alibaba:arouter-register:1.0.2"
@@ -22,7 +22,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        maven {url 'https://jitpack.io'}
     }
 }
 

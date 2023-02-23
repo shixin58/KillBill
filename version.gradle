@@ -26,7 +26,7 @@ ext {
 
     // 慕课网引用glide-v3.7.0
     // 源码参考https://github.com/bumptech/glide
-    glide_version = "4.13.0"
+    glide_version = "4.14.2"
 
     stetho_version = "1.5.1"
 
