@@ -28,11 +28,11 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation group: 'androidx.appcompat', name: 'appcompat', version: appcompat_version
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.appcompat:appcompat-resources:$appcompat_version"
 
     api "com.alibaba:arouter-api:$arouter_version"
 
-    implementation group: 'com.google.android.material', name: 'material', version: material_version
+    implementation "com.google.android.material:material:$material_version"
     implementation project(':baselib')
 }

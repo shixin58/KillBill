@@ -63,16 +63,16 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
-    implementation group: 'androidx.appcompat', name: 'appcompat', version: appcompat_version
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.appcompat:appcompat-resources:$appcompat_version"
 
-    implementation group: 'androidx.constraintlayout', name: 'constraintlayout', version: constraintlayout_version
-    implementation group: 'com.google.android.material', name: 'material', version: material_version
+    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+    implementation "com.google.android.material:material:$material_version"
 
-    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version: kotlin_version
-    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: coroutine_version
-    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-android', version: coroutine_version
-    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-jdk8', version: coroutine_version
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:$coroutine_version"
 
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
@@ -84,9 +84,9 @@ dependencies {
     // enable a JavaScript console
     implementation "com.facebook.stetho:stetho-js-rhino:$stetho_version"
 
-//    debugImplementation group: 'com.squareup.leakcanary', name: 'leakcanary-android', version: leakcanary_version
+//    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
 
-    implementation group: 'org.greenrobot', name: 'eventbus', version: eventbus_version
+    implementation "org.greenrobot:eventbus:$eventbus_version"
 
     implementation "io.reactivex.rxjava3:rxjava:$rxjava_version"
     implementation "io.reactivex.rxjava3:rxandroid:$rxandroid_version"

@@ -31,19 +31,14 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation group: 'androidx.appcompat', name: 'appcompat', version: appcompat_version
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.appcompat:appcompat-resources:$appcompat_version"
 
-    implementation group: 'androidx.constraintlayout', name: 'constraintlayout', version: constraintlayout_version
+    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+    implementation "com.google.android.material:material:$material_version"
 
     implementation "androidx.core:core:$core_version"
     implementation "androidx.core:core-ktx:$core_version"
 
-    implementation group: 'com.google.android.material', name: 'material', version: material_version
-
     implementation "com.android.volley:volley:$volley_version"
-}
-
-repositories {
-    mavenCentral()
 }
