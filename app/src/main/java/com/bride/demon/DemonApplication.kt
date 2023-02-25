@@ -2,12 +2,12 @@ package com.bride.demon
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
 import com.alibaba.android.arouter.launcher.ARouter
 import com.bride.baselib.*
 import com.bride.baselib.net.VolleyWrapper
 import com.bride.baselib.CustomActivityLifecycleCallbacks
 import com.github.moduth.blockcanary.BlockCanary
+import timber.log.Timber
 import java.util.concurrent.Executor
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -17,6 +17,12 @@ import java.util.concurrent.Executors
  * Created by shixin on 2017/12/15.
  */
 class DemonApplication : Application() {
+    companion object {
+        lateinit var instance: DemonApplication
+            private set
+        val exec: ExecutorService by lazy { Executors.newCachedThreadPool() }
+    }
+
     private val activityLifecycleCallbacks = CustomActivityLifecycleCallbacks()
     private val executorService: ExecutorService = Executors.newFixedThreadPool(8)
 
@@ -24,7 +30,7 @@ class DemonApplication : Application() {
         super.attachBaseContext(base)
         CompatUtils.detectThread()
         CompatUtils.detectVm()
-        Thread.setDefaultUncaughtExceptionHandler(CustomUncaughtExceptionHandler())
+        GlobalThreadUncaughtExceptionHandler.setup()
     }
 
     override fun onCreate() {
@@ -34,6 +40,7 @@ class DemonApplication : Application() {
         }
 
         instance = this
+        appContext = this
         ResUtils.setContext(this)
         PreferenceUtils.initialize(this, "demon_prefs")
         PermissionUtils.setContext(this)
@@ -43,19 +50,11 @@ class DemonApplication : Application() {
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
 
         initRouter()
+        Timber.plant(Timber.DebugTree())
     }
 
     fun getExecutor(): Executor {
         return executorService
-    }
-
-    companion object {
-        private lateinit var instance: DemonApplication
-        val exec: ExecutorService by lazy { Executors.newCachedThreadPool() }
-
-        fun getInstance(): DemonApplication {
-            return instance
-        }
     }
 
     private fun initRouter() {
@@ -64,11 +63,5 @@ class DemonApplication : Application() {
             ARouter.openDebug()
         }
         ARouter.init(this)
-    }
-
-    class CustomUncaughtExceptionHandler : Thread.UncaughtExceptionHandler {
-        override fun uncaughtException(t: Thread, e: Throwable) {
-            Log.e("UncaughtException", "${t.name} uncaughtException()", e)
-        }
     }
 }

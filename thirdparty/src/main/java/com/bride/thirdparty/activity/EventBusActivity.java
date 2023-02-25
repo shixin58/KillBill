@@ -8,8 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bride.thirdparty.databinding.ActivityEventBusBinding;
 import com.bride.ui_lib.BaseActivity;
-import com.bride.thirdparty.R;
 import com.bride.thirdparty.bean.MessageEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,6 +33,8 @@ public class EventBusActivity extends BaseActivity {
 
     final ReferenceQueue<Object> referenceQueue = new ReferenceQueue<>();
 
+    private ActivityEventBusBinding mBinding;
+
     Beauty beauty;
     CustomWeakReference<Beauty> weakReference;
 
@@ -52,7 +54,9 @@ public class EventBusActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_bus);
+        mBinding = ActivityEventBusBinding.inflate(getLayoutInflater());
+        setContentView(mBinding.getRoot());
+        mBinding.setActivity(this);
         Log.i(TAG, "onCreate "+getTaskId()+" "+hashCode());
 
         beautySoftReference = new SoftReference<>(new Beauty());
@@ -107,12 +111,6 @@ public class EventBusActivity extends BaseActivity {
         Log.i(TAG, "onDestroy "+getTaskId()+" "+hashCode());
     }
 
-    public void onMessageClick(View v) {
-        // 在View构造器中拿到AttributeSet，解析布局文件中为View设置的属性，根据属性值对View做相应设置
-        // View实例化时解析android:onClick属性，自动为View设置点击监听器，利用属性值通过反射找到Method并绑定，点击时执行
-        EventBus.getDefault().post(new MessageEvent("I hate liars!"));
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true, priority = 1)
     public void onMessageEvent(MessageEvent event) {
         Toast.makeText(this, event.info, Toast.LENGTH_SHORT).show();
@@ -121,12 +119,18 @@ public class EventBusActivity extends BaseActivity {
 
     static class Beauty {}
 
-    class CustomWeakReference<T> extends WeakReference<T> {
+    static class CustomWeakReference<T> extends WeakReference<T> {
         final int key;
         CustomWeakReference(T t, ReferenceQueue<? super T> q, int key) {
             super(t, q);
             this.key = key;
         }
+    }
+
+    public void onMessageClick(View v) {
+        // 在View构造器中拿到AttributeSet，解析布局文件中为View设置的属性，根据属性值对View做相应设置
+        // View实例化时解析android:onClick属性，自动为View设置点击监听器，利用属性值通过反射找到Method并绑定，点击时执行
+        EventBus.getDefault().post(new MessageEvent("I hate liars!"));
     }
 
     public void onReferenceClick(View v) {
@@ -140,11 +144,7 @@ public class EventBusActivity extends BaseActivity {
         Toast.makeText(this, ""+referenceQueue.poll(), Toast.LENGTH_SHORT).show();
     }
 
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_landscape:
-                LandscapeActivity.openActivity(this);
-                break;
-        }
+    public void onLandscapeClick(View v) {
+        LandscapeActivity.openActivity(this);
     }
 }

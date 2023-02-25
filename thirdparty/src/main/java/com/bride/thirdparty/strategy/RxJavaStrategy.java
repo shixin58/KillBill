@@ -9,9 +9,9 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
+import com.bride.baselib.AppUtilsKt;
 import com.bride.baselib.net.UrlParams;
 import com.bride.baselib.net.Urls;
-import com.bride.thirdparty.ThirdPartyApplication;
 import com.bride.baselib.bean.PhoneNumberModel;
 import com.bride.baselib.bean.WrapperModel;
 import com.bride.thirdparty.util.CustomInterceptor;
@@ -94,7 +94,7 @@ public class RxJavaStrategy {
     private RxJavaStrategy() {
         // retrofit内部集成了okhttp, converter-gson内部集成了GSON
         // /storage/emulated/0/Android/data/package/cache/rxjava, 开启24MB大小的磁盘缓存
-        File file = new File(ThirdPartyApplication.getInstance().getExternalCacheDir(), "rxjava");
+        File file = new File(AppUtilsKt.appContext.getExternalCacheDir(), "rxjava");
         Cache cache = new Cache(file, 24 * 1024 * 1024L); // 24MB
         mOkHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new CustomInterceptor())

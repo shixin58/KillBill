@@ -7,10 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bride.baselib.KotlinUtilsKt;
 import com.bride.baselib.net.UrlParams;
 import com.bride.baselib.net.Urls;
 import com.bride.baselib.net.VolleyWrapper;
-import com.bride.demon.DemonApplication;
 import com.bride.demon.R;
 import com.bride.ui_lib.BaseActivity;
 
@@ -42,13 +42,13 @@ public class VolleyActivity extends BaseActivity {
                     @Override
                     public void onSuccess(String response) {
                         Log.i(TAG, "executeGetString - onResponse - "+response);
-                        Toast.makeText(DemonApplication.Companion.getInstance(), response, Toast.LENGTH_LONG).show();
+                        KotlinUtilsKt.toast(response);
                     }
 
                     @Override
                     public void onError(Exception e) {
                         e.printStackTrace();
-                        Toast.makeText(DemonApplication.Companion.getInstance(), e.getMessage(), Toast.LENGTH_LONG).show();
+                        KotlinUtilsKt.toast(e.getMessage());
                     }
                 }, VolleyActivity.this);
                 break;
@@ -60,13 +60,13 @@ public class VolleyActivity extends BaseActivity {
                     @Override
                     public void onSuccess(String response) {
                         Log.i(TAG, "executePostString - onResponse - "+response);
-                        Toast.makeText(DemonApplication.Companion.getInstance(), response, Toast.LENGTH_LONG).show();
+                        KotlinUtilsKt.toast(response);
                     }
 
                     @Override
                     public void onError(Exception e) {
                         e.printStackTrace();
-                        Toast.makeText(DemonApplication.Companion.getInstance(), e.getMessage(), Toast.LENGTH_LONG).show();
+                        KotlinUtilsKt.toast(e.getMessage());
                     }
                 }, VolleyActivity.this);
                 break;

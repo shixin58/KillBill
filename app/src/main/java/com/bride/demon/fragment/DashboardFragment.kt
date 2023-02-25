@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bride.demon.module.kotlin_practice.KotlinPracticeActivity
 import com.bride.ui_lib.BaseFragment
 import com.bride.demon.databinding.FragmentDashboardBinding
 import com.bride.demon.module.framework.activity.SingleInstanceActivity
@@ -16,6 +17,11 @@ import com.bride.demon.module.framework.activity.StandardActivity
  * Created by shixin on 2018/4/15.
  */
 class DashboardFragment : BaseFragment() {
+    companion object {
+        fun newInstance(): DashboardFragment {
+            return DashboardFragment()
+        }
+    }
 
     private lateinit var mBinding: FragmentDashboardBinding
 
@@ -29,18 +35,13 @@ class DashboardFragment : BaseFragment() {
         mBinding.fragment = this
     }
 
-    fun onClick(v: View?) {
+    fun onClick(v: View) {
         when(v) {
             mBinding.tvStandard -> StandardActivity.openActivity(activity)
             mBinding.tvSingleTop -> SingleTopActivity.openActivity(activity)
             mBinding.tvSingleTask -> SingleTaskActivity.openActivity(activity)
             mBinding.tvSingleInstance -> SingleInstanceActivity.openActivity(activity)
-        }
-    }
-
-    companion object {
-        fun newInstance(): DashboardFragment {
-            return DashboardFragment()
+            mBinding.tvKotlinPractice -> KotlinPracticeActivity.openActivity(requireActivity())
         }
     }
 }

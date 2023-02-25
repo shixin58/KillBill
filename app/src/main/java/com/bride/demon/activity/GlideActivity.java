@@ -42,6 +42,7 @@ import androidx.core.content.ContextCompat;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.bride.baselib.KotlinUtilsKt;
 import com.bride.ui_lib.BaseActivity;
 import com.bride.baselib.net.Urls;
 import com.bride.demon.DemonApplication;
@@ -216,8 +217,7 @@ public class GlideActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.tv_clear_memory_cache:
                 Glide.get(this).clearMemory();
-                Toast.makeText(DemonApplication.Companion.getInstance(),
-                        "清空Glide内存缓存成功", Toast.LENGTH_SHORT).show();
+                KotlinUtilsKt.toast("清空Glide内存缓存成功");
                 break;
             case R.id.tv_clear_disk_cache:
                 DemonApplication.Companion.getInstance().getExecutor().execute(new Runnable() {
@@ -227,8 +227,7 @@ public class GlideActivity extends BaseActivity {
                         GlideActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(DemonApplication.Companion.getInstance(),
-                                        "清空Glide磁盘缓存成功", Toast.LENGTH_SHORT).show();
+                                KotlinUtilsKt.toast("清空Glide磁盘缓存成功");
                             }
                         });
                     }

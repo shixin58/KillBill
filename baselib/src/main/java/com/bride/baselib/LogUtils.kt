@@ -1,62 +1,60 @@
 package com.bride.baselib
 
-import android.util.Log
+import timber.log.Timber
 
 /**
  * <p>Created by shixin on 2019-10-04.
  */
 object LogUtils {
     const val TAG_LIFECYCLE_ACTIVITY = "lifecycle_activity"
-    const val TAG_LIFECYCLE_APP = "lifecycle_app"
-    const val TAG_LIFECYCLE_OBSERVER = "lifecycle_observer"
 
     fun v(tag: String, msg: String) {
         if (BuildConfig.DEBUG)
-            Log.v(tag, msg)
+            Timber.tag(tag).v(msg)
     }
 
     fun v(tag: String, msg: String, tr: Throwable) {
         if (BuildConfig.DEBUG)
-            Log.v(tag, msg, tr)
+            Timber.tag(tag).v(tr, msg)
     }
 
     fun d(tag: String, msg: String) {
         if (BuildConfig.DEBUG)
-            Log.d(tag, msg)
+            Timber.tag(tag).d(msg)
     }
 
     fun d(tag: String, msg: String, tr: Throwable) {
         if (BuildConfig.DEBUG)
-            Log.d(tag, msg, tr)
+            Timber.tag(tag).d(tr, msg)
     }
 
     fun i(tag: String, msg: String) {
         if (BuildConfig.DEBUG)
-            Log.i(tag, msg)
+            Timber.tag(tag).i(msg)
     }
 
     fun i(tag: String, msg: String, tr: Throwable) {
         if (BuildConfig.DEBUG)
-            Log.i(tag, msg, tr)
+            Timber.tag(tag).i(tr, msg)
     }
 
     fun w(tag: String, msg: String) {
         if (BuildConfig.DEBUG)
-            Log.w(tag, msg)
+            Timber.tag(tag).w(msg)
     }
 
     fun w(tag: String, msg: String, tr: Throwable) {
         if (BuildConfig.DEBUG)
-            Log.w(tag, msg, tr)
+            Timber.tag(tag).w(tr, msg)
     }
 
     fun e(tag: String, msg: String) {
         if (BuildConfig.DEBUG)
-            Log.e(tag, msg)
+            Timber.tag(tag).e(msg)
     }
 
     fun e(tag: String, msg: String, tr: Throwable) {
         if (BuildConfig.DEBUG)
-            Log.e(tag, msg, tr)
+            Timber.tag(tag).e(tr, msg)
     }
 }

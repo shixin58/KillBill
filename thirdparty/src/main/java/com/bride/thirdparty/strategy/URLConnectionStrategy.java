@@ -4,8 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.Toast;
 
+import com.bride.baselib.KotlinUtilsKt;
 import com.bride.baselib.net.UrlParams;
 import com.bride.baselib.net.Urls;
 import com.bride.thirdparty.ThirdPartyApplication;
@@ -131,12 +131,7 @@ public class URLConnectionStrategy {
                     if (responseCode == HttpURLConnection.HTTP_OK) {
                         InputStream inputStream = connection.getInputStream();
                         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                        ThirdPartyApplication.getInstance().getHandler().post(new Runnable() {
-                            @Override
-                            public void run() {
-                                imageView.setImageBitmap(bitmap);
-                            }
-                        });
+                        ThirdPartyApplication.Companion.getInstance().getHandler().post(() -> imageView.setImageBitmap(bitmap));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -168,12 +163,7 @@ public class URLConnectionStrategy {
                             inputStream = new GZIPInputStream(inputStream);
                         }
                         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                        ThirdPartyApplication.getInstance().getHandler().post(new Runnable() {
-                            @Override
-                            public void run() {
-                                imageView.setImageBitmap(bitmap);
-                            }
-                        });
+                        ThirdPartyApplication.Companion.getInstance().getHandler().post(() -> imageView.setImageBitmap(bitmap));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -314,12 +304,7 @@ public class URLConnectionStrategy {
         switch (platform) {
             case Android:
                 Log.i(TAG, "show - "+value);
-                ThirdPartyApplication.getInstance().getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(ThirdPartyApplication.getInstance(), value, Toast.LENGTH_LONG).show();
-                    }
-                });
+                ThirdPartyApplication.Companion.getInstance().getHandler().post(() -> KotlinUtilsKt.toast(value));
                 break;
             case Java:
             default:

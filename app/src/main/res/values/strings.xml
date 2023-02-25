@@ -23,6 +23,7 @@
     <string name="activity_single_top" translatable="false">SingleTopActivity</string>
     <string name="activity_single_task" translatable="false">SingleTaskActivity</string>
     <string name="activity_single_instance" translatable="false">SingleInstanceActivity</string>
+    <string name="activity_kotlin_practice" translatable="false">KotlinPracticeActivity</string>
 
     <string name="activity_blank" translatable="false">BlankActivity</string>
     <string name="activity_platform" translatable="false">PlatformActivity</string>
@@ -65,4 +66,6 @@
     <string name="welcome_to_newyork" translatable="false">Welcome to New York!</string>
     <string name="start_bomb" translatable="false">Start Bomb</string>
     <string name="no_ad" translatable="false">Video\'s not ready.\nPlease try again later.</string>
+    <string name="download" translatable="false">Download</string>
+    <string name="show_dialog" translatable="false">Show Dialog</string>
 </resources>

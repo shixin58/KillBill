@@ -85,5 +85,25 @@
             android:onClick="@{fragment::onClick}"
             android:gravity="center"
             android:text="跳转到SingleInstanceActivity" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/tv_single_instance"
+            android:layout_marginHorizontal="10dp"
+            android:background="@android:color/black"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_kotlin_practice"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_single_instance"
+            android:onClick="@{fragment::onClick}"
+            android:gravity="center"
+            android:text="Kotlin Practice" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

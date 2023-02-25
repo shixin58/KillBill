@@ -37,8 +37,16 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
     implementation "com.google.android.material:material:$material_version"
 
-    implementation "androidx.core:core:$core_version"
     implementation "androidx.core:core-ktx:$core_version"
 
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
+
     implementation "com.android.volley:volley:$volley_version"
+
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:$okhttp_version"))
+    implementation "com.squareup.okhttp3:okhttp"
+    implementation "com.squareup.okhttp3:logging-interceptor"
+
+    api 'com.jakewharton.timber:timber:5.0.1'
 }
