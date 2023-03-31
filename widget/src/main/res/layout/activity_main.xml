@@ -36,11 +36,20 @@
         android:onClick="onClick"/>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_blueprint"
+        android:id="@+id/tv_my_web"
         style="@style/common_txt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_js"
+        android:text="@string/activity_my_web"
+        android:onClick="onClick"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_blueprint"
+        style="@style/common_txt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_my_web"
         android:text="@string/activity_blueprint"
         android:onClick="onClick"/>
 

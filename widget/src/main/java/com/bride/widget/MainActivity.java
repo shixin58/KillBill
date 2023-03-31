@@ -11,6 +11,7 @@ import com.bride.widget.activity.CustomViewActivity;
 import com.bride.widget.activity.JSActivity;
 import com.bride.widget.activity.LottieActivity;
 import com.bride.widget.activity.MultilingualActivity;
+import com.bride.widget.activity.MyWebActivity;
 import com.bride.widget.activity.RefreshActivity;
 import com.bride.widget.activity.ScrollingActivity;
 import com.bride.widget.activity.TypefaceActivity;
@@ -39,40 +40,34 @@ public class MainActivity extends BaseActivity {
 
     public void onClick(View view) {
         Intent intent;
-        switch(view.getId()) {
-            case R.id.tv_scrolling:
-                intent = new Intent(this, ScrollingActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.tv_boss:
-                intent = new Intent(this, BossActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.tv_js:
-                intent = new Intent(this, JSActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.tv_blueprint:
-                intent = new Intent(this, BlueprintActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.tv_custom_view:
-                CustomViewActivity.openActivity(this);
-                break;
-            case R.id.tv_refresh:
-                RefreshActivity.openActivity(this);
-                break;
-            case R.id.tv_lottie:
-                LottieActivity.openActivity(this);
-                break;
-            case R.id.tv_typeface:
-                intent = new Intent(this, TypefaceActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.tv_multilingual:
-                intent = new Intent(this, MultilingualActivity.class);
-                startActivity(intent);
-                break;
+        int id = view.getId();
+        if (id == R.id.tv_scrolling) {
+            intent = new Intent(this, ScrollingActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.tv_boss) {
+            intent = new Intent(this, BossActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.tv_js) {
+            intent = new Intent(this, JSActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.tv_my_web) {
+            intent = new Intent(this, MyWebActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.tv_blueprint) {
+            intent = new Intent(this, BlueprintActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.tv_custom_view) {
+            CustomViewActivity.openActivity(this);
+        } else if (id == R.id.tv_refresh) {
+            RefreshActivity.openActivity(this);
+        } else if (id == R.id.tv_lottie) {
+            LottieActivity.openActivity(this);
+        } else if (id == R.id.tv_typeface) {
+            intent = new Intent(this, TypefaceActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.tv_multilingual) {
+            intent = new Intent(this, MultilingualActivity.class);
+            startActivity(intent);
         }
     }
 

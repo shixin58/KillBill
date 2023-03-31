@@ -4,10 +4,8 @@ import android.app.AlertDialog;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.webkit.JsPromptResult;
@@ -34,6 +32,8 @@ import okhttp3.Headers;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
+import timber.log.Timber;
 
 /**
  * 混合开发WebView总结：
@@ -75,7 +75,7 @@ public class JSActivity extends BaseActivity {
         mWebView.setWebChromeClient(new WebChromeClient(){
             @Override
             public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
-                Log.i("WebChromeClient", "onJsAlert "+message);
+                Timber.i("WebChromeClient onJsAlert %s", message);
                 // 拦截alert警告框
                 new AlertDialog.Builder(JSActivity.this)
                         .setTitle("标题")
@@ -89,7 +89,7 @@ public class JSActivity extends BaseActivity {
 
             @Override
             public boolean onJsConfirm(WebView view, String url, String message, final JsResult result) {
-                Log.i("WebChromeClient", "onJsConfirm "+message);
+                Timber.i("WebChromeClient onJsConfirm %s", message);
                 // 拦截confirm确认框
                 new AlertDialog.Builder(JSActivity.this)
                         .setTitle("标题")
@@ -104,7 +104,7 @@ public class JSActivity extends BaseActivity {
 
             @Override
             public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, final JsPromptResult result) {
-                Log.i("WebChromeClient", "onJsPrompt "+message);
+                Timber.i("WebChromeClient onJsPrompt %s", message);
                 // 拦截prompt输入框
                 new AlertDialog.Builder(JSActivity.this)
                         .setTitle("标题")
@@ -120,33 +120,33 @@ public class JSActivity extends BaseActivity {
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
-                Log.i("WebChromeClient", "onReceivedTitle "+title);
+                Timber.i("WebChromeClient onReceivedTitle %s", title);
             }
 
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
                 // 获取网页加载进度更新ProgressBar[0, 100]
-                Log.i("WebChromeClient", "onProgressChanged "+newProgress);
+                Timber.i("WebChromeClient onProgressChanged %s", newProgress);
             }
 
             @Override
             public Bitmap getDefaultVideoPoster() {
-                Log.i("WebChromeClient", "getDefaultVideoPoster");
+                Timber.i("WebChromeClient getDefaultVideoPoster");
                 return super.getDefaultVideoPoster();
             }
 
             @Override
             public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-                Log.i("WebChromeClient", "onConsoleMessage "+consoleMessage.message()
-                        +", messageLevel="+consoleMessage.messageLevel()+", sourceId="+consoleMessage.sourceId()+", lineNumber="+consoleMessage.lineNumber());
+                Timber.i("WebChromeClient onConsoleMessage " + consoleMessage.message()
+                        + ", messageLevel=" + consoleMessage.messageLevel() + ", sourceId=" + consoleMessage.sourceId() + ", lineNumber=" + consoleMessage.lineNumber());
                 return super.onConsoleMessage(consoleMessage);
             }
 
             @Override
             public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback,
                                              FileChooserParams fileChooserParams) {
-                Log.i("WebChromeClient", "onShowFileChooser");
+                Timber.i("WebChromeClient onShowFileChooser");
                 return super.onShowFileChooser(webView, filePathCallback, fileChooserParams);
             }
         });
@@ -155,19 +155,19 @@ public class JSActivity extends BaseActivity {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                Log.i("WebViewClient", "onPageStarted "+url);
+                Timber.i("WebViewClient onPageStarted %s", url);
             }
 
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                Log.i("WebViewClient", "onPageFinished "+url);
+                Timber.i("WebViewClient onPageFinished %s", url);
             }
 
             @Override
             public void onPageCommitVisible(WebView view, String url) {
                 super.onPageCommitVisible(view, url);
-                Log.i("WebViewClient", "onPageCommitVisible "+url);
+                Timber.i("WebViewClient onPageCommitVisible %s", url);
             }
 
             @Override
@@ -176,36 +176,37 @@ public class JSActivity extends BaseActivity {
                 if(TextUtils.equals(uri.getScheme(), "js")) {
                     if(TextUtils.equals(uri.getAuthority(), "webview")) {
                         // 拦截url
-                        Log.i("WebViewClient", "shouldOverrideUrlLoading "
-                                +uri.getQueryParameter("arg1")+" "+uri.getQueryParameter("arg2"));
+                        Timber.i("WebViewClient shouldOverrideUrlLoading "
+                                + uri.getQueryParameter("arg1") + " " + uri.getQueryParameter("arg2"));
                     }
                     return true;
                 }
-                Log.i("WebViewClient", "shouldOverrideUrlLoading "+url);
+                Timber.i("WebViewClient shouldOverrideUrlLoading %s", url);
                 return super.shouldOverrideUrlLoading(view, url);
             }
 
             @Override
             public void onLoadResource(WebView view, String url) {
                 super.onLoadResource(view, url);
-                Log.i("WebViewClient", "onLoadResource "+url);
+                Timber.i("WebViewClient onLoadResource %s", url);
             }
 
             @Override
             public void doUpdateVisitedHistory(WebView view, String url, boolean isReload) {
                 super.doUpdateVisitedHistory(view, url, isReload);
-                Log.i("WebViewClient", "doUpdateVisitedHistory "+url+"-"+isReload);
+                Timber.i("WebViewClient doUpdateVisitedHistory " + url + "-" + isReload);
             }
 
             @Override
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
                 super.onReceivedSslError(view, handler, error);
-                Log.i("WebViewClient", "onReceivedSslError");
+                Timber.i("WebViewClient onReceivedSslError");
             }
 
             @Nullable
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                Timber.i("WebViewClient. isForMainFrame:%s, url:%s", request.isForMainFrame(), request.getUrl());
                 return handleIntercept(request);
             }
         });
@@ -221,11 +222,18 @@ public class JSActivity extends BaseActivity {
                 .build();
         Call okhttpCall = okHttpClient.newCall(okHttpRequest);
         try {
-            final Response okhttpResponse = okhttpCall.execute();
-            return new WebResourceResponse(
-                    okhttpResponse.header("content-type", "text/plain"),
-                    okhttpResponse.header("content-encoding", "utf-8"),
-                    okhttpResponse.body().byteStream());
+            // 'Response' used without 'try'-with-resources statement
+            // The close() method of an AutoCloseable object is called automatically when exiting a try-with-resources block.
+            try (Response okhttpResponse = okhttpCall.execute()) {
+                ResponseBody body = okhttpResponse.body();
+                if (body != null) {
+                    return new WebResourceResponse(
+                            okhttpResponse.header("content-type", "text/plain"),
+                            okhttpResponse.header("content-encoding", "utf-8"),
+                            body.byteStream());
+                }
+                return null;
+            }
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -235,43 +243,16 @@ public class JSActivity extends BaseActivity {
     public void onClick(View view) {
         if (view==mBinding.tvJs) {
             // java调用js函数。alert弹窗仅有确认按钮，点空白区域不消失。点确认alert()返回null。
-            if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                mWebView.loadUrl("javascript:callAlert(\"僵尸来袭\\n准备爆头\")");
-            }else {
-                // 不刷新页面，能获取返回值
-                mWebView.evaluateJavascript("javascript:callAlert(\"僵尸来袭\\n准备爆头\")", new ValueCallback<String>() {
-                    @Override
-                    public void onReceiveValue(String value) {
-                        Log.i("onReceiveValue", "alert: "+value);
-                    }
-                });
-            }
+            // 不刷新页面，能获取返回值
+            mWebView.evaluateJavascript("javascript:callAlert(\"僵尸来袭\\n准备爆头\")", value -> Timber.i("onReceiveValue alert: %s", value));
         } else if (view==mBinding.tvConfirm) {
             // java调用js函数。confirm弹窗有确认、取消俩按钮，点空白区域不消失。点确认confirm()返回true，点取消返回false。
-            if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                mWebView.loadUrl("javascript:callConfirm()");
-            }else {
-                // 不刷新页面，能获取返回值
-                mWebView.evaluateJavascript("javascript:callConfirm()", new ValueCallback<String>() {
-                    @Override
-                    public void onReceiveValue(String value) {
-                        Log.i("onReceiveValue", "confirm "+value);
-                    }
-                });
-            }
+            // 不刷新页面，能获取返回值
+            mWebView.evaluateJavascript("javascript:callConfirm()", value -> Timber.i("onReceiveValue confirm %s", value));
         } else if (view==mBinding.tvPrompt) {
             // java调用js函数。prompt弹窗有确认、取消俩按钮，点空白区域不消失。点确认prompt()返回"输入框输入的值"，点取消返回null。
-            if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                mWebView.loadUrl("javascript:callPrompt()");
-            }else {
-                // 不刷新页面，能获取返回值
-                mWebView.evaluateJavascript("javascript:callPrompt()", new ValueCallback<String>() {
-                    @Override
-                    public void onReceiveValue(String value) {
-                        Log.i("onReceiveValue", "prompt "+value);
-                    }
-                });
-            }
+            // 不刷新页面，能获取返回值
+            mWebView.evaluateJavascript("javascript:callPrompt()", value -> Timber.i("onReceiveValue prompt %s", value));
         } else if (view==mBinding.tvLog) {
             mWebView.loadUrl("javascript:console.log('test console message')");
         }

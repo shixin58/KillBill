@@ -2,6 +2,7 @@
     <string name="app_name" translatable="false">MaxWidgets</string>
     <string name="activity_boss" translatable="false">BossActivity</string>
     <string name="activity_js" translatable="false">JSActivity</string>
+    <string name="activity_my_web" translatable="false">MyWebActivity</string>
     <string name="activity_scrolling" translatable="false">ScrollingActivity</string>
     <string name="activity_blueprint" translatable="false">BlueprintActivity</string>
     <string name="activity_custom_view" translatable="false">CustomViewActivity</string>
