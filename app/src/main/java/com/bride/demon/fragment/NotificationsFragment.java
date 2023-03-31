@@ -2,7 +2,6 @@ package com.bride.demon.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bride.demon.activity.BlankActivity;
+import com.bride.demon.activity.ComposeDemoActivity;
 import com.bride.demon.databinding.FragmentNotificationsBinding;
 import com.bride.demon.module.video.activity.Camera3DActivity;
 import com.bride.demon.activity.PlatformActivity;
@@ -57,30 +57,25 @@ public class NotificationsFragment extends BaseFragment {
     }
 
     public void onClick(View v) {
-        if (v==mBinding.buttonBase) {
+        if (v == mBinding.buttonBase) {
             BlankActivity.Companion.openActivity(getActivity());
             blankClicked = true;
-        } else if (v==mBinding.buttonCustomView) {
+        } else if (v == mBinding.buttonCustomView) {
             PlatformActivity.Companion.openActivityForResult(this, 1);
-        } else if (v==mBinding.buttonTextureView) {
+        } else if (v == mBinding.buttonTextureView) {
             LiveCameraActivity.openActivity(getActivity());
-        } else if (v==mBinding.buttonAudioRecord) {
+        } else if (v == mBinding.buttonAudioRecord) {
             AudioRecordActivity.openActivity(getActivity());
-        } else if (v==mBinding.btnVideo) {
+        } else if (v == mBinding.btnVideo) {
             VideoViewActivity.openActivity(getActivity());
-        } else if (v==mBinding.btnGlsurfaceview) {
+        } else if (v == mBinding.btnGlsurfaceview) {
             GLActivity.Companion.openActivity(requireActivity());
-        } else if (v==mBinding.btnCamera3d) {
+        } else if (v == mBinding.btnCamera3d) {
             Camera3DActivity.Companion.openActivity(requireActivity());
-        } else if (v==mBinding.btnDice) {
+        } else if (v == mBinding.btnDice) {
             DiceActivity.Companion.openActivity(requireActivity());
+        } else if (v == mBinding.btnCompose) {
+            startActivity(new Intent(getActivity(), ComposeDemoActivity.class));
         }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        // 接收返回
-        Log.i("Victor", "requestCode "+requestCode);
     }
 }

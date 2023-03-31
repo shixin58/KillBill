@@ -205,6 +205,9 @@
             android:label="@string/activity_dice"
             android:launchMode="singleTop"/>
 
+        <activity android:name=".activity.ComposeDemoActivity"
+            android:label="@string/test_compose"/>
+
         <service android:name=".service.MyService"
             android:exported="true"
             android:process=":remote"/>

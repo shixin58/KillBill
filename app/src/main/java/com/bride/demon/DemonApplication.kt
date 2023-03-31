@@ -28,8 +28,6 @@ class DemonApplication : Application() {
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
-        CompatUtils.detectThread()
-        CompatUtils.detectVm()
         GlobalThreadUncaughtExceptionHandler.setup()
     }
 

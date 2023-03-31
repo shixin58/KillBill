@@ -101,5 +101,16 @@
             android:onClick="@{fragment::onClick}"
             android:gravity="center"
             android:text="@string/test_dice_royale" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btn_compose"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_dice"
+            android:onClick="@{fragment::onClick}"
+            android:gravity="center"
+            android:text="@string/test_compose" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
