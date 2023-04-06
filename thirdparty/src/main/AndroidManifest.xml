@@ -1,5 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bride.thirdparty">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
@@ -89,6 +88,10 @@
                     android:pathPrefix="/url.connection"/>
             </intent-filter>
         </activity>
+
+        <activity android:name=".activity.ObjectBoxActivity"
+            android:label="@string/object_box_activity"
+            android:launchMode="singleTask"/>
 
         <receiver android:name=".PushReceiver"
             android:exported="true">

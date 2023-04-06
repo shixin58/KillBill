@@ -44,7 +44,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_message"
             android:src="@drawable/avatar_pure"
-            app:imageUrl="@{boss.avatar}"/>
+            android:imageUrl="@{boss.avatar}"/>
 
         <TextView
             android:id="@+id/tv_load_image"
@@ -63,7 +63,7 @@
             android:layout_height="200dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_load_image"
-            app:imageUrl="@{viewModel.resultImageUrl}"/>
+            android:imageUrl="@{viewModel.resultImageUrl}"/>
 
         <TextView
             android:id="@+id/btn_binding"

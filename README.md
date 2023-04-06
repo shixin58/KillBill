@@ -14,6 +14,7 @@
     6. 视频(module.video包，VideoViewActivity)
     7. 序列化(SerializableActivity)
     8. ARouter：组件化页面跳转
+    9. Jetpack Compose
 
 3. client模块
     1. 常见算法(algorithm包)
@@ -26,8 +27,10 @@
 4. thirdparty: 
     1. OkHttp3, Volley, RxJava, RxBus, EventBus
     2. Retrofit
+    3. ObjectBox
 
 5. widget: 
     1. JS, CoordinatorLayout
     2. RecyclerView+SmartRefreshLayout(RefreshActivity)
     3. MVVM(BossFragment)
+    4. WebViewAssetLoader(加载本地h5)

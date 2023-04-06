@@ -5,6 +5,7 @@ apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 
 android {
+    namespace "com.bride.demon"
     compileSdkVersion COMPILE_SDK_VERSION as int
     buildToolsVersion BUILD_TOOLS_VERSION
     defaultConfig {
@@ -71,9 +72,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11
         // pass compiler arguments to Kotlin Compiler with Gradle
         freeCompilerArgs += ["-Xallow-result-return-type"]
+    }
+    kotlin {
+        jvmToolchain(11)
     }
     ndkVersion ndk_version
 }

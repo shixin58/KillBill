@@ -6,6 +6,7 @@ import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import com.bride.baselib.*
+import com.bride.thirdparty.util.ObjectBox
 import com.facebook.stetho.Stetho
 import timber.log.Timber
 import java.io.File
@@ -27,8 +28,6 @@ class ThirdPartyApplication : Application() {
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
-        CompatUtils.detectThread()
-        CompatUtils.detectVm()
         Thread.setDefaultUncaughtExceptionHandler(MyUncaughtExceptionHandler())
     }
 
@@ -36,6 +35,7 @@ class ThirdPartyApplication : Application() {
         super.onCreate()
         instance = this
         appContext = this
+        ObjectBox.init(this)
         ResUtils.setContext(this)
         PreferenceUtils.initialize(this, "thirdparty_prefs")
         PermissionUtils.setContext(this)

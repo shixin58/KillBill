@@ -5,6 +5,7 @@ apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 
 android {
+    namespace "com.bride.widget"
     compileSdkVersion COMPILE_SDK_VERSION as int
     buildToolsVersion BUILD_TOOLS_VERSION
     defaultConfig {
@@ -50,7 +51,9 @@ android {
         targetCompatibility JavaVersion.VERSION_11
         sourceCompatibility JavaVersion.VERSION_11
     }
-    kotlinOptions { jvmTarget = JavaVersion.VERSION_11 }
+    kotlin {
+        jvmToolchain(11)
+    }
     ndkVersion ndk_version
 
     /*flavorDimensions "abi"

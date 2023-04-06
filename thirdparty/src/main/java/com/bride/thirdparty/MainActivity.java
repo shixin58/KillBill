@@ -1,11 +1,13 @@
 package com.bride.thirdparty;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.bride.thirdparty.activity.ObjectBoxActivity;
 import com.bride.thirdparty.databinding.ActivityMainBinding;
 import com.bride.ui_lib.BaseActivity;
 import com.bride.baselib.PermissionUtils;
@@ -53,6 +55,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mBinding.tvDirectory.setOnClickListener(this);
         mBinding.tvRxBus.setOnClickListener(this);
         mBinding.tvUrlConnection.setOnClickListener(this);
+        mBinding.tvObjectBox.setOnClickListener(this);
     }
 
     private void initData() {
@@ -94,6 +97,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             RxBusActivity.openActivity(this);
         } else if (v==mBinding.tvUrlConnection) {
             UrlConnectionActivity.openActivity(this);
+        } else if (v == mBinding.tvObjectBox) {
+            startActivity(new Intent(this, ObjectBoxActivity.class));
         }
     }
 

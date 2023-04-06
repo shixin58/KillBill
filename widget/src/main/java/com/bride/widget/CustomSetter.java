@@ -10,8 +10,7 @@ import com.bumptech.glide.Glide;
  * <p>Created by shixin on 2019-04-18.
  */
 public class CustomSetter {
-
-    @BindingAdapter("bind:imageUrl")
+    @BindingAdapter("android:imageUrl")
     public static void loadImage(ImageView view, String url) {
         Glide.with(view.getContext())
                 .load(url)

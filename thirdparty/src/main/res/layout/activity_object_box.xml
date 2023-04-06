@@ -2,107 +2,107 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity"
+    tools:context=".activity.ObjectBoxActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_eventbus"
+    <EditText
+        android:id="@+id/et_name"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center"
-        android:text="test EventBus"/>
+        android:paddingHorizontal="20dp"
+        android:hint="输入name，多个用单空格分隔" />
+
+    <EditText
+        android:id="@+id/et_id"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_name"
+        android:paddingHorizontal="20dp"
+        android:hint="输入id，多个用单空格分隔" />
 
     <TextView
-        android:id="@+id/tv_landscape"
+        android:id="@+id/tv_put"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_eventbus"
+        app:layout_constraintTop_toBottomOf="@id/et_id"
         android:gravity="center"
-        android:text="test Landscape"/>
+        android:text="put" />
 
     <TextView
-        android:id="@+id/tv_fullscreen"
+        android:id="@+id/tv_get_all"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_landscape"
+        app:layout_constraintTop_toBottomOf="@id/tv_put"
         android:gravity="center"
-        android:text="test Fullscreen"/>
+        android:text="getAll" />
 
     <TextView
-        android:id="@+id/tv_push"
+        android:id="@+id/tv_query"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_fullscreen"
+        app:layout_constraintTop_toBottomOf="@id/tv_get_all"
         android:gravity="center"
-        android:text="test Push"/>
+        android:text="query" />
 
     <TextView
-        android:id="@+id/tv_retrofit"
+        android:id="@+id/tv_remove_all"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_push"
+        app:layout_constraintTop_toBottomOf="@id/tv_query"
         android:gravity="center"
-        android:text="test Retrofit"/>
+        android:text="removeAll" />
 
     <TextView
-        android:id="@+id/tv_rxjava"
+        android:id="@+id/tv_count"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_retrofit"
+        app:layout_constraintTop_toBottomOf="@id/tv_remove_all"
         android:gravity="center"
-        android:text="test RxJava"/>
+        android:text="count" />
 
     <TextView
-        android:id="@+id/tv_directory"
+        android:id="@+id/tv_call_in_tx_async"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_rxjava"
+        app:layout_constraintTop_toBottomOf="@id/tv_count"
         android:gravity="center"
-        android:text="test Directory"/>
+        android:text="callInTxAsync" />
 
     <TextView
-        android:id="@+id/tv_rx_bus"
+        android:id="@+id/tv_await_call_in_tx"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_directory"
+        app:layout_constraintTop_toBottomOf="@id/tv_call_in_tx_async"
         android:gravity="center"
-        android:text="test RxBus"/>
+        android:text="awaitCallInTx" />
 
     <TextView
-        android:id="@+id/tv_url_connection"
+        android:id="@+id/tv_run_in_tx"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_rx_bus"
+        app:layout_constraintTop_toBottomOf="@id/tv_await_call_in_tx"
         android:gravity="center"
-        android:text="test UrlConnection"/>
-
-    <TextView
-        android:id="@+id/tv_object_box"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_url_connection"
-        android:gravity="center"
-        android:text="test ObjectBox"/>
+        android:text="runInTx" />
 </androidx.constraintlayout.widget.ConstraintLayout>

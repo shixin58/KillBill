@@ -9,6 +9,7 @@
     <string name="directory_activity">DirectoryActivity</string>
     <string name="rx_bus_activity">RxBusActivity</string>
     <string name="url_connection_activity">UrlConnectionActivity</string>
+    <string name="object_box_activity">ObjectBoxActivity</string>
 
     <string name="get_height">svn(Subversion)是集中式管理的版本控制器，版本库集中存放在中央服务器，干活前从中央服务器fetch当前分支最新版本，update本地副本，干完把修改推送到中央服务器</string>
 
