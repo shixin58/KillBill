@@ -8,7 +8,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.bride.thirdparty.activity.ObjectBoxActivity;
+import com.bride.thirdparty.bean.User;
 import com.bride.thirdparty.databinding.ActivityMainBinding;
+import com.bride.thirdparty.util.ObjectBox;
 import com.bride.ui_lib.BaseActivity;
 import com.bride.baselib.PermissionUtils;
 import com.bride.thirdparty.activity.DirectoryActivity;
@@ -22,6 +24,8 @@ import com.bride.thirdparty.activity.RxJavaActivity;
 import com.bride.thirdparty.activity.UrlConnectionActivity;
 import com.bride.thirdparty.bean.MessageEvent;
 import com.bride.thirdparty.util.RxBus;
+
+import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -79,26 +83,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v==mBinding.tvEventbus) {
+        if (v == mBinding.tvEventbus) {
             EventBusActivity.openActivity(getApplication());
-        } else if (v==mBinding.tvLandscape) {
+        } else if (v == mBinding.tvLandscape) {
             LandscapeActivity.openActivity(this);
-        } else if (v==mBinding.tvFullscreen) {
+        } else if (v == mBinding.tvFullscreen) {
             FullscreenActivity.openActivity(this);
-        } else if (v==mBinding.tvPush) {
+        } else if (v == mBinding.tvPush) {
             PushActivity.openActivity(this);
-        } else if (v==mBinding.tvRetrofit) {
+        } else if (v == mBinding.tvRetrofit) {
             RetrofitActivity.openActivity(this);
-        } else if (v==mBinding.tvRxjava) {
+        } else if (v == mBinding.tvRxjava) {
             RxJavaActivity.openActivity(this);
-        } else if (v==mBinding.tvDirectory) {
+        } else if (v == mBinding.tvDirectory) {
             DirectoryActivity.openActivity(this);
-        } else if (v==mBinding.tvRxBus) {
+        } else if (v == mBinding.tvRxBus) {
             RxBusActivity.openActivity(this);
-        } else if (v==mBinding.tvUrlConnection) {
+        } else if (v == mBinding.tvUrlConnection) {
             UrlConnectionActivity.openActivity(this);
         } else if (v == mBinding.tvObjectBox) {
-            startActivity(new Intent(this, ObjectBoxActivity.class));
+            Intent intent = new Intent(this, ObjectBoxActivity.class);
+            List<User> users = ObjectBox.INSTANCE.getStore().boxFor(User.class).getAll();
+            if (!users.isEmpty()) {
+                intent.putExtra("user", users.get(0));
+            }
+            startActivity(intent);
         }
     }
 

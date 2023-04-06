@@ -105,4 +105,14 @@
         app:layout_constraintTop_toBottomOf="@id/tv_await_call_in_tx"
         android:gravity="center"
         android:text="runInTx" />
+
+    <TextView
+        android:id="@+id/tv_parcelize"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_run_in_tx"
+        android:gravity="center"
+        android:text="kotlin-parcelize" />
 </androidx.constraintlayout.widget.ConstraintLayout>

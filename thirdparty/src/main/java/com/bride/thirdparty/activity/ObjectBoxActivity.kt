@@ -1,5 +1,6 @@
 package com.bride.thirdparty.activity
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
@@ -37,6 +38,7 @@ class ObjectBoxActivity : BaseActivity(), OnClickListener {
         mBinding.tvCallInTxAsync.setOnClickListener(this)
         mBinding.tvAwaitCallInTx.setOnClickListener(this)
         mBinding.tvRunInTx.setOnClickListener(this)
+        mBinding.tvParcelize.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -131,6 +133,14 @@ class ObjectBoxActivity : BaseActivity(), OnClickListener {
                         toast("Success: $nameList")
                     }
                 }
+            }
+            mBinding.tvParcelize -> {
+                val user = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    intent.getParcelableExtra("user", User::class.java)
+                } else {
+                    intent.getParcelableExtra("user")
+                }
+                toast(user)
             }
         }
     }
