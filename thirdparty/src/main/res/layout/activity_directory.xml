@@ -2,13 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:viewBindingIgnore="true"
     tools:context=".activity.DirectoryActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tv_dir1"
+        android:id="@+id/tv_root_dir"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -19,121 +18,122 @@
         android:text="Environment#getRootDirectory"/>
 
     <TextView
-        android:id="@+id/tv_dir2"
+        android:id="@+id/tv_data_dir"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_dir1"
+        app:layout_constraintTop_toBottomOf="@id/tv_root_dir"
         android:gravity="center"
         android:onClick="onClick"
         android:text="Environment#getDataDirectory"/>
 
     <TextView
-        android:id="@+id/tv_dir3"
+        android:id="@+id/tv_download_cache_dir"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_dir2"
+        app:layout_constraintTop_toBottomOf="@id/tv_data_dir"
         android:gravity="center"
         android:onClick="onClick"
         android:text="Environment#getDownloadCacheDirectory"/>
 
     <TextView
-        android:id="@+id/tv_dir4"
+        android:id="@+id/tv_external_storage_dir"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_dir3"
+        app:layout_constraintTop_toBottomOf="@id/tv_download_cache_dir"
         android:gravity="center"
         android:onClick="onClick"
         android:text="Environment#getExternalStorageDirectory"/>
 
     <TextView
-        android:id="@+id/tv_dir5"
+        android:id="@+id/tv_external_storage_public_dir"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_dir4"
+        app:layout_constraintTop_toBottomOf="@id/tv_external_storage_dir"
         android:gravity="center"
         android:onClick="onClick"
         android:text="Environment#getExternalStoragePublicDirectory"/>
 
     <TextView
-        android:id="@+id/tv_dir6"
+        android:id="@+id/tv_external_cache_dir"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_dir5"
+        app:layout_constraintTop_toBottomOf="@id/tv_external_storage_public_dir"
         android:gravity="center"
         android:onClick="onClick"
         android:text="Context#getExternalCacheDir"/>
 
     <TextView
-        android:id="@+id/tv_dir7"
+        android:id="@+id/tv_external_files_dir"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_dir6"
+        app:layout_constraintTop_toBottomOf="@id/tv_external_cache_dir"
         android:gravity="center"
         android:onClick="onClick"
         android:text="Context#getExternalFilesDir"/>
 
     <TextView
-        android:id="@+id/tv_dir8"
+        android:id="@+id/tv_app_data_dir"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_dir7"
+        app:layout_constraintTop_toBottomOf="@id/tv_external_files_dir"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:text="Context#getDataDir"/>
+
+    <TextView
+        android:id="@+id/tv_cache_dir"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_app_data_dir"
         android:gravity="center"
         android:onClick="onClick"
         android:text="Context#getCacheDir"/>
 
     <TextView
-        android:id="@+id/tv_dir9"
+        android:id="@+id/tv_files_dir"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_dir8"
+        app:layout_constraintTop_toBottomOf="@id/tv_cache_dir"
         android:gravity="center"
         android:onClick="onClick"
         android:text="Context#getFilesDir"/>
 
     <TextView
-        android:id="@+id/tv_dir10"
+        android:id="@+id/tv_app_dir"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_dir9"
+        app:layout_constraintTop_toBottomOf="@id/tv_files_dir"
         android:gravity="center"
         android:onClick="onClick"
         android:text="Context#getDir"/>
-    <TextView
-        android:id="@+id/tv_dir11"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_dir10"
-        android:gravity="center"
-        android:onClick="onClick"
-        android:text="Context#getDataDir"/>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_dir12"
+        android:id="@+id/tv_android_id"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_dir11"
+        app:layout_constraintTop_toBottomOf="@id/tv_app_dir"
         android:gravity="center"
         android:onClick="onClick"
         android:text="getDeviceId"/>
