@@ -21,6 +21,8 @@ import com.bride.demon.module.video.activity.LiveCameraActivity;
 import com.bride.demon.module.video.activity.VideoViewActivity;
 import com.bride.ui_lib.BaseFragment;
 
+import io.flutter.embedding.android.FlutterActivity;
+
 /**
  * Serializable, Parcelable, Gson PK
  * <p>Created by shixin on 2019/4/10.
@@ -76,6 +78,17 @@ public class NotificationsFragment extends BaseFragment {
             DiceActivity.Companion.openActivity(requireActivity());
         } else if (v == mBinding.btnCompose) {
             startActivity(new Intent(getActivity(), ComposeDemoActivity.class));
+        } else if (v == mBinding.btnFlutter) {
+//            startActivity(FlutterActivity.createDefaultIntent(requireActivity()));
+            /*startActivity(
+                    FlutterActivity.withNewEngine()
+                            .initialRoute("/")
+                            .build(requireActivity())
+            );*/
+            startActivity(
+                    FlutterActivity.withCachedEngine("my_engine_id")
+                            .build(requireActivity())
+            );
         }
     }
 }

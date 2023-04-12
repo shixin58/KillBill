@@ -112,5 +112,28 @@
             android:onClick="@{fragment::onClick}"
             android:gravity="center"
             android:text="@string/test_compose" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_flutter"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_compose"
+            android:layout_marginHorizontal="20dp"
+            app:textAllCaps="false"
+            app:cornerRadius="10dp"
+            app:backgroundTint="@color/colorPrimary"
+            app:icon="@drawable/flutter_dash"
+            app:iconPadding="6dp"
+            app:iconGravity="textStart"
+            app:iconSize="16dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:onClick="@{fragment::onClick}"
+            android:gravity="center"
+            android:text="@string/test_flutter" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

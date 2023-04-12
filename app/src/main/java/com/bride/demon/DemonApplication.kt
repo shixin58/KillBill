@@ -7,6 +7,9 @@ import com.bride.baselib.*
 import com.bride.baselib.net.VolleyWrapper
 import com.bride.baselib.CustomActivityLifecycleCallbacks
 import com.github.moduth.blockcanary.BlockCanary
+import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.embedding.engine.FlutterEngineCache
+import io.flutter.embedding.engine.dart.DartExecutor
 import timber.log.Timber
 import java.util.concurrent.Executor
 import java.util.concurrent.ExecutorService
@@ -25,6 +28,7 @@ class DemonApplication : Application() {
 
     private val activityLifecycleCallbacks = CustomActivityLifecycleCallbacks()
     private val executorService: ExecutorService = Executors.newFixedThreadPool(8)
+    lateinit var flutterEngine: FlutterEngine
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
@@ -49,6 +53,7 @@ class DemonApplication : Application() {
 
         initRouter()
         Timber.plant(Timber.DebugTree())
+        initFlutterEngine()
     }
 
     fun getExecutor(): Executor {
@@ -61,5 +66,16 @@ class DemonApplication : Application() {
             ARouter.openDebug()
         }
         ARouter.init(this)
+    }
+
+    private fun initFlutterEngine() {
+        // Instantiate a FlutterEngine.
+        flutterEngine = FlutterEngine(this)
+        // Configure an initial route.
+        flutterEngine.navigationChannel.setInitialRoute("/")
+        // Start executing Dart code to pre-warm the FlutterEngine.
+        flutterEngine.dartExecutor.executeDartEntrypoint(DartExecutor.DartEntrypoint.createDefault())
+        // Cache the FlutterEngine to be used by FlutterActivity or FlutterFragment.
+        FlutterEngineCache.getInstance().put("my_engine_id", flutterEngine)
     }
 }

@@ -66,6 +66,9 @@ android {
 
             signingConfig signingConfigs.release
         }
+        profile {
+            initWith debug
+        }
     }
     compileOptions {
         targetCompatibility JavaVersion.VERSION_11
@@ -79,6 +82,15 @@ android {
         jvmToolchain(11)
     }
     ndkVersion ndk_version
+}
+
+repositories {
+    maven {
+        url '../../my_flutter/build/host/outputs/repo'
+    }
+    maven {
+        url 'https://storage.googleapis.com/download.flutter.io'
+    }
 }
 
 dependencies {
@@ -139,6 +151,10 @@ dependencies {
     implementation 'androidx.compose.runtime:runtime-livedata'
     // Optional - Integration with RxJava
     implementation 'androidx.compose.runtime:runtime-rxjava2'
+
+    debugImplementation 'com.example.my_flutter:flutter_debug:1.0'
+    profileImplementation 'com.example.my_flutter:flutter_profile:1.0'
+    releaseImplementation 'com.example.my_flutter:flutter_release:1.0'
 
     implementation project(':baselib')
     implementation project(':ui_lib')
