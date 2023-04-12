@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import com.bride.demon.activity.BlankActivity;
 import com.bride.demon.activity.ComposeDemoActivity;
+import com.bride.demon.activity.FlutterFragmentDemoActivity;
 import com.bride.demon.databinding.FragmentNotificationsBinding;
 import com.bride.demon.module.video.activity.Camera3DActivity;
 import com.bride.demon.activity.PlatformActivity;
@@ -89,6 +90,8 @@ public class NotificationsFragment extends BaseFragment {
                     FlutterActivity.withCachedEngine("my_engine_id")
                             .build(requireActivity())
             );
+        } else if (v == mBinding.btnFlutterFragment) {
+            startActivity(new Intent(getActivity(), FlutterFragmentDemoActivity.class));
         }
     }
 }
