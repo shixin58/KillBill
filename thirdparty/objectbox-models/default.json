@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:366209415037695632",
-      "lastPropertyId": "2:8183172762573001616",
+      "lastPropertyId": "4:6646770965749195408",
       "name": "User",
       "properties": [
         {
@@ -18,6 +18,16 @@
           "id": "2:8183172762573001616",
           "name": "name",
           "type": 9
+        },
+        {
+          "id": "3:3303555502778889810",
+          "name": "yearOfBirth",
+          "type": 5
+        },
+        {
+          "id": "4:6646770965749195408",
+          "name": "height",
+          "type": 5
         }
       ],
       "relations": []

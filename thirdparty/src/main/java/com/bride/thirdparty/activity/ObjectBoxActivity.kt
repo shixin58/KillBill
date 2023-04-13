@@ -14,9 +14,10 @@ import com.bride.thirdparty.databinding.ActivityObjectBoxBinding
 import com.bride.thirdparty.util.ObjectBox
 import com.bride.ui_lib.BaseActivity
 import io.objectbox.Box
-import io.objectbox.kotlin.awaitCallInTx
+import io.objectbox.kotlin.*
 import io.objectbox.query.QueryBuilder.StringOrder.CASE_SENSITIVE
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -24,7 +25,7 @@ class ObjectBoxActivity : BaseActivity(), OnClickListener {
     private lateinit var mBinding: ActivityObjectBoxBinding
 
     private val userBox: Box<User> = ObjectBox.store.boxFor(User::class.java)
-    private val orderBox: Box<Order> = ObjectBox.store.boxFor(Order::class.java)
+    private val orderBox: Box<Order> = ObjectBox.store.boxFor()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,23 +46,51 @@ class ObjectBoxActivity : BaseActivity(), OnClickListener {
         mBinding.tvParcelize.setOnClickListener(this)
         mBinding.tvInsertOrder.setOnClickListener(this)
         mBinding.tvQueryOrder.setOnClickListener(this)
+        mBinding.tvInFilter.setOnClickListener(this)
+        mBinding.tvNewQueryApi.setOnClickListener(this)
+        mBinding.tvReusingQueries.setOnClickListener(this)
+
+        lifecycleScope.launch {
+            userBox.query()
+                .build()
+                .subscribe()
+                .toFlow()
+                .flowOn(Dispatchers.IO)
+                .collect { users ->
+                    toast("User List: $users")
+                }
+        }
+        lifecycleScope.launch {
+            ObjectBox.store.subscribe(Order::class.java)
+                .toFlow()
+                .collect {
+                    val orderList = orderBox.query()
+                        .`in`(Order_.uid, arrayOf("tree", "cake"), CASE_SENSITIVE)
+                        .build()
+                        .use { it.find() }
+                    toast("Order List: $orderList")
+                }
+        }
     }
 
     override fun onClick(v: View?) {
         when(v) {
             mBinding.tvPut -> {
-                val nameListStr = mBinding.etName.text.trim()
-                if (nameListStr.isNotEmpty()) {
-                    val nameList = nameListStr.split(" ")
-                    if (nameList.size == 1) {
-                        val user = User(name = nameList.single())
+                val introListStr = mBinding.etName.text.trim()
+                if (introListStr.isNotEmpty()) {
+                    val introList = introListStr.split(";")
+                    if (introList.size == 1) {
+                        val intro = introList.single().split(",")
+                        val user = User(name = intro[0], yearOfBirth = intro.getOrNull(1)?.toInt()?:0, height = intro.getOrNull(2)?.toInt()?:0)
                         userBox.put(user)
                     } else {
-                        val users: List<User> = nameList.map { User(name = it) }
+                        val users: List<User> = introList.map {
+                            val intro = it.split(",")
+                            User(name = intro[0], yearOfBirth = intro.getOrNull(1)?.toInt()?:0, height = intro.getOrNull(2)?.toInt()?:0)
+                        }
                         userBox.put(users)
                     }
                     mBinding.etName.setText("")
-                    toast("Success: $nameList")
                 }
             }
             mBinding.tvGetAll -> {
@@ -78,7 +107,7 @@ class ObjectBoxActivity : BaseActivity(), OnClickListener {
             }
             mBinding.tvRemoveAll -> {
                 userBox.removeAll()
-                toast("Success")
+                orderBox.removeAll()
             }
             mBinding.tvCount -> {
                 val userCount = userBox.count()
@@ -152,19 +181,45 @@ class ObjectBoxActivity : BaseActivity(), OnClickListener {
                 toast(user)
             }
             mBinding.tvInsertOrder -> {
-                orderBox.removeAll()
-                val orderTree = Order(uid = "tree", tempUsageCount = 1, amount = 3.5, timeInNanos = System.nanoTime())
-                orderBox.put(orderTree)
-                val orderCake = Order(uid = "cake", tempUsageCount = 2, amount = 7.4, timeInNanos = System.nanoTime())
-                orderBox.put(orderCake)
-                toast("Put Success: $orderTree, $orderCake")
+                ObjectBox.store.runInTx {
+                    val orderTree = Order(uid = "tree", tempUsageCount = 1, amount = 3.5, timeInNanos = System.nanoTime())
+                    orderBox.put(orderTree)
+                    val orderCake = Order(uid = "cake", tempUsageCount = 2, amount = 7.4, timeInNanos = System.nanoTime())
+                    orderBox.put(orderCake)
+                }
             }
             mBinding.tvQueryOrder -> {
-                val orderTree = orderBox.query()
-                    .equal(Order_.uid, "tree", CASE_SENSITIVE)
-                    .build()
-                    .findUnique()
+                val orderTree = orderBox.query {
+                    equal(Order_.uid, "tree", CASE_SENSITIVE)
+                }.use { it.findUnique() }
                 toast(orderTree)
+            }
+            mBinding.tvInFilter -> {
+                val orderList = orderBox.query()
+                    .inValues(Order_.uid, arrayOf("tree", "cake"), CASE_SENSITIVE)
+                    .build()
+                    .use { it.find() }
+                toast(orderList)
+            }
+            mBinding.tvNewQueryApi -> {
+                // infix fun, LazyList
+                // >=160 && <=170
+                val heightCondition = ((User_.height greater 160) or (User_.height equal 160)) and ((User_.height less 170) or (User_.height equal 160))
+                val lazyList = userBox.query(
+                    User_.name notEqual "Max"
+                            and ((User_.yearOfBirth less  1988) or heightCondition)
+                )
+                    .build()
+                    .use { it.findLazyCached() }
+                toast(lazyList.toList())
+            }
+            mBinding.tvReusingQueries -> {
+                // 复用Query。已构建完的Query通过alias和setParameter改参数。
+                val query = userBox.query(User_.name.equal("").alias("name"))
+                    .build()
+                val list = query.setParameter("name", "Max")
+                    .find()
+                toast(list)
             }
         }
     }
