@@ -15,9 +15,7 @@ public class Student implements Serializable {
     private int age;
     private transient String major;
 
-    public Student() {
-
-    }
+    public Student() {}
 
     public Student(long id, String name, int age, String major) {
         this.setId(id);
@@ -25,7 +23,6 @@ public class Student implements Serializable {
         this.setAge(age);
         this.setMajor(major);
     }
-
 
     public long getId() {
         return id;

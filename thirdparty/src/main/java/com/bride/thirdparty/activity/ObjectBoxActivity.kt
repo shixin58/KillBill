@@ -6,6 +6,8 @@ import android.view.View
 import android.view.View.OnClickListener
 import androidx.lifecycle.lifecycleScope
 import com.bride.baselib.toast
+import com.bride.thirdparty.bean.Order
+import com.bride.thirdparty.bean.Order_
 import com.bride.thirdparty.bean.User
 import com.bride.thirdparty.bean.User_
 import com.bride.thirdparty.databinding.ActivityObjectBoxBinding
@@ -13,6 +15,7 @@ import com.bride.thirdparty.util.ObjectBox
 import com.bride.ui_lib.BaseActivity
 import io.objectbox.Box
 import io.objectbox.kotlin.awaitCallInTx
+import io.objectbox.query.QueryBuilder.StringOrder.CASE_SENSITIVE
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -21,6 +24,7 @@ class ObjectBoxActivity : BaseActivity(), OnClickListener {
     private lateinit var mBinding: ActivityObjectBoxBinding
 
     private val userBox: Box<User> = ObjectBox.store.boxFor(User::class.java)
+    private val orderBox: Box<Order> = ObjectBox.store.boxFor(Order::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +43,8 @@ class ObjectBoxActivity : BaseActivity(), OnClickListener {
         mBinding.tvAwaitCallInTx.setOnClickListener(this)
         mBinding.tvRunInTx.setOnClickListener(this)
         mBinding.tvParcelize.setOnClickListener(this)
+        mBinding.tvInsertOrder.setOnClickListener(this)
+        mBinding.tvQueryOrder.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -79,6 +85,7 @@ class ObjectBoxActivity : BaseActivity(), OnClickListener {
                 toast("userCount = $userCount")
             }
             mBinding.tvCallInTxAsync -> {
+                // 切换线程异步执行数据库操作
                 val idListStr = mBinding.etId.text.trim()
                 if (idListStr.isNotEmpty()) {
                     val idArr = idListStr.split(" ")
@@ -100,6 +107,7 @@ class ObjectBoxActivity : BaseActivity(), OnClickListener {
                 }
             }
             mBinding.tvAwaitCallInTx -> {
+                // 切换协程异步执行数据库操作
                 val idListStr = mBinding.etId.text.trim()
                 if (idListStr.isNotEmpty()) {
                     val userId = idListStr.split(" ")
@@ -119,6 +127,7 @@ class ObjectBoxActivity : BaseActivity(), OnClickListener {
                 }
             }
             mBinding.tvRunInTx -> {
+                // 批量数据库操作用事务Transaction
                 lifecycleScope.launch {
                     val nameListStr = mBinding.etName.text.trim()
                     if (nameListStr.isNotEmpty()) {
@@ -141,6 +150,21 @@ class ObjectBoxActivity : BaseActivity(), OnClickListener {
                     intent.getParcelableExtra("user")
                 }
                 toast(user)
+            }
+            mBinding.tvInsertOrder -> {
+                orderBox.removeAll()
+                val orderTree = Order(uid = "tree", tempUsageCount = 1, amount = 3.5, timeInNanos = System.nanoTime())
+                orderBox.put(orderTree)
+                val orderCake = Order(uid = "cake", tempUsageCount = 2, amount = 7.4, timeInNanos = System.nanoTime())
+                orderBox.put(orderCake)
+                toast("Put Success: $orderTree, $orderCake")
+            }
+            mBinding.tvQueryOrder -> {
+                val orderTree = orderBox.query()
+                    .equal(Order_.uid, "tree", CASE_SENSITIVE)
+                    .build()
+                    .findUnique()
+                toast(orderTree)
             }
         }
     }

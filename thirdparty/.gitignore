@@ -1,4 +1,6 @@
 /build
 
+/objectbox-models/default.json.bak
+
 /debug
 /release

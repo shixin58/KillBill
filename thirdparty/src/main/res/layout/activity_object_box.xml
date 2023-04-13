@@ -115,4 +115,24 @@
         app:layout_constraintTop_toBottomOf="@id/tv_run_in_tx"
         android:gravity="center"
         android:text="kotlin-parcelize" />
+
+    <TextView
+        android:id="@+id/tv_insert_order"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_parcelize"
+        android:gravity="center"
+        android:text="insert order" />
+
+    <TextView
+        android:id="@+id/tv_query_order"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_insert_order"
+        android:gravity="center"
+        android:text="query order" />
 </androidx.constraintlayout.widget.ConstraintLayout>

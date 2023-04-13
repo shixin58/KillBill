@@ -2,13 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:viewBindingIgnore="true"
     tools:context=".activity.SerializableActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tv_write_1"
+        android:id="@+id/tv_write_serializable"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -19,100 +18,100 @@
         android:onClick="onClick"/>
 
     <TextView
-        android:id="@+id/tv_read_1"
+        android:id="@+id/tv_read_serializable"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_write_1"
+        app:layout_constraintTop_toBottomOf="@id/tv_write_serializable"
         android:gravity="center"
         android:text="自动Serializable read"
         android:onClick="onClick"/>
 
     <TextView
-        android:id="@+id/tv_write_2"
+        android:id="@+id/tv_write_serializable_manual"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_read_1"
+        app:layout_constraintTop_toBottomOf="@id/tv_read_serializable"
         android:gravity="center"
         android:text="手动Serializable write"
         android:onClick="onClick"/>
 
     <TextView
-        android:id="@+id/tv_read_2"
+        android:id="@+id/tv_read_serializable_manual"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_write_2"
+        app:layout_constraintTop_toBottomOf="@id/tv_write_serializable_manual"
         android:gravity="center"
         android:text="手动Serializable read"
         android:onClick="onClick"/>
 
     <TextView
-        android:id="@+id/tv_write_3"
+        android:id="@+id/tv_write_externalizable"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_read_2"
+        app:layout_constraintTop_toBottomOf="@id/tv_read_serializable_manual"
         android:gravity="center"
         android:text="Externalizable write"
         android:onClick="onClick"/>
 
     <TextView
-        android:id="@+id/tv_read_3"
+        android:id="@+id/tv_read_externalizable"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_write_3"
+        app:layout_constraintTop_toBottomOf="@id/tv_write_externalizable"
         android:gravity="center"
         android:text="Externalizable read"
         android:onClick="onClick"/>
 
     <TextView
-        android:id="@+id/tv_write_4"
+        android:id="@+id/tv_write_gson"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_read_3"
+        app:layout_constraintTop_toBottomOf="@id/tv_read_externalizable"
         android:gravity="center"
         android:text="Gson write"
         android:onClick="onClick"/>
 
     <TextView
-        android:id="@+id/tv_read_4"
+        android:id="@+id/tv_read_gson"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_write_4"
+        app:layout_constraintTop_toBottomOf="@id/tv_write_gson"
         android:gravity="center"
         android:text="Gson read"
         android:onClick="onClick"/>
 
     <TextView
-        android:id="@+id/tv_send_1"
+        android:id="@+id/tv_send_parcelable"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_read_4"
+        app:layout_constraintTop_toBottomOf="@id/tv_read_gson"
         android:gravity="center"
         android:text="send Parcelable"
         android:onClick="onClick"/>
 
     <TextView
-        android:id="@+id/tv_send_2"
+        android:id="@+id/tv_send_externalizable"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_send_1"
+        app:layout_constraintTop_toBottomOf="@id/tv_send_parcelable"
         android:gravity="center"
         android:text="send Externalizable"
         android:onClick="onClick"/>

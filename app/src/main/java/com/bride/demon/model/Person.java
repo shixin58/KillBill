@@ -17,9 +17,7 @@ public class Person implements Externalizable {
     private String gender;
     private long createTime;
 
-    public Person() {
-
-    }
+    public Person() {}
 
     public Person(String name, String gender) {
         this.name = name;

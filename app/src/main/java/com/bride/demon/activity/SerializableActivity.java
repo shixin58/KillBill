@@ -5,11 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.bride.demon.R;
+import com.bride.demon.databinding.ActivitySerializableBinding;
 import com.bride.demon.model.City;
 import com.bride.demon.model.House;
 import com.bride.demon.model.Person;
@@ -19,17 +18,18 @@ import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import timber.log.Timber;
+
 /**
  * <p>Created by shixin on 2019-08-19.
  */
 public class SerializableActivity extends BaseActivity {
-    private static final String TAG = SerializableActivity.class.getSimpleName();
+    private ActivitySerializableBinding mBinding;
 
     public static void openActivity(Context context) {
         Intent intent = new Intent(context, SerializableActivity.class);
@@ -39,60 +39,50 @@ public class SerializableActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_serializable);
+        mBinding = ActivitySerializableBinding.inflate(getLayoutInflater());
+        setContentView(mBinding.getRoot());
     }
 
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_write_1:
-                write(new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "file_1.txt"),
-                        new Student(140429198905048511L, "石鑫", 30, "Mobile Cloud Computing"));
-                break;
-            case R.id.tv_read_1:
-                read(new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "file_1.txt"), this);
-                break;
-            case R.id.tv_write_2:
-                write(new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "file_2.txt"),
-                        new House("北京", 100f, 6));
-                break;
-            case R.id.tv_read_2:
-                read(new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "file_2.txt"), this);
-                break;
-            case R.id.tv_write_3:
-                write(new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "file_3.txt"),
-                        new Person("Max", "gentleman"));
-                break;
-            case R.id.tv_read_3:
-                read(new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "file_3.txt"), this);
-                break;
-            case R.id.tv_write_4:
-                writeGson(new House("涿州", 99f, 1),
-                        new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "file_4.txt"));
-                break;
-            case R.id.tv_read_4:
-                readGson(this, new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS),
-                        "file_4.txt"), House.class);
-                break;
-            case R.id.tv_send_1:
-                Bundle bundle = new Bundle();
-                City city = new City("New York", "International");
-                city.setCreateTime(SystemClock.elapsedRealtime());
-                bundle.putParcelable("city", city);
-                bundle.putInt("index", 1);
-                City[] cities = new City[2];
-                cities[0] = new City("Paris", "Romantic");
-                cities[1] = new City("Hong Kong", "Financial");
-                bundle.putParcelableArray("cityList", cities);
-                BlankActivity.Companion.openActivity(this, bundle);
-                break;
-            case R.id.tv_send_2:
-                Bundle bundle2 = new Bundle();
-                Person person = new Person("Lucy", "lady");
-                person.setCreateTime(SystemClock.elapsedRealtime());
-                bundle2.putSerializable("person", person);
-                bundle2.putInt("index", 2);
-                BlankActivity.Companion.openActivity(this, bundle2);
-                break;
+        if (v == mBinding.tvWriteSerializable) {
+            write(new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "file_serializable.txt"),
+                    new Student(140429198905048511L, "石鑫", 30, "Mobile Cloud Computing"));
+        } else if (v == mBinding.tvReadSerializable) {
+            read(new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "file_serializable.txt"), this);
+        } else if (v == mBinding.tvWriteSerializableManual) {
+            write(new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "file_serializable_manual.txt"),
+                    new House("北京", 100f, 6));
+        } else if (v == mBinding.tvReadSerializableManual) {
+            read(new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "file_serializable_manual.txt"), this);
+        } else if (v == mBinding.tvWriteExternalizable) {
+            write(new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "file_externalizable.txt"),
+                    new Person("Max", "gentleman"));
+        } else if (v == mBinding.tvReadExternalizable) {
+            read(new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "file_externalizable.txt"), this);
+        } else if (v == mBinding.tvWriteGson) {
+            writeGson(new House("涿州", 99f, 1),
+                    new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "file_gson.txt"));
+        } else if (v == mBinding.tvReadGson) {
+            readGson(this, new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS),
+                    "file_gson.txt"), House.class);
+        } else if (v == mBinding.tvSendParcelable) {
+            Bundle bundle = new Bundle();
+            City city = new City("New York", "International");
+            city.setCreateTime(SystemClock.elapsedRealtime());
+            bundle.putParcelable("city", city);
+            bundle.putInt("index", 1);
+            City[] cities = new City[2];
+            cities[0] = new City("Paris", "Romantic");
+            cities[1] = new City("Hong Kong", "Financial");
+            bundle.putParcelableArray("cityList", cities);
+            BlankActivity.Companion.openActivity(this, bundle);
+        } else if (v == mBinding.tvSendExternalizable) {
+            Bundle bundle2 = new Bundle();
+            Person person = new Person("Lucy", "lady");
+            person.setCreateTime(SystemClock.elapsedRealtime());
+            bundle2.putSerializable("person", person);
+            bundle2.putInt("index", 2);
+            BlankActivity.Companion.openActivity(this, bundle2);
         }
     }
 
@@ -114,10 +104,8 @@ public class SerializableActivity extends BaseActivity {
             Object o = inputStream.readObject();
             inputStream.close();
             Toast.makeText(context.getApplicationContext(), o.toString(), Toast.LENGTH_SHORT).show();
-            Log.i(TAG, "耗时："+(SystemClock.elapsedRealtime()-start)+"ms");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+            Timber.i("耗时：" + (SystemClock.elapsedRealtime() - start) + "ms");
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -129,8 +117,6 @@ public class SerializableActivity extends BaseActivity {
             outputStream.write(new Gson().toJson(o).getBytes());
             outputStream.flush();
             outputStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -151,9 +137,7 @@ public class SerializableActivity extends BaseActivity {
             }
             Toast.makeText(context.getApplicationContext(),
                     new Gson().fromJson(new String(resultBytes), cls).toString(), Toast.LENGTH_SHORT).show();
-            Log.i(TAG, "耗时："+(SystemClock.elapsedRealtime()-start)+"ms");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Timber.i("耗时：" + (SystemClock.elapsedRealtime() - start) + "ms");
         } catch (IOException e) {
             e.printStackTrace();
         }

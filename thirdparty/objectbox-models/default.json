@@ -21,10 +21,41 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "2:8772699435936353112",
+      "lastPropertyId": "4:3214378469404600353",
+      "name": "Order",
+      "properties": [
+        {
+          "id": "1:7404526777992380104",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6364104175187291791",
+          "name": "uid",
+          "indexId": "1:4591534870939916084",
+          "type": 9,
+          "flags": 2080
+        },
+        {
+          "id": "3:1730338117472544678",
+          "name": "price",
+          "type": 8
+        },
+        {
+          "id": "4:3214378469404600353",
+          "name": "timeInNanos",
+          "type": 12
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "1:366209415037695632",
-  "lastIndexId": "0:0",
+  "lastEntityId": "2:8772699435936353112",
+  "lastIndexId": "1:4591534870939916084",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
