@@ -101,6 +101,8 @@ dependencies {
 
     implementation project(':baselib')
     implementation project(':ui_lib')
+    implementation "androidx.core:core-ktx:$core_version"
 }
 
 apply plugin: "io.objectbox"
+apply plugin: 'org.jetbrains.kotlin.android'

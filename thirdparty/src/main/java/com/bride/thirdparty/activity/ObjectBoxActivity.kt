@@ -6,6 +6,8 @@ import android.view.View
 import android.view.View.OnClickListener
 import androidx.lifecycle.lifecycleScope
 import com.bride.baselib.toast
+import com.bride.thirdparty.bean.Customer
+import com.bride.thirdparty.bean.Customer_
 import com.bride.thirdparty.bean.Order
 import com.bride.thirdparty.bean.Order_
 import com.bride.thirdparty.bean.User
@@ -26,6 +28,7 @@ class ObjectBoxActivity : BaseActivity(), OnClickListener {
 
     private val userBox: Box<User> = ObjectBox.store.boxFor(User::class.java)
     private val orderBox: Box<Order> = ObjectBox.store.boxFor()
+    private val customerBox: Box<Customer> = ObjectBox.store.boxFor()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +52,7 @@ class ObjectBoxActivity : BaseActivity(), OnClickListener {
         mBinding.tvInFilter.setOnClickListener(this)
         mBinding.tvNewQueryApi.setOnClickListener(this)
         mBinding.tvReusingQueries.setOnClickListener(this)
+        mBinding.tvRelationRemove.setOnClickListener(this)
 
         lifecycleScope.launch {
             userBox.query()
@@ -108,6 +112,7 @@ class ObjectBoxActivity : BaseActivity(), OnClickListener {
             mBinding.tvRemoveAll -> {
                 userBox.removeAll()
                 orderBox.removeAll()
+                customerBox.removeAll()
             }
             mBinding.tvCount -> {
                 val userCount = userBox.count()
@@ -182,10 +187,12 @@ class ObjectBoxActivity : BaseActivity(), OnClickListener {
             }
             mBinding.tvInsertOrder -> {
                 ObjectBox.store.runInTx {
+                    val customer = Customer(name = "Max")
                     val orderTree = Order(uid = "tree", tempUsageCount = 1, amount = 3.5, timeInNanos = System.nanoTime())
-                    orderBox.put(orderTree)
+                    customer.orders.add(orderTree)
                     val orderCake = Order(uid = "cake", tempUsageCount = 2, amount = 7.4, timeInNanos = System.nanoTime())
-                    orderBox.put(orderCake)
+                    customer.orders.add(orderCake)
+                    customerBox.put(customer)
                 }
             }
             mBinding.tvQueryOrder -> {
@@ -199,7 +206,7 @@ class ObjectBoxActivity : BaseActivity(), OnClickListener {
                     .inValues(Order_.uid, arrayOf("tree", "cake"), CASE_SENSITIVE)
                     .build()
                     .use { it.find() }
-                toast(orderList)
+                toast(orderList.map { it.customer.target })
             }
             mBinding.tvNewQueryApi -> {
                 // infix fun, LazyList
@@ -215,11 +222,19 @@ class ObjectBoxActivity : BaseActivity(), OnClickListener {
             }
             mBinding.tvReusingQueries -> {
                 // 复用Query。已构建完的Query通过alias和setParameter改参数。
-                val query = userBox.query(User_.name.equal("").alias("name"))
+                val query = customerBox.query(Customer_.name.equal("").alias("name"))
                     .build()
                 val list = query.setParameter("name", "Max")
                     .find()
-                toast(list)
+                toast(list.map { it.orders.toList() })
+            }
+            mBinding.tvRelationRemove -> {
+                val customer = customerBox.query {
+                    equal(Customer_.name, "Max", CASE_SENSITIVE)
+                }.use { it.findFirst() }?:return
+                // One-to-Many双向删除
+                customer.orders.removeAt(0)
+                customer.orders.applyChangesToDb()
             }
         }
     }
