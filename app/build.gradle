@@ -27,10 +27,11 @@ android {
         dataBinding true
         viewBinding true
         compose true
+        aidl true
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.1"
+        kotlinCompilerExtensionVersion = "1.4.5"
     }
 
     sourceSets {
@@ -71,15 +72,15 @@ android {
         }
     }
     compileOptions {
-        targetCompatibility JavaVersion.VERSION_11
-        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
         // pass compiler arguments to Kotlin Compiler with Gradle
         freeCompilerArgs += ["-Xallow-result-return-type"]
     }
     kotlin {
-        jvmToolchain(11)
+        jvmToolchain(17)
     }
     ndkVersion ndk_version
 }
@@ -133,7 +134,7 @@ dependencies {
     // compileOnly 'com.google.android:android:4.1.1.4'
     implementation "com.bennyhuo:portable-android-handler:1.0"
 
-    def composeBom = platform('androidx.compose:compose-bom:2023.01.00')
+    def composeBom = platform('androidx.compose:compose-bom:2023.04.00')
     implementation composeBom
 
     // Material Design 2
@@ -144,9 +145,9 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-tooling'
 
     // Optional - Integration with activities
-    implementation 'androidx.activity:activity-compose:1.6.1'
+    implementation "androidx.activity:activity-compose:$activity_version"
     // Optional - Integration with ViewModels
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1'
     // Optional - Integration with LiveData
     implementation 'androidx.compose.runtime:runtime-livedata'
     // Optional - Integration with RxJava

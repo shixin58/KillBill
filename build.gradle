@@ -3,7 +3,7 @@ apply from: 'version.gradle'
 apply plugin: 'com.alibaba.arouter'
 
 buildscript {
-    ext.kotlin_version = '1.8.0'
+    ext.kotlin_version = '1.8.20'
     ext.objectboxVersion = "3.5.1"
     repositories {
         google()
@@ -12,7 +12,7 @@ buildscript {
 //        mavenCentral { url 'https://maven.aliyun.com/repository/central' }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:7.4.2"
+        classpath 'com.android.tools.build:gradle:8.0.0'
         classpath("io.objectbox:objectbox-gradle-plugin:$objectboxVersion")
         // 添加Kotlin编译器插件
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"

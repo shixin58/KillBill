@@ -1,9 +1,9 @@
 ext {
     core_version = '1.9.0'
-    activity_version = '1.6.1'
+    activity_version = '1.7.0'
     constraintlayout_version = '2.1.4'
-    appcompat_version = '1.4.2'
-    material_version = '1.5.0'
+    appcompat_version = '1.6.1'
+    material_version = '1.8.0'
     ndk_version = '24.0.8215888'
 
     // 源码参考https://github.com/Kotlin/kotlinx.coroutines
@@ -27,7 +27,7 @@ ext {
 
     // 慕课网引用glide-v3.7.0
     // 源码参考https://github.com/bumptech/glide
-    glide_version = "4.14.2"
+    glide_version = "4.15.1"
 
     stetho_version = "1.5.1"
 
@@ -38,7 +38,7 @@ ext {
 
     // 慕课网引用eventbus-v3.0.0
     // 源码参考https://github.com/greenrobot/EventBus
-    eventbus_version = "3.2.0"
+    eventbus_version = "3.3.1"
 
     // 慕课网引用rxjava-v1.1.3、rxandroid-v1.1.0
     // 源码参考https://github.com/ReactiveX/RxJava, https://github.com/ReactiveX/RxAndroid
