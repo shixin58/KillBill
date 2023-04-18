@@ -2,7 +2,6 @@ package com.bride.demon
 
 import android.app.Application
 import android.content.Context
-import com.alibaba.android.arouter.launcher.ARouter
 import com.bride.baselib.*
 import com.bride.baselib.net.VolleyWrapper
 import com.bride.baselib.CustomActivityLifecycleCallbacks
@@ -51,21 +50,12 @@ class DemonApplication : Application() {
 
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
 
-        initRouter()
         Timber.plant(Timber.DebugTree())
         initFlutterEngine()
     }
 
     fun getExecutor(): Executor {
         return executorService
-    }
-
-    private fun initRouter() {
-        if (BuildConfig.DEBUG) {
-            ARouter.openLog()
-            ARouter.openDebug()
-        }
-        ARouter.init(this)
     }
 
     private fun initFlutterEngine() {

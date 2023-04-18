@@ -99,7 +99,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
             startActivity(intent);
         } else if (v==mBinding.tvApp) {
-            String name = PackageNameFinals.APP + ("debug".equals(BuildConfig.BUILD_TYPE)?".debug":"");
+            String name = PackageNameFinals.APP;
             if(checkPackageInfo(name)) {
                 intent = getPackageManager().getLaunchIntentForPackage(name);
                 startActivity(intent);
@@ -109,11 +109,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         } else if (v==mBinding.tvComponent) {
             try {
                 intent = new Intent();
-                String packageName = PackageNameFinals.APP + ("debug".equals(BuildConfig.BUILD_TYPE)?".debug":"");
+                String packageName = PackageNameFinals.APP;
                 intent.setClassName(packageName, ActivityNameFinals.App.GLIDE);
                 startActivity(intent);
             } catch (Exception e) {
-                // java.lang.SecurityException: Permission Denial: starting Intent { cmp=com.bride.demon.debug/com.bride.demon.activity.GlideActivity } from ProcessRecord{dabbcc9 10979:com.bride.client.debug/u0a241} (pid=10979, uid=10241) not exported from uid 10248
+                // java.lang.SecurityException: Permission Denial: starting Intent { cmp=com.bride.demon/com.bride.demon.activity.GlideActivity } from ProcessRecord{dabbcc9 10979:com.bride.client/u0a241} (pid=10979, uid=10241) not exported from uid 10248
                 e.printStackTrace();
             }
         }
@@ -125,13 +125,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if (v==mBinding.tvStartService) {
             try {
                 intent = new Intent();
-                intent.setClassName("com.bride.demon" + (BuildConfig.DEBUG ? ".debug":""),
+                intent.setClassName("com.bride.demon",
                         "com.bride.demon.service.UploadService");
                 intent.setAction("action_upload");
                 intent.putExtra(KEY_NAME, "Beauty");
                 startService(intent);
             } catch (Exception e) {
-                // java.lang.SecurityException: Not allowed to start service Intent { act=action_upload cmp=com.bride.demon.debug/com.bride.demon.service.UploadService (has extras) } without permission not exported from uid 10248
+                // java.lang.SecurityException: Not allowed to start service Intent { act=action_upload cmp=com.bride.demon/com.bride.demon.service.UploadService (has extras) } without permission not exported from uid 10248
                 e.printStackTrace();
             }
         } else if (v==mBinding.tvOpenMusic) {
@@ -140,11 +140,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             startActivity(intent);
         } else if (v==mBinding.tvSendBroadcast) {
             // 静态广播+跨进程发广播
-            // Broadcast所在进程com.roy.devil.debug必须运行
+            // Broadcast所在进程com.roy.devil必须运行
             intent = new Intent();
             intent.setAction("com.roy.devil.action.MUSIC");
             // 若不设置包名，提示"BroadcastQueue: Background execution not allowed: receiving Intent"
-            intent.setPackage("com.roy.devil"+(BuildConfig.DEBUG?".debug":""));
+            intent.setPackage("com.roy.devil");
             sendBroadcast(intent);
         } else if (v==mBinding.tvOpenBinder) {
             BinderActivity.openActivity(this);

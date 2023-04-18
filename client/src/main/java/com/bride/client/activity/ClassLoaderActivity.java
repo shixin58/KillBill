@@ -78,7 +78,7 @@ public class ClassLoaderActivity extends BaseActivity {
                     if (!pluginDir.exists()) {
                         pluginDir.mkdirs();
                     }
-                    // /data/user/0/com.bride.client.debug/app_plugin/apk
+                    // /data/user/0/com.bride.client/app_plugin/apk
                     Log.i(TAG, "onResponse "+pluginDir.getAbsolutePath());
                     BufferedOutputStream bos = new BufferedOutputStream(
                             new FileOutputStream(new File(pluginDir, "app-arm-free-debug.zip")));
@@ -91,10 +91,10 @@ public class ClassLoaderActivity extends BaseActivity {
             // 私有进程共享getDir目录、包名。
             final String dexPath = new File(getDir("plugin", Context.MODE_PRIVATE), "apk/app-arm-free-debug.zip").getAbsolutePath();
 
-            final File dexOutputDir = new File(getDir("explugin", Context.MODE_PRIVATE), "com.roy.devil.debug");
+            final File dexOutputDir = new File(getDir("explugin", Context.MODE_PRIVATE), "com.roy.devil");
             if (!dexOutputDir.exists())
                 dexOutputDir.mkdirs();
-            // /data/user/0/com.bride.client.debug/app_explugin/com.roy.devil.debug
+            // /data/user/0/com.bride.client/app_explugin/com.roy.devil
             String dexOutputPath = dexOutputDir.getAbsolutePath();
 
             // 构造librarySearchPath

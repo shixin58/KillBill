@@ -56,6 +56,9 @@ android {
         jvmToolchain(17)
     }
     ndkVersion ndk_version
+    lintOptions {
+        disable "Instantiatable"
+    }
 
     /*flavorDimensions "abi"
     productFlavors {

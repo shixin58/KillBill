@@ -44,11 +44,10 @@ public class BinderActivity extends BaseActivity {
                 try {
                     // 启动服务并拿到服务代理。服务所在进程必须运行
                     intent = new Intent();
-                    intent.setClassName("com.bride.demon" + (BuildConfig.DEBUG ? ".debug":""),
-                            "com.bride.demon.service.MyService");
+                    intent.setClassName("com.bride.demon", "com.bride.demon.service.MyService");
                     bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
                 } catch (Exception e) {
-                    // java.lang.SecurityException: Not allowed to bind to service Intent { cmp=com.bride.demon.debug/com.bride.demon.service.MyService }
+                    // java.lang.SecurityException: Not allowed to bind to service Intent { cmp=com.bride.demon/com.bride.demon.service.MyService }
                     e.printStackTrace();
                 }
             }else {

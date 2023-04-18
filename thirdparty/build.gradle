@@ -34,7 +34,6 @@ android {
         debug {
             signingConfig signingConfigs.release
             minifyEnabled false
-            applicationIdSuffix = '.debug'
         }
         release {
             signingConfig signingConfigs.release
@@ -62,6 +61,9 @@ android {
         jvmToolchain(17)
     }
     ndkVersion ndk_version
+    lintOptions {
+        disable "Instantiatable"
+    }
 }
 
 dependencies {

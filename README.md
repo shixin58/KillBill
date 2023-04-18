@@ -13,8 +13,7 @@
     5. binder(IMyService.aidl, MyService, MineFragment, BinderActivity)
     6. 视频(module.video包，VideoViewActivity)
     7. 序列化(SerializableActivity)
-    8. ARouter：组件化页面跳转
-    9. Jetpack Compose
+    8. Jetpack Compose
 
 3. client模块
     1. 常见算法(algorithm包)

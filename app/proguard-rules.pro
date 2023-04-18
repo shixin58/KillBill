@@ -30,43 +30,10 @@
 # 混淆Obfuscation，默认开启
 #-dontobfuscate
 
-# rong start
--keepattributes Exceptions,InnerClasses
-
--keepattributes Signature
-
-# VoIP
--keep class io.agora.rtc.** {*;}
-
-# 红包
--keep class com.google.gson.** { *; }
--keep class com.uuhelper.Application.** {*;}
--keep class net.sourceforge.zbar.** { *; }
--keep class com.google.android.gms.** { *; }
--keep class com.alipay.** {*;}
--keep class com.jrmf360.rylib.** {*;}
-
--ignorewarnings
-
--keep class com.bride.demon.module.rong.SealNotificationReceiver {*;}
-# rong end
-
-# ARouter start
--keep public class com.alibaba.android.arouter.routes.**{*;}
--keep public class com.alibaba.android.arouter.facade.**{*;}
--keep class * implements com.alibaba.android.arouter.facade.template.ISyringe{*;}
-
-# If you use the byType method to obtain Service, add the following rules to protect the interface:
--keep interface * implements com.alibaba.android.arouter.facade.template.IProvider
-
-# If single-type injection is used, that is, no interface is defined to implement IProvider, the following rules need to be added to protect the implementation
-# -keep class * implements com.alibaba.android.arouter.facade.template.IProvider
-#ARouter end
-
 -keep public class pl.droidsonroids.gif.GifIOException{<init>(int);}
 -keep class pl.droidsonroids.gif.GifInfoHandle{<init>(long,int,int,int);}
 
-# Glide start
+# For Glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep class * extends com.bumptech.glide.module.AppGlideModule {
  <init>(...);
@@ -78,7 +45,18 @@
 -keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder {
   *** rewind();
 }
+# Uncomment for DexGuard only
+#-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
-# for DexGuard only
--keepresourcexmlelements manifest/application/meta-data@value=GlideModule
-# Glide end
+# For OkHttp
+# JSR 305 annotations are for embedding nullability information.
+-dontwarn javax.annotation.**
+# A resource is loaded with a relative path so the package of this class must be preserved.
+-adaptresourcefilenames okhttp3/internal/publicsuffix/PublicSuffixDatabase.gz
+# Animal Sniffer compileOnly dependency to ensure APIs are compatible with older versions of Java.
+-dontwarn org.codehaus.mojo.animal_sniffer.*
+# OkHttp platform used only on JVM and when Conscrypt and other security providers are available.
+-dontwarn okhttp3.internal.platform.**
+-dontwarn org.conscrypt.**
+-dontwarn org.bouncycastle.**
+-dontwarn org.openjsse.**
