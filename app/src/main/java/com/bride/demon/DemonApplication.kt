@@ -5,7 +5,6 @@ import android.content.Context
 import com.bride.baselib.*
 import com.bride.baselib.net.VolleyWrapper
 import com.bride.baselib.CustomActivityLifecycleCallbacks
-import com.github.moduth.blockcanary.BlockCanary
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.dart.DartExecutor
@@ -25,7 +24,7 @@ class DemonApplication : Application() {
         val exec: ExecutorService by lazy { Executors.newCachedThreadPool() }
     }
 
-    private val activityLifecycleCallbacks = CustomActivityLifecycleCallbacks()
+    private val activityLifecycleCallbacks: ActivityLifecycleCallbacks by lazy { CustomActivityLifecycleCallbacks() }
     private val executorService: ExecutorService = Executors.newFixedThreadPool(8)
     lateinit var flutterEngine: FlutterEngine
 
@@ -36,10 +35,6 @@ class DemonApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        if (ResUtils.isMainThread(this)) {
-            BlockCanary.install(this, AppBlockContext()).start()
-        }
-
         instance = this
         appContext = this
         ResUtils.setContext(this)

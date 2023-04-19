@@ -3,7 +3,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
     namespace "com.bride.demon"
@@ -51,14 +50,12 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.release
+            minifyEnabled false
         }
         release {
+            signingConfig signingConfigs.release
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            shrinkResources true
-            zipAlignEnabled true
-
-            signingConfig signingConfigs.release
         }
         profile {
             initWith debug
@@ -110,12 +107,6 @@ dependencies {
     implementation "androidx.core:core-ktx:$core_version"
     implementation "androidx.activity:activity-ktx:$activity_version"
 
-//    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
-
-//    debugImplementation "com.github.markzhai:blockcanary-android:$blockcanary_version"
-//    releaseImplementation "com.github.markzhai:blockcanary-no-op:$blockcanary_version"
-    implementation "com.github.markzhai:blockcanary-no-op:$blockcanary_version"
-
     implementation "com.github.bumptech.glide:glide:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
     // 默认HttpUrlConnection，添加OkHttp或Volley依赖自动替换
@@ -154,3 +145,5 @@ dependencies {
     implementation project(':baselib')
     implementation project(':ui_lib')
 }
+
+apply plugin: 'org.jetbrains.kotlin.android'

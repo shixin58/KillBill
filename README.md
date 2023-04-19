@@ -7,13 +7,12 @@
 
 2. app模块
     1. Kotlin(demo、demo.imooc包)
-    2. 图片优化(Glide，GlideActivity/RegionActivity/WebpActivity/Camera3DActivity) 
-    3. LeakCanary, BlockCanary
+    2. 图片优化(Glide，GlideActivity/RegionActivity/WebpActivity/Camera3DActivity)
+    3. Jetpack Compose
     4. Android事件分发机制(TouchActivity)
     5. binder(IMyService.aidl, MyService, MineFragment, BinderActivity)
     6. 视频(module.video包，VideoViewActivity)
     7. 序列化(SerializableActivity)
-    8. Jetpack Compose
 
 3. client模块
     1. 常见算法(algorithm包)

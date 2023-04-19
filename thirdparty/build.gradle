@@ -16,7 +16,6 @@ android {
         versionName "1.0"
     }
 
-    // dataBinding
     buildFeatures {
         dataBinding true
         viewBinding true
@@ -39,18 +38,6 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    // 配置源集
-    sourceSets {
-        main {
-            java {
-                srcDir 'src/main/java'
-            }
-            res {
-                srcDir 'src/main/res'
-            }
-            manifest.srcFile 'src/main/AndroidManifest.xml'
         }
     }
     compileOptions {
@@ -88,8 +75,6 @@ dependencies {
     implementation "com.facebook.stetho:stetho-urlconnection:$stetho_version"
     // enable a JavaScript console
     implementation "com.facebook.stetho:stetho-js-rhino:$stetho_version"
-
-//    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
 
     implementation "org.greenrobot:eventbus:$eventbus_version"
 

@@ -14,17 +14,13 @@ import java.io.IOException
 import java.io.PrintWriter
 import java.lang.Thread.UncaughtExceptionHandler
 
-/**
- *
- * Created by shixin on 2018/9/20.
- */
 class ThirdPartyApplication : Application() {
     companion object {
         lateinit var instance: ThirdPartyApplication
             private set
     }
 
-    val handler = Handler(Looper.getMainLooper())
+    val handler: Handler by lazy { Handler(Looper.getMainLooper()) }
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)

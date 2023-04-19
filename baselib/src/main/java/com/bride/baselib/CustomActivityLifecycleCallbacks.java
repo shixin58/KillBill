@@ -12,8 +12,6 @@ import java.util.List;
  * <p>Created by shixin on 2018/10/1.
  */
 public class CustomActivityLifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
-    private static final String TAG = CustomActivityLifecycleCallbacks.class.getSimpleName();
-
     private int mVisibleActivityCount = 0;
     private int mActivityCount = 0;
 
