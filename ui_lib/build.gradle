@@ -19,6 +19,9 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        profile {
+            initWith debug
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -34,8 +37,6 @@ dependencies {
 
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.appcompat:appcompat-resources:$appcompat_version"
-
-    api "com.alibaba:arouter-api:$arouter_version"
 
     implementation "com.google.android.material:material:$material_version"
     implementation project(':baselib')

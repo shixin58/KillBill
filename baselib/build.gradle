@@ -20,6 +20,9 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        profile {
+            initWith debug
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17

@@ -48,8 +48,6 @@ ext {
 
     lottie_version = "3.4.4"
 
-    arouter_version = "1.5.2"
-
     smart_refresh_layout_version = "2.0.5"
 
     volley_version = "1.2.1"
