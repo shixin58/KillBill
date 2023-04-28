@@ -65,9 +65,8 @@ public class JSActivity extends BaseActivity {
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
 //        webSettings.setSavePassword(false);
 
-        // 通过addJavascriptInterface()将Java对象映射到JS对象
+        // 调用addJavascriptInterface()将Java对象映射到JS对象，调用removeJavascriptInterface("test")删除映射
         mWebView.addJavascriptInterface(new AndroidToJS(), "test");
-//        mWebView.removeJavascriptInterface("test");
 
         // 载入js代码
         mWebView.loadUrl("file:///android_asset/demo_js.html");
@@ -75,7 +74,7 @@ public class JSActivity extends BaseActivity {
         mWebView.setWebChromeClient(new WebChromeClient(){
             @Override
             public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
-                Timber.i("WebChromeClient onJsAlert %s", message);
+                Timber.i("WebChromeClient#onJsAlert %s", message);
                 // 拦截alert警告框
                 new AlertDialog.Builder(JSActivity.this)
                         .setTitle("标题")
@@ -89,7 +88,7 @@ public class JSActivity extends BaseActivity {
 
             @Override
             public boolean onJsConfirm(WebView view, String url, String message, final JsResult result) {
-                Timber.i("WebChromeClient onJsConfirm %s", message);
+                Timber.i("WebChromeClient#onJsConfirm %s", message);
                 // 拦截confirm确认框
                 new AlertDialog.Builder(JSActivity.this)
                         .setTitle("标题")
@@ -104,7 +103,7 @@ public class JSActivity extends BaseActivity {
 
             @Override
             public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, final JsPromptResult result) {
-                Timber.i("WebChromeClient onJsPrompt %s", message);
+                Timber.i("WebChromeClient#onJsPrompt %s", message);
                 // 拦截prompt输入框
                 new AlertDialog.Builder(JSActivity.this)
                         .setTitle("标题")
@@ -120,33 +119,41 @@ public class JSActivity extends BaseActivity {
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
-                Timber.i("WebChromeClient onReceivedTitle %s", title);
+                Timber.i("WebChromeClient#onReceivedTitle %s", title);
+            }
+
+            @Override
+            public void onReceivedIcon(WebView view, Bitmap icon) {
+                super.onReceivedIcon(view, icon);
+                Timber.i("WebChromeClient#onReceivedTitle");
             }
 
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
                 // 获取网页加载进度更新ProgressBar[0, 100]
-                Timber.i("WebChromeClient onProgressChanged %s", newProgress);
+                Timber.i("WebChromeClient#onProgressChanged %s", newProgress);
             }
 
             @Override
             public Bitmap getDefaultVideoPoster() {
-                Timber.i("WebChromeClient getDefaultVideoPoster");
+                Timber.i("WebChromeClient#getDefaultVideoPoster");
                 return super.getDefaultVideoPoster();
             }
 
             @Override
             public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-                Timber.i("WebChromeClient onConsoleMessage " + consoleMessage.message()
-                        + ", messageLevel=" + consoleMessage.messageLevel() + ", sourceId=" + consoleMessage.sourceId() + ", lineNumber=" + consoleMessage.lineNumber());
+                Timber.i("WebChromeClient#onConsoleMessage " + consoleMessage.message()
+                        + ", messageLevel=" + consoleMessage.messageLevel()
+                        + ", sourceId=" + consoleMessage.sourceId()
+                        + ", lineNumber=" + consoleMessage.lineNumber());
                 return super.onConsoleMessage(consoleMessage);
             }
 
             @Override
             public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback,
                                              FileChooserParams fileChooserParams) {
-                Timber.i("WebChromeClient onShowFileChooser");
+                Timber.i("WebChromeClient#onShowFileChooser");
                 return super.onShowFileChooser(webView, filePathCallback, fileChooserParams);
             }
         });
@@ -155,58 +162,59 @@ public class JSActivity extends BaseActivity {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                Timber.i("WebViewClient onPageStarted %s", url);
+                Timber.i("WebViewClient#onPageStarted %s", url);
             }
 
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                Timber.i("WebViewClient onPageFinished %s", url);
+                Timber.i("WebViewClient#onPageFinished %s", url);
             }
 
             @Override
             public void onPageCommitVisible(WebView view, String url) {
                 super.onPageCommitVisible(view, url);
-                Timber.i("WebViewClient onPageCommitVisible %s", url);
+                Timber.i("WebViewClient#onPageCommitVisible %s", url);
             }
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 Uri uri = Uri.parse(url);
-                if(TextUtils.equals(uri.getScheme(), "js")) {
-                    if(TextUtils.equals(uri.getAuthority(), "webview")) {
-                        // 拦截url
-                        Timber.i("WebViewClient shouldOverrideUrlLoading "
+                if (TextUtils.equals(uri.getScheme(), "js")) {
+                    if (TextUtils.equals(uri.getAuthority(), "webview")) {
+                        Timber.i("WebViewClient#shouldOverrideUrlLoading "
                                 + uri.getQueryParameter("arg1") + " " + uri.getQueryParameter("arg2"));
+                    } else {
+                        Timber.i("WebViewClient#shouldOverrideUrlLoading %s", url);
                     }
                     return true;
                 }
-                Timber.i("WebViewClient shouldOverrideUrlLoading %s", url);
+                Timber.i("WebViewClient#shouldOverrideUrlLoading %s", url);
                 return super.shouldOverrideUrlLoading(view, url);
             }
 
             @Override
             public void onLoadResource(WebView view, String url) {
                 super.onLoadResource(view, url);
-                Timber.i("WebViewClient onLoadResource %s", url);
+                Timber.i("WebViewClient#onLoadResource %s", url);
             }
 
             @Override
             public void doUpdateVisitedHistory(WebView view, String url, boolean isReload) {
                 super.doUpdateVisitedHistory(view, url, isReload);
-                Timber.i("WebViewClient doUpdateVisitedHistory " + url + "-" + isReload);
+                Timber.i("WebViewClient#doUpdateVisitedHistory " + url + "-" + isReload);
             }
 
             @Override
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
                 super.onReceivedSslError(view, handler, error);
-                Timber.i("WebViewClient onReceivedSslError");
+                Timber.i("WebViewClient#onReceivedSslError");
             }
 
             @Nullable
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-                Timber.i("WebViewClient. isForMainFrame:%s, url:%s", request.isForMainFrame(), request.getUrl());
+                Timber.i("WebViewClient#isForMainFrame:%s, url:%s", request.isForMainFrame(), request.getUrl());
                 return handleIntercept(request);
             }
         });
@@ -241,19 +249,19 @@ public class JSActivity extends BaseActivity {
     }
 
     public void onClick(View view) {
-        if (view==mBinding.tvJs) {
+        if (view == mBinding.tvJs) {
             // java调用js函数。alert弹窗仅有确认按钮，点空白区域不消失。点确认alert()返回null。
             // 不刷新页面，能获取返回值
             mWebView.evaluateJavascript("javascript:callAlert(\"僵尸来袭\\n准备爆头\")", value -> Timber.i("onReceiveValue alert: %s", value));
-        } else if (view==mBinding.tvConfirm) {
+        } else if (view == mBinding.tvConfirm) {
             // java调用js函数。confirm弹窗有确认、取消俩按钮，点空白区域不消失。点确认confirm()返回true，点取消返回false。
             // 不刷新页面，能获取返回值
             mWebView.evaluateJavascript("javascript:callConfirm()", value -> Timber.i("onReceiveValue confirm %s", value));
-        } else if (view==mBinding.tvPrompt) {
+        } else if (view == mBinding.tvPrompt) {
             // java调用js函数。prompt弹窗有确认、取消俩按钮，点空白区域不消失。点确认prompt()返回"输入框输入的值"，点取消返回null。
             // 不刷新页面，能获取返回值
             mWebView.evaluateJavascript("javascript:callPrompt()", value -> Timber.i("onReceiveValue prompt %s", value));
-        } else if (view==mBinding.tvLog) {
+        } else if (view == mBinding.tvLog) {
             mWebView.loadUrl("javascript:console.log('test console message')");
         }
     }
