@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bride.demon.activity.BlankActivity;
-import com.bride.demon.activity.ComposeDemoActivity;
 import com.bride.demon.activity.FlutterFragmentDemoActivity;
 import com.bride.demon.databinding.FragmentNotificationsBinding;
 import com.bride.demon.module.video.activity.Camera3DActivity;
@@ -77,8 +76,6 @@ public class NotificationsFragment extends BaseFragment {
             Camera3DActivity.Companion.openActivity(requireActivity());
         } else if (v == mBinding.btnDice) {
             DiceActivity.Companion.openActivity(requireActivity());
-        } else if (v == mBinding.btnCompose) {
-            startActivity(new Intent(getActivity(), ComposeDemoActivity.class));
         } else if (v == mBinding.btnFlutter) {
 //            startActivity(FlutterActivity.createDefaultIntent(requireActivity()));
             /*startActivity(

@@ -102,26 +102,15 @@
             android:gravity="center"
             android:text="@string/test_dice_royale" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/btn_compose"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_dice"
-            android:onClick="@{fragment::onClick}"
-            android:gravity="center"
-            android:text="@string/test_compose" />
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_flutter"
             android:layout_width="0dp"
             android:layout_height="40dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_compose"
+            app:layout_constraintTop_toBottomOf="@id/btn_dice"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="10dp"
+            android:layout_marginTop="10dp"
             app:textAllCaps="false"
             app:cornerRadius="10dp"
             app:backgroundTint="@color/colorPrimary"
@@ -145,7 +134,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_flutter"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="10dp"
+            android:layout_marginTop="10dp"
             app:textAllCaps="false"
             app:cornerRadius="10dp"
             app:backgroundTint="@color/colorAccent"

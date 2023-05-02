@@ -1,9 +1,11 @@
 package com.bride.demon.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bride.demon.activity.ComposeDemoActivity
 import com.bride.demon.module.kotlin_practice.KotlinPracticeActivity
 import com.bride.ui_lib.BaseFragment
 import com.bride.demon.databinding.FragmentDashboardBinding
@@ -42,6 +44,7 @@ class DashboardFragment : BaseFragment() {
             mBinding.tvSingleTask -> SingleTaskActivity.openActivity(activity)
             mBinding.tvSingleInstance -> SingleInstanceActivity.openActivity(activity)
             mBinding.tvKotlinPractice -> KotlinPracticeActivity.openActivity(requireActivity())
+            mBinding.btnCompose -> startActivity(Intent(activity, ComposeDemoActivity::class.java))
         }
     }
 }
