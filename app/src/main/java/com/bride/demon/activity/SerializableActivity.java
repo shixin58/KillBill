@@ -8,6 +8,7 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bride.demon.GsonUtils;
 import com.bride.demon.databinding.ActivitySerializableBinding;
 import com.bride.demon.model.City;
 import com.bride.demon.model.House;
@@ -22,6 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -65,6 +67,10 @@ public class SerializableActivity extends BaseActivity {
         } else if (v == mBinding.tvReadGson) {
             readGson(this, new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS),
                     "file_gson.txt"), House.class);
+        } else if (v == mBinding.tvFromJson) {
+            String json = "{\"price\":1.0,\"name\":\"John\",\"age\":18}";
+            Map<String,Object> map = GsonUtils.INSTANCE.stringMapFromJson(json);
+            Timber.i(map.toString());
         } else if (v == mBinding.tvSendParcelable) {
             Bundle bundle = new Bundle();
             City city = new City("New York", "International");

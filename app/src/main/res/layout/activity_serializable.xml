@@ -95,12 +95,23 @@
         android:onClick="onClick"/>
 
     <TextView
-        android:id="@+id/tv_send_parcelable"
+        android:id="@+id/tv_from_json"
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_read_gson"
+        android:gravity="center"
+        android:text="Gson fromJson"
+        android:onClick="onClick"/>
+
+    <TextView
+        android:id="@+id/tv_send_parcelable"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_from_json"
         android:gravity="center"
         android:text="send Parcelable"
         android:onClick="onClick"/>

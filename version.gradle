@@ -9,9 +9,6 @@ ext {
     // 源码参考https://github.com/Kotlin/kotlinx.coroutines
     coroutine_version = "1.6.4"
 
-    // Retrofit-v2.9.0引用Gson-v2.8.5
-    gson_version = "2.8.5"
-
     // OkHttp-v3.14.9引用okio-v1.17.2, lottie-v3.4.4引用okio-v1.17.4
     okio_version = "1.17.2"
 
