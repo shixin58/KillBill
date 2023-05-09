@@ -23,8 +23,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String lang = PreferenceUtils.getString("language", Locale.ENGLISH.getLanguage());
-        setLanguage(lang);
+        setLanguage();
     }
 
     @Override
@@ -41,10 +40,11 @@ public class BaseActivity extends AppCompatActivity {
         return mHandler;
     }
 
-    protected void setLanguage(String lang) {
+    protected void setLanguage() {
+        String lang = PreferenceUtils.getString("language", Locale.ENGLISH.getLanguage());
         Resources resources = getResources();
         Configuration config = resources.getConfiguration();
-        if (lang.equals(new Locale("zh").getLanguage())) {
+        if (lang.equals(Locale.CHINESE.getLanguage())) {
             config.setLocale(Locale.CHINESE);
         } else {
             config.setLocale(Locale.ENGLISH);
