@@ -10,16 +10,12 @@ import com.bride.demon.R
 
 import java.util.ArrayList
 
-/**
- *
- * Created by shixin on 2018/3/6.
- */
 class LieAdapter : RecyclerView.Adapter<LieAdapter.ViewHolder>() {
     private val countryList = ArrayList<String>()
 
     fun setList(list: List<String>?) {
         countryList.clear()
-        if (list != null && !list.isEmpty()) {
+        if (!list.isNullOrEmpty()) {
             countryList.addAll(list)
         }
         notifyDataSetChanged()

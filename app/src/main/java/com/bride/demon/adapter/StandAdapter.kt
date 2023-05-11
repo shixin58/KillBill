@@ -7,16 +7,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bride.demon.R
 
-/**
- *
- * Created by shixin on 2018/3/6.
- */
 class StandAdapter : RecyclerView.Adapter<StandAdapter.ViewHolder>() {
     private val fruitList = ArrayList<String>()
 
     fun setFruitList(fruitList: List<String>?) {
         this.fruitList.clear()
-        if (fruitList != null && !fruitList.isEmpty()) {
+        if (!fruitList.isNullOrEmpty()) {
             this.fruitList.addAll(fruitList)
         }
         notifyDataSetChanged()
