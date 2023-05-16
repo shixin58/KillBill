@@ -22,6 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 class ObjectBoxActivity : BaseActivity(), OnClickListener {
     private lateinit var mBinding: ActivityObjectBoxBinding
@@ -53,6 +54,7 @@ class ObjectBoxActivity : BaseActivity(), OnClickListener {
         mBinding.tvNewQueryApi.setOnClickListener(this)
         mBinding.tvReusingQueries.setOnClickListener(this)
         mBinding.tvRelationRemove.setOnClickListener(this)
+        mBinding.tvOrder.setOnClickListener(this)
 
         lifecycleScope.launch {
             userBox.query()
@@ -235,6 +237,22 @@ class ObjectBoxActivity : BaseActivity(), OnClickListener {
                 // One-to-Many双向删除
                 customer.orders.removeAt(0)
                 customer.orders.applyChangesToDb()
+            }
+            mBinding.tvOrder -> {
+                val user0 = User(name = "Max", yearOfBirth = 1988, height = 173)
+                val user1 = User(name = "Jane", yearOfBirth = 1992, height = 165)
+                val user2 = User(name = "Apple", yearOfBirth = 1970, height = 5)
+                val user3 = User(name = "Apple", yearOfBirth = 1900, height = 8)
+                val user4 = User(name = "Banana", yearOfBirth = 1980, height = 10)
+                val user5 = User(name = "Cat", yearOfBirth = 1980, height = 30)
+                userBox.removeAll()
+                userBox.put(user0, user1, user2, user3, user4, user5)
+                val list = userBox.query()
+                    .orderDesc(User_.name)
+                    .order(User_.yearOfBirth)
+                    .build()
+                    .find()
+                Timber.i(list.toString())
             }
         }
     }
