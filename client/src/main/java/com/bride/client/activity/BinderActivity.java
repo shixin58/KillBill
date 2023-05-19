@@ -7,19 +7,17 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.bride.client.databinding.ActivityBinderBinding;
-import com.bride.ui_lib.BaseActivity;
-import com.bride.client.BuildConfig;
-import com.bride.demon.Form;
 import com.bride.demon.IMyService;
+import com.bride.demon.IServiceManager;
+import com.bride.demon.model.Form;
+import com.bride.ui_lib.BaseActivity;
 
-/**
- * <p>Created by shixin on 2019-05-15.
- */
+import timber.log.Timber;
+
 public class BinderActivity extends BaseActivity {
     private ActivityBinderBinding mBinding;
 
@@ -40,7 +38,7 @@ public class BinderActivity extends BaseActivity {
     public void onClick(View v) {
         Intent intent;
         if (v == mBinding.tvSwitch) {
-            if(mService == null) {
+            if (mService == null) {
                 try {
                     // 启动服务并拿到服务代理。服务所在进程必须运行
                     intent = new Intent();
@@ -50,18 +48,18 @@ public class BinderActivity extends BaseActivity {
                     // java.lang.SecurityException: Not allowed to bind to service Intent { cmp=com.bride.demon/com.bride.demon.service.MyService }
                     e.printStackTrace();
                 }
-            }else {
+            } else {
                 // IllegalArgumentException: Service not registered: com.bride.client.MainActivity$3@dc78e3b
                 unbindService(mServiceConnection);
                 mService = null;
             }
         } else if (v == mBinding.tvUseService) {
-            if(mService != null) {
+            if (mService != null) {
                 try {
                     mService.basicTypes(1, 10L, true, 2.3f, 9.99, "Jacob");
-                    Log.i("IMyService", mService.getUser().toString());
-                    Log.i("IMyService", "add "+mService.add(1, 2));
-                    Log.i("IMyService", mService.getValue());
+                    Timber.tag("IMyService").i(mService.getUser().toString());
+                    Timber.tag("IMyService").i("add %s", mService.add(1, 2));
+                    Timber.tag("IMyService").i(mService.getValue());
                     mService.sendForm(new Form("洛杉矶", "1988"));
                 } catch (RemoteException e) {
                     e.printStackTrace();
@@ -74,8 +72,13 @@ public class BinderActivity extends BaseActivity {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             // BinderProxy(IBinder) -> Proxy(IMyService)
-            mService = IMyService.Stub.asInterface(service);
-            Toast.makeText(BinderActivity.this, "服务已连接", Toast.LENGTH_SHORT).show();
+            try {
+                IServiceManager serviceManager = IServiceManager.Stub.asInterface(service);
+                mService = IMyService.Stub.asInterface(serviceManager.getService(IMyService.class.getSimpleName()));
+                Toast.makeText(BinderActivity.this, "服务已连接", Toast.LENGTH_SHORT).show();
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         @Override

@@ -10,7 +10,6 @@ import android.os.Messenger;
 import android.os.Process;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.bride.demon.IMessageService;
@@ -28,15 +27,13 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-/**
- * 在主进程或外部进程bindService，在子进程执行Service
- * <p>Created by shixin on 2018/9/8.
- */
+import timber.log.Timber;
+
+/** 在主进程或外部进程bindService，在子进程执行Service。 */
 public class MyService extends Service {
     private boolean isConnected = false;
 
-    // 方法跑在binder线程池中，用handler切换主线程
-    // 接收客户端进程通过Messenger代理传递过来的消息
+    /** 接收客户端进程通过Messenger代理传递过来的消息。方法跑在binder线程池中，用handler切换主线程。 */
     private final Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(@NonNull android.os.Message msg) {
@@ -61,42 +58,40 @@ public class MyService extends Service {
         }
     };
 
-    // 跨进程传递经过了序列化和反序列化，已经不是同个对象，ArrayList#remove(Object)无效
+    /** 跨进程传递经过了序列化和反序列化，已经不是同个对象，ArrayList#remove(Object)无效 */
     private final RemoteCallbackList<MessageReceiveListener> mListenerRemoteCallbackList = new RemoteCallbackList<>();
 
     private ScheduledThreadPoolExecutor scheduledThreadPoolExecutor;
-    private ScheduledFuture scheduledFuture;
-
-    private final Messenger messenger = new Messenger(handler);
+    private ScheduledFuture<?> scheduledFuture;
 
     private final IMyService myService = new IMyService.Stub() {
         @Override
         public void basicTypes(int anInt, long aLong, boolean aBoolean, float aFloat, double aDouble, String aString) throws RemoteException {
-            handler.post(() -> Log.i("MyServiceImpl", Thread.currentThread().getName()
-                    +" basicTypes() "+anInt+"_"+aLong+"_"+aBoolean+"_"+aFloat+"_"+aDouble+"_"+aString));
+            handler.post(() -> Timber.tag("MyServiceImpl").i(Thread.currentThread().getName()
+                    + " basicTypes() " + anInt + "_" + aLong + "_" + aBoolean + "_" + aFloat + "_" + aDouble + "_" + aString));
         }
 
         @Override
         public String getValue() throws RemoteException {
-            Log.i("MyServiceImpl", Thread.currentThread().getName()+" getValue()");
+            Timber.tag("MyServiceImpl").i("%s getValue()", Thread.currentThread().getName());
             return "终于等到你";
         }
 
         @Override
         public int add(int a, int b) throws RemoteException {
-            Log.i("MyServiceImpl", Thread.currentThread().getName()+" add()");
+            Timber.tag("MyServiceImpl").i("%s add()", Thread.currentThread().getName());
             return a+b;
         }
 
         @Override
         public User getUser() throws RemoteException {
-            Log.i("MyServiceImpl", Thread.currentThread().getName()+" getUser() ");
+            Timber.tag("MyServiceImpl").i("%s getUser() ", Thread.currentThread().getName());
             return new User("Max", "137", Process.myPid()+"");
         }
 
         @Override
         public void sendForm(Form f) throws RemoteException {
-            Log.i("MyServiceImpl", Thread.currentThread().getName()+" sendForm() "+f.toString());
+            Timber.tag("MyServiceImpl").i(Thread.currentThread().getName() + " sendForm() " + f.toString());
         }
 
         @Override
@@ -104,27 +99,19 @@ public class MyService extends Service {
             try {
                 Thread.sleep(5000L);
                 isConnected = true;
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(MyService.this, "connect", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                scheduledFuture = scheduledThreadPoolExecutor.scheduleAtFixedRate(new Runnable() {
-                    @Override
-                    public void run() {
-                        int size = mListenerRemoteCallbackList.beginBroadcast();
-                        for (int i=0; i<size; i++) {
-                            final Message msg = new Message();
-                            msg.setContent("Message sent from remote");
-                            try {
-                                mListenerRemoteCallbackList.getBroadcastItem(i).onReceiveMessage(msg);
-                            } catch (RemoteException e) {
-                                e.printStackTrace();
-                            }
+                handler.post(() -> Toast.makeText(MyService.this, "connect", Toast.LENGTH_SHORT).show());
+                scheduledFuture = scheduledThreadPoolExecutor.scheduleAtFixedRate(() -> {
+                    int size = mListenerRemoteCallbackList.beginBroadcast();
+                    for (int i=0; i<size; i++) {
+                        final Message msg = new Message();
+                        msg.setContent("Message sent from remote");
+                        try {
+                            mListenerRemoteCallbackList.getBroadcastItem(i).onReceiveMessage(msg);
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
                         }
-                        mListenerRemoteCallbackList.finishBroadcast();
                     }
+                    mListenerRemoteCallbackList.finishBroadcast();
                 }, 5000L, 5000L, TimeUnit.MILLISECONDS);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -135,12 +122,7 @@ public class MyService extends Service {
         public void disconnect() throws RemoteException {
             isConnected = false;
             scheduledFuture.cancel(true);
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(MyService.this, "disconnect", Toast.LENGTH_SHORT).show();
-                }
-            });
+            handler.post(() -> Toast.makeText(MyService.this, "disconnect", Toast.LENGTH_SHORT).show());
         }
 
         @Override
@@ -170,6 +152,8 @@ public class MyService extends Service {
             }
         }
     };
+
+    private final Messenger messenger = new Messenger(handler);
 
     private final IServiceManager serviceManager = new IServiceManager.Stub() {
         @Override

@@ -1,4 +1,4 @@
-package com.bride.demon;
+package com.bride.demon.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
