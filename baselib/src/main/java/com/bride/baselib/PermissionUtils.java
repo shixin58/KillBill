@@ -35,7 +35,7 @@ public class PermissionUtils {
     }
 
     public static void requestStoragePermission(Activity activity, int requestCode) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
             return;
         if (ContextCompat.checkSelfPermission(CONTEXT, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(CONTEXT, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -50,8 +50,6 @@ public class PermissionUtils {
     }
 
     public static void requestPhonePermission(Activity activity, int requestCode) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-            return;
         if(ContextCompat.checkSelfPermission(CONTEXT, READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             if(ActivityCompat.shouldShowRequestPermissionRationale(activity, READ_PHONE_STATE)) {
                 Toast.makeText(activity, "您需要到系统设置里打开读取手机信息权限", Toast.LENGTH_SHORT).show();
@@ -69,8 +67,6 @@ public class PermissionUtils {
     }
 
     public static void requestCameraPermission(Activity activity, int requestCode) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-            return;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             if(ContextCompat.checkSelfPermission(CONTEXT, CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 if(ActivityCompat.shouldShowRequestPermissionRationale(activity, CAMERA)) {
@@ -93,8 +89,6 @@ public class PermissionUtils {
     }
 
     public static void requestRecordAudioPermission(Activity activity, int requestCode) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-            return;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             if(ContextCompat.checkSelfPermission(CONTEXT, RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
                 if(ActivityCompat.shouldShowRequestPermissionRationale(activity, RECORD_AUDIO)) {
@@ -118,9 +112,6 @@ public class PermissionUtils {
 
     // 已经赋予的权限，不再请求，收不到回调。若需要在回调里处理逻辑，先判断是否有权限，再请求
     public static void requestAllPermissions(Activity activity, int requestCode) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-            return;
-
         LinkedList<String> permissions = new LinkedList<>();
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
             permissions.add(READ_EXTERNAL_STORAGE);
