@@ -6,8 +6,8 @@ apply plugin: 'kotlin-kapt'
 
 android {
     namespace "com.bride.demon"
-    compileSdkVersion COMPILE_SDK_VERSION as int
-    buildToolsVersion BUILD_TOOLS_VERSION
+    compileSdk COMPILE_SDK_VERSION as int
+    buildToolsVersion = BUILD_TOOLS_VERSION
     defaultConfig {
         applicationId "com.bride.demon"
         minSdkVersion MIN_SDK_VERSION as int

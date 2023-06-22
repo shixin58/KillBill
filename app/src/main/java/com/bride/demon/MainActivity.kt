@@ -2,7 +2,6 @@ package com.bride.demon
 
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import com.bride.ui_lib.BaseActivity
 import com.bride.baselib.PermissionUtils
@@ -13,6 +12,7 @@ import com.bride.demon.fragment.MineFragment
 import com.bride.demon.fragment.NotificationsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
+import timber.log.Timber
 
 class MainActivity : BaseActivity() {
     private val fragments = arrayOfNulls<Fragment>(4)
@@ -110,12 +110,12 @@ class MainActivity : BaseActivity() {
 
     override fun recreate() {
         super.recreate()
-        Log.i(TAG, "recreate")
+        Timber.i("recreate")
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        Log.i(TAG, "onRestoreInstanceState")
+        Timber.i("onRestoreInstanceState")
         mIndex = savedInstanceState.getInt("Index")
     }
 
@@ -141,9 +141,5 @@ class MainActivity : BaseActivity() {
                 }
             }
         }
-    }
-
-    companion object {
-        private val TAG: String = MainActivity::class.java.simpleName
     }
 }

@@ -2,81 +2,76 @@ package com.bride.demon.callback;
 
 import android.content.Context;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import android.util.Log;
 import android.view.View;
+
+import timber.log.Timber;
 
 /**
  * 由FragmentActivity#getSupportFragmentManager()注册注销，监控一个Activity下所有Fragment的生命周期
  * <p>Created by shixin on 2018/10/1.
  */
 public class MyFragmentLifecycleCallbacks extends FragmentManager.FragmentLifecycleCallbacks {
-    private static final String TAG = MyFragmentLifecycleCallbacks.class.getSimpleName();
-
     @Override
-    public void onFragmentAttached(FragmentManager fm, Fragment f, Context context) {
+    public void onFragmentAttached(@NonNull FragmentManager fm, @NonNull Fragment f, @NonNull Context context) {
         super.onFragmentAttached(fm, f, context);
-        Log.v(TAG, "onFragmentAttached - "+f.getClass().getSimpleName());
+        Timber.v("onFragmentAttached - %s", f.getClass().getSimpleName());
     }
 
     @Override
-    public void onFragmentCreated(FragmentManager fm, Fragment f, Bundle savedInstanceState) {
+    public void onFragmentCreated(@NonNull FragmentManager fm, @NonNull Fragment f, Bundle savedInstanceState) {
         super.onFragmentCreated(fm, f, savedInstanceState);
-        Log.v(TAG, "onFragmentCreated - "+f.getClass().getSimpleName());
+        Timber.v("onFragmentCreated - %s", f.getClass().getSimpleName());
     }
 
     @Override
-    public void onFragmentViewCreated(FragmentManager fm, Fragment f, View v, Bundle savedInstanceState) {
+    public void onFragmentViewCreated(@NonNull FragmentManager fm, @NonNull Fragment f, @NonNull View v, Bundle savedInstanceState) {
         super.onFragmentViewCreated(fm, f, v, savedInstanceState);
-        Log.v(TAG, "onFragmentViewCreated - "+f.getClass().getSimpleName());
+        Timber.v("onFragmentViewCreated - %s", f.getClass().getSimpleName());
     }
 
     @Override
-    public void onFragmentActivityCreated(FragmentManager fm, Fragment f, Bundle savedInstanceState) {
-        super.onFragmentActivityCreated(fm, f, savedInstanceState);
-        Log.v(TAG, "onFragmentActivityCreated - "+f.getClass().getSimpleName());
-    }
-
-    @Override
-    public void onFragmentStarted(FragmentManager fm, Fragment f) {
+    public void onFragmentStarted(@NonNull FragmentManager fm, @NonNull Fragment f) {
         super.onFragmentStarted(fm, f);
-        Log.v(TAG, "onFragmentStarted - "+f.getClass().getSimpleName());
+        Timber.v("onFragmentStarted - %s", f.getClass().getSimpleName());
     }
 
     @Override
-    public void onFragmentResumed(FragmentManager fm, Fragment f) {
+    public void onFragmentResumed(@NonNull FragmentManager fm, @NonNull Fragment f) {
         super.onFragmentResumed(fm, f);
-        Log.v(TAG, "onFragmentResumed - "+f.getClass().getSimpleName());
+        Timber.v("onFragmentResumed - %s", f.getClass().getSimpleName());
     }
 
     @Override
-    public void onFragmentPaused(FragmentManager fm, Fragment f) {
+    public void onFragmentPaused(@NonNull FragmentManager fm, @NonNull Fragment f) {
         super.onFragmentPaused(fm, f);
-        Log.v(TAG, "onFragmentPaused - "+f.getClass().getSimpleName());
+        Timber.v("onFragmentPaused - %s", f.getClass().getSimpleName());
     }
 
     @Override
-    public void onFragmentStopped(FragmentManager fm, Fragment f) {
+    public void onFragmentStopped(@NonNull FragmentManager fm, @NonNull Fragment f) {
         super.onFragmentStopped(fm, f);
-        Log.v(TAG, "onFragmentStopped - "+f.getClass().getSimpleName());
+        Timber.v("onFragmentStopped - %s", f.getClass().getSimpleName());
     }
 
     @Override
-    public void onFragmentViewDestroyed(FragmentManager fm, Fragment f) {
+    public void onFragmentViewDestroyed(@NonNull FragmentManager fm, @NonNull Fragment f) {
         super.onFragmentViewDestroyed(fm, f);
-        Log.v(TAG, "onFragmentViewDestroyed - "+f.getClass().getSimpleName());
+        Timber.v("onFragmentViewDestroyed - %s", f.getClass().getSimpleName());
     }
 
     @Override
-    public void onFragmentDestroyed(FragmentManager fm, Fragment f) {
+    public void onFragmentDestroyed(@NonNull FragmentManager fm, @NonNull Fragment f) {
         super.onFragmentDestroyed(fm, f);
-        Log.v(TAG, "onFragmentDestroyed - "+f.getClass().getSimpleName());
+        Timber.v("onFragmentDestroyed - %s", f.getClass().getSimpleName());
     }
 
     @Override
-    public void onFragmentDetached(FragmentManager fm, Fragment f) {
+    public void onFragmentDetached(@NonNull FragmentManager fm, @NonNull Fragment f) {
         super.onFragmentDetached(fm, f);
-        Log.v(TAG, "onFragmentDetached - "+f.getClass().getSimpleName());
+        Timber.v("onFragmentDetached - %s", f.getClass().getSimpleName());
     }
 }
