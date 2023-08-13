@@ -32,10 +32,12 @@ class FlutterFragmentDemoActivity : BaseActivity() {
         flutterFragment = fragmentManager.findFragmentByTag(TAG_FLUTTER_FRAGMENT) as FlutterFragment?
         if (flutterFragment == null) {
 //            val newFlutterFragment = FlutterFragment.createDefault()
+
             /*val newFlutterFragment = FlutterFragment.withNewEngine()
                 .initialRoute("/")// 指定 Flutter 运行的初始路由
                 .dartEntrypoint("main")// 指定 Flutter 运行的入口
                 .build<FlutterFragment>()*/
+
             val newFlutterFragment = FlutterFragment.withCachedEngine("my_engine_id")
                 .shouldAttachEngineToActivity(false)// false防止Flutter与所属的Activity交互，默认true
                 .renderMode(RenderMode.texture)// 选择使用TextureView替换SurfaceView来渲染FlutterFragment

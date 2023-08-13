@@ -80,9 +80,11 @@ android {
 
 repositories {
     maven {
+        // 将 Flutter 库打包成由 AAR 和 POM artifacts 组成的本地 Maven 存储库
         url '../../my_flutter/build/host/outputs/repo'
     }
     maven {
+        // 在国内，需要使用镜像站点（如直接使用 https://[a mirror site]/download.flutter.io 代替 storage.googleapis.com）
         url 'https://storage.googleapis.com/download.flutter.io'
     }
 }
