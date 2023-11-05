@@ -14,10 +14,6 @@ import com.bride.demon.module.framework.activity.SingleTaskActivity
 import com.bride.demon.module.framework.activity.SingleTopActivity
 import com.bride.demon.module.framework.activity.StandardActivity
 
-/**
- * Activity launch mode
- * Created by shixin on 2018/4/15.
- */
 class DashboardFragment : BaseFragment() {
     companion object {
         fun newInstance(): DashboardFragment {
