@@ -111,8 +111,8 @@
     <string name="common_cap" translatable="false">Common</string>
     <string name="star_cap" translatable="false">Star</string>
 
-    <string name="save">save</string>
-    <string name="hello">hello</string>
+    <string name="save">Save</string>
+    <string name="hello">Hello!</string>
     <string name="chinese">Chinese</string>
     <string name="english">English</string>
 </resources>

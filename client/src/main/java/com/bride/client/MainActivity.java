@@ -13,7 +13,6 @@ import android.os.Message;
 import android.os.Process;
 import android.os.SystemClock;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -30,6 +29,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import timber.log.Timber;
 
 /**
  * <p>Created by shixin on 2018/9/4.
@@ -52,14 +53,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         initView();
         initData();
         PermissionUtils.requestAllPermissions(this, 1);
-        Log.i(TAG, "onCreate "+getTaskId()+" "+hashCode());
+        Timber.tag(TAG).i("onCreate %s %s", getTaskId(), hashCode());
     }
 
     @Override
     protected void onDestroy() {
         unregisterReceiver(registeredReceiver);
         unregisterReceiver(innerBroadcastReceiver);
-        Log.i(TAG, "onDestroy "+getTaskId()+" "+hashCode());
+        Timber.tag(TAG).i("onDestroy %s %s", getTaskId(), hashCode());
         super.onDestroy();
     }
 
@@ -85,20 +86,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     public void onJumpClick(View v) {
         Intent intent;
-        if (v==mBinding.tvActionView) {
+        if (v == mBinding.tvActionView) {
             intent = new Intent();
             intent.setAction(Intent.ACTION_VIEW);
             String urlString = new ActivitySchemas(ActivitySchemas.TOUCH_SCHEMA).setParam("type", 0).getUriString();
             intent.setData(Uri.parse(urlString));
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(intent);
-        } else if (v==mBinding.tvImplicit) {
+        } else if (v == mBinding.tvImplicit) {
             intent = new Intent();
             intent.setAction(ActivityNameFinals.App.PLATFORM);
             intent.addCategory("android.intent.category.DEFAULT");
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
             startActivity(intent);
-        } else if (v==mBinding.tvApp) {
+        } else if (v == mBinding.tvApp) {
             String name = PackageNameFinals.APP;
             if(checkPackageInfo(name)) {
                 intent = getPackageManager().getLaunchIntentForPackage(name);
@@ -106,7 +107,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             } else {
                 Toast.makeText(this, "未安装 - "+name, Toast.LENGTH_SHORT).show();
             }
-        } else if (v==mBinding.tvComponent) {
+        } else if (v == mBinding.tvComponent) {
             try {
                 intent = new Intent();
                 String packageName = PackageNameFinals.APP;
@@ -122,7 +123,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Intent intent;
-        if (v==mBinding.tvStartService) {
+        if (v == mBinding.tvStartService) {
             try {
                 intent = new Intent();
                 intent.setClassName("com.bride.demon",
@@ -134,11 +135,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 // java.lang.SecurityException: Not allowed to start service Intent { act=action_upload cmp=com.bride.demon/com.bride.demon.service.UploadService (has extras) } without permission not exported from uid 10248
                 e.printStackTrace();
             }
-        } else if (v==mBinding.tvOpenMusic) {
+        } else if (v == mBinding.tvOpenMusic) {
             intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("max://devil/music?from="+getPackageName()));
             startActivity(intent);
-        } else if (v==mBinding.tvSendBroadcast) {
+        } else if (v == mBinding.tvSendBroadcast) {
             // 静态广播+跨进程发广播
             // Broadcast所在进程com.roy.devil必须运行
             intent = new Intent();
@@ -146,13 +147,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             // 若不设置包名，提示"BroadcastQueue: Background execution not allowed: receiving Intent"
             intent.setPackage("com.roy.devil");
             sendBroadcast(intent);
-        } else if (v==mBinding.tvOpenBinder) {
+        } else if (v == mBinding.tvOpenBinder) {
             BinderActivity.openActivity(this);
         }
     }
 
     public void onOtherClick(View v) {
-        if (v==mBinding.tvChangeThread) {
+        if (v == mBinding.tvChangeThread) {
             transferWorkThread(new Runnable() {
                 @Override
                 public void run() {
@@ -161,7 +162,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         transferMainThread(new Runnable() {
                             @Override
                             public void run() {
-                                Log.i("UIThread", "更新UI");
+                                Timber.tag("UIThread").i("更新UI");
                             }
                         });
                     } catch (InterruptedException e) {
@@ -169,7 +170,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     }
                 }
             });
-        } else if (v==mBinding.tvExecuteTask) {
+        } else if (v == mBinding.tvExecuteTask) {
             // 小于核心线程数，直接创建新线程
             executorService.execute(()->{
                 final String msg = "pid = "+Process.myPid()+"; tid = "+Process.myTid();
@@ -177,7 +178,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show()
                 );
             });
-        } else if (v==mBinding.tvPlugin) {
+        } else if (v == mBinding.tvPlugin) {
             ClassLoaderActivity.openActivity(this);
         }
     }
@@ -227,7 +228,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (!TextUtils.isEmpty(action)) {
-                Log.d("MyRegisteredReceiver", action);
+                Timber.tag("MyRegisteredReceiver").i(action);
             }
         }
     }
