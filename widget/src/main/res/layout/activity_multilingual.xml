@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:viewBindingIgnore="true"
-    tools:context=".activity.MultilingualActivity"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:viewBindingIgnore="true"
+    tools:context=".activity.MultilingualActivity">
 
     <RadioGroup
         android:id="@+id/rg_language"
@@ -20,14 +20,35 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
-            android:text="@string/english"/>
+            android:text="English"/>
 
         <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rb_chinese"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
-            android:text="@string/chinese"/>
+            android:text="简体中文"/>
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/rb_chinese_traditional"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="繁體中文"/>
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/rb_korean"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="한국어"/>
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/rb_spanish"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="Español"/>
     </RadioGroup>
 
     <androidx.appcompat.widget.AppCompatTextView

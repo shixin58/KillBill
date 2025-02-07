@@ -1,26 +1,18 @@
 package com.bride.widget.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioGroup;
 
+import com.bride.baselib.Constants;
 import com.bride.baselib.PreferenceUtils;
 import com.bride.ui_lib.BaseActivity;
-import com.bride.widget.MainActivity;
 import com.bride.widget.R;
-import com.bride.widget.event.LanguageChangedEvent;
-
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.Locale;
 
 /**
  * <p>Created by shixin on 2020/5/3.
  */
 public class MultilingualActivity extends BaseActivity {
-
-    private Locale mLocale = Locale.ENGLISH;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,34 +20,44 @@ public class MultilingualActivity extends BaseActivity {
         setContentView(R.layout.activity_multilingual);
 
         RadioGroup rg = findViewById(R.id.rg_language);
-        String lang = PreferenceUtils.getString("language", Locale.ENGLISH.getLanguage());
+        int lang = PreferenceUtils.getInt(Constants.KEY_LANG, Constants.LANG_ENGLISH);
         checkLang(rg, lang);
         rg.setOnCheckedChangeListener((group, checkedId) -> {
             // Switch statement can be replaced with enhanced 'switch'
             if (checkedId == R.id.rb_chinese) {
-                mLocale = Locale.CHINESE;
-            } else if (checkedId == R.id.rb_english) {
-                mLocale = Locale.ENGLISH;
+                setMLangInt(Constants.LANG_SIMPLIFIED_CHINESE);
+            } else if (checkedId == R.id.rb_chinese_traditional) {
+                setMLangInt(Constants.LANG_TRADITIONAL_CHINESE);
+            } else if (checkedId == R.id.rb_korean) {
+                setMLangInt(Constants.LANG_KOREAN);
+            } else if (checkedId == R.id.rb_spanish) {
+                setMLangInt(Constants.LANG_SPANISH);
+            }else if (checkedId == R.id.rb_english) {
+                setMLangInt(Constants.LANG_ENGLISH);
             }
         });
     }
 
-    private void checkLang(RadioGroup rg, String lang) {
-        if (lang.equals(Locale.CHINESE.getLanguage())) {
+    private void checkLang(RadioGroup rg, int langInt) {
+        if (langInt == Constants.LANG_SIMPLIFIED_CHINESE) {
             rg.check(R.id.rb_chinese);
-        } else {
+        } else if (langInt == Constants.LANG_TRADITIONAL_CHINESE) {
+            rg.check(R.id.rb_chinese_traditional);
+        } else if (langInt == Constants.LANG_KOREAN) {
+            rg.check(R.id.rb_korean);
+        } else if (langInt == Constants.LANG_SPANISH) {
+            rg.check(R.id.rb_spanish);
+        }else {
             rg.check(R.id.rb_english);
         }
     }
 
     public void onClick(View v) {
         if (v.getId() == R.id.tv_save) {
-            PreferenceUtils.putString("language", mLocale.getLanguage());
+            PreferenceUtils.putInt(Constants.KEY_LANG, getMLangInt());
             PreferenceUtils.commit();
 
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            EventBus.getDefault().post(new LanguageChangedEvent());
+            finish();
         }
     }
 }

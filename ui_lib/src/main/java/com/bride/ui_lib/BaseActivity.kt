@@ -4,11 +4,13 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import com.bride.baselib.Constants
 import com.bride.baselib.PreferenceUtils
-import java.util.Locale
 
 open class BaseActivity : AppCompatActivity() {
     protected val handler = Handler(Looper.getMainLooper())
+
+    var mLangInt: Int = Constants.LANG_ENGLISH
 
     override fun attachBaseContext(newBase: Context) {
         val newContext = setLanguage(newBase)
@@ -16,9 +18,17 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     private fun setLanguage(ctx: Context): Context {
-        val lang = PreferenceUtils.getString("language", Locale.ENGLISH.language)
+        val langInt = PreferenceUtils.getInt(Constants.KEY_LANG, Constants.LANG_ENGLISH)
         val config = ctx.resources.configuration
-        config.setLocale(if (lang == Locale.CHINESE.language) Locale.CHINESE else Locale.ENGLISH)
+        config.setLocale(Constants.getLocale(langInt))
+        mLangInt = langInt
         return ctx.createConfigurationContext(config)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (mLangInt != PreferenceUtils.getInt(Constants.KEY_LANG, Constants.LANG_ENGLISH)) {
+            recreate()
+        }
     }
 }

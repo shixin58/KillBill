@@ -41,6 +41,14 @@ public class PreferenceUtils {
         getEditor().putBoolean(key, value);
     }
 
+    public static int getInt(String key, int defValue) {
+        return preferences.getInt(key, defValue);
+    }
+
+    public static void putInt(String key, int value) {
+        getEditor().putInt(key, value);
+    }
+
     public static void clear() {
         getEditor().clear();
     }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="activity_multilingual">多語言</string>
+
+    <string name="save">儲存</string>
+    <string name="hello">你好!</string>
+    <string name="english">英語</string>
+    <string name="chinese">簡體中文</string>
+    <string name="chinese_traditional">繁體中文</string>
+    <string name="korean">韓語</string>
+    <string name="spanish">西班牙語</string>
+</resources>

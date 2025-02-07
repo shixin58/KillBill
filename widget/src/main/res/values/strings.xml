@@ -9,7 +9,7 @@
     <string name="activity_refresh" translatable="false">RefreshActivity</string>
     <string name="activity_lottie" translatable="false">LottieActivity</string>
     <string name="activity_typeface" translatable="false">TypefaceActivity</string>
-    <string name="activity_multilingual">MultilingualActivity</string>
+    <string name="activity_multilingual">Multilingual</string>
 
     <string name="large_text" translatable="false">
         "Material is the metaphor.\n\n"
@@ -113,6 +113,9 @@
 
     <string name="save">Save</string>
     <string name="hello">Hello!</string>
-    <string name="chinese">Chinese</string>
     <string name="english">English</string>
+    <string name="chinese">Simplified Chinese</string>
+    <string name="chinese_traditional">Traditional Chinese</string>
+    <string name="korean">Korean</string>
+    <string name="spanish">Spanish</string>
 </resources>

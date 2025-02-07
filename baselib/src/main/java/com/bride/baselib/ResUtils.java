@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Process;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -85,10 +86,7 @@ public class ResUtils {
                 }
             }
         }
-        if (runningAppProcessInfo != null && TextUtils.equals(mainProcessName, runningAppProcessInfo.processName)) {
-            return true;
-        }
-        return false;
+        return runningAppProcessInfo != null && TextUtils.equals(mainProcessName, runningAppProcessInfo.processName);
     }
 
     public static String getMetaValue(Context context, String metaKey) {
@@ -97,9 +95,15 @@ public class ResUtils {
             return null;
         }
         try {
-            ApplicationInfo ai = context.getPackageManager().getApplicationInfo(
-                    context.getPackageName(), PackageManager.GET_META_DATA);
-            if (null != ai && ai.metaData != null) {
+            ApplicationInfo ai;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                ai = context.getPackageManager().getApplicationInfo(
+                        context.getPackageName(), PackageManager.ApplicationInfoFlags.of(PackageManager.GET_META_DATA));
+            } else {
+                ai = context.getPackageManager().getApplicationInfo(
+                        context.getPackageName(), PackageManager.GET_META_DATA);
+            }
+            if (ai.metaData != null) {
                 apiKey = ai.metaData.getString(metaKey);
             }
         } catch (PackageManager.NameNotFoundException e) {
@@ -111,18 +115,19 @@ public class ResUtils {
     // ISO 639-1, alpha-2
     public static Map<String, Locale> getLocaleMap() {
         Map<String, Locale> map = new HashMap<>();
-        map.put("zh", Locale.CHINESE);
+        map.put("zh-CN", Locale.SIMPLIFIED_CHINESE);
+        map.put("zh-TW", Locale.TRADITIONAL_CHINESE);
         map.put("en", Locale.ENGLISH);
         map.put("fr", Locale.FRENCH);
         map.put("de", Locale.GERMAN);
         map.put("it", Locale.ITALIAN);
         map.put("ja", Locale.JAPANESE);
-        map.put("ko", Locale.KOREAN);
+        map.put("ko-KR", Locale.KOREAN);
 
         // Turkish
         map.put("tr", new Locale("tr"));
         // Spanish
-        map.put("es", new Locale("es"));
+        map.put("es-ES", new Locale("es", "ES"));
         // Ukrainian
         map.put("uk", new Locale("uk"));
         // Romanian
