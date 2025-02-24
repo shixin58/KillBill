@@ -21,6 +21,7 @@ import android.webkit.WebViewClient;
 
 import androidx.annotation.Nullable;
 
+import com.bride.baselib.KotlinUtilsKt;
 import com.bride.ui_lib.BaseActivity;
 import com.bride.widget.AndroidToJS;
 import com.bride.widget.databinding.ActivityJsBinding;
@@ -54,6 +55,7 @@ public class JSActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         mBinding = ActivityJsBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
+        mBinding.setActivity(this);
         initView();
     }
 
@@ -263,6 +265,8 @@ public class JSActivity extends BaseActivity {
             mWebView.evaluateJavascript("javascript:callPrompt()", value -> Timber.i("onReceiveValue prompt %s", value));
         } else if (view == mBinding.tvLog) {
             mWebView.loadUrl("javascript:console.log('test console message')");
+        } else if (view == mBinding.tvToast) {
+            KotlinUtilsKt.showShortError("Something is wrong!");
         }
     }
 }

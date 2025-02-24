@@ -67,5 +67,16 @@
             android:gravity="center"
             android:text="调用console.log()"
             android:onClick="@{activity::onClick}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_toast"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_log"
+            android:gravity="center"
+            android:text="自定义Toast"
+            android:onClick="@{activity::onClick}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
