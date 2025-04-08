@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="hello">
+        <item>hello</item>
+        <item>你好</item>
+        <item>你好</item>
+        <item>안녕하세요</item>
+        <item>Hola</item>
+    </string-array>
+
+    <string-array name="spanish">
+        <item>Spanish</item>
+        <item>西班牙语</item>
+        <item>西班牙語</item>
+        <item>서양견어</item>
+        <item>Español</item>
+    </string-array>
+</resources>
