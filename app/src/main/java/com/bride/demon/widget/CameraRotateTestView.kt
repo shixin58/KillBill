@@ -23,7 +23,7 @@ class CameraRotateTestView @JvmOverloads constructor(context: Context, attrs: At
         mRadius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60f, context.resources.displayMetrics)
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         mMatrix.reset()
         mCamera.save()
 //        mCamera.rotateX(60f)
@@ -39,7 +39,7 @@ class CameraRotateTestView @JvmOverloads constructor(context: Context, attrs: At
         options.inJustDecodeBounds = true
         options.inSampleSize = calculateInSampleSize(options, width / 2, height / 2)
         options.inJustDecodeBounds = false
-        canvas?.drawBitmap(BitmapFactory.decodeResource(resources, R.drawable.city, options), mMatrix, mPaint)
+        canvas.drawBitmap(BitmapFactory.decodeResource(resources, R.drawable.city, options), mMatrix, mPaint)
     }
 
     private fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {

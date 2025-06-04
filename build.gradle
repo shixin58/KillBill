@@ -2,8 +2,8 @@
 apply from: 'version.gradle'
 
 buildscript {
-    ext.kotlin_version = '1.8.20'
-    ext.objectboxVersion = "3.5.1"
+    ext.kotlin_version = '2.0.21'
+    ext.objectboxVersion = "4.0.2"
     repositories {
         google()
 //        google { url 'https://maven.aliyun.com/repository/google' }
@@ -11,10 +11,11 @@ buildscript {
 //        mavenCentral { url 'https://maven.aliyun.com/repository/central' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.0.0'
+        classpath 'com.android.tools.build:gradle:8.6.0'
         classpath("io.objectbox:objectbox-gradle-plugin:$objectboxVersion")
         // 添加Kotlin编译器插件
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:compose-compiler-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -25,6 +26,6 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+tasks.register("clean", Delete) {
+    delete rootProject.layout.buildDirectory
 }

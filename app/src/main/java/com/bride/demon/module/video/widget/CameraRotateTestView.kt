@@ -26,7 +26,7 @@ class CameraRotateTestView @JvmOverloads constructor(context: Context, attrs: At
         mBitmap = BitmapFactory.decodeResource(resources, R.drawable.city, options)
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         mMatrix.reset()
         mCamera.save()
 //        mCamera.rotateX(60f)

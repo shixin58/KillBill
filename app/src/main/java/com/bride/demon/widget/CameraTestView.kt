@@ -24,7 +24,7 @@ class CameraTestView @JvmOverloads constructor(context: Context, attrs: Attribut
             else TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60f, context.resources.displayMetrics)
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         mMatrix.reset()
         mCamera.save()
@@ -32,9 +32,9 @@ class CameraTestView @JvmOverloads constructor(context: Context, attrs: Attribut
         else mCamera.translate(ResUtils.dp2px(10f).toFloat(), ResUtils.dp2px(50f).toFloat(), ResUtils.dp2px(-30f).toFloat())
         mCamera.getMatrix(mMatrix)
         mCamera.restore()
-        canvas?.concat(mMatrix)
+        canvas.concat(mMatrix)
 
-        canvas?.drawCircle(mRadius, mRadius, mRadius, mPaint)
+        canvas.drawCircle(mRadius, mRadius, mRadius, mPaint)
     }
 
     companion object {

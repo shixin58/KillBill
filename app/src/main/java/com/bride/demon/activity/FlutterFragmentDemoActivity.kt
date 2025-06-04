@@ -61,6 +61,7 @@ class FlutterFragmentDemoActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
+        super.onBackPressed()
         flutterFragment!!.onBackPressed()
     }
 
@@ -70,6 +71,7 @@ class FlutterFragmentDemoActivity : BaseActivity() {
     }
 
     override fun onUserLeaveHint() {
+        super.onUserLeaveHint()
         flutterFragment!!.onUserLeaveHint()
     }
 

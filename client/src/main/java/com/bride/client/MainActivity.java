@@ -71,7 +71,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         // 动态注册broadcast
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(UPLOAD_RESULT);
-        registerReceiver(innerBroadcastReceiver, intentFilter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(innerBroadcastReceiver, intentFilter, Context.RECEIVER_EXPORTED);
+        } else {
+            registerReceiver(innerBroadcastReceiver, intentFilter);
+        }
 
         registeredReceiver = new MyRegisteredReceiver();
         IntentFilter registeredIntentFilter = new IntentFilter();

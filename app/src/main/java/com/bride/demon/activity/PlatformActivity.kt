@@ -3,11 +3,10 @@ package com.bride.demon.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.core.content.ContextCompat
 import com.bride.ui_lib.BaseActivity
 import com.bride.ui_lib.BaseFragment
 import com.bride.demon.R
+import timber.log.Timber
 
 /**
  * test startActivityForResult, View#postInvalidate, Timer
@@ -17,42 +16,42 @@ class PlatformActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_platform)
-        Log.i(TAG, "onCreate $taskId ${hashCode()}")
+        Timber.tag(TAG).i("onCreate $taskId ${hashCode()}")
     }
 
-    override fun onNewIntent(intent: Intent?) {
+    override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        Log.i(TAG, "onNewIntent $taskId ${hashCode()}")
+        Timber.tag(TAG).i("onNewIntent $taskId ${hashCode()}")
     }
 
     override fun onRestart() {
         super.onRestart()
-        Log.i(TAG, "onRestart")
+        Timber.tag(TAG).i("onRestart")
     }
 
     override fun onStart() {
         super.onStart()
-        Log.i(TAG, "onStart")
+        Timber.tag(TAG).i("onStart")
     }
 
     override fun onResume() {
         super.onResume()
-        Log.i(TAG, "onResume")
+        Timber.tag(TAG).i("onResume")
     }
 
     override fun onPause() {
         super.onPause()
-        Log.i(TAG, "onPause")
+        Timber.tag(TAG).i("onPause")
     }
 
     override fun onStop() {
         super.onStop()
-        Log.i(TAG, "onStop")
+        Timber.tag(TAG).i("onStop")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.i(TAG, "onDestroy $taskId ${hashCode()}")
+        Timber.tag(TAG).i("onDestroy $taskId ${hashCode()}")
     }
 
     companion object {
@@ -61,7 +60,7 @@ class PlatformActivity : BaseActivity() {
 
         fun openActivity(context: Context) {
             val intent = Intent(context, PlatformActivity::class.java)
-            ContextCompat.startActivity(context, intent, null)
+            context.startActivity(intent)
         }
 
         /**

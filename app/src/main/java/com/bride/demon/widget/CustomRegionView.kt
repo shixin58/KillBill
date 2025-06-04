@@ -22,9 +22,8 @@ class CustomRegionView @JvmOverloads constructor(context: Context, attrs: Attrib
         this.style = Paint.Style.FILL
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas?:return
 
         // Path用法
         val path = Path()

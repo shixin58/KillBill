@@ -6,11 +6,14 @@ apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
     namespace "com.bride.baselib"
-    compileSdkVersion COMPILE_SDK_VERSION as int
-    buildToolsVersion BUILD_TOOLS_VERSION
+    compileSdk COMPILE_SDK_VERSION as int
+    buildToolsVersion = BUILD_TOOLS_VERSION
     defaultConfig {
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
+    }
+    buildFeatures {
+        buildConfig = true
     }
     buildTypes {
         debug {
@@ -42,6 +45,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
     implementation "com.google.android.material:material:$material_version"
 
+    implementation "androidx.core:core:$core_version"
     implementation "androidx.core:core-ktx:$core_version"
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"

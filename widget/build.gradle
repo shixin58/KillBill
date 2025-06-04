@@ -6,8 +6,8 @@ apply plugin: 'kotlin-kapt'
 
 android {
     namespace "com.bride.widget"
-    compileSdkVersion COMPILE_SDK_VERSION as int
-    buildToolsVersion BUILD_TOOLS_VERSION
+    compileSdk COMPILE_SDK_VERSION as int
+    buildToolsVersion = BUILD_TOOLS_VERSION
     defaultConfig {
         applicationId "com.bride.widget"
         minSdkVersion MIN_SDK_VERSION as int
@@ -66,6 +66,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
 
+    implementation "androidx.core:core:$core_version"
     implementation "androidx.core:core-ktx:$core_version"
 
     implementation "com.github.bumptech.glide:glide:$glide_version"

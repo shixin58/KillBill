@@ -3,7 +3,6 @@ package com.bride.demon.activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.SystemClock
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
@@ -11,6 +10,7 @@ import com.bride.demon.databinding.ActivityBlankBinding
 import com.bride.demon.model.City
 import com.bride.demon.model.Person
 import com.bride.ui_lib.BaseActivity
+import timber.log.Timber
 
 /**
  * test lifecycle, ViewHierarchy, Serializable
@@ -26,48 +26,48 @@ class BlankActivity : BaseActivity() {
         mBinding = ActivityBlankBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         printViewHierarchy(mBinding.tvTitle, this)
-        Log.i("lifecycleB", "onCreate")
+        Timber.tag("lifecycleB").i("onCreate")
     }
 
     private fun statistics() {
         val index = intent.getIntExtra("index", 0)
         if (index == 1) {
             val city = intent.getParcelableExtra<City>("city")
-            Log.i(TAG, "耗时："+(SystemClock.elapsedRealtime()-city!!.createTime)+"ms")
+            Timber.tag(TAG).i("耗时：%sms", SystemClock.elapsedRealtime() - city!!.createTime)
             Toast.makeText(this.applicationContext, city.toString(), Toast.LENGTH_SHORT).show()
             val cities = intent.getParcelableArrayExtra("cityList")
-            Log.i(TAG, "getParcelableArrayExtra - "+ cities!![0]+" | "+cities[1])
+            Timber.tag(TAG).i("getParcelableArrayExtra - %s | %s", cities!![0], cities[1])
         } else if(index == 2) {
             val person = intent.getSerializableExtra("person") as Person
-            Log.i(TAG, "耗时："+(SystemClock.elapsedRealtime()-person.createTime)+"ms")
+            Timber.tag(TAG).i("耗时：%sms", SystemClock.elapsedRealtime() - person.createTime)
             Toast.makeText(this.applicationContext, person.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
     override fun onStart() {
         super.onStart()
-        Log.i("lifecycleB", "onStart")
+        Timber.tag("lifecycleB").i("onStart")
     }
 
     override fun onResume() {
         super.onResume()
-        Log.i("lifecycleB", "onResume")
+        Timber.tag("lifecycleB").i("onResume")
         statistics()
     }
 
     override fun onPause() {
         super.onPause()
-        Log.i("lifecycleB", "onPause")
+        Timber.tag("lifecycleB").i("onPause")
     }
 
     override fun onStop() {
         super.onStop()
-        Log.i("lifecycleB", "onStop")
+        Timber.tag("lifecycleB").i("onStop")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.i("lifecycleB", "onDestroy")
+        Timber.tag("lifecycleB").i("onDestroy")
     }
 
     companion object {
@@ -87,11 +87,11 @@ class BlankActivity : BaseActivity() {
 
         fun printViewHierarchy(view: View, baseActivity: BaseActivity) {
             // BlankActivity$Companion
-            Log.i(baseActivity.javaClass.simpleName, BlankActivity.javaClass.name)
-            Log.i(baseActivity.javaClass.simpleName, "printViewHierarchy - ${view.javaClass.simpleName}")
+            Timber.tag(baseActivity.javaClass.simpleName).i(BlankActivity.javaClass.name)
+            Timber.tag(baseActivity.javaClass.simpleName).i("printViewHierarchy - ${view.javaClass.simpleName}")
             var viewParent = view.parent
             while (viewParent != null) {
-                Log.i(baseActivity.javaClass.simpleName, "printViewHierarchy - ${viewParent.javaClass.simpleName}")
+                Timber.tag(baseActivity.javaClass.simpleName).i("printViewHierarchy - ${viewParent.javaClass.simpleName}")
                 viewParent = viewParent.parent
             }
         }
